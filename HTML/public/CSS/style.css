@@ -1,0 +1,351 @@
+*{
+    /* margin: 0;
+    padding: 0; */
+    box-sizing: border-box;
+}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+html,body{
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* use ms-auto for same in <ul> 
+.header .main-menu{
+    justify-content: end;
+} */
+:root{
+    --font-color1: #565656;
+    --font-color2: #4F4F4F;
+    --background-color1: #F4F5F8;
+    --font-color3: #8E8E8E;
+}
+
+
+/* ----------------navbar area---------------- */
+#header .navbar{
+    color: white;
+    z-index: 999;
+    position: absolute;
+    width: 100%;
+    justify-content: space-between;
+}
+.header .main-menu .nav-link
+{
+    font-size: 15px;
+    margin: 0px 2px;
+    
+}
+
+.header .main-menu .helper
+{
+    padding: 8px 20px;
+    border: 1px solid white;
+    border-radius: 25px;
+    margin: -5px 12px 0 5px;
+}
+.header .main-menu .button
+{
+    padding: 8px 29px;
+    border: 1px solid white;
+    border-radius: 25px;
+    margin-top: -5px;
+
+}
+.header .main-menu .arrow
+{
+    margin: 6px 0 0 0;
+    padding: 0;
+}
+.header .main-menu .fleg
+{
+    margin: 6px 5px 0 2px;
+    padding: 0px;
+}
+
+.header .logo
+{
+    margin: 0px 5px;
+}
+
+.header .navbar a{
+    color: white;
+}
+
+
+/* ----------------navbar area---------------- */
+
+
+#home{
+    color: white;
+    height: 930px;
+    width: 100%;
+}
+#home .fluid{
+    height: 100%;
+    width: 100%;
+    background: url("../Images/group-35.png");
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#home .fluid .content1{
+    position: absolute;
+    top: 330px;
+    left: 58px;
+}
+
+#home .fluid .content1 .heading{
+    font-size: 50px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 2;
+    letter-spacing: normal;
+    text-align: center;
+}
+
+#home .fluid .content1 img
+{
+    padding: 7px;
+}
+
+#home .center-button{
+    font-size: 18px;
+    padding: 12.5px 31px;
+    border: 1px solid white;
+    border-radius: 35px;
+    color: white;
+    background-color: rgba(0,96,114,0.5);
+    position: absolute;
+    top: 523px;
+}
+
+#home .down-logo-area{
+    position: absolute;
+    display: flex;
+    width: 80%;
+    margin: auto;
+    justify-content: space-around;
+    top: 696px;
+    color: white;
+}
+
+#home .down-logo-area .arrow{
+    color: white;
+    position: relative;
+    top: 10px;
+}
+
+#home .down-arrow{
+    border: 1px solid white;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    position: absolute;
+    top: 870px;
+    border-radius: 50%;
+}
+
+#home .down-arrow img
+{
+    position: relative;
+    top: 5px;
+}
+
+.container
+{
+    padding: 0 5%;
+}
+
+/* #why .heading{
+    font-size: 40px;
+    font-weight: bold;
+} */
+.title-heading{
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--font-color2);
+}
+
+
+/* #why .content1 .heading{
+    font-size: 25px;
+    font-weight: bold;
+    height: 70px;
+    line-height: 1.2;
+} */
+.sub-heading{
+    font-size: 25px;
+    font-weight: bold;
+    height: 70px;
+    line-height: 1.2;
+    color: var(--font-color2);
+}
+
+#why .sub-heading{
+    color: var(--font-color1);
+}
+
+#why image{
+    min-width: 230px;
+    min-height: 230px;
+}
+
+.inner-content
+{
+    font-size: 16px;
+    color: var(--font-color1);
+}
+
+#blog .content1 .inner-content{
+    width: 90%;
+    color: var(--font-color2);
+    font-size: 18px;
+}
+
+#blog .card{
+    width: 100%;
+    box-shadow: 0px 0px 30px #E4EBF0;
+    color: var(--font-color1);
+    border-radius: 7px;
+}
+#blog .card a{
+    color: var(--font-color2);
+    text-decoration: none;
+    font-size: 18px;
+}
+.card-title{
+    font-size: 20px;
+    font-weight: bold;
+    color: #3D4046;
+}
+
+.card-text{
+    font-size: 16px;
+}
+
+.below-title{
+    color: var(--font-color3);
+    font-size: 14px;
+}
+
+
+#Customers_says{
+    background-color: var(--background-color1);
+}
+
+#Customers_says .card .message{
+    position: relative;
+    left: 10px;
+    bottom: 8px;
+}
+
+#Customers_says .card a{
+    color: var(--font-color2);
+    text-decoration: none;
+    font-size: 18px;
+}
+
+.card-body img{
+    padding: 10px;
+}
+
+#Customers_says .card{
+    border-left: 3px solid #1d7a8c;
+}
+#newsletter .up-arrow{
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #525252;
+}
+
+#newsletter{
+    background-color:var(--background-color1)
+}
+
+#newsletter .up-arrow img{
+    position: relative;
+    top: 8px;
+}
+
+#newsletter .container-fluid
+{
+    /* justify-content: space-between; */ /*   bootstrap class - justify-content-between added  */
+    align-items: center;
+    flex-wrap: wrap;
+}
+#newsletter .content{
+    font-size: 14px;
+    color: var(--font-color1);
+}
+#newsletter .card-title
+{
+    font-size: 18px;
+    color: #353548;
+}
+
+#newsletter input{
+    padding:13px 22px;
+    border: 1px solid #565656;
+    border-radius: 50px;
+    color: #565656;
+    width: 233px;
+}
+#newsletter button{
+    padding: 13px 22px;
+    color: white;
+    border: 0px;
+    border-radius: 50px;
+    background-color: #FF7B6D;
+}
+
+/* -----------------footer area------------------ */
+.footer{
+    background-color: #111111;
+}
+
+.footer .logo{
+    width: 120px;
+    height: 92px;
+}
+
+.footer ul{
+    list-style: none;
+}
+
+.footer a{
+    text-decoration: none;
+}
+
+.footer ul li
+{
+    display: inline;
+    margin: 0px 8px;
+    color: #F1F1F1;
+    text-decoration: none;
+    font-size: 14px;
+}
+.footer .privacy-policy{
+    background-color: #292929;
+    color: #F1F1F1;
+    font-size: 14px;
+    padding: 15px 0;
+}
+
+.footer .privacy-policy button{
+    float: right;
+    background-color: #EED507;
+    font-size: 16px;
+    border: 0px;
+    padding: 9px 36px;
+    color: black;
+    border-radius: 40px;
+    position: relative;
+    bottom: 10px;
+
+}
