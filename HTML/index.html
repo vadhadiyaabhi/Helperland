@@ -8,9 +8,10 @@
     <title>Helperland - Home</title>
 
     <!-- bootstrap css bundle -->
-    <link rel="stylesheet" href="public/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="public/bootstrap/css/bootstrap.min.css">
 
     <!-- custom CSS -->
+    <!-- common header and footer -->
     <link rel="stylesheet" href="public/CSS/style.css">
 </head>
 
@@ -46,10 +47,19 @@
                         <li class="nav-item"><a class="nav-link" href="">Contact Us</a></li>
                         <li class="nav-item"><a class="nav-link button" href="#">Login</a></li>
                         <li class="nav-item"><a class="nav-link helper" href="#">Become a helper</a></li>
-                        <li class="nav-item"><a class="nav-link fleg" href="#"><img src="public/Images/flag.png"
-                                    alt="logo"></a></li>
-                        <li class="nav-item"><a class="nav-link arrow" href="#"><img
-                                    src="public/Images/keyboard-right-arrow-button.png" alt="logo"></a></li>
+        
+                        <li class="nav-item dropdown fleg">
+                            <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <img src="public/Images/flag.png" alt="logo"> 
+                                <img src="public/Images/keyboard-right-arrow-button.png" alt="logo">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <li><a class="dropdown-item" href="#"><img src="public/Images/flag.png" alt="logo"> India</a></li>
+                              <li><a class="dropdown-item" href="#"><img src="public/Images/flag.png" alt="logo"> USA</a></li>
+                              <!-- <li><hr class="dropdown-divider"></li> -->
+                              <li><a class="dropdown-item" href="#"><img src="public/Images/flag.png" alt="logo"> UK</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -99,7 +109,8 @@
 
             </div>
             <a href="">
-                <div class="down-arrow mx-auto"><img src="public/Images/dwon-arrow-1.svg" alt="" height="15px" width="12px">
+                <div class="down-arrow mx-auto"><img src="public/Images/dwon-arrow-1.svg" alt="" height="15px"
+                        width="12px">
                 </div>
             </a>
         </div>
@@ -112,7 +123,7 @@
             <div class="content1 border">
                 <div class="row">
                     <div class="col-md-4 col-sm-12 text-center my-3">
-                        <img src="public/Images/why-3.png" alt=""  class="img-fluid">
+                        <img src="public/Images/why-3.png" alt="" class="img-fluid">
                         <div class="sub-heading">Experience & Vetted Profesional</div>
                         <div class="inner-content">
                             dominate the industry in scale and scope with an adaptable, extensive network that
@@ -120,7 +131,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-12 text-center my-3">
-                        <img src="public/Images/why-2.png" alt=""  class="img-fluid">
+                        <img src="public/Images/why-2.png" alt="" class="img-fluid">
                         <div class="sub-heading">Secure Online Payment</div>
                         <div class="inner-content">
                             to our customers and are guided in all we do by their needs. The team is always happy to
@@ -128,7 +139,7 @@
                         </div>
                     </div>
                     <div class="col-md-4 col-sm-12 text-center my-3">
-                        <img src="public/Images/why-3.png" alt=""  class="img-fluid">
+                        <img src="public/Images/why-3.png" alt="" class="img-fluid">
                         <div class="sub-heading">Dedicated Customer Service</div>
                         <div class="inner-content">
                             to our customers and are guided in all we do by their needs. The team is always happy to
@@ -356,16 +367,30 @@
 
     <!-- FOOTER AREA -->
     <div class="footer" id="footer">
-        <div class="container-fluid d-flex flex-wrap justify-content-md-center justify-content-lg-between align-items-center py-4">
-            <a href="#home" class=""><img src="public/Images/white-logo-transparent-background.png" alt="logo" class="logo"></a>
+        <div
+            class="container-fluid d-flex flex-wrap justify-content-md-center justify-content-lg-between align-items-center py-4">
+            <a href="#home" class=""><img src="public/Images/white-logo-transparent-background.png" alt="logo"
+                    class="logo"></a>
             <div class="links">
                 <ul>
-                    <a href=""><li>HOME</li></a>
-                    <a href=""><li>ABOUT</li></a>
-                    <a href=""><li>TESTIMONIALS</li></a>
-                    <a href=""><li>FAQS</li></a>
-                    <a href=""><li>INSURANCE POLICY</li></a>
-                    <a href=""><li>IMPRESSUM</li></a>
+                    <a href="">
+                        <li>HOME</li>
+                    </a>
+                    <a href="">
+                        <li>ABOUT</li>
+                    </a>
+                    <a href="">
+                        <li>TESTIMONIALS</li>
+                    </a>
+                    <a href="">
+                        <li>FAQS</li>
+                    </a>
+                    <a href="">
+                        <li>INSURANCE POLICY</li>
+                    </a>
+                    <a href="">
+                        <li>IMPRESSUM</li>
+                    </a>
                 </ul>
             </div>
             <div class="media-icons">
@@ -381,7 +406,7 @@
     </div>
 
     <!-- bootstrap bundle JS -->
-    <script src="public/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="public/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Custom Script file -->
     <script src="public/JS/script.js"></script>

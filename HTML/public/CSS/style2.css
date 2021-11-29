@@ -1,0 +1,187 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+/* ---------------Common css--------------- */
+
+html, body{
+    width: 100%;
+    height: 100vh;
+    font-family: 'Roboto', sans-serif;
+}
+
+
+.title{
+    position: relative;
+    font-size: 35px;
+    color: #4F4F4F;
+    font-weight: 550;
+    text-align: center;
+    margin-top: 31px;
+}
+
+.separator{
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    height: 25px;
+    width: 25px;
+    transform: translate(-50%, -35%);
+    margin:0 auto 31px;
+}
+.separator::before{
+    content: "";
+    position: absolute;
+    top: 12.5px;
+    left: -65px;
+    background-color: gray;
+    height: 1px;
+    width: 62px;
+}
+.separator::after{
+    content: "";
+    position: absolute;
+    top: 12.5px;
+    left: 27px;
+    background-color: gray;
+    height: 1px;
+    width: 62px;
+}
+
+.content{
+    max-width: 992px;
+    margin: auto;
+}
+
+.medium-title{
+    font-size: 28px;
+    color: #4F4F4F;
+    font-weight: bold;
+    text-align: center;
+}
+
+#newsletter .up-arrow{
+    display: inline-block;
+    width: 48px;
+    height: 48px;
+    text-align: center;
+    border-radius: 50%;
+    background-color: #525252;
+}
+
+
+#newsletter .up-arrow img{
+    position: relative;
+    top: 8px;
+}
+
+#newsletter .container-fluid
+{
+    /* justify-content: space-between; */ /*   bootstrap class - justify-content-between added  */
+    align-items: center;
+    flex-wrap: wrap;
+}
+#newsletter .content{
+    font-size: 14px;
+    color: #565656;
+}
+#newsletter .small-title
+{
+    font-size: 18px;
+    font-weight: bold;
+    color: #353548;
+}
+
+#newsletter input{
+    padding:13px 22px;
+    border: 1px solid #565656;
+    border-radius: 50px;
+    color: #565656;
+    width: 233px;
+}
+#newsletter button{
+    padding: 13px 22px;
+    color: white;
+    border: 0px;
+    border-radius: 50px;
+    background-color: #FF7B6D;
+}
+
+a{
+    text-decoration: none !important;
+}
+
+
+/* --------------------------------FAQS css--------------------------- */
+
+.md-content1{
+    font-size: 18px;
+    color: #646464;
+    max-width: 498px;
+    text-align: center;
+    margin: auto;
+}
+
+.content .row{
+    margin: 36px 0;
+}
+.content .row div{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.content .row div{
+    text-align: center;
+    font-size: 24px;
+    color: #646464;
+    line-height: 1;
+    padding: 19px 3px;
+    border-bottom: 4px solid #1d7a8c;
+    background-color: #f6f6f6;
+}
+.content .row .active{
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    line-height: 1;
+    padding: 21px 3px;
+    background-color: #1d7a8c;
+}
+
+.tab-content{
+    color: #646464;
+}
+.accordion-item{
+    border: none;
+    margin: 10px 0;
+}
+
+/* Accordion button toggle based on .collapsed class */
+.accordion-item .collapsed .accordion-down{
+    display: none;
+}
+.accordion-item .collapsed .accordion-right{
+    display: inline;
+}
+.accordion-item .accordion-right{
+    display: none;
+}
+.accordion-item .accordion-down{
+    display: inline;
+}
+.tab-content button{
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #646464;
+    background-color: white;
+}
+
+
+

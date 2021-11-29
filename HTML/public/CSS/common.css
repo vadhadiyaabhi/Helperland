@@ -1,0 +1,116 @@
+/* ==============This css file contains code for header and footer area with responsive design==================== */
+
+
+/* ----------------header area---------------- */
+.header .navbar{
+    background-color: #525252;
+    padding: 0px 0;
+}
+
+.navbar-brand img{
+    height: 54px;
+    width: 73px;
+}
+
+.navbar .nav-link{
+    color: white;
+    font-size: 17px;
+    text-decoration: none;
+    margin: 0 8px;
+}
+
+.navbar .button-color{
+    padding: 6px 17px !important;
+    border: 1px solid white;
+    border-radius: 40px;
+    background-color: #29626D;
+}
+
+.navbar .button{
+    padding: 6px 17px !important;
+    border: 1px solid white;
+    border-radius: 40px;
+}
+
+.navbar-toggler-icon{
+    color: white;
+}
+
+
+/* ----------------footer area----------------- */
+.footer{
+    background-color: #111111;
+}
+
+.footer .logo{
+    width: 120px;
+    height: 92px;
+}
+
+.footer ul{
+    list-style: none;
+    padding: 0px 30px;
+}
+
+.footer a{
+    text-decoration: none;
+}
+
+.footer ul li
+{
+    display: inline;
+    margin: 0px 8px;
+    color: #F1F1F1;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.footer .copy-rights{
+    color: #9BA0A3;
+    font-size: 14px;
+    text-align: center;
+}
+
+.footer .copy-rights a{
+    color: #9BA0A3;
+}
+
+.divider{
+    color: white;
+    margin: 0;
+}
+
+
+/* -----------Responsive CSS------------- */
+@media screen and (max-width: 980px) {
+    .navbar .nav-item{
+        display: inline-block;
+        margin: 8px auto;
+        text-align: center;
+    }
+
+    .footer ul li{
+        display: block;
+        margin: 5px;
+        /* text-align: center; */
+    }
+}
+
+@media screen and (max-width: 576px){
+    .footer .container{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .footer .container .footer-logo{
+        padding-bottom: 10px;
+    }
+    .footer ul{
+        padding: 0px;
+    }
+    .footer ul li{
+        padding: 0;
+        display: block;
+        margin: 20px;
+        text-align: center;
+    }
+}

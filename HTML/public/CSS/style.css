@@ -33,7 +33,6 @@ html,body{
 {
     font-size: 15px;
     margin: 0px 2px;
-    
 }
 
 .header .main-menu .helper
@@ -51,15 +50,9 @@ html,body{
     margin-top: -5px;
 
 }
-.header .main-menu .arrow
-{
-    margin: 6px 0 0 0;
-    padding: 0;
-}
 .header .main-menu .fleg
 {
-    margin: 6px 5px 0 2px;
-    padding: 0px;
+    margin-top: -5px;
 }
 
 .header .logo
@@ -71,7 +64,11 @@ html,body{
     color: white;
 }
 
-
+.navbar .navbar-nav .dropdown-menu {
+    left: -110px;
+    background-color: transparent;
+    border: 1px solid white;
+}
 /* ----------------navbar area---------------- */
 
 

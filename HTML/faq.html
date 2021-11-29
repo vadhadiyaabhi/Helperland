@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helperland - FAQ</title>
+
+    <!-- bootstrap css bundle -->
+    <link rel="stylesheet" href="public/bootstrap/css/bootstrap.min.css">
+
+    <!-- common css for navbar and footer -->
+    <link rel="stylesheet" href="public/CSS/common.css">
+    <!-- custom CSS -->
+    <link rel="stylesheet" href="public/CSS/style2.css">
+</head>
+
+<body>
+
+    <!-- header + navbar -->
+    <header class="header" id="header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <!-- Logo -->
+                <a class="navbar-brand logo" href="index.html">
+                    <img src="public/Images/white-logo-transparent-background.png" alt="logo">
+                </a>
+
+                <!-- mobile menu collapse-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30"
+                            fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
+                        </svg></span>
+                </button>
+
+                <!-- navbar content -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link button-color" aria-current="page" href="#">Book now</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link button" href="#">Prices & services</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Warranty</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Blog</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link button-color" href="#">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link button-color" href="#">Become a Helper</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="banner img-fluid">
+        <img src="public/Images/faq-banner.png" alt="" class="img-fluid">
+    </div>
+
+    <!-- FAQs section -->
+    <div class="container-fluid faqs px-3" id="faqs">
+        <h1 class="title">FAQs</h1>
+        <div class="separator"><img src="public/Images/separator.png" alt="" class=""></div>
+        <div class="content">
+            <div class="md-content1">Whether you are Customer or Service provider, <br> We have tried our best to solve
+                all your
+                queries and questions.
+            </div>
+            <div class="row nav">
+                <!-- toggler buttons -->
+                <div class="col-6 active" data-bs-toggle="tab" id="home-tab" data-bs-target="#home" role="tab"
+                    aria-controls="home" aria-selected="true">FOR CUSTOMER</div>
+                <div class="col-6" data-bs-toggle="tab" id="profile-tab" data-bs-target="#profile" role="tab"
+                    aria-controls="profile" aria-selected="false">FOR SERVICE PROVIDER</div>
+            </div>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <!-- Accordian item for Customer -->
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                <img src="public/Images/right-arrow.png" alt="" class="accordion-right">
+                                <img src="public/Images/down-arrow.png" alt="" class="accordion-down">
+                                Accordion Item #1, Lorem ipsum dolor sit amet consectetur adipisicing.
+                            </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>This is the first item's accordion body.</strong> It is shown by default,
+                                    until the collapse plugin adds the appropriate classes that we use to style each
+                                    element. These classes control the overall appearance, as well as the showing and
+                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
+                                    our default variables. It's also worth noting that just about any HTML can go within
+                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class=" collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                <img src="public/Images/right-arrow.png" alt="" class="accordion-right">
+                                <img src="public/Images/down-arrow.png" alt="" class="accordion-down">
+                                    Accordion Item #2, Lorem ipsum dolor sit amet consectetur adipisicing.
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>This is the second item's accordion body.</strong> It is hidden by default,
+                                    until the collapse plugin adds the appropriate classes that we use to style each
+                                    element. These classes control the overall appearance, as well as the showing and
+                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
+                                    our default variables. It's also worth noting that just about any HTML can go within
+                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class=" collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                <img src="public/Images/right-arrow.png" alt="" class="accordion-right">
+                                <img src="public/Images/down-arrow.png" alt="" class="accordion-down">
+                                    Accordion Item #3, Lorem ipsum, dolor sit amet consectetur adipisicing.
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    <strong>This is the third item's accordion body.</strong> It is hidden by default,
+                                    until the collapse plugin adds the appropriate classes that we use to style each
+                                    element. These classes control the overall appearance, as well as the showing and
+                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
+                                    our default variables. It's also worth noting that just about any HTML can go within
+                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpane1" aria-labelledby="profile-tab">
+                    <!-- Accordian item for service provider -->
+                    <div class="accordion" id="accordian2">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#providerOne" aria-expanded="true" aria-controls="providerOne">
+                                <img src="public/Images/right-arrow.png" alt="" class="accordion-right">
+                                <img src="public/Images/down-arrow.png" alt="" class="accordion-down">
+                                    Accordion Item #1, Lorem ipsum dolor sit, amet consectetur adipisicing.
+                                </button>
+                            </h2>
+                            <div id="providerOne" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                                data-bs-parent="#accordian2">
+                                <div class="accordion-body">
+                                    <strong>This is the first item's accordion body.</strong> It is shown by default,
+                                    until the collapse plugin adds the appropriate classes that we use to style each
+                                    element. These classes control the overall appearance, as well as the showing and
+                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
+                                    our default variables. It's also worth noting that just about any HTML can go within
+                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class=" collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#ServicecollapseTwo" aria-expanded="false" aria-controls="ServicecollapseTwo">
+                                <img src="public/Images/right-arrow.png" alt="" class="accordion-right">
+                                <img src="public/Images/down-arrow.png" alt="" class="accordion-down">
+                                    Accordion Item #2, Lorem ipsum, dolor sit amet consectetur adipisicing.
+                                </button>
+                            </h2>
+                            <div id="ServicecollapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                                data-bs-parent="#accordian2">
+                                <div class="accordion-body">
+                                    <strong>This is the second item's accordion body.</strong> It is hidden by default,
+                                    until the collapse plugin adds the appropriate classes that we use to style each
+                                    element. These classes control the overall appearance, as well as the showing and
+                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
+                                    our default variables. It's also worth noting that just about any HTML can go within
+                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class=" collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#ServicecollapseThree" aria-expanded="false" aria-controls="ServicecollapseThree">
+                                <img src="public/Images/right-arrow.png" alt="" class="accordion-right">
+                                <img src="public/Images/down-arrow.png" alt="" class="accordion-down">
+                                    Accordion Item #3, Lorem ipsum dolor sit amet, consectetur adipisicing.
+                                </button>
+                            </h2>
+                            <div id="ServicecollapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                                data-bs-parent="#accordian2">
+                                <div class="accordion-body">
+                                    <strong>This is the third item's accordion body.</strong> It is hidden by default,
+                                    until the collapse plugin adds the appropriate classes that we use to style each
+                                    element. These classes control the overall appearance, as well as the showing and
+                                    hiding via CSS transitions. You can modify any of this with custom CSS or overriding
+                                    our default variables. It's also worth noting that just about any HTML can go within
+                                    the <code>.accordion-body</code>, though the transition does limit overflow.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- commented part to understand bootstrap classes and toggels to apply any wherelse -->
+<!-- 
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Home</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Profile</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact" type="button" role="tab" aria-controls="contact" aria-selected="false">Contact</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">DIV1</div>
+        <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">DIV@</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">DIV#</div>
+      </div> -->
+
+
+    <!-- NEWSLETTER area-->
+    <div class="newsletter" id="newsletter">
+        <div class="container-fluid d-flex justify-content-between py-5">
+
+            <div class="content  order-sm-2 order-1">
+                <h2 class="small-title text-center py-1">GET OUR NEWSLETTER</h2>
+                <form action="#" method="post" class="text-center">
+                    <input type="email" name="" id="" placeholder="YOUR EMAIL">
+                    <button type="submit" class="my-2 mx-2">Submit</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER area -->
+    <div class="footer px-2" id="footer">
+        <div
+            class="container d-flex flex-wrap justify-content-sm-center justify-content-md-between align-items-center py-4">
+            <a href="#home" class="footer-logo"><img src="public/Images/white-logo-transparent-background.png"
+                    alt="logo" class="logo"></a>
+            <div class="links">
+                <ul>
+                    <a href="">
+                        <li>HOME</li>
+                    </a>
+                    <a href="">
+                        <li>ABOUT</li>
+                    </a>
+                    <a href="">
+                        <li>TESTIMONIALS</li>
+                    </a>
+                    <a href="">
+                        <li>FAQS</li>
+                    </a>
+                    <a href="">
+                        <li>INSURANCE POLICY</li>
+                    </a>
+                    <a href="">
+                        <li>IMPRESSUM</li>
+                    </a>
+                </ul>
+            </div>
+            <div class="media-icons">
+                <img src="public/Images/ic-facebook.png" alt="" class="mx-2">
+                <img src="public/Images/ic-instagram.png" alt="" class="mx-2">
+            </div>
+        </div>
+        <hr class="divider container mx-auto">
+        <div class="copy-rights d-flex justify-content-center py-3" id="copy-rights">
+            <div> ©2018 Helperland. All rights reserved. <a href="">Terms and Conditions</a> | <a href="">Privacy
+                    Policy</a></div>
+        </div>
+    </div>
+
+    <!-- bootstrap bundle JS -->
+    <script src="public/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom Script file -->
+    <script src="public/JS/script.js"></script>
+</body>
+
+</html>
