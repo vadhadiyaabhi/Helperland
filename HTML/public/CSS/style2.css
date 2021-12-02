@@ -14,6 +14,10 @@ html, body{
     font-family: 'Roboto', sans-serif;
 }
 
+.banner, .container-fluid{
+    position: relative;
+    top: 64px;
+}
 
 .title{
     position: relative;
@@ -113,10 +117,43 @@ html, body{
 
 a{
     text-decoration: none !important;
+    cursor: pointer !important;
 }
 
+.mobile{
+    display: flex !important;
+    margin: 7.5px 0;
+}
+.mobile input{
+    margin: 0 !important;
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+}
+.country-code{
+    height: 46px;
+    width: 52px;
+    background-color:#c8c8c8;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-/* --------------------------------FAQS css--------------------------- */
+input[type="checkbox"]{
+    height: 20px !important;
+    width: 20px !important;
+    margin-right: 7px !important;
+    position: relative;
+    top: 4px;
+}
+.terms{
+    color: #1FB6FF !important;
+}
+/* ----------------------------------------------------------------------------- */
+
+
+/* --------------------------------FAQs css--------------------------- */
 
 .md-content1{
     font-size: 18px;
@@ -184,4 +221,250 @@ a{
 }
 
 
+/* ---------------Prices page------------ */
+.price-card{
+    max-width: 553px;
+    border: 2px solid #B0C9CE;
+    margin: auto;
+    font-size: 16px;
+    color: #646464;
+}
+.price-card .heading{
+    font-size: 28px;
+    color: #FFFFFF;
+    padding: 14px;
+    background-color: #1D7A8C;
+    text-align: center;
+}
+.price-content{
+    text-align: center;
+}
+.price-content .price{
+    font-size: 48px;
+}
+.price-content .per-hour{
+    font-size: 30px;
+}
+.price-content>div:nth-child(2){
+    /* border: 1px solid black; */
+    width: 60%;
+    margin: auto;
+    text-align: left;
+    font-size: 16px;
+    flex-direction: column;
+}
+.price-content>div:nth-child(2) div{
+    margin: 10px;
+}
 
+.price-content img{
+    height: 24px;
+    width: 24px;
+}
+
+.extra-services{
+    border-top: 1px solid gray;
+}
+
+.extra-services .img{
+    width: 108px;
+    height: 108px;
+    border: 1px solid #B0C9CE;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.extra-services .service span:nth-child(2){
+    padding-top: 7px;
+    font-size: 16px;
+    color: #646464;
+}
+.extra-services .service span:nth-child(3){
+    font-size: 18px;
+    color: #1D7A8C;
+    font-weight: bold;
+}
+
+.cleaning{
+    margin: 36px 0;
+    padding: 5px 10px 36px;
+    background-color: #F6F6F6;
+}
+.cleaning .card{
+    max-width: 360px;
+    margin: 0 15px;
+    border: none;
+}
+.cleaning .card-title{
+    font-size: 20px;
+    font-weight: bold;
+    color: #4F4F4F;
+    background-color: #F6F6F6;
+    padding: 5px 10px;
+    margin: 0;
+}
+.cleaning .card-body{
+    padding: 5px 10px;
+    font-size: 16px;
+    color: #4F4F4F;
+    background-color: #F6F6F6;
+}
+.cleaning .card-body .accordion-body,.cleaning .accordion-header{
+    background-color: #f6f6f6;
+}
+.cleaning .card-body button{
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #646464;
+    background-color: #F6F6F6;
+}
+.cleaning .card-body .accordion-item{
+    margin: 0px;
+}
+
+.why-helperland{
+    color: #646464;
+    font-size: 14px;
+}
+/* .why-helperland .div2{
+    width: 375px;
+    height: 240px;
+} */
+.why-helperland .div1{
+    text-align: right;
+}
+.why-helperland .small-title{
+    font-size: 20px;
+}
+
+/* -----------About Page-------------------- */
+.about-page{
+    font-size: 16px;
+    color: #646464;
+}
+
+/* -----------Contact Page--------------------- */
+.contact-icon .icon{
+    color: #4F4F4F;
+    text-align: center;
+    font-size: 16px;
+    width: 238px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 10px;
+}
+.contact-icon img{
+    height: 60px;
+    margin: 0 0 10px;
+}
+
+.contact-page .get-in-touch{
+    margin: 74px 0 0 0;
+    padding: 74px 0;
+    border-top: 2px solid #E1E1E1;
+}
+.contact-page .contact-form{
+    max-width: 614px;  
+    font-size: 16px;
+    color: #A0A0A0;
+    margin: auto;
+}
+.contact-page .contact-form div{
+    display: inline-block;
+    width: 299px;
+}
+.contact-page .contact-form .full-width{
+    display: block;
+    width: 100%;
+}
+.contact-page .contact-form input, select, textarea{
+    width: 100%;
+    padding: 9px 14px;
+    border: 1px solid #C8C8C8;
+    border-radius: 4px;
+    margin: 7.5px 0;
+}
+.contact-page .contact-form select{
+    width: 100%;
+    padding: 9px 14px;
+    border: 1px solid #C8C8C8;
+    border-radius: 4px;
+    color: #A0A0A0;
+    background-color: white;
+}
+.contact-page .contact-form .button{
+    font-size: 20px;
+    color: white;
+    padding: 6px 50px;
+    border-radius: 46px;
+    background-color: #1D7A8C;
+    border: none;
+    display: inline-block;
+    margin: auto;
+}
+
+/* ------------------------------------------------------------------ */
+
+
+
+
+
+
+
+/* ------------------Responsive queries--------------- */
+@media screen and (max-width: 1280px){
+    .cleaning .card{
+        max-width: 300px;
+    }
+}
+@media screen and (max-width: 991px){
+    .cleaning .card{
+        max-width: 280px;
+    }
+
+    .service-provider-header{
+        background-color: #525252;
+    }
+}
+@media screen and (max-width: 800px){
+    .cleaning .card{
+        max-width: 280px;
+    }
+    .why-helperland .div1{
+        text-align: center;
+    }
+    .why-helperland div{
+        text-align: center;
+        max-width: 320px;
+    }
+}
+@media screen and (max-width: 576px){
+    .container-fluid{
+        padding:0px 10px;
+    }
+    .price-content>div:nth-child(2){
+        width: 80%;
+    }
+
+    .extra-services .img{
+        margin: 10px 20px;
+    }
+
+    .cleaning .card{
+        margin: 15px 0px;
+    }
+
+
+    .contact-page .contact-form div{
+        display: block;
+        width: 100%;
+    }
+
+    .register-now .form{
+        padding: 20px 18px;
+    }
+
+}

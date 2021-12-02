@@ -2,8 +2,15 @@
 
 
 /* ----------------header area---------------- */
+.header{
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
 .header .navbar{
-    background-color: #525252;
+    /* background-color: rgba(82,82,82,0.7); */
+    background-color: rgba(39,39,39,0.7);
+    /* background-color: #525252; */
     padding: 0px 0;
 }
 
@@ -13,33 +20,65 @@
 }
 
 .navbar .nav-link{
+    padding: 6px 17px !important;
     color: white;
     font-size: 17px;
     text-decoration: none;
-    margin: 0 8px;
+    margin: 0 3px;
 }
 
 .navbar .button-color{
-    padding: 6px 17px !important;
+    /* padding: 6px 17px !important; */
     border: 1px solid white;
     border-radius: 40px;
     background-color: #29626D;
 }
+.navbar .button-color:hover{
+    /* padding: 6px 17px !important; */
+    border: 1px solid white;
+    border-radius: 40px;
+    color: #29626D;
+    background-color: white;
+}
 
 .navbar .button{
-    padding: 6px 17px !important;
+    /* padding: 6px 17px !important; */
     border: 1px solid white;
     border-radius: 40px;
 }
-
-.navbar-toggler-icon{
-    color: white;
+.navbar .nav-link:hover{
+    /* padding: 6px 17px !important; */
+    border: 1px solid white;
+    border-radius: 40px;
+}
+.menu-toggler{
+    background: none;
+    width: 22px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    right: 15px;
+    outline: none;
+    z-index: 999;
+    display: none;
 }
 
+.menu-toggler span{
+    display: block;
+    height: 2px;
+    background-color: white;
+    margin: 5px 0;
+    position: relative;
+    transition: .3s linear;
+
+}
 
 /* ----------------footer area----------------- */
+
 .footer{
     background-color: #111111;
+    position: relative;
+    top: 64px;
 }
 
 .footer .logo{
@@ -59,7 +98,7 @@
 .footer ul li
 {
     display: inline;
-    margin: 0px 8px;
+    margin: 0px 12px;
     color: #F1F1F1;
     text-decoration: none;
     font-size: 14px;
@@ -82,17 +121,80 @@
 
 
 /* -----------Responsive CSS------------- */
-@media screen and (max-width: 980px) {
+@media screen and (max-width: 991px) {
+    /* -----menu-toggler button----- */
+    .menu-toggler
+    {
+        display: block;
+    }
+    .menu-toggler.active span{
+        background-color: black;
+
+    }
+    .navbar .nav-item{
+        margin: 0px !important;
+    }
+
+    .navbar .nav-link{
+        color: #525252;
+        font-size: 17px;
+        text-decoration: none;
+        margin: 10px 0 !important;
+        padding: 0 !important;
+        text-align: left;
+        border: none;
+        background-color: white;
+    }
+    .custom-navbar-menu{
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        background-color: white;
+        top: 0;
+        right: -100%;
+        max-width: 250px;
+        padding: 25px 25px;
+        transition: .5s ease-out;
+    }
+    .custom-navbar-menu a
+    {
+        color: black;
+        display: block;
+        font-size: 17px;
+        margin-left: 20px;
+        margin-top: 25px;
+        transition: .5s ease-out;
+        text-decoration: none;
+    }
+    .custom-navbar-menu.active{
+        right: 0;
+    }
+
+    .menu-toggler.active span:nth-child(1){
+        transform: rotate(-45deg);
+        top: 7px;
+    }
+    .menu-toggler.active span:nth-child(2){
+        opacity: 0;
+    }
+    .menu-toggler.active span:nth-child(3){
+        transform: rotate(45deg);
+        bottom: 7px;
+    }
     .navbar .nav-item{
         display: inline-block;
         margin: 8px auto;
         text-align: center;
     }
 
+    .footer ul{
+        padding: 0%;
+        text-align: center;
+    }
+
     .footer ul li{
         display: block;
-        margin: 5px;
-        /* text-align: center; */
+        margin: 15px 0;
     }
 }
 
@@ -104,13 +206,42 @@
     .footer .container .footer-logo{
         padding-bottom: 10px;
     }
-    .footer ul{
-        padding: 0px;
-    }
     .footer ul li{
-        padding: 0;
-        display: block;
-        margin: 20px;
+        padding: 0px;
         text-align: center;
     }
 }
+
+
+
+
+
+
+
+
+/* CSS for profile pages */
+.notification{
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    position: relative;
+    /* background-color: white; */
+}
+.notification-number{
+    color: white;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    position: absolute;
+    right: 7px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+.navbar .navbar-nav .dropdown-menu {
+    left: -100px;
+}
+/* .navbar .navbar-nav .dropdown-item{
+    color: white;
+} */

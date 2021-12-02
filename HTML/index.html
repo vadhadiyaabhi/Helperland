@@ -19,15 +19,14 @@
 
     <!-- Header -->
     <header class="header" id="header">
-        <nav class="navbar navbar-expand-lg text-center">
-            <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg text-center" style="position: fixed;">
                 <!-- Logo -->
                 <a class="navbar-brand logo" href="index.html">
                     <img src="public/Images/white-logo-transparent-background.png" alt="logo">
                 </a>
 
                 <!-- Mobile Menu -->
-                <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
+                <!-- <button class="navbar-toggler " type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon" style="color: white;"><svg xmlns="http://www.w3.org/2000/svg"
@@ -35,10 +34,16 @@
                             <path fill-rule="evenodd"
                                 d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z" />
                         </svg></span>
+                </button> -->
+                <button class="menu-toggler">
+                    <!-- active will be added on mobile view-->
+                    <span></span>
+                    <span></span>
+                    <span></span>
                 </button>
                 <!-- Mobile Menu -->
 
-                <div class="collapse navbar-collapse main-menu" id="navbarSupportedContent">
+                <div class="custom-navbar-menu navbar-collapse main-menu" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item active"><a class="nav-link button" href="#">Book a Cleaner</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">Prices</a></li>
@@ -46,7 +51,7 @@
                         <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
                         <li class="nav-item"><a class="nav-link" href="">Contact Us</a></li>
                         <li class="nav-item"><a class="nav-link button" href="#">Login</a></li>
-                        <li class="nav-item"><a class="nav-link helper" href="#">Become a helper</a></li>
+                        <li class="nav-item"><a class="nav-link button" href="#">Become a helper</a></li>
         
                         <li class="nav-item dropdown fleg">
                             <a class="nav-link" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -62,7 +67,6 @@
                         </li>
                     </ul>
                 </div>
-            </div>
         </nav>
     </header>
 
@@ -78,41 +82,40 @@
                 <span><img src="public/Images/forma-1-copy-10.png">Lorem ipsum dolor sit amet consectetur adipisicing.
                 </span><br>
             </div>
-            <div class="button mx-auto" style="width: 200px;"><a href="#"><button class="center-button">Let's Book a
+            <div class="button"><a href="#"><button class="center-button">Let's Book a
                         Cleaner</button></a></div>
-            <div class="down-logo-area mx-auto flex-wrap">
-                <div class=" d-flex flex-column justify-content-center my-2">
-                    <img src="public/Images/down-logo-1.svg" height="55px" width="52px" class="mx-auto" alt=""> <br>
+            <div class="down-logo-area d-flex mx-auto flex-wrap">
+                <div class=" d-flex flex-column justify-content-center my-0">
+                    <img src="public/Images/down-logo-1.svg" height="55px" width="52px" class="mx-auto" alt="">
                     <span>Enter your postcode</span>
                 </div>
 
                 <div class="arrow"><img src="public/Images/step-arrow-1.png" alt=""></div>
 
                 <div class=" d-flex flex-column justify-content-center">
-                    <img src="public/Images/down-logo-2.png" height="55px" width="52px" class="mx-auto" alt=""> <br>
+                    <img src="public/Images/down-logo-2.png" height="55px" width="52px" class="mx-auto" alt="">
                     <span>Select your plan</span>
                 </div>
 
                 <div class="arrow"><img src="public/Images/step-arrow-1-copy.png" alt=""></div>
 
                 <div class=" d-flex flex-column justify-content-center">
-                    <img src="public/Images/down-logo3.svg" height="55px" width="52px" class="mx-auto" alt=""> <br>
+                    <img src="public/Images/down-logo3.svg" height="55px" width="52px" class="mx-auto" alt="">
                     <span>Pay securely online</span>
                 </div>
 
                 <div class="arrow"><img src="public/Images/step-arrow-1.png" alt=""></div>
 
                 <div class=" d-flex flex-column justify-content-center">
-                    <img src="public/Images/down-logo-4.svg" height="55px" width="52px" class="mx-auto" alt=""> <br>
+                    <img src="public/Images/down-logo-4.svg" height="55px" width="52px" class="mx-auto" alt="">
                     <span>Enjoy amazing service</span>
                 </div>
 
             </div>
-            <a href="">
-                <div class="down-arrow mx-auto"><img src="public/Images/dwon-arrow-1.svg" alt="" height="15px"
-                        width="12px">
+            
+                <div class="down-arrow mx-auto"><a href=""><img src="public/Images/group-18_5.png" alt="" ></a>
                 </div>
-            </a>
+            
         </div>
     </div>
 
@@ -154,7 +157,7 @@
 
     <!-- Our Blog -->
     <div class="blog" id="blog">
-        <div class="container my-5 py-5">
+        <div class="container  pb-5">
             <div class="content1 ">
                 <div class="row flex-wrap-reverse">
                     <div class="col-md-7 col-12">
@@ -368,7 +371,7 @@
     <!-- FOOTER AREA -->
     <div class="footer" id="footer">
         <div
-            class="container-fluid d-flex flex-wrap justify-content-md-center justify-content-lg-between align-items-center py-4">
+            class="container-fluid d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-4">
             <a href="#home" class=""><img src="public/Images/white-logo-transparent-background.png" alt="logo"
                     class="logo"></a>
             <div class="links">
@@ -407,7 +410,10 @@
 
     <!-- bootstrap bundle JS -->
     <script src="public/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    <!-- jquery cdnjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <!-- Custom Script file -->
     <script src="public/JS/script.js"></script>
 </body>
