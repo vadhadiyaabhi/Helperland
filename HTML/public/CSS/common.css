@@ -17,6 +17,7 @@
 .navbar-brand img{
     height: 54px;
     width: 73px;
+    margin: 0px 10px;
 }
 
 .navbar .nav-link{
@@ -51,6 +52,9 @@
     border: 1px solid white;
     border-radius: 40px;
 }
+.navbar .nav-link2:hover{
+    border: none;
+}
 .menu-toggler{
     background: none;
     width: 22px;
@@ -71,6 +75,10 @@
     position: relative;
     transition: .3s linear;
 
+}
+
+.mobile-menu-items .media-icons img{
+    color: black !important;
 }
 
 /* ----------------footer area----------------- */
@@ -119,8 +127,101 @@
     margin: 0;
 }
 
+/* -------------Service Provider (6th page) header---------- */
 
-/* -----------Responsive CSS------------- */
+.service-provider-header .navbar{
+    position: absolute;
+    background-color:transparent;
+    padding: 0px 0;
+    width: 100%;
+    transition: .3s linear;
+}
+
+.service-provider-header .logo img{
+    height: 102px;
+    width: 138px;
+    transition: .3s linear;
+}
+
+.navbar .navbar-nav .dropdown-menu {
+    left: -110px;
+    background-color: white;
+    color: black;
+    /* border: 1px solid white; */
+}
+
+
+.navbar .navbar-nav .dropdown-menu .dropdown-item{
+    color: #646464;
+}
+
+.service-provider-header .sticky{
+    background-color: rgba(39,39,39,0.7);
+}
+.sticky .logo img{
+    width: 73px;
+    height: 54px;
+
+}
+
+
+/* ---------------CSS for Dashboard pages navbar-------------- */
+.notification{
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    position: relative;
+}
+
+.mobile-notification{
+    padding: 6px 17px;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    position: relative;
+    right: 30px;
+    display: none;
+}
+.mobile-notification-number{
+    color: white;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px ;
+    height: 18px;
+    position: absolute;
+    right: 9px;
+    border-radius: 50%;
+    font-size: 14px;
+    top: 5px;
+}
+
+.notification-number{
+    color: white;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    position: absolute;
+    right: 12px;
+    top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+.navbar .navbar-nav .dropdown-menu {
+    left: -100px;
+}
+
+.mobile-menu-items{
+    display: none;
+}
+/* .navbar .navbar-nav .dropdown-item{
+    color: white;
+} */
+
+
+/* ------------------Responsive CSS--------------------- */
 @media screen and (max-width: 991px) {
     /* -----menu-toggler button----- */
     .menu-toggler
@@ -147,6 +248,7 @@
     }
     .custom-navbar-menu{
         position: fixed;
+        overflow: scroll;
         height: 100vh;
         width: 100%;
         background-color: white;
@@ -213,35 +315,31 @@
 }
 
 
+@media screen and (max-width: 991px){
 
-
-
-
-
-
-/* CSS for profile pages */
-.notification{
-    border-left: 1px solid white;
-    border-right: 1px solid white;
-    position: relative;
-    /* background-color: white; */
+    .service-provider-header .navbar{
+        background-color: rgba(39,39,39,0.7);
+        z-index: 999;
+    }
+    .mobile-notification{
+        display: block;
+        float: right;
+    }
+    .mobile-menu-items{
+        display: block;
+    }
+    .mobile-menu-items .nav-item{
+        display: inline-block;
+        width: 100%;
+    }
+    .notification, .dropdown{
+        display: none !important;
+    }
 }
-.notification-number{
-    color: white;
-    background-color: red;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    position: absolute;
-    right: 7px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
+@media screen and (max-width: 576px){
+    .service-provider-header .navbar-brand img
+    {
+        height: 54px;
+        width: 73px;
+    }
 }
-.navbar .navbar-nav .dropdown-menu {
-    left: -100px;
-}
-/* .navbar .navbar-nav .dropdown-item{
-    color: white;
-} */

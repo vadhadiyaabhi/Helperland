@@ -62,8 +62,8 @@ html,body{
 }
 .navbar .navbar-nav .dropdown-menu {
     left: -110px;
-    background-color: transparent;
-    border: 1px solid white;
+    background-color: white;
+    /* border: 1px solid black; */
 }
 .navbar .navbar-nav .dropdown-item{
     color: black;

@@ -423,12 +423,18 @@ input[type="checkbox"]{
 
 .register-now .form{
     position: relative;
-    top: 152px;
+    top: 145px;
     max-width: 430px;
     margin: auto;
     padding: 20px 36px;
     border-radius: 4px;
     background-color: white;
+}
+.register-now .down-arrow{
+    position: relative;
+    top: 180px;
+    display: flex;
+    justify-content: center;
 }
 .register-now .form .form-title{
     font-size: 24px;
@@ -487,18 +493,151 @@ input[type="checkbox"]{
     text-decoration: none;
 }
 
-/* ------------------Responsive queries--------------- */
 
-@media screen and (max-width: 576px){
 
-    .register-now .form{
-        padding: 20px 18px;
-    }
+/* -----------------For Dashboard page---------------------------- */
 
+.welcome-heading{
+    
+    background-color: #f7f7f7 !important;
+    text-align: center;
+    color: #4F4F4F;
+    padding-top: 88px !important;
+}
+.welcome-heading h1{
+    display: inline;
+    font-size: 30px;
+}
+.dashboard{
+    color: #646464;
+    width: 90%;
+    margin: 20px auto;
 }
 
+.dashboard-table{
+    /* max-width: 865px; */
+    width: calc(80% - 20px);
+}
 
+.side-menu ul{
+    padding: 0;
+}
+.side-menu li{
+    list-style: none;
+    padding: 16px 16px;
+    border-bottom: .3px solid white !important;
+    color: white;
+}
+.side-menu li:hover{
+    background-color: #146371;
+}
 
+.side-menu{
+    width: calc(20% - 10px);
+    margin-right: 10px;
+    background-color: #1D7A8C;
+    color: white;
+    font-size: 18px;
+}
+.table-heading{
+    color: #646464;
+    font-size: 22px;
+    font-weight: bold;
+}
+.mobile-table-heading{
+    display: none;
+}
+tr{
+    border: 1px solid #e4e4e4;
+}
+
+th{
+    background-color: #F9F9F9;
+    color: #646464;
+    padding: 16px 14px;
+    text-align: left;
+}
+th a, td a{
+    color: #646464;
+}
+th a:hover, td a:hover{
+    color: #979797;
+}
+td{
+    padding: 5px 14px;
+}
+td.service-provider{
+    display: flex;
+    align-items: center;
+}
+td.service-provider>img{
+    width: 44px;
+    height: 38px;
+    border-radius: 50%;
+    padding: 8px 7px;
+    border: 1px solid #646464;
+}
+.line-break{
+    display: flex;
+    flex-direction: column;
+}
+.cancle-button{
+    padding: 7px 15px;
+    border-radius: 30px;
+    color: white;
+    background-color: #FF6B6B;
+}
+.cancle-button:hover{
+    color: white;
+    background-color: #db3030;
+}
+.export-button{
+    color: white;
+    background-color: #146371;
+    padding: 8px 13px;
+    border-radius: 34px;
+}
+.export-button:hover{
+    color: white;
+}
+.RateSP-button{
+    font-size: 14px;
+    padding: 9px 11px;
+    border-radius: 30px;
+    color: white;
+    background-color: #6DA9B5;
+}
+.RateSP-button:hover{
+    color: white;
+    background-color: #3e818f;
+}
+.cancelled{
+    font-size: 14px;
+    padding: 7px 15px;
+    color: white;
+    background-color: #ff6b6b;
+}
+.completed{
+    font-size: 14px;
+    padding: 7px 15px;
+    color: white;
+    background-color: #67b644;
+}
+tr img{
+    margin: 0 5px 0 0;
+}
+.payment{
+    color: #1d7a8c;
+}
+.td-center{
+    text-align: center;
+}
+.payment span{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* -------------------------------------------------------------- */
 
 
 /* ------------------Responsive queries--------------- */
@@ -507,6 +646,7 @@ input[type="checkbox"]{
         max-width: 300px;
     }
 }
+
 @media screen and (max-width: 991px){
     .cleaning .card{
         max-width: 280px;
@@ -514,6 +654,20 @@ input[type="checkbox"]{
 
     .service-provider-header{
         background-color: #525252;
+    }
+}
+
+
+@media screen and (max-width: 991px){
+    .side-menu{
+        display: none;
+    }
+    .dashboard {
+        width: 100%;
+    }
+    .dashboard-table{
+        margin: 0 15px;
+        width: 100%;
     }
 }
 @media screen and (max-width: 800px){
@@ -526,6 +680,44 @@ input[type="checkbox"]{
     .why-helperland div{
         text-align: center;
         max-width: 320px;
+    }
+}
+@media screen and (max-width: 768px) {
+    thead{
+        display: none;
+    }
+    .dashboard{
+        margin: 0px;
+    }
+    .dashboard-table{
+        margin: 15px;
+    }
+    .mobile-table-heading{
+        display: block;
+    }
+    tr{
+        display: flex;
+        flex-direction: column;
+        margin: 20px 0;
+        padding: 0px 25px;
+        box-shadow: 0px 0px 8px #646464;
+    }
+    td{
+        padding: 10px 0px;
+        border-bottom: 1px solid #b6b6b6;
+    }
+    .line-break{
+        flex-direction: row;
+    }
+    .line-break a,.line-break span{
+        margin-right: 15px;
+    }
+    td:last-child{
+        text-align: center;
+        border-bottom: none;
+    }
+    .payment, .td-center{
+        text-align: left;
     }
 }
 @media screen and (max-width: 576px){
@@ -544,7 +736,6 @@ input[type="checkbox"]{
         margin: 15px 0px;
     }
 
-
     .contact-page .contact-form div{
         display: block;
         width: 100%;
@@ -553,5 +744,18 @@ input[type="checkbox"]{
     .register-now .form{
         padding: 20px 18px;
     }
+    .register-now .down-arrow{
+        top: 170px;
+    }
+    .how-it-works p,.how-it-works div{
+        text-align: center;
+    }
+    .how-it-works>div{
+        margin-bottom: 25px;
+    }
+    .how-it-works>div:last-child{
+        margin-bottom: 0px;
+    }
 
 }
+
