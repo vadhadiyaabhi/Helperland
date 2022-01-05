@@ -150,6 +150,46 @@ input[type="checkbox"]{
 .terms{
     color: #1FB6FF !important;
 }
+
+.pegination{
+    margin: 10px 0px;
+    display: flex;
+    justify-content: space-between;
+}
+.pegination select{
+    padding: 7px 10px;
+    border: 1px solid #C8C8C8;
+    border-radius: 4px;
+    color: #A0A0A0;
+    background-color: white;
+}
+.pegination ul{
+    display: flex;
+    flex-wrap: wrap;
+}
+.pegination li a{
+    color: #646464;
+    border: none !important;
+}
+.pegination ul>li{
+    list-style: none;
+    border-radius: 50%;
+    border: 1px solid #C8C8C8;
+    font-weight: bold;
+    height: 38px;
+    width: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 5px;
+    color: #646464;
+}
+.pegination ul>li:hover{
+    background-color: #1fb6ff;
+    color: white;
+    cursor: pointer;
+}
+
 /* ----------------------------------------------------------------------------- */
 
 
@@ -380,7 +420,7 @@ input[type="checkbox"]{
     display: block;
     width: 100%;
 }
-.contact-page .contact-form input, select, textarea{
+.contact-page .contact-form input,.contact-page .contact-form select, textarea{
     width: 100%;
     padding: 9px 14px;
     border: 1px solid #C8C8C8;
@@ -639,6 +679,99 @@ tr img{
 
 /* -------------------------------------------------------------- */
 
+/* -------------------------Admin Pages-------------------------- */
+
+.container-fluid.admin-page{
+    padding: 0px;
+    margin: 0px;
+}
+.admin-page{
+    display: flex;
+}
+.admin-menu{
+    width: 20%;
+}
+.admin-menu ul{
+    padding: 0px !important;
+}
+.admin-menu li{
+    list-style: none;
+    color: #646464;
+    padding: 14px 14px;
+    border-bottom: 1px solid #e6e6e6;
+}
+.admin-menu li:hover{
+    color: #1fb6ff;
+}
+.admin-menu li img{
+    float: right;
+    position: relative;
+    top: 7px;
+    transform: rotate(-90deg);
+    height: 6px;
+    width: 12px;
+}
+.admin-content{
+    background-color: #f2f4f5;
+    width: 80%;
+    padding: 20px;
+}
+.admin-content .admin-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.admin-content .admin-header h1{
+    font-size: 22px;
+    color: #646464;
+    font-weight: bold;
+}
+.admin-blue-button{
+    color: white;
+    background-color: #1fb6ff;
+    padding: 10px;
+    border-radius: 4px;
+}
+.admin-button{
+    padding: 8px 20px !important;
+    color: #646464;
+    border: 1px solid #DEDDDD;
+    border-radius: 4px;
+    background-color: white;
+}
+.admin-search form{
+    display: flex;
+    justify-content: space-around;
+    padding: 20px 15px;
+    background-color: white;
+    margin: 10px 0px;
+    align-items: center;
+    border-radius: 4px;
+    flex-wrap: wrap;
+}
+.admin-search select{
+    width: 16%;
+    color: #A0A0A0;
+    padding: 9px;
+}
+.admin-search form>div{
+    display: inline-block !important;
+}
+.admin-search input{
+    border: 1px solid #C8C8C8;
+    max-width: 166px;
+    color: #a0a0a0;
+    padding: 7px;
+    border-radius: 4px;
+}
+.admin-search .phone input{
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+.admin-search input::placeholder{
+    color: #A0A0A0;
+}
+/* ------------------------------------------------------------- */
 
 /* ------------------Responsive queries--------------- */
 @media screen and (max-width: 1280px){

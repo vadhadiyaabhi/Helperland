@@ -221,6 +221,23 @@
 } */
 
 
+/* -------------------Admin Page--------------------- */
+.header .admin-navbar{
+    background-color: #1fb6ff;
+    color: white;
+    display: flex;
+    justify-content:space-between;
+}
+.admin-logo{
+    font-weight: bold;
+    font-size: 37.5px;
+    /* color: white; */
+    padding: 2px 5px;
+}
+.admin-navbar a{
+    color: white;
+    margin: 0px 5px;
+}
 /* ------------------Responsive CSS--------------------- */
 @media screen and (max-width: 991px) {
     /* -----menu-toggler button----- */

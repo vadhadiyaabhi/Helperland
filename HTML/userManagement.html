@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helperland - Admin</title>
+
+    <!-- bootstrap css bundle -->
+    <link rel="stylesheet" href="public/bootstrap/css/bootstrap.min.css">
+
+    <!-- common css for navbar and footer -->
+    <link rel="stylesheet" href="public/CSS/common.css">
+    <!-- custom CSS -->
+    <link rel="stylesheet" href="public/CSS/style2.css">
+</head>
+
+<body>
+
+    <!-- header + navbar -->
+    <header class="header" id="header">
+        <nav class="admin-navbar navbar navbar-expand-lg">
+            <!-- Logo -->
+            <a class="navbar-brand admin-logo" href="">
+                helperland
+            </a>
+
+            <div class="mx-2">
+                <a href=""><img src="public/Images/user.png" alt=""></a>
+                <a href=""><span>James Smith</span></a>
+                <a href=""><img src="public/Images/logout.png" alt=""></a>
+            </div>
+
+            <!-- mobile menu collapse-->
+            <button class="menu-toggler">
+                <!-- active will be added on mobile view-->
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <div class="container-fluid admin-page">
+        <div class="admin-menu">
+            <ul>
+                <a href=""><li class="side-menu-item">Service Management</li> </a>
+                <a href=""><li class="side-menu-item">Role Management</li></a>
+                <a href="">
+                    <li class="side-menu-item">
+                        Coupon Code Management <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                    </li>
+                </a>
+                <a href=""><li class="side-menu-item">Escalation Management</li></a>
+                <a href=""><li class="side-menu-item">Service Requests</li></a>
+                <a href=""><li class="side-menu-item">Service Providers</li></a>
+                <a href=""><li class="side-menu-item">User Management</li></a>
+                <a href="">
+                    <li class="side-menu-item">
+                        Finance Module <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                    </li>
+                </a>
+                <a href=""><li class="side-menu-item">Zip Code Management</li></a>
+                <a href=""><li class="side-menu-item">Ratting Management</li></a>
+                <a href=""><li class="side-menu-item">Inquiry Management</li></a>
+                <a href=""><li class="side-menu-item">Newsletter Management</li></a>
+                <a href="">
+                    <li class="side-menu-item">
+                        Content Management <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                    </li>
+                </a>
+            </ul>
+        </div>
+        <div class="admin-content">
+            <div class="admin-header">
+                <h1 class="heading">User Management</h1>
+                <a href="" class="admin-blue-button"><img src="public/Images/plus-1.png" alt=""> Add New User</a>
+            </div>
+            <div class="admin-search">
+                <form action="" method="post">
+                    <select name="" id="">
+                        <option value="User name">User name</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                      </select>
+                    <select name="" id="" aria-placeholder="placehosder">
+                        <option value="User role">User role</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                    <div class="phone">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1">+49</span>
+                            <input type="text" class="" placeholder="Phone number">
+                        </div>
+                    </div>
+                    <input type="text" name="zipcode" id="" placeholder="Zipcode">
+                    <input type="submit" value="Search" class="admin-blue-button" style="color: white;">
+                    <input type="reset" value="Clear" class="admin-button">
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- bootstrap bundle JS -->
+    <script src="public/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jquery cdnjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <!-- Custom Script file -->
+    <script src="public/JS/script.js"></script>
+</body>
