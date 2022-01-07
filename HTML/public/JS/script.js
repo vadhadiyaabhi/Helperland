@@ -18,6 +18,14 @@ $(document).ready(function () {
     });
 
 
+    $(".admin-submenu").click(function(){
+        let id = this.id;
+        let childId = id + "-item";
+        console.log(id);
+        $('#'+id).toggleClass('active');
+        $('#'+childId).toggleClass('active');
+        console.log(childId);
+    });
 });
 
 
@@ -34,11 +42,17 @@ for(let i =0; i<tr.length; i++){
     arrayTr.push(tr[i]);
 }
 
-select.onchange = rowCount;
-function rowCount(e){
+//this three line with rowCount(e) will only work if you have single Select element in page
+// select.onchange = rowCount;
+// function rowCount(e){
+// let limit = parseInt(e.target.value); => Write Inside function
+//-------------------------------------------------
+
+function rowCount(){
     let neil = ul.querySelectorAll('.pagination-page-list');
     neil.forEach(n=>n.remove());
-    let limit = parseInt(e.target.value);
+    let element = document.getElementById('pegination-select');
+    let limit = parseInt(element.value);
     // console.log(e.target.tagName);
     // console.log(e.target.value);
     displaypage(limit);
@@ -51,6 +65,9 @@ function displaypage(limit){
         for(let i=0; i<limit; i++){
             tbody.appendChild(arrayTr[i]);
         }
+
+        document.getElementById('from-entry').innerHTML = '1';
+        document.getElementById('to-entry').innerHTML = limit;
     }
     else{
         let extra = limit - arrayTr.length;
@@ -58,6 +75,9 @@ function displaypage(limit){
         for(let i=0; i<limit-extra; i++){
             tbody.appendChild(arrayTr[i]);
         }
+
+        document.getElementById('from-entry').innerHTML = '1';
+        document.getElementById('to-entry').innerHTML = arrayTr.length;
     }
     
     buttonGenerator(limit);
@@ -95,39 +115,62 @@ function buttonGenerator(limit){
                 x--;
                 let start = limit * x;
                 let end = start + limit;
+                if(end <= arrayTr.length){
+
+                }
+                else{
+                    end = arrayTr.length;
+                }
+
                 let page = arrayTr.slice(start, end);
 
                 for(let i=0; i<page.length; i++){
                     let item = page[i];
                     tbody.appendChild(item);
                 }
+
+                document.getElementById('from-entry').innerHTML = start+1;
+                document.getElementById('to-entry').innerHTML = end;
             }
         }
     }
 
-    let z = 0;
+    // z=0;
     function nextElement()
     {
-        if(z+limit >= arrayTr.length || z >= arrayTr.length){
+        // let y = parseInt(document.getElementById('from-entry').innerHTML)-1;
+        // console.log(y);
+        let z = parseInt(document.getElementById('from-entry').innerHTML)-1;
+        // console.log(z);
+        // --------------------------------------------------------------
+        if(z+limit > arrayTr.length || z > arrayTr.length){
             z = -limit;
         }
         if(this.id == 'next'){
             z == arrayTr.length - limit ? (z=0) : (z+= limit);
+            // console.log(z);
         }
         if(this.id == 'prev'){
-            z == 0 ? arrayTr.length - limit : (z -= limit);
+            z == 0 ? (z = arrayTr.length - limit) : (z -= limit);
+            z = z<0 ? 0 : z;
+            // console.log(z);
         }
 
         tbody.innerHTML = '';
-        for(let c=z; c < z+limit; c++)
+        let d = z+limit > arrayTr.length ? arrayTr.length : z+limit;
+        for(let c=z; c<d; c++)
         {
             tbody.appendChild(arrayTr[c]);
+            // console.log(c);
         }
+        document.getElementById('from-entry').innerHTML = z+1;
+        document.getElementById('to-entry').innerHTML = d;
         // console.log(z);
     }
     
     document.getElementById('prev').onclick = nextElement;
     document.getElementById('next').onclick = nextElement;
 }
+
 
 // ------------------------------------------------------------------------------------------------------------

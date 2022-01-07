@@ -590,9 +590,12 @@ input[type="checkbox"]{
 tr{
     border: 1px solid #e4e4e4;
 }
-
+td{
+    color: #646464;
+}
 th{
-    background-color: #F9F9F9;
+    /* background-color: #F9F9F9; */
+    background-color: #E1E1E1;
     color: #646464;
     padding: 16px 14px;
     text-align: left;
@@ -710,6 +713,27 @@ tr img{
     transform: rotate(-90deg);
     height: 6px;
     width: 12px;
+    transition: .3s linear;
+}
+.admin-submenu{
+    cursor: pointer;
+}
+.admin-submenu.active{
+    background-color: #F9F9F9;
+    transition: .3s linear;
+}
+.admin-submenu.active img{
+transform: rotate(0deg);
+}
+.admin-submenu-item li{
+    border: none;
+    padding: 0px;
+    margin: 10px 15px;
+    display: none;
+    transition: .3s linear;
+}
+.admin-submenu-item.active li{
+    display: block;
 }
 .admin-content{
     background-color: #f2f4f5;
@@ -732,12 +756,21 @@ tr img{
     padding: 10px;
     border-radius: 4px;
 }
+
+.admin-blue-button:hover{
+    background-color: #1f9edb;
+    color: white;
+}
 .admin-button{
-    padding: 8px 20px !important;
+    padding: 6px 18px !important;
     color: #646464;
     border: 1px solid #DEDDDD;
     border-radius: 4px;
     background-color: white;
+}
+.admin-button:hover{
+    color: #1fb6ff;
+    border: 1.5px solid #1fb6ff;
 }
 .admin-search form{
     display: flex;
@@ -753,6 +786,8 @@ tr img{
     width: 16%;
     color: #A0A0A0;
     padding: 9px;
+    border-radius: 4px;
+    border-color: #C8C8C8;
 }
 .admin-search form>div{
     display: inline-block !important;
@@ -771,6 +806,67 @@ tr img{
 .admin-search input::placeholder{
     color: #A0A0A0;
 }
+
+.admin-table th{
+ background-color: #E1E1E1;
+}
+.admin-table tbody{
+    background-color: white;
+}
+.admin-table td{
+    padding: 24px 14px;
+}
+.admin-table tr td:last-child{
+    padding: 0px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+}
+.admin-table tr td:last-child img{
+    margin: 0%;
+}
+.dropdown-menu::before
+{
+    content: "";
+    height: 10px;
+    width: 10px;
+    position: absolute;
+    background-color: white;
+    opacity: 2;
+    top: -5px;
+    right: 10px;
+    border-top: 1px solid #646464;
+    border-right: 1px solid #646464;
+    transform: rotate(-45deg);
+    transition: .3s linear;
+}
+.dropdown-menu{
+    box-shadow: 0px 0px 5px #646464;
+    opacity: 5;
+    background-color: white;
+}
+.admin-td-dropdown{
+    height: 38px;
+    width: 38px;
+    display: flex;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%);
+}
+.admin-td-dropdown:hover,
+.admin-td-dropdown:focus{
+    background-color: #f2f4f5;
+}
+.admin-copyRights{
+    color: #A2A6A8;
+    position: absolute;
+    bottom: 0%;
+    font-size: 14px;
+}
 /* ------------------------------------------------------------- */
 
 /* ------------------Responsive queries--------------- */
@@ -787,6 +883,16 @@ tr img{
 
     .service-provider-header{
         background-color: #525252;
+    }
+
+    .admin-menu{
+        display: none;
+    }
+    .admin-content{
+        width: 100%;
+    }
+    .admin-search .admin-blue-button,.admin-search .admin-button{
+        margin: 10px 0px;
     }
 }
 

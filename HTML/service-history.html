@@ -152,7 +152,7 @@
                 <span class="table-heading">Service History</span>
                 <a href="" class="export-button">Export</a>
             </div>
-            <table class="" style="width: 100%;" id="myTable">
+            <table class="" style="width: 100%;" id="">
                 <thead class="">
                     <th width="23%"><a href="">Service Details <img src="public/Images/sort.png" alt=""></a></th>
                     <th width="32%"><a href="">Service Provider <img src="public/Images/sort.png" alt=""></a></th>
@@ -460,14 +460,14 @@
             <!-- pegination section -->
             <div class="pegination">
                 <div class="pegination-rows">
-                    Show <select name="" id="">
+                    Show <select id="pegination-select" onchange="rowCount();">
                         <option value="4">4</option>
                         <option value="2">2</option>
                         <option value="6">6</option>
                         <option value="8">8</option>
                         <option value="12">12</option>
                         <option value="15">30</option>
-                    </select> Entries
+                    </select> Entries, Showing Entries from <span id="from-entry"></span> to <span id="to-entry"></span>
                 </div>
                 <ul class="pegination-pages">
                     <li class="prev" id="prev"><a href="#">&#139;</a></li>

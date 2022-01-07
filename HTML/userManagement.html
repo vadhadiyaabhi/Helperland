@@ -22,14 +22,14 @@
     <header class="header" id="header">
         <nav class="admin-navbar navbar navbar-expand-lg">
             <!-- Logo -->
-            <a class="navbar-brand admin-logo" href="">
+            <a class="navbar-brand admin-logo" href="#">
                 helperland
             </a>
 
             <div class="mx-2">
-                <a href=""><img src="public/Images/user.png" alt=""></a>
-                <a href=""><span>James Smith</span></a>
-                <a href=""><img src="public/Images/logout.png" alt=""></a>
+                <a href="#"><img src="public/Images/user.png" alt=""></a>
+                <a href="#"><span>James Smith</span></a>
+                <a href="#"><img src="public/Images/logout.png" alt=""></a>
             </div>
 
             <!-- mobile menu collapse-->
@@ -39,43 +39,159 @@
                 <span></span>
                 <span></span>
             </button>
+
+            <!-- navbar content -->
+            <div class="custom-navbar-menu navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <div class="mobile-menu-items">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Service Management</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Role Management</a>
+                        </li>
+                        <li class="side-menu-item admin-submenu " id="admin-submenu1">
+                            Coupon Code Management <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                            <ul class="admin-submenu-item " id="admin-submenu1-item">
+                                <a href="#">
+                                    <li>Coupon Codes</li>
+                                </a>
+                                <a href="#">
+                                    <li>Usage History</li>
+                                </a>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Escalation Management</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Service Requests</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Service Providers</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">User Management</a>
+                        </li>
+                        <li class="side-menu-item admin-submenu" id="admin-submenu2">
+                            Finance Module <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                            <ul class="admin-submenu-item" id="admin-submenu2-item">
+                                <a href="#">
+                                    <li>Coupon Codes</li>
+                                </a>
+                                <a href="#">
+                                    <li>Usage History</li>
+                                </a>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Zip Code Management</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ratting Management</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Inquiry Management</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Newsletter Management</a>
+                        </li>
+                        <li class="side-menu-item admin-submenu" id="admin-submenu3">
+                            Content Management <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                            <ul class="admin-submenu-item" id="admin-submenu3-item">
+                                <a href="#">
+                                    <li>Coupon Codes</li>
+                                </a>
+                                <a href="#">
+                                    <li>Usage History</li>
+                                </a>
+                            </ul>
+                        </li>
+                    </div>
+                    <hr>
+                    <span class="mobile-menu-items">
+                        <div class="media-icons">
+                            <img src="public/Images/facebook-mobile-menu.png" alt="" class="mx-2">
+                            <img src="public/Images/instagram-mobile-menu.png" alt="" class="mx-2">
+                        </div>
+                    </span>
+                </ul>
+            </div>
         </nav>
     </header>
 
     <div class="container-fluid admin-page">
         <div class="admin-menu">
             <ul>
-                <a href=""><li class="side-menu-item">Service Management</li> </a>
-                <a href=""><li class="side-menu-item">Role Management</li></a>
-                <a href="">
-                    <li class="side-menu-item">
-                        Coupon Code Management <img src="public/Images/sp-right-arrow-gray.svg" alt="">
-                    </li>
+                <a href="#">
+                    <li class="side-menu-item">Service Management</li>
                 </a>
-                <a href=""><li class="side-menu-item">Escalation Management</li></a>
-                <a href=""><li class="side-menu-item">Service Requests</li></a>
-                <a href=""><li class="side-menu-item">Service Providers</li></a>
-                <a href=""><li class="side-menu-item">User Management</li></a>
-                <a href="">
-                    <li class="side-menu-item">
-                        Finance Module <img src="public/Images/sp-right-arrow-gray.svg" alt="">
-                    </li>
+                <a href="#">
+                    <li class="side-menu-item">Role Management</li>
                 </a>
-                <a href=""><li class="side-menu-item">Zip Code Management</li></a>
-                <a href=""><li class="side-menu-item">Ratting Management</li></a>
-                <a href=""><li class="side-menu-item">Inquiry Management</li></a>
-                <a href=""><li class="side-menu-item">Newsletter Management</li></a>
-                <a href="">
-                    <li class="side-menu-item">
-                        Content Management <img src="public/Images/sp-right-arrow-gray.svg" alt="">
-                    </li>
+                <li class="side-menu-item admin-submenu " id="admin-submenu1">
+                    Coupon Code Management <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                    <ul class="admin-submenu-item " id="admin-submenu1-item">
+                        <a href="#">
+                            <li>Coupon Codes</li>
+                        </a>
+                        <a href="#">
+                            <li>Usage History</li>
+                        </a>
+                    </ul>
+                </li>
+                <a href="#">
+                    <li class="side-menu-item">Escalation Management</li>
                 </a>
+                <a href="#">
+                    <li class="side-menu-item">Service Requests</li>
+                </a>
+                <a href="#">
+                    <li class="side-menu-item">Service Providers</li>
+                </a>
+                <a href="#">
+                    <li class="side-menu-item">User Management</li>
+                </a>
+                <li class="side-menu-item admin-submenu" id="admin-submenu2">
+                    Finance Module <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                    <ul class="admin-submenu-item" id="admin-submenu2-item">
+                        <a href="#">
+                            <li>Coupon Codes</li>
+                        </a>
+                        <a href="#">
+                            <li>Usage History</li>
+                        </a>
+                    </ul>
+                </li>
+                <a href="#">
+                    <li class="side-menu-item">Zip Code Management</li>
+                </a>
+                <a href="#">
+                    <li class="side-menu-item">Ratting Management</li>
+                </a>
+                <a href="#">
+                    <li class="side-menu-item">Inquiry Management</li>
+                </a>
+                <a href="#">
+                    <li class="side-menu-item">Newsletter Management</li>
+                </a>
+                <li class="side-menu-item admin-submenu" id="admin-submenu3">
+                    Content Management <img src="public/Images/sp-right-arrow-gray.svg" alt="">
+                    <ul class="admin-submenu-item" id="admin-submenu3-item">
+                        <a href="#">
+                            <li>Coupon Codes</li>
+                        </a>
+                        <a href="#">
+                            <li>Usage History</li>
+                        </a>
+                    </ul>
+                </li>
             </ul>
         </div>
         <div class="admin-content">
             <div class="admin-header">
                 <h1 class="heading">User Management</h1>
-                <a href="" class="admin-blue-button"><img src="public/Images/plus-1.png" alt=""> Add New User</a>
+                <a href="#" class="admin-blue-button"><img src="public/Images/plus-1.png" alt=""> Add New User</a>
             </div>
             <div class="admin-search">
                 <form action="" method="post">
@@ -84,7 +200,7 @@
                         <option value="saab">Saab</option>
                         <option value="mercedes">Mercedes</option>
                         <option value="audi">Audi</option>
-                      </select>
+                    </select>
                     <select name="" id="" aria-placeholder="placehosder">
                         <option value="User role">User role</option>
                         <option value="saab">Saab</option>
@@ -102,7 +218,170 @@
                     <input type="reset" value="Clear" class="admin-button">
                 </form>
             </div>
+            <table class="admin-table my-3 table-responsive" style="width: 100%;">
+                <thead class="">
+                    <th><a href="#">User Name <img src="public/Images/sort.png" alt=""></a></th>
+                    <th>User Type </th>
+                    <th>Role </th>
+                    <th><a href="#">Postal Code <img src="public/Images/sort.png" alt=""></a></th>
+                    <th class="">City </a></th>
+                    <th><a href="#">Radius <img src="public/Images/sort.png" alt=""></a></th>
+                    <th><a href="#">User Status <img src="public/Images/sort.png" alt=""></a></th>
+                    <th class="">Actions </a></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Call Center</td>
+                        <td>Inquiry Manager</td>
+                        <td>123456</td>
+                        <td>Berlin</td>
+                        <td class="text-center">10 km</td>
+                        <td class="service-status text-center">
+                            <span class="completed">Active</span>
+                            <!-- <span class="cancelled">Cancelled</span> -->
+                        </td>
+                        <td class="text-center">
+                            <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="public/Images/group-38.png" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Doe</td>
+                        <td>Call Center</td>
+                        <td></td>
+                        <td>234222</td>
+                        <td>Berlin</td>
+                        <td class="text-center"></td>
+                        <td class="service-status text-center">
+                            <span class="completed">Active</span>
+                        </td>
+                        <td class="text-center">
+                            <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="public/Images/group-38.png" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>John Smith</td>
+                        <td>Call Center</td>
+                        <td>Content Manager</td>
+                        <td>345633</td>
+                        <td>Berlin</td>
+                        <td class="text-center">10 km</td>
+                        <td class="service-status text-center">
+                            <span class="cancelled">Inactive</span>
+                        </td>
+                        <td class="text-center">
+                            <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="public/Images/group-38.png" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Steve Smith</td>
+                        <td>Call Center</td>
+                        <td></td>
+                        <td>423444</td>
+                        <td>Berlin</td>
+                        <td class="text-center"></td>
+                        <td class="service-status text-center">
+                            <span class="completed">Active</span>
+                        </td>
+                        <td class="text-center">
+                            <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="public/Images/group-38.png" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Dvayn Smith</td>
+                        <td>Call Center</td>
+                        <td></td>
+                        <td>555555</td>
+                        <td>Berlin</td>
+                        <td class="text-center"></td>
+                        <td class="service-status text-center">
+                            <span class="cancelled">Inactive</span>
+                        </td>
+                        <td class="text-center">
+                            <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="public/Images/group-38.png" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </td>
+                    </tr>
 
+                </tbody>
+            </table>
+
+            <!-- pegination section -->
+            <div class="pegination">
+                <div class="pegination-rows">
+                    Show <select id="pegination-select" onchange="rowCount();">
+                        <option value="4">4</option>
+                        <option value="2">2</option>
+                        <option value="6">6</option>
+                        <option value="8">8</option>
+                        <option value="12">12</option>
+                        <option value="15">30</option>
+                    </select> Entries, Showing Entries from <span id="from-entry"></span> to <span id="to-entry"></span>
+                </div>
+                <ul class="pegination-pages">
+                    <li class="prev" id="prev"><a href="#">&#139;</a></li>
+                    <li class="next" id="next"><a href="#">&#155;</a></li>
+                </ul>
+            </div>
+
+            <!-- copy-rights section -->
+            <footer class="admin-copyRights py-3">
+                © 2018 Helperland. All rights reserved.
+            </footer>
         </div>
     </div>
 
