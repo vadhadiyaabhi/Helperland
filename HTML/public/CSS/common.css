@@ -19,12 +19,13 @@
     width: 73px;
     margin: 0px 10px;
 }
-
 .navbar .nav-link{
     padding: 6px 17px !important;
     color: white;
     font-size: 17px;
     text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 40px;
     margin: 0 3px;
 }
 
@@ -50,10 +51,9 @@
 .navbar .nav-link:hover{
     /* padding: 6px 17px !important; */
     border: 1px solid white;
-    border-radius: 40px;
 }
 .navbar .nav-link2:hover{
-    border: none;
+    border: 1px solid transparent;
 }
 .menu-toggler{
     background: none;
@@ -146,8 +146,6 @@
 .navbar .navbar-nav .dropdown-menu {
     left: -110px;
     background-color: white;
-    color: black;
-    /* border: 1px solid white; */
 }
 
 
@@ -161,7 +159,6 @@
 .sticky .logo img{
     width: 73px;
     height: 54px;
-
 }
 
 
@@ -170,6 +167,7 @@
     border-left: 1px solid white;
     border-right: 1px solid white;
     position: relative;
+    height: 45px;
 }
 
 .mobile-notification{
@@ -216,12 +214,15 @@
 .mobile-menu-items{
     display: none;
 }
-/* .navbar .navbar-nav .dropdown-item{
-    color: white;
-} */
-
+hr{
+    color: #1b1919 !important;
+    height: 2px !important;
+}
 
 /* -------------------Admin Page--------------------- */
+.admin-navbar .custom-navbar-menu{
+    display: none;
+}
 .header .admin-navbar{
     background-color: #1fb6ff;
     color: white;
@@ -231,8 +232,7 @@
 .admin-logo{
     font-weight: bold;
     font-size: 37.5px;
-    /* color: white; */
-    padding: 2px 5px;
+    padding: 4px 5px;
 }
 .admin-navbar a{
     color: white;
@@ -262,6 +262,9 @@
         text-align: left;
         border: none;
         background-color: white;
+    }
+    .navbar .nav-link:hover,.navbar .nav-link:active{
+        border: none;
     }
     .custom-navbar-menu{
         position: fixed;
@@ -314,6 +317,21 @@
     .footer ul li{
         display: block;
         margin: 15px 0;
+    }
+
+    .admin-navbar .custom-navbar-menu{
+        display: block;
+    }
+    .admin-submenu-item li{
+        margin: 10px 15px;
+        color: #525252;
+    }
+    .admin-submenu-item{
+        padding: 0;
+    }
+    .admin-submenu-item a{
+        margin: 0;
+        padding: 0;
     }
 }
 

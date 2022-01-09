@@ -123,7 +123,7 @@
         </nav>
     </header>
 
-    <div class="container-fluid admin-page userManagement">
+    <div class="container-fluid admin-page">
         <div class="admin-menu">
             <ul>
                 <a href="#">
@@ -201,50 +201,79 @@
             </div>
             <div class="admin-search">
                 <form action="" method="post">
+                    <input type="text" name="serviceId" id="" placeholder="Service ID" style="width: 100px;">
                     <select name="" id="">
-                        <option value="User name">User name</option>
+                        <option value="User name">Customer</option>
                         <option value="saab">Saab</option>
                         <option value="mercedes">Mercedes</option>
                         <option value="audi">Audi</option>
                     </select>
                     <select name="" id="" aria-placeholder="placehosder">
-                        <option value="User role">User role</option>
+                        <option value="User role">Service Providers</option>
                         <option value="saab">Saab</option>
                         <option value="mercedes">Mercedes</option>
                         <option value="audi">Audi</option>
                     </select>
-                    <div class="phone">
+                    <select name="" id="" aria-placeholder="placehosder">
+                        <option value="User role">Status</option>
+                        <option value="saab">Saab</option>
+                        <option value="mercedes">Mercedes</option>
+                        <option value="audi">Audi</option>
+                    </select>
+                    <div class="calender">
                         <div class="input-group">
-                            <span class="input-group-text" id="basic-addon1">+49</span>
-                            <input type="text" class="" placeholder="Phone number">
+                            <span class="input-group-text" id="basic-addon1"><img src="public/Images/icon-calendar-blue.png" alt=""></span>
+                            <input type="text" name="from_date" id="date" class="dateInput" onmouseout="(this.type = 'text')" onmouseenter="(this.type='date')" placeholder="From Date">
                         </div>
                     </div>
-                    <input type="text" name="zipcode" id="" placeholder="Zipcode">
+                    <div class="calender">
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon1"><img src="public/Images/icon-calendar-blue.png" alt=""></span>
+                            <input type="text" name="to_date" id="date" class="dateInput" onmouseout="(this.type = 'text')" onmouseenter="(this.type='date')" placeholder="To Date">
+                        </div>
+                    </div>
                     <input type="submit" value="Search" class="admin-blue-button" style="color: white;">
                     <input type="reset" value="Clear" class="admin-button">
                 </form>
             </div>
             <table class="admin-table my-3 table-responsive" style="width: 100%;">
                 <thead class="">
-                    <th><a href="#">User Name <img src="public/Images/sort.png" alt=""></a></th>
-                    <th>User Type </th>
-                    <th>Role </th>
-                    <th><a href="#">Postal Code <img src="public/Images/sort.png" alt=""></a></th>
-                    <th class="">City </a></th>
-                    <th class="text-center"><a href="#">Radius <img src="public/Images/sort.png" alt=""></a></th>
-                    <th class="text-center"><a href="#">User Status <img src="public/Images/sort.png" alt=""></a></th>
+                    <th><a href="#">Service ID <img src="public/Images/sort.png" alt=""></a></th>
+                    <th><a href="#">Service Date <img src="public/Images/sort.png" alt=""></a></th>
+                    <th><a href="#">Customer details <img src="public/Images/sort.png" alt=""></a></th>
+                    <th><a href="#">Service Provider <img src="public/Images/sort.png" alt=""></a></th>
+                    <th class="text-center"><a href="#">Status <img src="public/Images/sort.png" alt=""></a></th>
                     <th class="text-center">Actions </a></th>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>John Smith</td>
-                        <td>Call Center</td>
-                        <td>Inquiry Manager</td>
                         <td>123456</td>
-                        <td>Berlin</td>
-                        <td class="text-center">10 km</td>
+                        <td><div class="line-break">
+                            <a href="" class="fw-bold"><img src="public/Images/calendar2.png" alt="">30/11/2021</a>
+                            <a href=""><img src="public/Images/layer-712.png" alt="">12:00 - 18:00</a>
+                        </div>
+                        </td>
+                        <td><span class="cust-name fw-bold">First Customer</span><br>
+                            <img src="public/Images/layer-15.png" alt="">Musterstrab 5, 12345 Bonn
+                        </td>
+                        <td class="service-provider">
+                            <img src="public/Images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="fw-bold">Abhishek Patel 1</span> <br>
+                                <span class="rating-star">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-empty.svg" alt="">
+                                    <span class="ratting-number">4</span>
+                                </span>
+                            </div>
+                        </td>
                         <td class="service-status text-center">
-                            <span class="completed">Active</span>
+                            <!-- <span class="completed">Completed</span> -->
+                            <!-- <span class="new">New</span> -->
+                            <span class="pending">Pending</span>
                             <!-- <span class="cancelled">Cancelled</span> -->
                         </td>
                         <td class="text-center">
@@ -263,14 +292,31 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>John Doe</td>
-                        <td>Call Center</td>
-                        <td></td>
-                        <td>234222</td>
-                        <td>Berlin</td>
-                        <td class="text-center"></td>
+                        <td>222222</td>
+                        <td><div class="line-break">
+                            <a href="" class="fw-bold"><img src="public/Images/calendar2.png" alt="">30/11/2021</a>
+                            <a href=""><img src="public/Images/layer-712.png" alt="">12:00 - 18:00</a>
+                        </div>
+                        </td>
+                        <td><span class="cust-name fw-bold">First Customer</span><br>
+                            <img src="public/Images/layer-15.png" alt="">Musterstrab 5, 12345 Bonn
+                        </td>
+                        <td class="service-provider">
+                            <img src="public/Images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="fw-bold">Abhishek 222</span> <br>
+                                <span class="rating-star">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-empty.svg" alt="">
+                                    <span class="ratting-number">4</span>
+                                </span>
+                            </div>
+                        </td>
                         <td class="service-status text-center">
-                            <span class="completed">Active</span>
+                            <span class="new">New</span>
                         </td>
                         <td class="text-center">
                             <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
@@ -288,14 +334,31 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>John Smith</td>
-                        <td>Call Center</td>
-                        <td>Content Manager</td>
-                        <td>345633</td>
-                        <td>Berlin</td>
-                        <td class="text-center">10 km</td>
+                        <td>333333</td>
+                        <td><div class="line-break">
+                            <a href="" class="fw-bold"><img src="public/Images/calendar2.png" alt="">30/11/2021</a>
+                            <a href=""><img src="public/Images/layer-712.png" alt="">12:00 - 18:00</a>
+                        </div>
+                        </td>
+                        <td><span class="cust-name fw-bold">First Customer</span><br>
+                            <img src="public/Images/layer-15.png" alt="">Musterstrab 5, 12345 Bonn
+                        </td>
+                        <td class="service-provider">
+                            <img src="public/Images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="fw-bold">Abhishek 333</span> <br>
+                                <span class="rating-star">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-empty.svg" alt="">
+                                    <span class="ratting-number">4</span>
+                                </span>
+                            </div>
+                        </td>
                         <td class="service-status text-center">
-                            <span class="cancelled">Inactive</span>
+                            <span class="completed">Completed</span>
                         </td>
                         <td class="text-center">
                             <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
@@ -313,14 +376,31 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Steve Smith</td>
-                        <td>Call Center</td>
-                        <td></td>
-                        <td>423444</td>
-                        <td>Berlin</td>
-                        <td class="text-center"></td>
+                        <td>444444</td>
+                        <td><div class="line-break">
+                            <a href="" class="fw-bold"><img src="public/Images/calendar2.png" alt="">30/11/2021</a>
+                            <a href=""><img src="public/Images/layer-712.png" alt="">12:00 - 18:00</a>
+                        </div>
+                        </td>
+                        <td><span class="cust-name fw-bold">First Customer</span><br>
+                            <img src="public/Images/layer-15.png" alt="">Musterstrab 5, 12345 Bonn
+                        </td>
+                        <td class="service-provider">
+                            <img src="public/Images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="fw-bold">Abhishek 444</span> <br>
+                                <span class="rating-star">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-empty.svg" alt="">
+                                    <span class="ratting-number">4</span>
+                                </span>
+                            </div>
+                        </td>
                         <td class="service-status text-center">
-                            <span class="completed">Active</span>
+                            <span class="pending">Pending</span>
                         </td>
                         <td class="text-center">
                             <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
@@ -338,14 +418,115 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>Dvayn Smith</td>
-                        <td>Call Center</td>
-                        <td></td>
                         <td>555555</td>
-                        <td>Berlin</td>
-                        <td class="text-center"></td>
+                        <td><div class="line-break">
+                            <a href="" class="fw-bold"><img src="public/Images/calendar2.png" alt="">30/11/2021</a>
+                            <a href=""><img src="public/Images/layer-712.png" alt="">12:00 - 18:00</a>
+                        </div>
+                        </td>
+                        <td><span class="cust-name fw-bold">First Customer</span><br>
+                            <img src="public/Images/layer-15.png" alt="">Musterstrab 5, 12345 Bonn
+                        </td>
+                        <td class="service-provider">
+                            <img src="public/Images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="fw-bold">Abhishek 555</span> <br>
+                                <span class="rating-star">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-empty.svg" alt="">
+                                    <span class="ratting-number">4</span>
+                                </span>
+                            </div>
+                        </td>
                         <td class="service-status text-center">
-                            <span class="cancelled">Inactive</span>
+                            <span class="new">New</span>
+                        </td>
+                        <td class="text-center">
+                            <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="public/Images/group-38.png" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>666666</td>
+                        <td><div class="line-break">
+                            <a href="" class="fw-bold"><img src="public/Images/calendar2.png" alt="">30/11/2021</a>
+                            <a href=""><img src="public/Images/layer-712.png" alt="">12:00 - 18:00</a>
+                        </div>
+                        </td>
+                        <td><span class="cust-name fw-bold">First Customer</span><br>
+                            <img src="public/Images/layer-15.png" alt="">Musterstrab 5, 12345 Bonn
+                        </td>
+                        <td class="service-provider">
+                            <img src="public/Images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="fw-bold">Abhishek 666</span> <br>
+                                <span class="rating-star">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-empty.svg" alt="">
+                                    <span class="ratting-number">4</span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="service-status text-center">
+                            <span class="cancelled">Cancelled</span>
+                        </td>
+                        <td class="text-center">
+                            <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <img src="public/Images/group-38.png" alt="">
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>777777</td>
+                        <td><div class="line-break">
+                            <a href="" class="fw-bold"><img src="public/Images/calendar2.png" alt="">30/11/2021</a>
+                            <a href=""><img src="public/Images/layer-712.png" alt="">12:00 - 18:00</a>
+                        </div>
+                        </td>
+                        <td><span class="cust-name fw-bold">First Customer</span><br>
+                            <img src="public/Images/layer-15.png" alt="">Musterstrab 5, 12345 Bonn
+                        </td>
+                        <td class="service-provider">
+                            <img src="public/Images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="fw-bold">Abhishek 777</span> <br>
+                                <span class="rating-star">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-filled.svg" alt="">
+                                    <img src="public/Images/star-ratting-empty.svg" alt="">
+                                    <span class="ratting-number">4</span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="service-status text-center">
+                            <span class="completed">Completed</span>
                         </td>
                         <td class="text-center">
                             <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
@@ -385,7 +566,7 @@
             </div>
 
             <!-- copy-rights section -->
-            <footer class="admin-copyRights py-3">
+            <footer class="admin-copyRights pt-3">
                 © 2018 Helperland. All rights reserved.
             </footer>
         </div>
