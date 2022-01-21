@@ -1,0 +1,189 @@
+NOTE : Please have a look at exel sheet, there you'll have more idea and it will be easy to understand database schema from exel sheet.
+
+
+
+CREATE DATABASE helperland;
+
+CREATE TABLE LOGIN 
+(login_id int PRIMARY KEY, 
+email varchar(50) UNIQUE, 
+password_hash varchar(255),
+user_role_id int,
+is_verified bit DEFAULT 0,
+is_approved bit DEFAULT 1,
+token varchar(255) DEFAULT NULL,
+token_expired bit DEFAULT 0,
+subscribed bit DEFAULT 0,
+last_login varchar(50),
+create_at datetime,
+updated_at datetime,
+last_ip varchar(20));
+
+
+CREATE TABLE Customer 
+(cust_id int PRIMARY KEY,
+login_id int REFERENCES LOGIN(login_id) ON DELETE CASCADE, 
+firstname varchar(50),
+lastname varchar(50),
+mobile varchar(20),
+dob date,
+lang varchar(20),
+default_address int);
+
+
+
+CREATE TABLE SP_details 
+(sp_id int PRIMARY KEY,
+login_id int REFERENCES LOGIN(login_id) ON DELETE CASCADE, 
+firstname varchar(50),
+lastname varchar(50),
+mobile varchar(20),
+dob date,
+lang varchar(20),
+address int,
+gender varchar(10),
+avatar int,
+work_with_pet bit DEFAULT 0,
+text_no varchar(50) UNIQUE,
+max_allowed_dist int,
+nationality varchar(20),
+my_rating float);
+
+
+CREATE TABLE Address 
+(add_id int PRIMARY KEY,
+login_id int REFERENCES LOGIN(login_id) ON DELETE CASCADE, 
+street_name varchar(50),
+house_no int,
+postal_code int);
+
+CREATE TABLE Postal_code
+(postal_code int,
+city varchar(50),
+PRIMARY KEY(postal_code, city));
+
+
+CREATE TABLE Services
+( service_id int PRIMARY KEY,
+  cust_id int REFERENCES Customer(Cust_id),
+  sp_id int REFERENCES SP_details(sp_id) DEFAULT 0,
+  add_id int REFERENCES Address(add_id),
+  postal_code int,
+  service_date date,
+  service_time time,
+  created_at datetime,
+  es_1 varchar(30),
+  es_2 varchar(30),
+  es_3 varchar(30),
+  es_4 varchar(30),
+  es_5 varchar(30),
+  extra_message varchar(200),
+  pet bit DEFAULT 0,     --Customer has pet at home or not
+  total_hours float,
+  total_amount float,
+  completed bit DEFAULT 0,
+  reschedule_req bit DEFAULT 0,
+  cancel_req bit DEFAULT 0,   
+  cancelled bit DEFAULT 0,
+  reschedulled bit DEFAULT 0,
+  cancel_comment varchar(200),   -- here cancel bit is for customer if he/she cancel the service
+  payment_done bit DEFAULT 1,  --default 1 as we dont have to implement payment method as of now
+);
+
+
+CREATE TABLE Cancel_ser_by_SP		-- this is for, when sp cancel the service req
+(
+	cancel_id int PRIMARY KEY,
+	service_id int REFERENCES Services(service_id),
+	cancel_req bit DEFAULT 1,     -- entry will be done when sp req for cancellation, so default is 1
+	cancelled bit DEFAULT 0,	  -- value will be 1 when cancelled by admin
+	cancel_message varchar(200),
+	cancelled_by int REFERENCES SP_details(sp_id)
+);
+
+
+CREATE TABLE Favourite
+(
+	cust_id int REFERENCES Customer(cust_id),
+	sp_id int REFERENCES SP_details(sp_id),
+);
+
+
+drop table favourite;
+
+CREATE TABLE Block		--Here I've used login id as a reference because customer or SP anyone can block to each-ohter
+(
+	by_id int REFERENCES Login(login_id),	--blocked by
+	to_id int REFERENCES Login(login_id),	--blocked to
+);
+
+
+
+CREATE TABLE User_role
+(
+	role_id int PRIMARY KEY,
+	title varchar(20)
+);
+
+
+
+CREATE TABLE Rattings
+(
+	id int PRIMARY KEY,
+	cust_id int REFERENCES Customer(cust_id),
+	sp_id int REFERENCES SP_details(sp_id),
+	service_id int REFERENCES Services(service_id),
+	rate_1 int,		--for arrival on time
+	rate_2 int,		--for friendly nature
+	rate_3 int,		--for quality of work
+	avg_rate float,	-- average of above three
+	comment varchar(200)
+);
+
+
+
+CREATE TABLE Prices
+(
+	id int PRIMARY KEY,
+	service_type varchar(30),	--like basic, cabinate, inside fridge,oven, etc
+	price float,
+	service_time float,		--Store number of hours for that services
+);
+
+
+CREATE TABLE Contact
+(
+	id int PRIMARY KEY,
+	firstname varchar(20),
+	lastname varchar(20),
+	mobile varchar(20),
+	email varchar(30),
+	subject varchar(30),
+	message varchar(200)
+);
+
+-- sp_rename 'Subscibed' , 'Subscribed'; 
+
+CREATE TABLE Subscribed
+(
+	email varchar(30) UNIQUE,
+	verified bit DEFAULT 0,
+	verification_token varchar(255) DEFAULT NULL,
+	token_expired bit DEFAULT 0,
+);
+
+
+--foreignkey added for user_role_id in login table
+ALTER TABLE Login ADD CONSTRAINT FK_user_role FOREIGN KEY(user_role_id) REFERENCES User_role(role_id);
+
+ALTER TABLE Customer ADD CONSTRAINT FK_default_address FOREIGN KEY(default_address) REFERENCES Address(add_id);
+
+ALTER TABLE SP_details ADD CONSTRAINT FK_SP_address FOREIGN KEY(address) REFERENCES Address(add_id);
+
+ALTER TABLE Postal_code DROP CONSTRAINT PK__Postal_c__6C8FC22A262E03A1;
+
+ALTER TABLE Postal_code ADD CONSTRAINT PK_postal_code PRIMARY KEY(postal_code);
+
+ALTER TABLE Address ADD CONSTRAINT FK_postal_code FOREIGN KEY(postal_code) REFERENCES Postal_code(postal_code);
+
+ALTER TABLE Services ADD CONSTRAINT FK_add_postal_code FOREIGN KEY(postal_code) REFERENCES Postal_code(postal_code);
