@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Link for fav icon-->
+    <link href="~/images/favicon_img.png" rel="shortcut icon" />
+
+    <!-- bootstrap css bundle -->
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- custom CSS -->
+    <link href="~/css/site.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="">
+        <main role="main" class="">
+            <!-- Header -->
+            <header class="header" id="header">
+                <nav class="navbar navbar-expand-lg text-center" style="position: fixed;">
+                    <!-- Logo -->
+                    <a class="navbar-brand logo" asp-controller="Home" asp-action="Index">
+                        <img src="~/Images/white-logo-transparent-background.png" alt="logo">
+                    </a>
+
+                    <!-- Mobile Menu -->
+                    <button class="menu-toggler">
+                        <!-- active will be added on mobile view-->
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <!-- Mobile Menu -->
+
+                    <div class="custom-navbar-menu navbar-collapse main-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item active"><a class="nav-link button" href="#">Book a Cleaner</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Prices">Prices</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Our Guarantee</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
+                            <li class="nav-item"><a class="nav-link button" href="#">Login</a></li>
+                            <li class="nav-item"><a class="nav-link button" href="#">Become a helper</a></li>
+
+                            <li class="nav-item dropdown fleg">
+                                <a class="nav-link nav-link2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images/flag.png" alt="logo">
+                                    <img src="~/images/keyboard-right-arrow-button.png" alt="logo">
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="#"><img src="~/images/flag.png" alt="logo"> India</a></li>
+                                    <li><a class="dropdown-item" href="#"><img src="~/images/flag.png" alt="logo"> USA</a></li>
+                                    <!-- <li><hr class="dropdown-divider"></li> -->
+                                    <li><a class="dropdown-item" href="#"><img src="~/images/flag.png" alt="logo"> UK</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            @RenderBody()
+        </main>
+    </div>
+
+
+    <!-- FOOTER AREA -->
+    <div class="footer" id="footer">
+        <div class="container-fluid d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-4">
+            <a asp-controller="Home" asp-action="Index" class="">
+                <img src="~/Images/white-logo-transparent-background.png" alt="logo"
+                     class="logo">
+            </a>
+            <div class="links">
+                <ul>
+                    <a asp-controller="Home" asp-action="Index">
+                    <li>HOME</li>
+                    </a>
+                    <a asp-controller="Home" asp-action="About">
+                    <li>ABOUT</li>
+                    </a>
+                    <a href="">
+                    <li>TESTIMONIALS</li>
+                    </a>
+                    <a asp-controller="Home" asp-action="FAQs">
+                    <li>FAQS</li>
+                    </a>
+                    <a href="">
+                    <li>INSURANCE POLICY</li>
+                    </a>
+                    <a href="">
+                    <li>IMPRESSUM</li>
+                    </a>
+                </ul>
+            </div>
+
+            <div class="media-icons">
+                <img src="~/Images/ic-facebook.png" alt="" class="mx-2">
+                <img src="~/Images/ic-instagram.png" alt="" class="mx-2">
+            </div>
+        </div>
+        <div class="privacy-policy text-center" id="privacy-policy">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit Animi.
+            <a href="" class="mx-2">Privacy Policy</a>
+            <button class="policy-button mx-2" onclick="hide_policy()">OK!</button>
+        </div>
+    </div>
+
+    <!-- bootstrap bundle JS -->
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jquery cdnjs -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <!-- Custom Script file -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+
+</html>

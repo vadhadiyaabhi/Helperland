@@ -1,0 +1,418 @@
+/* ==============This css file contains code for header and footer area with responsive design==================== */
+
+
+/* ----------------header area---------------- */
+.header {
+    position: fixed;
+    width: 100%;
+    z-index: 999;
+}
+
+    .header .navbar {
+        /* background-color: rgba(82,82,82,0.7); */
+        background-color: rgba(39,39,39,0.7);
+        /* background-color: #525252; */
+        padding: 0px 0;
+    }
+
+.navbar-brand img {
+    height: 54px;
+    width: 73px;
+    margin: 0px 10px;
+}
+
+.navbar .nav-link {
+    padding: 6px 17px !important;
+    color: white;
+    font-size: 17px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    border-radius: 40px;
+    margin: 0 3px;
+}
+
+.navbar .button-color {
+    /* padding: 6px 17px !important; */
+    border: 1px solid white;
+    border-radius: 40px;
+    background-color: #29626D;
+}
+
+    .navbar .button-color:hover {
+        /* padding: 6px 17px !important; */
+        border: 1px solid white;
+        border-radius: 40px;
+        color: #29626D;
+        background-color: white;
+    }
+
+.navbar .button {
+    /* padding: 6px 17px !important; */
+    border: 1px solid white;
+    border-radius: 40px;
+}
+
+.navbar .nav-link:hover {
+    /* padding: 6px 17px !important; */
+    border: 1px solid white;
+}
+
+.navbar .nav-link.active {
+    border: 1px solid white;
+}
+
+.navbar .nav-link2:hover {
+    border: 1px solid transparent;
+}
+
+.menu-toggler {
+    background: none;
+    width: 22px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    right: 15px;
+    outline: none;
+    z-index: 999;
+    display: none;
+}
+
+    .menu-toggler span {
+        display: block;
+        height: 2px;
+        background-color: white;
+        margin: 5px 0;
+        position: relative;
+        transition: .3s linear;
+        left:0;
+        opacity: 1;
+    }
+
+.mobile-menu-items .media-icons img {
+    color: black !important;
+}
+
+/* ----------------footer area----------------- */
+
+.footer {
+    background-color: #111111;
+    position: relative;
+    top: 64px;
+}
+
+    .footer .logo {
+        width: 120px;
+        height: 92px;
+    }
+
+    .footer ul {
+        list-style: none;
+        padding: 0px 30px;
+    }
+
+    .footer a {
+        text-decoration: none;
+    }
+
+    .footer ul li {
+        display: inline;
+        margin: 0px 12px;
+        color: #F1F1F1;
+        text-decoration: none;
+        font-size: 14px;
+        transition: 0.5s;
+    }
+
+    .footer ul li:hover {
+        color: rgb(0 189 220);
+    }
+
+    .footer .copy-rights {
+        color: #9BA0A3;
+        font-size: 14px;
+        text-align: center;
+    }
+
+        .footer .copy-rights a {
+            color: #9BA0A3;
+        }
+
+.divider {
+    color: white;
+    margin: 0;
+}
+
+/* -------------Service Provider (6th page) header---------- */
+
+.service-provider-header .navbar {
+    position: absolute;
+    background-color: transparent;
+    padding: 0px 0;
+    width: 100%;
+    transition: .3s linear;
+}
+
+.service-provider-header .logo img {
+    height: 102px;
+    width: 138px;
+    transition: .3s linear;
+}
+
+.navbar .navbar-nav .dropdown-menu {
+    left: -110px;
+    background-color: white;
+}
+
+
+    .navbar .navbar-nav .dropdown-menu .dropdown-item {
+        color: #646464;
+    }
+
+.service-provider-header .sticky {
+    background-color: rgba(39,39,39,0.7);
+}
+
+.sticky .logo img {
+    width: 73px;
+    height: 54px;
+}
+
+
+/* ---------------CSS for Dashboard pages navbar-------------- */
+.notification {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    position: relative;
+    height: 45px;
+}
+
+.mobile-notification {
+    padding: 6px 17px;
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+    position: relative;
+    right: 30px;
+    display: none;
+}
+
+.mobile-notification-number {
+    color: white;
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    right: 9px;
+    border-radius: 50%;
+    font-size: 14px;
+    top: 5px;
+}
+
+.notification-number {
+    color: white;
+    background-color: red;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    position: absolute;
+    right: 12px;
+    top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+}
+
+.navbar .navbar-nav .dropdown-menu {
+    left: -100px;
+}
+
+.mobile-menu-items {
+    display: none;
+}
+
+hr {
+    color: #1b1919 !important;
+    height: 2px !important;
+}
+
+/* -------------------Admin Page--------------------- */
+.admin-navbar .custom-navbar-menu {
+    display: none;
+}
+
+.header .admin-navbar {
+    background-color: #1fb6ff;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-logo {
+    font-weight: bold;
+    font-size: 37.5px;
+    padding: 4px 5px;
+}
+
+.admin-navbar a {
+    color: white;
+    margin: 0px 5px;
+}
+/* ------------------Responsive CSS--------------------- */
+@media screen and (max-width: 991px) {
+    /* -----menu-toggler button----- */
+    .menu-toggler {
+        display: block;
+    }
+
+        .menu-toggler.active span {
+            background-color: black;
+        }
+
+    .navbar .nav-item {
+        margin: 0px !important;
+    }
+
+    .navbar .nav-link {
+        color: #525252;
+        font-size: 17px;
+        text-decoration: none;
+        margin: 10px 0 !important;
+        padding: 0 !important;
+        text-align: left;
+        border: none;
+        background-color: white;
+    }
+
+        .navbar .nav-link:hover, .navbar .nav-link:active {
+            border: none;
+        }
+
+    .custom-navbar-menu {
+        position: fixed;
+        overflow: scroll;
+        height: 100vh;
+        width: 100%;
+        background-color: white;
+        top: 0;
+        right: -100%;
+        max-width: 250px;
+        padding: 25px 25px;
+        transition: .5s ease-out;
+    }
+
+        .custom-navbar-menu a {
+            color: black;
+            display: block;
+            font-size: 17px;
+            margin-left: 20px;
+            margin-top: 25px;
+            transition: .5s ease-out;
+            text-decoration: none;
+        }
+
+        .custom-navbar-menu.active {
+            right: 0;
+        }
+
+    .menu-toggler.active span:nth-child(1) {
+        transform: rotate(-45deg);
+        top: 7px;
+    }
+
+    .menu-toggler.active span:nth-child(2) {
+        left: -100%;
+        opacity: 0;
+    }
+
+    .menu-toggler.active span:nth-child(3) {
+        transform: rotate(45deg);
+        bottom: 7px;
+    }
+
+    .navbar .nav-item {
+        display: inline-block;
+        margin: 8px auto;
+        text-align: center;
+    }
+
+    .footer ul {
+        padding: 0%;
+        text-align: center;
+    }
+
+        .footer ul li {
+            display: block;
+            margin: 15px 0;
+        }
+
+    .admin-navbar .custom-navbar-menu {
+        display: block;
+    }
+
+    .admin-submenu-item li {
+        margin: 10px 15px;
+        color: #525252;
+    }
+
+    .admin-submenu-item {
+        padding: 0;
+    }
+
+        .admin-submenu-item a {
+            margin: 0;
+            padding: 0;
+        }
+}
+
+@media screen and (max-width: 576px) {
+    .footer .container {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+        .footer .container .footer-logo {
+            padding-bottom: 10px;
+        }
+
+    .footer ul li {
+        padding: 0px;
+        text-align: center;
+    }
+}
+
+
+@media screen and (max-width: 991px) {
+
+    .service-provider-header .navbar {
+        background-color: rgba(39,39,39,0.7);
+        z-index: 999;
+    }
+
+    .mobile-notification {
+        display: block;
+        float: right;
+    }
+
+    .mobile-menu-items {
+        display: block;
+    }
+
+        .mobile-menu-items .nav-item {
+            display: inline-block;
+            width: 100%;
+        }
+
+    .notification, .dropdown {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .service-provider-header .navbar-brand img {
+        height: 54px;
+        width: 73px;
+    }
+}

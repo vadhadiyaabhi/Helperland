@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Link for fav icon-->
+    <link href="~/images/favicon_img.png" rel="shortcut icon" />
+
+    <!-- bootstrap css bundle -->
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- custom CSS -->
+    <link href="~/css/site2.css" rel="stylesheet" />
+    <link href="~/css/common.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="">
+        <main role="main" class="">
+            <!-- header + navbar -->
+            <header class="header" id="header">
+                <nav class="navbar navbar-expand-lg">
+                    <!-- Logo -->
+                    <a class="navbar-brand logo" href="/">
+                        <img src="~/images/white-logo-transparent-background.png" alt="logo">
+                    </a>
+
+                    <!-- mobile menu collapse-->
+                    <button class="menu-toggler">
+                        <!-- active class will be added on mobile view-->
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <!-- navbar content -->
+                    <div class="custom-navbar-menu navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link button-color" aria-current="page" href="#">Book now</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Prices & Services" ? "active" : "")" asp-controller="Home" asp-action="Prices">Prices & services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Warranty</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Contact Us" ? "active" : "")" asp-controller="Home" asp-action="Contact">Contact</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link button-color" asp-controller="Home" asp-action="Prices">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link button-color" href="#">Become a Helper</a>
+                            </li>
+                            <hr>
+                            <span class="mobile-menu-items">
+                                <div class="media-icons">
+                                    <img src="~/images/facebook-mobile-menu.png" alt="" class="mx-2">
+                                    <img src="~/images/instagram-mobile-menu.png" alt="" class="mx-2">
+                                </div>
+                            </span>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- NEWSLETTER area-->
+    <div class="newsletter" id="newsletter">
+        <div class="container-fluid d-flex justify-content-between py-5">
+            @*<a class="order-sm-1 order-2">
+                <div class="up-arrow"><img src="~/images/forma-1.png" alt=""></div>
+            </a>*@
+            <div class="content  order-sm-2 order-1">
+                <h2 class="small-title text-center py-1">GET OUR NEWSLETTER</h2>
+                <form action="#" method="post" class="text-center">
+                    <input type="email" name="" id="" placeholder="YOUR EMAIL">
+                    <button type="submit" class="my-2 mx-2">Submit</button>
+                </form>
+            </div>
+            @*<a href="" class="order-sm-3 order-3">
+                <div class="layer"><img src="~/images/layer-598.png" height="63" width="63" alt=""></div>
+            </a>*@
+        </div>
+    </div>
+
+    <!-- FOOTER area -->
+    <div class="footer px-2" id="footer">
+        <div class="container d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-4">
+            <a href="/" class="footer-logo">
+                <img src="~/images/white-logo-transparent-background.png"
+                     alt="logo" class="logo">
+            </a>
+            <div class="links">
+                <ul>
+                    <a asp-controller="Home" asp-action="Index">
+                    <li>HOME</li>
+                    </a>
+                    <a asp-controller="Home" asp-action="About">
+                    <li>ABOUT</li>
+                    </a>
+                    <a href="#">
+                    <li>TESTIMONIALS</li>
+                    </a>
+                    <a asp-controller="Home" asp-action="FAQs">
+                    <li>FAQS</li>
+                    </a>
+                    <a href="#">
+                    <li>INSURANCE POLICY</li>
+                    </a>
+                    <a href="#">
+                    <li>IMPRESSUM</li>
+                    </a>
+                </ul>
+            </div>
+            <div class="media-icons">
+                <img src="~/images/ic-facebook.png" alt="" class="mx-2">
+                <img src="~/images/ic-instagram.png" alt="" class="mx-2">
+            </div>
+        </div>
+        <hr class="divider container mx-auto">
+        <div class="copy-rights d-flex justify-content-center py-3" id="copy-rights">
+            <div>
+                ©2018 Helperland. All rights reserved. <a href="">Terms and Conditions</a> | <a href="">
+                    Privacy
+                    Policy
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- bootstrap bundle JS -->
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jquery cdnjs -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <!-- Custom Script file -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+
+</html>
