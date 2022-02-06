@@ -111,6 +111,11 @@ html, body {
     width: 233px;
 }
 
+    #newsletter input:focus {
+        outline: none !important;
+        transition: .3s linear;
+        border: 1.4px solid rgb(49 115 139) !important;
+    }
 #newsletter button {
     padding: 13px 22px;
     color: white;
@@ -141,6 +146,7 @@ a {
     background-color: #c8c8c8;
     border-top-left-radius: 4px;
     border-bottom-left-radius: 4px;
+    border: 1px solid #c8c8c8;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -153,6 +159,7 @@ input[type="checkbox"] {
     position: relative;
     top: 4px;
 }
+
 
 .terms {
     color: #1FB6FF !important;
@@ -489,7 +496,7 @@ input[type="checkbox"] {
 .contact-page .contact-form {
     max-width: 614px;
     font-size: 16px;
-    color: #A0A0A0;
+    color: #4f4f4f;
     margin: auto;
 }
 
@@ -519,6 +526,13 @@ input[type="checkbox"] {
         color: #A0A0A0;
         background-color: white;
     }
+
+.contact-page input:focus, textarea:focus, select:focus {
+    transition: .2s linear;
+    border: 1.3px solid rgb(49 115 139) !important;
+    outline: none !important;
+    box-shadow: 0px 0px 5px rgb(22 166 193);
+}
 
     .contact-page .contact-form .button {
         font-size: 20px;
@@ -630,9 +644,29 @@ input[type="checkbox"] {
     }
 
 
+/* -----------------For userRegistration page---------------------------- */
+.userRegistration .title{
+    margin-top: 0;
+    padding-top: 31px;
+}
+
+.userRegistration {
+    color: #4f4f4f;
+}
+.userRegistration a {
+    transition: .2s;
+    color: #27a3ba;
+}
+.userRegistration a:hover{
+    color: #287180;
+}
+
+.userRegistration .newsletter {
+    display: none !important;
+}
+
 
 /* -----------------For Dashboard page---------------------------- */
-
 .welcome-heading {
     background-color: #f7f7f7 !important;
     text-align: center;

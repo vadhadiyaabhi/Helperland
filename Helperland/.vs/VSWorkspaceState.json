@@ -1,14 +1,7 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Helperland",
-    "\\Helperland\\Controllers",
-    "\\Helperland\\Views",
-    "\\Helperland\\Views\\Home",
-    "\\Helperland\\Views\\Shared",
-    "\\Helperland\\wwwroot",
-    "\\Helperland\\wwwroot\\css"
+    "\\Helperland"
   ],
-  "SelectedNode": "\\Helperland\\Views\\Home\\Prices.cshtml",
   "PreviewInSolutionExplorer": false
 }

@@ -1,0 +1,119 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+#blur.blur{
+    filter: blur(5px);
+    pointer-events: none;
+    user-select: none;
+}
+
+a{
+    text-decoration: none;
+}
+.Modal {
+    z-index: 999;
+    max-width: 360px;
+    width: 360px;
+    padding: 20px 25px;
+    color: #646464;
+    background-color: white;
+    box-shadow: 0px 0px 20px #646464;
+    border-radius: 7px;
+    position: fixed;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    visibility:hidden;
+    transition: .5s ease-out;
+}
+
+
+.Modal .close-modal{
+    position: absolute;
+    right: 5%;
+    top: 3%;
+}
+
+.Modal .close-modal:hover{
+    cursor: pointer;
+    color: #4f4f4f;
+}
+
+    .Modal .modal-title {
+        font-size: 24px;
+        color: #646464;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .Modal input{
+        width: 100%;
+        border: 1.3px solid #C8C8C8 !important;
+        border-radius: 4px;
+        margin: 7.5px 0;
+        padding: 9px 14px;
+        box-shadow: 0px 0px 5px white;
+    }
+
+        .Modal input[type="checkbox"] {
+            height: 20px !important;
+            width: 20px !important;
+            margin-right: 7px !important;
+            position: relative;
+            top: 4px;
+        }
+
+
+.Modal form>div{
+    position: relative;
+}
+
+
+.Modal form img{
+    position: absolute;
+    right: 5%;
+    top: 30%;
+}
+
+.Modal input:focus{
+    transition: .2s linear;
+    border: 1.3px solid rgb(49 115 139) !important;
+    outline: none !important;
+    box-shadow: 0px 0px 5px rgb(22 166 193);
+}
+
+    .Modal button {
+        display: block;
+        width: 100%;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 48px;
+        background-color: rgba(0,96,114,0.6);
+        margin: 10px 0px;
+        transition: .3s;
+    }
+
+        .Modal button:hover {
+            background-color: #1d7a8c;
+        }
+
+    .Modal a {
+        color: #0c8fa5;
+    }
+
+    .Modal a:hover {
+        color: #026579;
+    }
+
+.Modal.active{
+    visibility: visible;
+    top: 50%;
+    opacity: 2;
+}
+
+
+

@@ -9,9 +9,11 @@ $(document).ready(function () {
     $(window).scroll(function () {
         if (this.scrollY > 20) {
             $(".navbar").addClass("sticky");
+            $(".nav-item > .button").addClass("button-color");
         }
         else {
             $(".navbar").removeClass("sticky");
+            $(".nav-item > .button").removeClass("button-color");
         }
     });
 
@@ -19,12 +21,6 @@ $(document).ready(function () {
         $(this).toggleClass("active");
         $('.custom-navbar-menu').toggleClass("active");
     });
-
-    //$(document).on("click", function (e) {
-    //    if ($(e.target).is('.custom-navbar-menu.active') === true && ($(e.target).is('.custom-navbar-menu') === false) {
-    //        $('.custom-navbar-menu').toggleClass("active");
-    //    }
-    //});
 
 
     $(".admin-submenu").click(function () {
@@ -34,6 +30,23 @@ $(document).ready(function () {
         $('#' + id).toggleClass('active');
         $('#' + childId).toggleClass('active');
         console.log(childId);
+    });
+
+    $(".login").click(function () {
+        $("#blur").addClass("blur");
+        $("#Login-Modal").addClass("active");
+        $("#Password-Modal").removeClass("active");
+    });
+
+    $("#password-reset").click(function () {
+        $("#blur").addClass("blur");
+        $("#Login-Modal").removeClass("active");
+        $("#Password-Modal").addClass("active");
+    });
+
+    $(".close-modal").click(function () {
+        $("#blur").removeClass("blur");
+        $(".Modal").removeClass("active");
     });
 });
 

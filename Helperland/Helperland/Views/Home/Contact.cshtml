@@ -1,4 +1,6 @@
+@model ContactCreateViewModel 
 @{
+    
     ViewBag.title = "Helperland - Contact Us";
 }
 
@@ -14,22 +16,22 @@
         <div class="contact-icon d-flex justify-content-around flex-wrap">
             <div class="icon">
                 <div class="img">
-                    <img src="~/images/forma-1_2.png" alt="" class="img-fluid" height="54px"
-                         width="34px">
+                    <img src="~/images/forma-1_2.png" alt="" class="img-fluid" height="54"
+                         width="34">
                 </div>
                 <span>1111 Lorem ipsum text 100, <br> Lorem ipsum AB</span>
             </div>
             <div class="icon">
                 <div class="img">
-                    <img src="~/images/phone-call.png" alt="" class="img-fluid" height="50px"
-                         width="44px">
+                    <img src="~/images/phone-call.png" alt="" class="img-fluid" height="50"
+                         width="44">
                 </div>
                 <span>+49 (40) 123 56 7890 <br>+49 (40) 123 56 7890</span>
             </div>
             <div class="icon">
                 <div class="img">
                     <img src="~/images/vector-smart-object.png" alt="" class="img-fluid"
-                         height="37px" width="61px">
+                         height="37" width="61">
                 </div>
                 <span>info@helperland.com</span>
             </div>
@@ -37,31 +39,51 @@
 
         <div class="get-in-touch">
             <h2 class="medium-title">Get in touch with us</h2>
-            <div class="contact-form d-flex justify-content-between flex-wrap">
-                <div><input type="text" name="firstname" id="" placeholder="firstname"></div>
-                <div><input type="text" name="lastname" id="" placeholder="lastname"></div>
-                <div class="mobile"><span class="country-code">+49</span><input type="text" name="mobile" id="" placeholder="Mobile number"></div>
-                <!-- <div class="mobile"><input type="text" name="mobile" id=""
-                    placeholder="Phone number"></div> -->
-                <div class=""><input type="text" name="email" id="" placeholder="Email address"></div>
-                <div class="full-width">
-                    <select name="subject" id="" placeholder="Subject">
-                        <option value="">Subject1</option>
-                        <option value="">Subject2</option>
-                        <option value="">Subject3</option>
-                        <option value="">Subject4</option>
-                    </select>
-                </div>
-                <div class="full-width">
-                    <textarea name="message" id="" placeholder="Message" rows="5"></textarea>
-                </div>
-                <button type="submit" class="button">Submit</button>
+            <div class="">
+                @if(ViewBag.submitted == 1)
+                {
+                    <div class="contact-form text-success alert alert-success alert-dismissible fade show" role="alert">
+                        Your query has been submitted successfully. Our helpdesk team will contact you soon!
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                }
+                <form enctype="multipart/form-data" asp-controller="Home" asp-action="Contact" method="post" class="contact-form d-flex justify-content-between flex-wrap form" id="form">
+                    <div><input asp-for="firstname"><span class="text-danger" asp-validation-for="firstname"></span></div>
+                    <div><input asp-for="lastname"><span class="text-danger" asp-validation-for="lastname"></span></div>
+                    <div>
+                        <div class="mobile"><span class="country-code">+49</span><input asp-for="PhoneNumber" placeholder="Mobile Number"></div>
+                        <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                    </div>
+                    <!-- <div class="mobile"><input type="text" name="mobile" id=""
+        placeholder="Phone number"></div> -->
+                    <div class=""><input asp-for="Email"><span class="text-danger" asp-validation-for="Email"></span></div>
+                    <div class="full-width">
+                        <select asp-for="Subject">
+                            <option value="General">General</option>
+                            <option value="Inquiry">Inquiry</option>
+                            <option value="Renewal">Renewal</option>
+                            <option value="Revocation">Revocation</option>
+                        </select>
+                    </div>
+                    <div class="full-width">
+                        <textarea asp-for="Message" placeholder="Message" rows="5"></textarea>
+                        <span class="text-danger" asp-validation-for="Message"></span>
+                    </div>
+                    <div class="custom-file full-width">
+                        <label class="fw-bold fs-5" style="color: #4F4F4F;">Attachment</label>
+                        <input asp-for="Photo" class="form-control custom-file-input my-0" />
+                        <span class="text-danger" asp-validation-for="Photo"></span>
+                    </div>
+                    <button type="submit" class="button my-3">Submit</button>
+                </form>
             </div>
         </div>
     </div>
 </div>
 
 <div class="banner img-fluid">
-    <img src="~/images/group-16.png" alt="" class="img-fluid">
+    @*<img src="~/images/group-16.png" alt="" class="img-fluid">*@
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.6979157244004!2d72.49824711427205!3d23.034861321650595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e8352e403437b%3A0xdc9d4dae36889fb9!2sTatvaSoft!5e0!3m2!1sen!2sin!4v1643650409348!5m2!1sen!2sin" 
+            width="100%" height="370" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </div>
 

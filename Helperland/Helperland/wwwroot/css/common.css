@@ -52,6 +52,11 @@
     border-radius: 40px;
 }
 
+    .navbar .button:hover {
+        color: #29626D !important;
+        background-color: white !important;
+    }
+
 .navbar .nav-link:hover {
     /* padding: 6px 17px !important; */
     border: 1px solid white;
@@ -64,7 +69,6 @@
 .navbar .nav-link2:hover {
     border: 1px solid transparent;
 }
-
 .menu-toggler {
     background: none;
     width: 22px;
@@ -286,9 +290,11 @@ hr {
         background-color: white;
     }
 
-        .navbar .nav-link:hover, .navbar .nav-link:active {
+        .navbar .nav-link:hover, .navbar .nav-link:active, .navbar .nav-link.active {
             border: none;
+            color: #0093af !important;
         }
+
 
     .custom-navbar-menu {
         position: fixed;

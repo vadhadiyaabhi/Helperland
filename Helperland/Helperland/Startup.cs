@@ -1,5 +1,10 @@
+using Helperland.Implementations;
+using Helperland.IRepositories;
+using Helperland.Repository;
+using Helperland.ViewModel;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +27,14 @@ namespace Helperland
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<EmailConfig>(Configuration.GetSection("SMTPConfig"));
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("HelperlandDatabse")));
             services.AddControllersWithViews();
+            services.AddScoped<IContactRepository, ContactImplementation>();
+            services.AddScoped<IUserRepository, UserImplementation>();
+            services.AddScoped<IAuthenticationRepository, AuthenticationImplementation>();
+            services.AddScoped<IEmailService, EmailService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

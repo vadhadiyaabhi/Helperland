@@ -1,3 +1,4 @@
+@model AuthenticationViewModel
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,11 +16,12 @@
 
     <!-- custom CSS -->
     <link href="~/css/site.css" rel="stylesheet" />
+    <link href="~/css/Modal.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="">
-        <main role="main" class="">
+        <main role="main" class="" id="blur">
             <!-- Header -->
             <header class="header" id="header">
                 <nav class="navbar navbar-expand-lg text-center" style="position: fixed;">
@@ -43,9 +45,9 @@
                             <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Prices">Prices</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Our Guarantee</a></li>
                             <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
-                            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
-                            <li class="nav-item"><a class="nav-link button" href="#">Login</a></li>
-                            <li class="nav-item"><a class="nav-link button" href="#">Become a helper</a></li>
+                            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link button login" href="#">Login</a></li>
+                            <li class="nav-item"><a class="nav-link button" asp-controller="Home" asp-action="Sp_Register">Become a helper</a></li>
 
                             <li class="nav-item dropdown fleg">
                                 <a class="nav-link nav-link2" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,7 +72,7 @@
 
     <!-- FOOTER AREA -->
     <div class="footer" id="footer">
-        <div class="container-fluid d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-4">
+        <div class=" px-2 d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-4">
             <a asp-controller="Home" asp-action="Index" class="">
                 <img src="~/Images/white-logo-transparent-background.png" alt="logo"
                      class="logo">
@@ -108,6 +110,42 @@
             <a href="" class="mx-2">Privacy Policy</a>
             <button class="policy-button mx-2" onclick="hide_policy()">OK!</button>
         </div>
+    </div>
+
+    <!-- -------------Login Modal--------------- -->
+    <div class="Modal @(ViewData["Title"].ToString() == "true" ? "active" : "")" id="Login-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title">Login to your account</h4>
+        <form asp-controller="Authentication" asp-action="Index" method="post">
+            <div>
+                <img src="~/images/login-user.png" alt=" " />
+                <input asp-for="Email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <img src="~/images/lock.png" />
+                <input type="password" asp-for="password" />
+                <span class="text-danger" asp-validation-for="password"></span>
+            </div>
+            <input type="checkbox" class="mr-3" />Remember Me
+            <button type="submit">LogIn</button>
+        </form>
+        <div class="text-center mt-4"><a href="#" id="password-reset">Forgot password ?</a></div>
+        <div class="text-center">Don't have an account ? <a asp-controller="Home" asp-action="Register">Create an account</a></div>
+    </div>
+    <!-- -------------password Modal--------------- -->
+    <div class="Modal @(ViewData["Title"].ToString() == "true" ? "active" : "")" id="Password-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title">Forgot Password</h4>
+        <form asp-controller="" asp-action="" method="post">
+            <div>
+                <img src="~/images/login-user.png" alt=" " />
+                <input asp-for="Email" id="forgot-email"/>
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <button type="submit">Send</button>
+        </form>
+        <div class="text-center mt-4"><a href="#" class="login">LogIn Now</a></div>
     </div>
 
     <!-- bootstrap bundle JS -->

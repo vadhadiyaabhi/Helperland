@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model AuthenticationViewModel 
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -15,11 +16,12 @@
     <!-- custom CSS -->
     <link href="~/css/site2.css" rel="stylesheet" />
     <link href="~/css/common.css" rel="stylesheet" />
+    <link href="~/css/Modal.css" rel="stylesheet" />
 </head>
 
 <body>
     <div class="">
-        <main role="main" class="">
+        <main role="main" class="@(ViewData["Login"].ToString() == "true" ? "blur" : "")" id="blur">
             <!-- header + navbar -->
             <header class="header" id="header">
                 <nav class="navbar navbar-expand-lg">
@@ -55,10 +57,10 @@
                                 <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Contact Us" ? "active" : "")" asp-controller="Home" asp-action="Contact">Contact</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link button-color" asp-controller="Home" asp-action="Prices">Login</a>
+                                <a class="nav-link button-color login">Login</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link button-color" href="#">Become a Helper</a>
+                                <a class="nav-link button-color" asp-controller="Register" asp-action="Sp_Register">Become a Helper</a>
                             </li>
                             <hr>
                             <span class="mobile-menu-items">
@@ -76,23 +78,26 @@
     </div>
 
     <!-- NEWSLETTER area-->
-    <div class="newsletter" id="newsletter">
-        <div class="container-fluid d-flex justify-content-between py-5">
-            @*<a class="order-sm-1 order-2">
-                <div class="up-arrow"><img src="~/images/forma-1.png" alt=""></div>
-            </a>*@
-            <div class="content  order-sm-2 order-1">
-                <h2 class="small-title text-center py-1">GET OUR NEWSLETTER</h2>
-                <form action="#" method="post" class="text-center">
-                    <input type="email" name="" id="" placeholder="YOUR EMAIL">
-                    <button type="submit" class="my-2 mx-2">Submit</button>
-                </form>
+    @if (ViewData["Title"].ToString() != "Helperland - Create an account")
+    {
+        <div class="newsletter" id="newsletter">
+            <div class="container-fluid d-flex justify-content-between py-5">
+                @*<a class="order-sm-1 order-2">
+                        <div class="up-arrow"><img src="~/images/forma-1.png" alt=""></div>
+                    </a>*@
+                <div class="content  order-sm-2 order-1">
+                    <h2 class="small-title text-center py-1">GET OUR NEWSLETTER</h2>
+                    <form action="#" method="post" class="text-center">
+                        <input type="email" name="" id="subscribe-email" placeholder="YOUR EMAIL">
+                        <button type="submit" class="my-2 mx-2">Submit</button>
+                    </form>
+                </div>
+                @*<a href="" class="order-sm-3 order-3">
+                        <div class="layer"><img src="~/images/layer-598.png" height="63" width="63" alt=""></div>
+                    </a>*@
             </div>
-            @*<a href="" class="order-sm-3 order-3">
-                <div class="layer"><img src="~/images/layer-598.png" height="63" width="63" alt=""></div>
-            </a>*@
         </div>
-    </div>
+    }
 
     <!-- FOOTER area -->
     <div class="footer px-2" id="footer">
@@ -138,6 +143,44 @@
             </div>
         </div>
     </div>
+
+
+    <!-- -------------Login Modal--------------- -->
+    <div class="Modal @(ViewData["Title"].ToString() == "true" ? "active" : "")"  id="Login-Modal">
+        <img class="close-modal"  src="~/images/close.png" />
+        <h4 class="modal-title">Login to your account</h4>
+        <form asp-controller="Authentication" asp-action="Index" method="post">
+            <div>
+                <img src="~/images/login-user.png" alt=" " />
+                <input asp-for="Email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <div>
+                <img src="~/images/lock.png" />
+                <input type="password" asp-for="password" />
+                <span class="text-danger" asp-validation-for="password"></span>
+            </div>
+            <input type="checkbox" class="mr-3" />Remember Me
+            <button type="submit">LogIn</button>
+        </form>
+        <div class="text-center mt-4"><a href="#" id="password-reset">Forgot password ?</a></div>
+        <div class="text-center">Don't have an account ? <a asp-controller="Register" asp-action="Index">Create an account</a></div>
+    </div>
+    <!-- -------------password Modal--------------- -->
+    <div class="Modal @(ViewData["Title"].ToString() == "true" ? "active" : "")"  id="Password-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title">Forgot Password</h4>
+        <form asp-controller="" asp-action="" method="post">
+            <div>
+                <img src="~/images/login-user.png" alt=" " />
+                <input asp-for="Email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            <button type="submit">Send</button>
+        </form>
+        <div class="text-center mt-4"><a href="#" class="login">LogIn Now</a></div>
+    </div>
+
 
     <!-- bootstrap bundle JS -->
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>

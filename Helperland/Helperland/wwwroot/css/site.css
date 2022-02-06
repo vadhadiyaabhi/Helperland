@@ -45,7 +45,7 @@ html, body {
 }
 
 .header .main-menu .button {
-    padding: 8px 29px;
+    padding: 7px 17px;
     border: 1px solid white;
     border-radius: 25px;
 }
@@ -67,9 +67,12 @@ html, body {
     border: 1px solid white;
 }
 
+.nav-item .button-color {
+    background-color: rgba(0,96,114,0.5);
+}
 .header .main-menu .button:hover {
     color: #006072;
-    background-color: white;
+    background-color: white !important;
 }
 
 .dropdown-menu::before {
@@ -555,12 +558,13 @@ html, body {
 @media screen and (max-width: 576px) {
  
 
-    .footer .container-fluid {
+    .footer>div {
         flex-direction: column;
         justify-content: center;
     }
 
-    .footer .container .footer-logo {
+
+    .footer .footer-logo {
         padding-bottom: 10px;
     }
 
