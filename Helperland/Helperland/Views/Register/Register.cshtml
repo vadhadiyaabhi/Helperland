@@ -1,24 +1,38 @@
 ﻿@model UserViewModel
 @{
     ViewBag.Title = "Helperland - Create an account";
+    ViewData["Header"] = "";
 }
 
 <div class="container-fluid userRegistration contact-page">
     <h1 class="title">Create an account</h1>
     <div class="separator"><img src="~/images/separator.png" alt=""></div>
     <div class="content">
+        @if(ViewBag.userExist == true)
+            {
+                <div class="alert-danger alert-dismissible contact-form my-3">Oops!! User with this Email already exist <br /> You can try using new Email address</div>
+            }
+        @*@if(ViewBag.emailSent == true)
+            {
+                <div class="alert-success alert-dismissible">
+                    Your details has been saved successfully, <br />
+                    Confirmations mail has been sent to your email address, 
+                </div>
+            }*@
         <form asp-controller="Register" asp-action="Index" method="post" class="contact-form d-flex justify-content-between flex-wrap">
+            <input type="hidden" asp-for="UserTypeId" value="1"/>
             <div><input asp-for="FirstName"><span class="text-danger" asp-validation-for="FirstName"></span></div>
             <div><input asp-for="LastName"><span class="text-danger" asp-validation-for="LastName"></span></div>
             <div><div class="mobile"><span class="country-code">+49</span><input asp-for="Mobile"></div><span class="text-danger" asp-validation-for="Mobile"></span></div>
             <!-- <div class="mobile"><input type="text" name="mobile" id=""
     placeholder="Phone number"></div> -->
             <div class=""><input asp-for="Email"><span class="text-danger" asp-validation-for="Email"></span></div>
-            <div><input type="password" asp-for="Password" maxlength="14" minlength="6" required></div>
-            <div><input type="password" name="cpassword" id="" placeholder="Confirm Password" maxlength="14" minlength="6" required></div>
+            <div><input asp-for="Password"></div>
+            <div><input asp-for="ConfirmPassword"></div>
             <div class="full-width"><span class="text-danger d-block" asp-validation-for="Password"></span></div>
+            <div class="full-width"><span class="text-danger d-block" asp-validation-for="ConfirmPassword"></span></div>
             <div class="full-width">
-                <input type="checkbox" name="terms" id="" required>Yes, I would like to subscribe to the newsletter of Helperland GmbH with vouchers, trends, promotions and individualized offers. I can unsubscribe from the newsletter at any time in the newsletter and in the customer account itself.
+                <input type="checkbox" name="terms" id="">Yes, I would like to subscribe to the newsletter of Helperland GmbH with vouchers, trends, promotions and individualized offers. I can unsubscribe from the newsletter at any time in the newsletter and in the customer account itself.
             </div>
             <div class="full-width">
                 <input type="checkbox" name="terms" id="" required>I agree with the

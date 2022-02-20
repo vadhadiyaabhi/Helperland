@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Link for fav icon-->
+    <link href="~/images/favicon_img.png" rel="shortcut icon" />
+
+    <!-- bootstrap css bundle -->
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- custom CSS -->
+    <link href="~/css/site2.css" rel="stylesheet" />
+    <link href="~/css/Modal.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="">
+        <main role="main">
+            
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- bootstrap bundle JS -->
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jquery cdnjs -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <!-- Custom Script file -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- jQuery Validation library-->
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+
+
+
+</html>

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,6 +18,8 @@ namespace Helperland.Models
         [Key]
         public int UserId { get; set; }
 
+
+
         [Required]
         [StringLength(100)]
         [MaxLength(30, ErrorMessage = "First name cannot exceed 30 Characters")]
@@ -32,6 +35,7 @@ namespace Helperland.Models
         [Required]
         [StringLength(100)]
         [EmailAddress]
+        [Remote(action: "IsEmailInUse", controller: "Register")]
         [Display(Prompt = "Email address")]
         public string Email { get; set; }
 
@@ -39,58 +43,43 @@ namespace Helperland.Models
         [MaxLength(14, ErrorMessage = "Password cannot exceed 14 Characters"), MinLength(6, ErrorMessage = "Password must contain atleast 6 Characters"),
             RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{6,}", ErrorMessage ="Password should be combination of Uppercase, Lowercase and Digit")]
         [Display(Prompt = "Password")]
-        [StringLength(100)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+
+        [Compare("Password", ErrorMessage ="Password and Confirm Password must match")]
+        [Display(Prompt = "Confirm Password")]
+        [Required]
+        [DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
+
+
         [Required]
         [StringLength(20)]
+        [MinLength(10, ErrorMessage = "Please enter valid Mobile number"), MaxLength(10, ErrorMessage ="Please enter valid Mobile number")]
         [Display(Prompt = "Mobile number")]
         public string Mobile { get; set; }
+
         public int UserTypeId { get; set; }
+
         public int? Gender { get; set; }
+
         [Column(TypeName = "datetime")]
         public DateTime? DateOfBirth { get; set; }
+
         [StringLength(200)]
         public string UserProfilePicture { get; set; }
-        public bool IsRegisteredUser { get; set; }
-        [StringLength(200)]
-        public string PaymentGatewayUserRef { get; set; }
+
         [StringLength(20)]
         public string ZipCode { get; set; }
-        public bool WorksWithPets { get; set; }
-        public int? LanguageId { get; set; }
-        public int? NationalityId { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime CreatedDate { get; set; }
-        [Column(TypeName = "datetime")]
-        public DateTime ModifiedDate { get; set; }
-        public int ModifiedBy { get; set; }
-        public bool IsApproved { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
-        public int? Status { get; set; }
-        [StringLength(100)]
-        public string BankTokenId { get; set; }
-        [StringLength(50)]
-        public string TaxNo { get; set; }
-        [Column("token")]
-        [StringLength(256)]
-        public string Token { get; set; }
-        [Column("token_expired")]
-        public bool? TokenExpired { get; set; }
 
-        [InverseProperty(nameof(FavoriteAndBlocked.TargetUser))]
-        public virtual ICollection<FavoriteAndBlocked> FavoriteAndBlockedTargetUsers { get; set; }
-        [InverseProperty(nameof(FavoriteAndBlocked.User))]
-        public virtual ICollection<FavoriteAndBlocked> FavoriteAndBlockedUsers { get; set; }
-        [InverseProperty(nameof(Rating.RatingFromNavigation))]
-        public virtual ICollection<Rating> RatingRatingFromNavigations { get; set; }
-        [InverseProperty(nameof(Rating.RatingToNavigation))]
-        public virtual ICollection<Rating> RatingRatingToNavigations { get; set; }
-        [InverseProperty(nameof(ServiceRequest.ServiceProvider))]
-        public virtual ICollection<ServiceRequest> ServiceRequestServiceProviders { get; set; }
-        [InverseProperty(nameof(ServiceRequest.User))]
-        public virtual ICollection<ServiceRequest> ServiceRequestUsers { get; set; }
-        [InverseProperty(nameof(UserAddress.User))]
-        public virtual ICollection<UserAddress> UserAddresses { get; set; }
+        public bool WorksWithPets { get; set; }
+
+        public int? LanguageId { get; set; }
+
+        public int? NationalityId { get; set; }
+
+        public int? Status { get; set; }
+
+      
     }
 }

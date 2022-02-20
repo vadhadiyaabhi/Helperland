@@ -27,7 +27,7 @@ html, body {
 
 
 /* ----------------navbar area---------------- */
-#header .navbar {
+/*#header .navbar {
     position: fixed;
     color: white;
     z-index: 999;
@@ -74,7 +74,7 @@ html, body {
     color: #006072;
     background-color: white !important;
 }
-
+*/
 .dropdown-menu::before {
     content: "";
     height: 10px;
@@ -90,7 +90,7 @@ html, body {
     transition: .3s linear;
 }
 
-.navbar .navbar-nav .dropdown-menu {
+/*.navbar .navbar-nav .dropdown-menu {
     left: -110px;
     background-color: white;
     box-shadow: 0px 0px 5px black !important;
@@ -121,19 +121,20 @@ html, body {
         border-color: transparent !important;
         padding: 8px !important;
     }
-
+    */
 .menu-toggler {
     background: none;
     width: 35px;
     border: none;
     cursor: pointer;
     position: relative;
+    padding: 0;
     right: 15px;
     outline: none;
     z-index: 999;
     display: none;
 }
-
+/*
     .menu-toggler span {
         display: block;
         height: 2px;
@@ -144,7 +145,7 @@ html, body {
         opacity: 1;
         position: relative;
         transition: .3s linear;
-    }
+    }*/
 
 /* ----------------navbar area---------------- */
 
@@ -332,8 +333,14 @@ html, body {
 }
 
 #newsletter {
-    background-color: var(--background-color1)
+    background-color: var(--background-color1);
 }
+
+    #newsletter .small-title {
+        font-size: 18px;
+        font-weight: bold;
+        color: #353548;
+    }
 
     #newsletter .up-arrow img {
         position: relative;
@@ -341,13 +348,14 @@ html, body {
     }
 
     #newsletter .container-fluid {
-        /* justify-content: space-between; */ /*   bootstrap class - justify-content-between added  */
+        justify-content: space-between; /*   bootstrap class - justify-content-between added  */
         align-items: center;
         flex-wrap: wrap;
     }
 
     #newsletter .content {
         font-size: 14px;
+        margin: auto;
         color: var(--font-color1);
     }
 
@@ -371,9 +379,13 @@ html, body {
         border-radius: 50px;
         background-color: #FF7B6D;
     }
-
+    #newsletter input:focus {
+        outline: none !important;
+        transition: .3s linear;
+        border: 1.4px solid rgb(49 115 139) !important;
+    }
 /* -----------------footer area------------------ */
-.footer {
+/*.footer {
     background-color: #111111;
 }
 
@@ -420,11 +432,11 @@ html, body {
             border-radius: 40px;
             position: relative;
             bottom: 10px;
-        }
+        }*/
 
 /* -------------------Responsive Queries-------------- */
 @media screen and (max-width: 992px) {
-    .menu-toggler {
+    /*.menu-toggler {
         display: block;
     }
 
@@ -496,7 +508,7 @@ html, body {
         display: inline-block;
         margin: 8px auto;
         text-align: center;
-    }
+    }*/
 
     #home .fluid .content1 {
         position: absolute;
@@ -547,18 +559,18 @@ html, body {
             }
 
 
-    .footer ul li {
+    /*.footer ul li {
         display: block;
         margin: 15px 0;
         text-align: center;
-    }
+    }*/
 
 }
 
 @media screen and (max-width: 576px) {
  
 
-    .footer>div {
+    /*.footer>div {
         flex-direction: column;
         justify-content: center;
     }
@@ -581,7 +593,7 @@ html, body {
 
             .footer .links li:hover {
                 color: rgb(0,96,114);
-            }
+            }*/
 }
 
 @media screen and (max-width: 320px){

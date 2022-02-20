@@ -27,6 +27,7 @@ namespace Helperland
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDataProtection();
             services.Configure<EmailConfig>(Configuration.GetSection("SMTPConfig"));
             services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("HelperlandDatabse")));
             services.AddControllersWithViews();
@@ -34,7 +35,10 @@ namespace Helperland
             services.AddScoped<IUserRepository, UserImplementation>();
             services.AddScoped<IAuthenticationRepository, AuthenticationImplementation>();
             services.AddScoped<IEmailService, EmailService>();
-
+            services.AddScoped<ICipherService, CipherService>();
+            services.AddScoped<ILoginRepository, LoginImplementation>();
+            services.AddScoped<IServiceRequestRepository, ServiceRequestImplementation>();
+            services.AddRazorPages().AddRazorRuntimeCompilation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

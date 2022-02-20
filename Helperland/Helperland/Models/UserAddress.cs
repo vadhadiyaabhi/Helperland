@@ -25,8 +25,7 @@ namespace Helperland.Models
         [StringLength(50)]
         public string State { get; set; }
         [Required]
-        [StringLength(20)]
-        public string PostalCode { get; set; }
+        public int PostalCode { get; set; }
         public bool IsDefault { get; set; }
         public bool IsDeleted { get; set; }
         [StringLength(20)]

@@ -10,10 +10,11 @@ namespace Helperland.ViewModel
     {
         [Required]
         [Display(Prompt = "Email")]
+        [EmailAddress]
         public string Email { get; set; }
 
         [Required]
         [Display(Prompt = "Password")]
-        public string password { get; set; }
+        public string Password { get; set; }
     }
 }

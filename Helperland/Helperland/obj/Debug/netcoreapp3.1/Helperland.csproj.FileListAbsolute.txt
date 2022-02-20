@@ -330,7 +330,6 @@ D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Helperland.RazorCoreG
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\About.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\Contact.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\FAQs.cshtml.g.cs
-D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\Prices.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\Privacy.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\Error.cshtml.g.cs
@@ -390,3 +389,10 @@ D:\Tatvasoft\Helperland\Helperland\bin\Debug\netcoreapp3.1\runtimes\win\lib\nets
 D:\Tatvasoft\Helperland\Helperland\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Register\Register.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Register\Sp_Register.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Register\email-confirm.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Register\Forgotpassword.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_EmptyLayout.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\BookService.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_UserLayout.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_ViewStart.cshtml.g.cs

@@ -15,8 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Sp\" />
-    <Folder Include="Views\User\" />
+    <Folder Include="Views\SP\" />
     <Folder Include="wwwroot\images\contactFile\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>

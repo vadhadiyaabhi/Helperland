@@ -1,0 +1,47 @@
+﻿@model ServiceRequestViewModel
+
+@{
+    ViewBag.title = "Helperland - Book Service";
+    ViewData["Header"] = "";
+}
+
+
+<div class="container-fluid book-service">
+    <h1 class="title fw-normal">Set up your cleaning service</h1>
+    <div class="separator"><img src="~/images/separator.png" alt=""></div>
+    <div class=" container">
+        <div class="book-service-content">
+            <div class="tabs">
+                <div class="tab active color" id="tab1"><img src="~/images/search.svg" class="mx-2" height="25"  /><span>Setup Service</span></div>
+                <div class="tab" id="tab2"><img src="~/images/calendar3.svg" class="mx-2" height="25" /><span>Schedule & Plan</span></div>
+                <div class="tab" id="tab3"><img src="~/images/house-door.svg" class="mx-2" height="25"  /><span>Your Details</span></div>
+                <div class="tab" id="tab4"><img src="~/images/credit-card.svg" class="mx-2" height="25" /><span>Make Payment</span></div>
+            </div>
+            <div class="book-service-form">
+                <div class="setup-service my-4">
+                    <div class="small-title my-2 contact-page">Enter your postal code</div>
+                        <form asp-controller="User" asp-action="IsPostalCodeAvailable" class="contact-form" onsubmit="return jQueryAjaxPost(this);">
+                            <div><input asp-for="ZipCode" /></div><div> <input type="submit" class="button" value="Check Availability" /></div>
+                            <div id="postal-code"></div>
+                        </form>
+                </div>
+                <div class="schedule-plan"></div>
+                <div class="your-details"></div>
+                <form>
+                </form>
+            </div>
+        </div>
+        <div class="payment-card">
+            <div class="heading">Payment Summary</div>
+            <div class="payment-card-content">
+                <div id="schedule"></div>
+                <div id="">Duration</div>
+                <div id="" class="d-flex justify-content-between"><span>Basic</span><span id="basic-hours">0 Hrs</span></div>
+                <hr />
+                <div id="extra">
+                    <span ></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

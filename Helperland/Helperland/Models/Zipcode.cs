@@ -14,8 +14,7 @@ namespace Helperland.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        [StringLength(50)]
-        public string ZipcodeValue { get; set; }
+        public int ZipcodeValue { get; set; }
         public int CityId { get; set; }
 
         [ForeignKey(nameof(CityId))]

@@ -1,9 +1,13 @@
 ﻿@{
-    Layout = "../Shared/_HomeLayout.cshtml";
+    //Layout = "../Shared/_HomeLayout.cshtml";
     ViewBag.Title = "Helperland - Home";
+    ViewData["Header"] = "Sliding_Header";
 }
 
-
+@*@if(ViewBag.Login == 1) 
+{
+    <h1>Hello Login</h1>
+}*@
 <!-- home content with background-image-->
 <div id="home" class="home">
     <div class="fluid ">
@@ -22,8 +26,7 @@
         <div class="button">
             <a href="#">
                 <button class="center-button">
-                    Let's Book a
-                    Cleaner
+                    Let's Book a Cleaner
                 </button>
             </a>
         </div>
@@ -308,7 +311,7 @@
 </div>
 
 <!-- NEWSLETTER -->
-<div class="newsletter" id="newsletter">
+@*<div class="newsletter" id="newsletter">
     <div class="container-fluid d-flex justify-content-between pb-5">
         <a href="#home" class="order-sm-1 order-2">
             <div class="up-arrow"><img src="~/images/forma-1.png" alt=""></div>
@@ -324,7 +327,8 @@
             <div class="layer"><img src="~/images/layer-598.png" height="63px" width="63px" alt=""></div>
         </a>
     </div>
-</div>
+</div>*@
+
 
 
 

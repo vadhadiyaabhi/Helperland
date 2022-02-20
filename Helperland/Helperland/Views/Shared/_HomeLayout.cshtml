@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
+    <title>@ViewBag.Title</title>
 
     <!-- Link for fav icon-->
     <link href="~/images/favicon_img.png" rel="shortcut icon" />
@@ -113,10 +113,15 @@
     </div>
 
     <!-- -------------Login Modal--------------- -->
-    <div class="Modal @(ViewData["Title"].ToString() == "true" ? "active" : "")" id="Login-Modal">
+    <div class="Modal " id="Login-Modal">
         <img class="close-modal" src="~/images/close.png" />
         <h4 class="modal-title">Login to your account</h4>
-        <form asp-controller="Authentication" asp-action="Index" method="post">
+        <span class="d-block text-center text-danger" id="error"></span>
+        <form asp-controller="Register" asp-action="ResendConfirmEmail" method="post" class="hiddenForm">
+            <input type="hidden" value="" name="email" id="hiddenEmail" />
+            <input type="submit" id="hiddenButton" value="Send Email" style="background-color: transparent; border: none !important; display: none; color: #0c8fa5; " class="my-0" />
+        </form>
+        <form asp-controller="Home" asp-action="Login" onsubmit="return jQueryAjaxPost(this);">
             <div>
                 <img src="~/images/login-user.png" alt=" " />
                 <input asp-for="Email" />
@@ -124,8 +129,8 @@
             </div>
             <div>
                 <img src="~/images/lock.png" />
-                <input type="password" asp-for="password" />
-                <span class="text-danger" asp-validation-for="password"></span>
+                <input type="password" asp-for="Password" />
+                <span class="text-danger" asp-validation-for="Password"></span>
             </div>
             <input type="checkbox" class="mr-3" />Remember Me
             <button type="submit">LogIn</button>
@@ -134,19 +139,23 @@
         <div class="text-center">Don't have an account ? <a asp-controller="Home" asp-action="Register">Create an account</a></div>
     </div>
     <!-- -------------password Modal--------------- -->
-    <div class="Modal @(ViewData["Title"].ToString() == "true" ? "active" : "")" id="Password-Modal">
+    <div class="Modal " id="Password-Modal">
         <img class="close-modal" src="~/images/close.png" />
         <h4 class="modal-title">Forgot Password</h4>
         <form asp-controller="" asp-action="" method="post">
             <div>
                 <img src="~/images/login-user.png" alt=" " />
-                <input asp-for="Email" id="forgot-email"/>
+                <input asp-for="Email" id="forgot-email" />
                 <span class="text-danger" asp-validation-for="Email"></span>
             </div>
             <button type="submit">Send</button>
         </form>
         <div class="text-center mt-4"><a href="#" class="login">LogIn Now</a></div>
     </div>
+
+
+
+
 
     <!-- bootstrap bundle JS -->
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -155,6 +164,9 @@
     <script src="~/lib/jquery/jquery.min.js"></script>
     <!-- Custom Script file -->
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- jQuery Validation library-->
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 </body>
 
 </html>

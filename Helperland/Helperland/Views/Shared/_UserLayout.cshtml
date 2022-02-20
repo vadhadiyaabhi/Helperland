@@ -1,0 +1,209 @@
+﻿@model AuthenticationViewModel
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewData["Title"]</title>
+
+    <!-- Link for fav icon-->
+    <link href="~/images/favicon_img.png" rel="shortcut icon" />
+
+    <!-- bootstrap css bundle -->
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- custom CSS -->
+    @if (ViewData["Title"].ToString() == "Helperland - Home")
+    {
+        <link href="~/css/site.css" rel="stylesheet" />
+    }
+    else
+    {
+        <link href="~/css/site2.css" rel="stylesheet" />
+    }
+
+    <link href="~/css/common.css" rel="stylesheet" />
+    <link href="~/css/Modal.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div class="">
+        <main role="main" class="" id="blur">
+            <!-- header + navbar -->
+            <header class="header @(ViewData["Header"].ToString() == "Sliding_Header" ? "service-provider-header" : "") " id="header">
+                <nav class="navbar navbar-expand-lg">
+                    <!-- Logo -->
+                    <a class="navbar-brand logo" href="/">
+                        <img src="~/images/white-logo-transparent-background.png" alt="logo">
+                    </a>
+
+                    <!-- mobile menu collapse-->
+                    <button class="menu-toggler">
+                        <!-- active class will be added on mobile view-->
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <!-- navbar content -->
+                    <div class="custom-navbar-menu navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto align-items-lg-center">
+
+                            <div class="mobile-menu-items">
+                                <li class="nav-item mobile-link">
+                                    <a class="nav-link" href="#" disabled>
+                                        Welcome, <br>
+                                        <span class="fw-bold">First Provider</span>
+                                    </a>
+                                </li>
+                                <hr>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" href="#">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" href="#">Service History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" href="#">Service Schedules</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Favourite Pros" ? "active" : "")" href="#">Favourite Pros</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Invoices</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Notifications</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Logout <img src="~/images/logout.png" class="mx-1" alt="" height="18px" width="18px" style="filter: invert(0.5);"></a>
+                                </li>
+                                <hr>
+                            </div>
+
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")" aria-current="page" asp-controller="User" asp-action="BookService">Book now</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Prices & Services" ? "active" : "")" asp-controller="Home" asp-action="Prices">Prices & services</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Warranty</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Contact Us" ? "active" : "")" asp-controller="Home" asp-action="Contact">Contact</a>
+                            </li>
+
+                            <li class="nav-item notification">
+                                <span class="notification-number">2</span>
+                                <a class="nav-link nav-link2" href="#">
+                                    <img src="~/images/icon-notification.png" alt=""
+                                         height="31px" width="26px">
+                                </a>
+                            </li>
+                            <li class="nav-item dropdown fleg">
+                                <a class="nav-link  nav-link2" href="#" id="navbarDropdown" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">
+                                    <img src="~/images//user.png" alt="logo" height="36px" width="36px">
+                                    <img src="~/images/keyboard-right-arrow-button.png" alt="logo">
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="#" disabled>
+                                            Welcome, <br> <span class="fw-bold">
+                                                First Provider
+                                            </span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="#"> My Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="#"> My Settings</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            Logout <img src="~/images/logout.png" class="mx-1" alt="" height="18px" width="18px" style="filter: invert(0.5);">
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <hr>
+                            <span class="mobile-menu-items">
+                                <div class="media-icons">
+                                    <a href="#" class="d-inline m-0"><img src="~/images/facebook-mobile-menu.png" alt="" class="mx-2"></a>
+                                    <a href="#" class="d-inline m-0"><img src="~/images/instagram-mobile-menu.png" alt="" class="mx-2"></a>
+                                </div>
+                            </span>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            @RenderBody()
+
+
+            <!-- FOOTER area -->
+            <div class="footer px-2 mt-5" id="footer" >
+                <div class="container d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-4 px-0">
+                    <a href="/" class="footer-logo">
+                        <img src="~/images/white-logo-transparent-background.png"
+                             alt="logo" class="logo">
+                    </a>
+                    <div class="links">
+                        <ul>
+                            <a asp-controller="Home" asp-action="Index">
+                            <li>HOME</li>
+                            </a>
+                            <a asp-controller="Home" asp-action="About">
+                            <li>ABOUT</li>
+                            </a>
+                            <a href="#">
+                            <li>TESTIMONIALS</li>
+                            </a>
+                            <a asp-controller="Home" asp-action="FAQs">
+                            <li>FAQS</li>
+                            </a>
+                            <a href="#">
+                            <li>INSURANCE POLICY</li>
+                            </a>
+                            <a href="#">
+                            <li>IMPRESSUM</li>
+                            </a>
+                        </ul>
+                    </div>
+                    <div class="media-icons">
+                        <a><img src="~/images/ic-facebook.png" alt="" class=""></a>
+                        <a><img src="~/images/ic-instagram.png" alt="" class=""></a>
+                    </div>
+                </div>
+                <hr class="divider container mx-auto">
+                <div class="copy-rights d-flex justify-content-center py-3" id="copy-rights">
+                    <div>
+                        ©2018 Helperland. All rights reserved. <a href="">Terms and Conditions</a> | <a href="">
+                            Privacy
+                            Policy
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <!--  -->
+    <!-- bootstrap bundle JS -->
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jquery cdnjs -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <!-- Custom Script file -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- jQuery Validation library-->
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>
+
+
+</html>

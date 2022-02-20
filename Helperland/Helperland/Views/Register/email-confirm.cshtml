@@ -1,0 +1,78 @@
+﻿@model EmailConfirm
+@{
+    Layout = "../Shared/_EmptyLayout.cshtml";
+    ViewBag.Title = "Helperland - Email Confirmation";
+}
+<!--<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helperland - Email Confirmation</title>-->
+
+    <!-- Link for fav icon-->
+    <!--<link href="~/images/favicon_img.png" rel="shortcut icon" />-->
+
+    <!-- bootstrap css bundle -->
+    <!--<link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />-->
+    <!-- custom CSS -->
+    <!--<link href="~/css/site2.css" rel="stylesheet" />
+    <link href="~/css/common.css" rel="stylesheet" />
+    <link href="~/css/Modal.css" rel="stylesheet" />
+</head>
+
+<body>-->
+    <div class="">
+        <div class="container" style="max-width: 550px; padding-top: 80px;">
+            @if (Model.EmailConfirmed == true)
+            {
+
+                <div class="alert-success">
+                    Your email has been verified successfully, <br />
+                    And your account has been activated <br />
+                    Click here to <a class="redirect">LogIn</a>
+                </div>
+            }
+            else if (Model.userNotExist != true)
+            {
+                if (Model.Invalid == true)
+                {
+                    <div class="alert-danger">
+                        Oops!! Your link is invalid Or get expired<br />
+                        Click on below button to get the link again.
+                    </div>
+                }
+                else if (Model.EmailSent == true)
+                {
+                    <div class="text-center alert-success">Confirmation email has been sent to your registerd account.</div>
+                    <p class="text-center">Click on the link to activate your account by confirming your email address.</p>
+
+                }
+                <form asp-controller="Register" class="d-block mx-auto" asp-action="ResendConfirmEmail" method="post">
+                    <div class="text-center">Did not get any email or deleted by mistake ?</div>
+                    <input type="hidden" asp-for="Email" />
+                    <button type="submit" class="resend-button my-3 mx-auto">Resend Confirmation Link</button>
+                </form>
+            }
+            else
+            {
+                <div class="alert-danger">
+                    Oops!! Your link is invalid Or get expired<br />
+                </div>
+            }
+
+
+        </div>
+    </div>
+
+    <!-- bootstrap bundle JS -->
+    <!--<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>-->
+
+    <!-- jquery cdnjs -->
+    <!--<script src="~/lib/jquery/jquery.min.js"></script>-->
+    <!-- Custom Script file -->
+    <!--<script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>-->

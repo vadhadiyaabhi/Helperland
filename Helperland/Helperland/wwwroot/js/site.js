@@ -5,6 +5,8 @@ function hide_policy() {
     document.getElementById('privacy-policy').style.display = "none";
 }
 
+
+
 $(document).ready(function () {
     $(window).scroll(function () {
         if (this.scrollY > 20) {
@@ -16,6 +18,9 @@ $(document).ready(function () {
             $(".nav-item > .button").removeClass("button-color");
         }
     });
+        
+
+    
 
     $('.menu-toggler').click(function () {
         $(this).toggleClass("active");
@@ -48,8 +53,75 @@ $(document).ready(function () {
         $("#blur").removeClass("blur");
         $(".Modal").removeClass("active");
     });
+
+    $(".redirect").click(function () {
+        loginModal = true;
+        window.location.replace("http://localhost:5000/Home/Login");
+        //openLoginModal();
+    });
+
+    $("#hiddenButton").hover(function () {
+        $("#hiddenButton").css("color", "#026579");
+    });
+    $("#hiddenButton").mouseout(function () {
+        $("#hiddenButton").css("color", "#0c8fa5");
+    })
 });
 
+jQueryAjaxPost = form => {
+    //console.log("method call");
+    try {
+        $.ajax({
+            type: 'POST',
+            url: form.action,
+            data: new FormData(form),
+            contentType: false,
+            processData: false,
+            success: function (res) {
+                if (res.invalid) {
+                    $("#error").html("Oops!! Invalid Credentials");
+                }
+                else if (res.notactive) {
+                    $("#error").html("User has not been varified...\n Click the below link to get verification email");
+                    $("#hiddenEmail").attr('value', res.email);
+                    //$("#hiddenName").attr('value', res.name);
+                    //$("#hiddenId").attr('value', res.id);
+                    $("#hiddenButton").css("display", "block");
+                    //console.log(res);
+                }
+                else if (res.notapproved) {
+                    $("#error").html("Sorry...!! Admin has not approved your account yet, Once he will, You'll be able to LogIn and take services, THANK YOU")
+                }
+                else if (res.notexist) {
+                    $("#error1").html("No account exist with this email")
+                }
+                else if (res.mailsent) {
+                    $("#success1").html("A password reset link has been sent to your registered email. Please use it to reset your password.")
+                    $("#error1").html("");
+                }
+                else if (res.required) {
+                    $("#error1").html("Email field is must.");
+                }
+                else if (res.reset) {
+                    $("#reset-password").css("display", "block");
+                }
+                else if (res.reseterror) {
+                    $("#error").html("Oops!! It seems like your link is not valid or get expired");
+                    $("#reset-password").css("display", "none");
+                }
+                //console.log(res);
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+    catch (e) {
+        console.log(e);
+    }
+
+    return false;
+};
 
 
 // ---------------------vanilla JS for pegination that can be customized based on requirnments----------------------

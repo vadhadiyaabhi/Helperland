@@ -1,0 +1,19 @@
+﻿body {
+    background-color: rgba(244, 244, 244, 1) !important;
+}
+
+.Container {
+    background-color: white;
+    border-radius: 7px;
+    padding: 15px 8px;
+}
+
+a {
+    color: white !important;
+    text-decoration: none;
+    background-color: #31b1c2 !important;
+    padding: 7px 15px;
+    border-radius: 7px;
+    display: inline-block;
+    width: auto;
+}

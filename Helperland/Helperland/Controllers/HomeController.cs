@@ -19,17 +19,20 @@ namespace Helperland.Controllers
         private readonly IContactRepository contactRepository;
 
         public IWebHostEnvironment HostingEnvironment;
+        private readonly ILoginRepository login;
 
         public HomeController(ILogger<HomeController> logger,IContactRepository contact,
-                              IWebHostEnvironment hostingEnvironment)
+                              IWebHostEnvironment hostingEnvironment, ILoginRepository login)
         {
             _logger = logger;
             contactRepository = contact;
             HostingEnvironment = hostingEnvironment;
+            this.login = login;
         }
 
         public IActionResult Index()
         {
+            ViewBag.Login = 1;
             return View();
         }
         public IActionResult Prices()
@@ -49,12 +52,6 @@ namespace Helperland.Controllers
         public IActionResult Contact()
         {
             return View();
-        }
-
-        public IActionResult Login()
-        {
-            ViewBag.Login = "true";
-            return View("Index");
         }
 
         [HttpPost]
@@ -91,6 +88,60 @@ namespace Helperland.Controllers
             }
             return View();
         }
+
+        [HttpGet]
+        public IActionResult Login()
+        {
+            
+            return View("Index");
+        }
+
+        [HttpPost]
+        public IActionResult Login([Bind("Email", "Password")] AuthenticationViewModel authenticationViewModel)
+        {
+            //Console.WriteLine("Login controller");
+            if (ModelState.IsValid)
+            {
+                User user = login.Login(authenticationViewModel);
+                if(user != null)
+                {
+                    if (user.IsActive)
+                    {
+                        if(user.UserTypeId == 1)
+                        {
+                            Console.WriteLine("User Login Successfull");
+                            return RedirectToAction("User/Index");
+                        }
+                        else if(user.UserTypeId == 3)
+                        {
+                            return RedirectToAction("Admin/Index");
+                        }
+                        else if(user.UserTypeId == 2 && !user.IsApproved)
+                        {
+                            //Console.WriteLine("User not approved by admin");
+                            return Json(new { notapproved = true});
+                        }
+                        else
+                        {
+                            Console.WriteLine("SP Login Successfull");
+                            return RedirectToAction("SP/Index");
+                        }
+                    }
+                    else
+                    {
+                        ModelState.Clear();
+                        //Console.WriteLine("Not active");
+                        return Json(new { notactive = true, email = user.Email, name = user.FirstName + " " + user.LastName, id=user.UserId});
+                    }
+                }
+                //Console.WriteLine("Invalid credentials");
+                return Json(new { invalid=true });
+            }
+
+            //Console.WriteLine("Fields are required");
+            return Json(new {required = true});
+        }
+
         public IActionResult Register()
         {
             return View("../Register/Register");
@@ -100,6 +151,8 @@ namespace Helperland.Controllers
         {
             return View("../Register/Sp_Register");
         }
+
+        
         public IActionResult Privacy()
         {
             return View();

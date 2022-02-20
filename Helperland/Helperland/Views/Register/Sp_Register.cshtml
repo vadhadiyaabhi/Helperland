@@ -1,46 +1,47 @@
-@model User
-@{
-    Layout = "";
+@model UserViewModel
+@{ 
+    ViewData["Title"] = "Helperland - SP Register";
+    ViewData["Header"] = "Sliding_Header";
 }
-<!DOCTYPE html>
+<!--<!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Helperland - Service Provider</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Helperland - Service Provider</title>-->
 
-    <!-- Link for fav icon-->
-    <link href="~/images/favicon_img.png" rel="shortcut icon" />
+        <!-- Link for fav icon-->
+        <!--<link href="~/images/favicon_img.png" rel="shortcut icon" />-->
 
-    <!-- bootstrap css bundle -->
-    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <!-- custom CSS -->
-    <link href="~/css/site2.css" rel="stylesheet" />
-    <link href="~/css/common.css" rel="stylesheet" />
-</head>
+        <!-- bootstrap css bundle -->
+        <!--<link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />-->
+        <!-- custom CSS -->
+        <!--<link href="~/css/site2.css" rel="stylesheet" />
+        <link href="~/css/common.css" rel="stylesheet" />
+    </head>
 
-<body>
+<body>-->
 
     <!-- header + navbar -->
-    <header class="header service-provider-header" id="header">
-        <nav class="navbar navbar-expand-lg">
+    <!--<header class="header service-provider-header" id="header">
+        <nav class="navbar navbar-expand-lg">-->
             <!-- Logo -->
-            <a class="navbar-brand logo" asp-controller="Home">
+            <!--<a class="navbar-brand logo" asp-controller="Home">
                 <img src="~/images/white-logo-transparent-background.png" alt="logo">
-            </a>
+            </a>-->
 
             <!-- mobile menu collapse-->
-            <button class="menu-toggler">
+            <!--<button class="menu-toggler">-->
                 <!-- active will be added on mobile view-->
+                <!--<span></span>
                 <span></span>
                 <span></span>
-                <span></span>
-            </button>
+            </button>-->
 
             <!-- navbar content -->
-            <div class="custom-navbar-menu navbar-collapse main-menu" id="navbarSupportedContent">
+            <!--<div class="custom-navbar-menu navbar-collapse main-menu" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item active"><a class="nav-link button" href="#">Book a Cleaner</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Prices">Prices</a></li>
@@ -48,7 +49,7 @@
                     <li class="nav-item"><a class="nav-link" href="#">Blog</a></li>
                     <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact Us</a></li>
                     <li class="nav-item"><a class="nav-link button" href="#">Login</a></li>
-                    <li class="nav-item"><a class="nav-link button active" asp-controller="Sp">Become a helper</a></li>
+                    <li class="nav-item"><a class="nav-link button active" asp-controller="Register" asp-action="Sp_Register">Become a helper</a></li>
 
                     <li class="nav-item dropdown fleg">
                         <a class="nav-link nav-link2" href="#" id="navbarDropdown" role="button"
@@ -68,9 +69,9 @@
                                     <img src="~/images/flag.png" alt="logo">
                                     USA
                                 </a>
-                            </li>
+                            </li>-->
                             <!-- <li><hr class="dropdown-divider"></li> -->
-                            <li>
+                            <!--<li>
                                 <a class="dropdown-item" href="#">
                                     <img src="~/images/flag.png" alt="logo">
                                     UK
@@ -88,36 +89,41 @@
                 </ul>
             </div>
         </nav>
-    </header>
+    </header>-->
 
     <div class="register-now px-2">
-        <div class="form ">
+        <div class="form">
             <div class="form-title">Register Now!</div>
-            <form asp-controller="Register" asp-action="Sp_Register" method="post">
-                <div class=""><input asp-for="FirstName"><span class="text-danger" asp-validation-for="FirstName"></span></div>
-                <div class=""><input asp-for="LastName"><span class="text-danger" asp-validation-for="LastName"></span></div>
-                <div class=""><input asp-for="Email"><span class="text-danger" asp-validation-for="Email"></span></div>
-                <div>
-                    <div class="mobile">
-                        <span class="country-code">+49</span><input asp-for="Mobile">
-                    </div><span class="text-danger" asp-validation-for="Mobile"></span>
-                </div>
-                <div class=""><input type="password" asp-for="Password" maxlength="14" minlength="6" required><span class="text-danger" asp-validation-for="Password"></span></div>
-                <div class=""><input type="password" name="cpassword" id="" placeholder="Confirm Password" maxlength="14" minlength="6" required></div>
-                <div class=""><input type="checkbox" name="sendme" id="" required>Send me newsletter from Helperland</div>
-                <div class="">
-                    <input type="checkbox" name="terms" id="" required>I accept <a href="" class="terms">
-                        terms and
-                        conditions
-                    </a> & <a href="" class="terms">privacy Policy</a>
-                </div>
-                <img src="~/images/layer-20.png" alt="" class="mt-3 img-fluid">
-                <div class="submit d-flex justify-content-center">
-                    <button type="submit" class="button ">
-                        Get Started <img src="~/images/shape-2.svg" alt="">
-                    </button>
-                </div>
-            </form>
+            @if (ViewBag.userExist == true)
+            {
+                <div class="alert-danger alert-dismissible contact-form my-3">Oops!! User with this Email already exist <br /> You can try using new Email address</div>
+            }
+        <form asp-controller="Register" class="contact-form" asp-action="Index" method="post">
+            <input type="hidden" asp-for="UserTypeId" value="2" />
+            <div class=""><input asp-for="FirstName"><span class="text-danger" asp-validation-for="FirstName"></span></div>
+            <div class=""><input asp-for="LastName"><span class="text-danger" asp-validation-for="LastName"></span></div>
+            <div class=""><input asp-for="Email"><span class="text-danger" asp-validation-for="Email"></span></div>
+            <div>
+                <div class="mobile">
+                    <span class="country-code">+49</span><input asp-for="Mobile">
+                </div><span class="text-danger" asp-validation-for="Mobile"></span>
+            </div>
+            <div class=""><input asp-for="Password"><span class="text-danger" asp-validation-for="Password"></span></div>
+            <div class=""><input asp-for="ConfirmPassword"><span class="text-danger" asp-validation-for="ConfirmPassword"></span></div>
+            <div class=""><input type="checkbox" name="sendme" id="">Send me newsletter from Helperland</div>
+            <div class="">
+                <input type="checkbox" name="terms" id="" required>I accept <a href="" class="terms">
+                    terms and
+                    conditions
+                </a> & <a href="" class="terms">privacy Policy</a>
+            </div>
+            <img src="~/images/layer-20.png" alt="" class="mt-3 img-fluid">
+            <div class="submit d-flex justify-content-center">
+                <button type="submit" class="button ">
+                    Get Started <img src="~/images/shape-2.svg" alt="">
+                </button>
+            </div>
+        </form>
         </div>
 
         <div class="down-arrow">
@@ -125,7 +131,7 @@
         </div>
     </div>
 
-    <div class="service-provider" id="sp">
+    <div class="service-provider my-3" id="sp">
         <div class="container-fluid">
             <div class="register-now-content">
                 <h1 class="title">How it works</h1>
@@ -190,7 +196,7 @@
     </div>
 
     <!-- NEWSLETTER area-->
-    <div class="newsletter" id="newsletter">
+    <!--<div class="newsletter" id="newsletter">
         <div class="container-fluid d-flex justify-content-between pb-5">
             <div class="content  order-sm-2 order-1">
                 <h2 class="small-title text-center py-1">GET OUR NEWSLETTER</h2>
@@ -201,10 +207,10 @@
             </div>
 
         </div>
-    </div>
+    </div>-->
 
     <!-- FOOTER area -->
-    <div class="footer px-2" id="footer">
+    <!--<div class="footer px-2" id="footer">
         <div class="container d-flex flex-wrap justify-content-sm-center justify-content-md-between align-items-center py-4">
             <a asp-controller="Home" class="footer-logo">
                 <img src="~/images/white-logo-transparent-background.png"
@@ -240,21 +246,21 @@
         <hr class="divider container mx-auto">
         <div class="copy-rights d-flex justify-content-center py-3" id="copy-rights">
             <div>
-                �2018 Helperland. All rights reserved. <a href="">Terms and Conditions</a> | <a href="">
+               &copy; 2018 Helperland. All rights reserved. <a href="">Terms and Conditions</a> | <a href="">
                     Privacy
                     Policy
                 </a>
             </div>
         </div>
-    </div>
+    </div>-->
 
     <!-- bootstrap bundle JS -->
-    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!--<script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>-->
 
     <!-- jquery cdnjs -->
-    <script src="~/lib/jquery/jquery.min.js"></script>
+    <!--<script src="~/lib/jquery/jquery.min.js"></script>-->
     <!-- Custom Script file -->
-    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!--<script src="~/js/site.js" asp-append-version="true"></script>
 </body>
 
-</html>
+</html>-->

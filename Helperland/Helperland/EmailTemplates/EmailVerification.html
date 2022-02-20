@@ -4,25 +4,7 @@
     <meta charset="utf-8" />
     <title>Activate Email</title>
     <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-    <style>
-        body {
-            background-color: rgba(244, 244, 244, 1);
-        }
-        .Container{
-            background-color: white;
-            border-radius: 7px;
-            padding: 15px 8px;
-        }
-        a{
-            color: white !important;
-            text-decoration: none;
-            background-color: #31b1c2;
-            padding: 7px 15px;
-            border-radius: 7px;
-            display: inline-block;
-            width: auto;
-        }
-    </style>
+    <link href="/css/emailTemplate.css" rel="stylesheet" />
 </head>
 <body>
     <div class="Container">
@@ -32,7 +14,7 @@
             To be able to LogIn and book services, First you need to activate your account by verifying your email address.<br />
             Please click to the below link to <b>activate your account and start booking your cleaning services</b>
         </p>
-        <a href="http://localhost:5000/Register/activate/{{token}}" class="my-2 mx-auto">Activate Account</a>
+        <a href="http://localhost:5000/Register/Activate/{{token}}" class="my-2 mx-auto">Activate Account</a>
         <br />
         <br />
         <b>Have a Cleanland,</b><br />
@@ -40,7 +22,7 @@
 
     </div>
     <hr />
-    Copyright © Helperland 2019
+    © 2018 Helperland. All rights reserved. Terms and Conditions | Privacy Policy
 
 </body>
 </html>

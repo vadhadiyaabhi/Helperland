@@ -15,8 +15,9 @@ html, body {
 }
 
 .banner, .container-fluid {
-    position: relative;
-    top: 64px;
+    /*position: relative;
+    top: 64px;*/
+    padding-top: 64px;
     width: 100%;
 }
 
@@ -71,6 +72,13 @@ html, body {
     text-align: center;
 }
 
+ .small-title {
+    font-size: 18px;
+    font-weight: bold;
+    //color: #353548;
+    color: #4f4f4f;
+}
+
 #newsletter .up-arrow {
     display: inline-block;
     width: 48px;
@@ -97,11 +105,6 @@ html, body {
     color: #565656;
 }
 
-#newsletter .small-title {
-    font-size: 18px;
-    font-weight: bold;
-    color: #353548;
-}
 
 #newsletter input {
     padding: 13px 22px;
@@ -122,8 +125,12 @@ html, body {
     border: 0px;
     border-radius: 50px;
     background-color: #FF7B6D;
+    transition: .2s linear;
 }
 
+    #newsletter button:hover {
+        background-color: #fc5948;
+    }
 a {
     text-decoration: none !important;
     cursor: pointer !important;
@@ -235,6 +242,23 @@ input[type="checkbox"] {
     padding: 5px 11px;
     color: white;
     background-color: #1FB6FF;
+}
+
+.alert-success
+{
+    border-radius: 7px;
+    //color: green;
+    background-color: #c1eca3;
+    text-align: center;
+    margin: 15px auto;
+    padding: 8px 15px;
+}
+
+.alert-danger {
+    border-radius: 7px;
+    text-align: center;
+    margin: 15px auto;
+    padding: 8px 15px;
 }
 /* ----------------------------------------------------------------------------- */
 
@@ -510,7 +534,7 @@ input[type="checkbox"] {
         width: 100%;
     }
 
-    .contact-page .contact-form input, .contact-page .contact-form select, textarea {
+     .contact-form input, .contact-form select, textarea {
         width: 100%;
         padding: 9px 14px;
         border: 1px solid #C8C8C8;
@@ -518,7 +542,7 @@ input[type="checkbox"] {
         margin: 7.5px 0;
     }
 
-    .contact-page .contact-form select {
+     .contact-form select {
         width: 100%;
         padding: 9px 14px;
         border: 1px solid #C8C8C8;
@@ -527,14 +551,14 @@ input[type="checkbox"] {
         background-color: white;
     }
 
-.contact-page input:focus, textarea:focus, select:focus {
+.contact-form input:focus, textarea:focus, select:focus {
     transition: .2s linear;
     border: 1.3px solid rgb(49 115 139) !important;
     outline: none !important;
     box-shadow: 0px 0px 5px rgb(22 166 193);
 }
 
-    .contact-page .contact-form .button {
+     .contact-form .button {
         font-size: 20px;
         color: white;
         padding: 6px 50px;
@@ -543,12 +567,18 @@ input[type="checkbox"] {
         border: none;
         display: inline-block;
         margin: auto;
+        transition: .2s;
     }
+
+     .contact-form .button:hover{
+         background-color: #146371 !important;
+     }
+
 
 /* ------------------------------------------------------------------ */
 
-/* ----------------Service provider page------------------------------ */
 
+/* ----------------Service provider page------------------------------ */
 .service-provider .container-fluid {
     top: 0;
 }
@@ -1093,8 +1123,113 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     bottom: 0%;
     font-size: 14px;
 }
+
+
+/* ----------------------- */
+.resend-button {
+    font-size: 16px;
+    color: white;
+    padding: 6px 15px;
+    border-radius: 46px;
+    background-color: rgba(29, 122, 140, 0.7);
+    border: none;
+    display: block;
+    margin: auto;
+}
+
+/*.forgot-password {
+    max-width: 360px !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    box-shadow: 0px 0px 10px rgb(22 166 193);
+    padding: 20px 25px;
+    color: #646464 !important;
+}*/
+
 /* ------------------------------------------------------------- */
 
+
+/* ----------------Book Service page---------------------------- */
+
+.book-service{
+    color: #646464;
+}
+
+.book-service .container{
+    max-width: 1240px;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    position: relative;
+}
+
+.book-service-content .tabs{
+    display: flex;
+}
+
+.tab img{
+    filter: invert(0.5);
+}
+
+.book-service-content .tab {
+    padding: 18px 11px;
+    background-color: #f3f3f3;
+    //background-color: #1D7A8C;
+    font-size: 18px;
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    border-left: 1px solid #dcdcdc;
+    transition: .2s linear;
+}
+
+.book-service-content .tab.color {
+    background-color: #1D7A8C;
+    color: white;
+}
+
+.book-service-content .tab.color img{
+    filter: invert(1);
+}
+
+.book-service-content .tab.color:hover{
+    cursor: pointer;
+}
+
+.book-service-content .tab.active::after{
+    content: "";
+    height: 20px;
+    width: 20px;
+    background-color: #1D7A8C;
+    transform: rotate(45deg) translate(-50%, 50%);
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+}
+
+.payment-card{
+    width: 380px;
+    position: -webkit-sticky !important;
+    position: sticky !important;
+    top: 0;
+    box-shadow: 0px 0px 5px #646464 !important;
+    height: auto;
+}
+.payment-card .heading {
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 17px;
+    background-color: #1D7A8C;
+    text-align: center;
+}
+
+.payment-card-content{
+    padding: 20px 16px;
+}
+
+
+/* ------------------------------------------------------------- */
 /* ------------------Responsive queries--------------- */
 @media screen and (min-width: 1281px) {
     .content{
