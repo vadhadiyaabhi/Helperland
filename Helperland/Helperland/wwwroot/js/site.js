@@ -6,7 +6,6 @@ function hide_policy() {
 }
 
 
-
 $(document).ready(function () {
     $(window).scroll(function () {
         if (this.scrollY > 20) {
@@ -65,7 +64,13 @@ $(document).ready(function () {
     });
     $("#hiddenButton").mouseout(function () {
         $("#hiddenButton").css("color", "#0c8fa5");
-    })
+    });
+
+    $(".schedule-plan > .button").click(function () {
+        $(".schedule-plan").css("display", "none");
+        $(".your-details").css("display", "block");
+    });
+
 });
 
 jQueryAjaxPost = form => {
@@ -109,6 +114,19 @@ jQueryAjaxPost = form => {
                     $("#error").html("Oops!! It seems like your link is not valid or get expired");
                     $("#reset-password").css("display", "none");
                 }
+                else if (res.zipInvalid) {
+                    $("#postal-code-error").html("Please enter valid Postal Code");
+                }
+                else if (res.zipAvailable) {
+                    $("#tab2").addClass("color");
+                    $("#tab2").siblings().removeClass("active");
+                    $(".setup-service").css("display", "none");
+                    $(".schedule-plan").css("display", "block");
+                    $("#tab2").addClass("active");
+                }
+                else if (res.zipCode && !res.zipAvailable) {
+                    $("#postal-code-error").html("We're sorry, Currently no Service Provider is available at this " + res.zipCode + " Postal Code");
+                }
                 //console.log(res);
             },
             error: function (err) {
@@ -122,6 +140,24 @@ jQueryAjaxPost = form => {
 
     return false;
 };
+
+
+add_extra_service = (ele, id) => {
+    //console.log(ele);
+    //console.log(id);
+    $(ele).toggleClass("selected");
+    if ($(id).is(':checked')) {
+        $(id).attr("checked", "");
+        $(id).checked = false;
+    }
+    else {
+        $(id).attr("checked", "checked");
+        $(id).checked = true;
+        $(id).setAttribute(':checked');
+    }
+    
+};
+
 
 
 // ---------------------vanilla JS for pegination that can be customized based on requirnments----------------------

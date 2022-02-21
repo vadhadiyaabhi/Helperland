@@ -21,12 +21,19 @@ namespace Helperland.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult BookService()
         {
             return View();
         }
 
-        public IActionResult IsPostalCodeAvailable(ServiceRequestViewModel obj)
+        [HttpPost]
+        public IActionResult BookService(ServiceRequestViewModel serviceRequest)
+        {
+            return View();
+        }
+
+        public IActionResult IsPostalCodeAvailable(ZipCodeViewModel obj)
         {
             if(ModelState.IsValid)
             {

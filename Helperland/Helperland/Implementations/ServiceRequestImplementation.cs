@@ -16,7 +16,7 @@ namespace Helperland.Implementations
             this.dbContext = dbContext;
         }
 
-        public string GetCityName(int postalCode)
+        public string GetCityName(string postalCode)
         {
             return (from zipCode in dbContext.Zipcodes
                     where zipCode.ZipcodeValue == postalCode
@@ -24,7 +24,7 @@ namespace Helperland.Implementations
                     select new { city.CityName }).FirstOrDefault().ToString();
         }
 
-        public bool IsPostalCodeAvailable(int postalCode)
+        public bool IsPostalCodeAvailable(string postalCode)
         {
             var result = (from user in dbContext.Users
                           where user.UserTypeId == 2

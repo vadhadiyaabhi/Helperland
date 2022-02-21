@@ -18,28 +18,147 @@
                 <div class="tab" id="tab4"><img src="~/images/credit-card.svg" class="mx-2" height="25" /><span>Make Payment</span></div>
             </div>
             <div class="book-service-form">
-                <div class="setup-service my-4">
-                    <div class="small-title my-2 contact-page">Enter your postal code</div>
-                        <form asp-controller="User" asp-action="IsPostalCodeAvailable" class="contact-form" onsubmit="return jQueryAjaxPost(this);">
-                            <div><input asp-for="ZipCode" /></div><div> <input type="submit" class="button" value="Check Availability" /></div>
-                            <div id="postal-code"></div>
-                        </form>
+                <div class="setup-service my-4 contact-page">
+                    <div class="small-title my-2">Enter your postal code</div>
+                    <form asp-controller="User" asp-action="IsPostalCodeAvailable" class="contact-form mx-0" onsubmit="return jQueryAjaxPost(this);">
+                        <div class="col-sm-7 col-12 col-md-5"><input asp-for="ZipCode" /></div>
+                        <button type="submit" class="button mx-2 fs-6" style="padding: 10px 20px">Check Availability</button>
+                    </form>
+                        <div id="postal-code-error" class="text-danger"></div>
                 </div>
-                <div class="schedule-plan"></div>
-                <div class="your-details"></div>
-                <form>
+                <form asp-controller="User" asp-action="BookService" >
+                    <div class="schedule-plan my-4">
+                        <div class="row my-2">
+                            <div class="small-title fs-6 col-12 col-md-5">When do you need the cleaner ?</div>
+                            <div class="small-title fs-6 col-12 col-md-7">How long do you need your cleaner to stay ?</div>
+                        </div>
+                        <div class="row">
+                            <div class=" my-2 col-12 col-md-5">
+                                <input type="date" name="Date" style="width: auto;" class="pl-5" /><img src="~/images/calendar-color.png" class="calender" />
+                                <select asp-for="Date" class="">
+                                    <option value="8:00">8:00</option>
+                                    <option value="8:30">8:30</option>
+                                    <option value="9:00">9:00</option>
+                                    <option value="9:30">9:30</option>
+                                    <option value="10:00">10:00</option>
+                                    <option value="10:30">10:30</option>
+                                    <option value="11:00">11:00</option>
+                                    <option value="11:30">11:30</option>
+                                    <option value="12:00">12:00</option>
+                                    <option value="12:30">12:30</option>
+                                    <option value="13:00">13:00</option>
+                                    <option value="13:30">13:30</option>
+                                    <option value="14:00">14:00</option>
+                                    <option value="14:30">14:30</option>
+                                    <option value="15:00">15:00</option>
+                                    <option value="15:30">15:30</option>
+                                    <option value="16:00">16:00</option>
+                                    <option value="16:30">16:30</option>
+                                    <option value="17:00">17:00</option>
+                                    <option value="17:30">17:30</option>
+                                    <option value="18:00">18:00</option>
+                                </select>
+
+                            </div>
+                            <div class=" my-2 col-12 col-md-7">
+                                <select asp-for="ServiceHours">
+                                    <option value="3.0">3.0 Hrs</option>
+                                    <option value="3.5">3.5 Hrs</option>
+                                    <option value="4.0">4.0 Hrs</option>
+                                    <option value="4.5">4.5 Hrs</option>
+                                    <option value="5.0">5.0 Hrs</option>
+                                    <option value="5.5">5.5 Hrs</option>
+                                    <option value="6.0">6.0 Hrs</option>
+                                    <option value="6.5">6.5 Hrs</option>
+                                    <option value="7.0">7.0 Hrs</option>
+                                    <option value="7.5">7.5 Hrs</option>
+                                    <option value="8.0">8.0 Hrs</option>
+                                    <option value="8.5">8.5 Hrs</option>
+                                    <option value="9.0">9.0 Hrs</option>
+                                    <option value="9.5">9.5 Hrs</option>
+                                    <option value="10.0">10.0 Hrs</option>
+                                    <option value="10.5">10.5 Hrs</option>
+                                    <option value="11.0">11.0 Hrs</option>
+                                    <option value="11.5">11.5 Hrs</option>
+                                    <option value="12.0">12 Hrs</option>
+                                </select>
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="extra-services my-4" style="border:none;">
+                            <div class="small-title fs-6 my-2">Extra Services</div>
+                            <div class=" d-flex justify-content-sm-around justify-content-center flex-wrap">
+                                <div class="service my-2  d-flex flex-column align-items-center">
+                                    <div class="img mx-2" onclick="add_extra_service(this, ex1);">
+                                        <div><img src="/images/double-cabinate.png" alt=""></div>
+                                    </div>
+                                    <span>Inside cabinets</span>
+                                </div>
+                                <div class="service my-2 mx-2 d-flex flex-column align-items-center">
+                                    <div class="img mx-2" onclick="add_extra_service(this, ex2);">
+                                        <div><img src="/images/double-fridge.png" alt=""></div>
+                                    </div>
+                                    <span>Inside fridge</span>
+                                </div>
+                                <div class="service my-2 mx-2 d-flex flex-column align-items-center">
+                                    <div class="img mx-2" onclick="add_extra_service(this, ex3);">
+                                        <div><img src="/images/double_own.png" alt=""></div>
+                                    </div>
+                                    <span>Inside oven</span>
+                                </div>
+                                <div class="service my-2 mx-2 d-flex flex-column align-items-center">
+                                    <div class="img mx-2" onclick="add_extra_service(this, ex4);">
+                                        <div><img src="/images/double-laudry.png" alt=""></div>
+                                    </div>
+                                    <span class="text-center">Laundry wash &amp; <br /> dry</span>
+                                </div>
+                                <div class="service my-2 mx-2 d-flex flex-column align-items-center">
+                                    <div class="img mx-2" onclick="add_extra_service(this, ex5);">
+                                        <div><img src="/images/double-window.png" alt=""></div>
+                                    </div>
+                                    <span>Interio window</span>
+                                </div>
+                            </div>
+                            <div class="d-none">
+                                <input type="checkbox" asp-for="ExtraService1" id="ex1" />
+                                <input type="checkbox" asp-for="ExtraService2" id="ex2" />
+                                <input type="checkbox" asp-for="ExtraService3" id="ex3" />
+                                <input type="checkbox" asp-for="ExtraService4" id="ex4" />
+                                <input type="checkbox" asp-for="ExtraService5" id="ex5" />
+                            </div>
+                        </div>
+                        <hr />
+                        <div class="my-4">
+                            <div class="small-title fs-6 my-2">Comments</div>
+                            <div class=""><textarea asp-for="Comments"></textarea></div>
+                            <div class="my-2 mr-3"><input asp-for="HasPets" />I have pets at home</div>
+                        </div>
+                        <hr />
+                        <div class="contact-form">
+                            <button class="button fs-6 fw-bold" style="float:right;">Continue</button>
+                        </div>
+                    </div>
+                    <div class="your-details my-4">
+                        <div class="my-2 small-title fs-6">Enter your contact details, so we can serve you in better way!</div>
+                        <div class="addresses" id="address">
+
+                        </div>
+                    </div>
+                    <div class="make-payment"></div>
                 </form>
             </div>
         </div>
-        <div class="payment-card">
-            <div class="heading">Payment Summary</div>
-            <div class="payment-card-content">
-                <div id="schedule"></div>
-                <div id="">Duration</div>
-                <div id="" class="d-flex justify-content-between"><span>Basic</span><span id="basic-hours">0 Hrs</span></div>
-                <hr />
-                <div id="extra">
-                    <span ></span>
+        <div>
+            <div class="payment-card">
+                <div class="heading">Payment Summary</div>
+                <div class="payment-card-content">
+                    <div id="schedule"></div>
+                    <div id="">Duration</div>
+                    <div id="" class="d-flex justify-content-between"><span>Basic</span><span id="basic-hours">0 Hrs</span></div>
+                    <hr />
+                    <div id="extra">
+                        <span></span>
+                    </div>
                 </div>
             </div>
         </div>

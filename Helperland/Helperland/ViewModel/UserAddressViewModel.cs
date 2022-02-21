@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Helperland.ViewModel
 {
-    public class UserAddressViewModel
+    public class UserAddressViewModel : ZipCodeViewModel
     {
         [Required]
         [StringLength(200)]
@@ -21,11 +21,6 @@ namespace Helperland.ViewModel
 
         [StringLength(50)]
         public string State { get; set; }
-
-        [Required]
-        [Display(Prompt = "Postal Code")]
-        [MinLength(6, ErrorMessage = "Enter Valid Postal Code"), MaxLength(6, ErrorMessage = "Enter Valid Postal Code")]
-        public int ZipCode { get; set; }
 
         [StringLength(20)]
         public string Mobile { get; set; }
