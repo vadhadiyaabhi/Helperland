@@ -1,0 +1,28 @@
+﻿@model IEnumerable<UserAddress>
+@{
+    Layout = null;
+    int i = 1;
+}
+
+
+@foreach (UserAddress address in Model)
+{
+    string AddId = "add" + i;
+    <div class="d-flex align-items-center my-3">
+        <input type="radio" name="AddressId" class="addId" value="@address.AddressId" id="@AddId" />
+        <div class="mx-3">
+            <label for="@AddId">
+                <div>
+                    <span class="small-title fs-6">Address: </span> @address.AddressLine1 @address.AddressLine2, @address.City @address.PostalCode
+                </div>
+                <div>
+                    <span class="small-title fs-6">Phone number: </span> @address.Mobile
+                </div>
+            </label>
+        </div>
+    </div>
+    i++;
+}
+
+
+

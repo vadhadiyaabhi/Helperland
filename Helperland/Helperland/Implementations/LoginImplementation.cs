@@ -1,4 +1,5 @@
-﻿using Helperland.IRepositories;
+﻿using BC = BCrypt.Net.BCrypt;
+using Helperland.IRepositories;
 using Helperland.Models;
 using Helperland.Repository;
 using Helperland.ViewModel;
@@ -19,7 +20,17 @@ namespace Helperland.Implementations
         }
         public  User Login(AuthenticationViewModel authenticationViewModel)
         {
-            User user = DbContext.Users.Where(u => u.Email == authenticationViewModel.Email && u.Password == authenticationViewModel.Password).FirstOrDefault();
+            User user = DbContext.Users.Where(u => u.Email == authenticationViewModel.Email).FirstOrDefault();
+            if (user != null)
+            {
+                if (BC.Verify(authenticationViewModel.Password, user.Password))
+                {
+                    return user;
+                }
+                else
+                    return null;
+            }
+            //User user = DbContext.Users.Where(u => u.Email == authenticationViewModel.Email && u.Password == authenticationViewModel.Password).FirstOrDefault();
             return user;
         }
     }

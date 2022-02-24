@@ -110,12 +110,17 @@
             </div>
             <div class=""><input asp-for="Password"><span class="text-danger" asp-validation-for="Password"></span></div>
             <div class=""><input asp-for="ConfirmPassword"><span class="text-danger" asp-validation-for="ConfirmPassword"></span></div>
-            <div class=""><input type="checkbox" name="sendme" id="">Send me newsletter from Helperland</div>
+            <div class=""><input type="checkbox" name="sendme" id="newsletter">
+                <label for="newsletter">Send me newsletter from Helperland</label>
+            </div>
             <div class="">
-                <input type="checkbox" name="terms" id="" required>I accept <a href="" class="terms">
-                    terms and
-                    conditions
-                </a> & <a href="" class="terms">privacy Policy</a>
+                <input type="checkbox" name="terms" id="term1" required>
+                <label for="term1">
+                    I accept <a href="" class="terms">
+                        terms and
+                        conditions
+                    </a> & <a href="" class="terms">privacy Policy</a>
+                </label>
             </div>
             <img src="~/images/layer-20.png" alt="" class="mt-3 img-fluid">
             <div class="submit d-flex justify-content-center">

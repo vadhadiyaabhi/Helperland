@@ -66,10 +66,27 @@ $(document).ready(function () {
         $("#hiddenButton").css("color", "#0c8fa5");
     });
 
-    $(".schedule-plan > .button").click(function () {
-        $(".schedule-plan").css("display", "none");
-        $(".your-details").css("display", "block");
+    $(".your-details .continue").click(function () {
+        addId = $("input[name=AddressId]:checked", "#addresses").val();
+        console.log(addId);
+        if (!addId) {
+            console.log("select address");
+            $("#add-id-error").html("Please select address first");
+        }
+        else {
+            $("#AddressId").val(addId);
+            $("#tab4").siblings().removeClass("active");
+            $(".your-details").css("display", "none");
+            $(".make-payment").css("display", "block");
+            $("#tab4").addClass("color");
+            $("#tab4").addClass("active");
+        }
+        
     });
+
+    $(".make-payment #submit-req").click(function () {
+        $("#service-req-form").submit();
+    })
 
 });
 
@@ -105,7 +122,7 @@ jQueryAjaxPost = form => {
                     $("#error1").html("");
                 }
                 else if (res.required) {
-                    $("#error1").html("Email field is must.");
+                    //$("#error1").html("Email field is must.");
                 }
                 else if (res.reset) {
                     $("#reset-password").css("display", "block");
@@ -123,9 +140,10 @@ jQueryAjaxPost = form => {
                     $(".setup-service").css("display", "none");
                     $(".schedule-plan").css("display", "block");
                     $("#tab2").addClass("active");
+                    $("#zip").val(res.zipCode);
                 }
                 else if (res.zipCode && !res.zipAvailable) {
-                    $("#postal-code-error").html("We're sorry, Currently no Service Provider is available at this " + res.zipCode + " Postal Code");
+                    $("#postal-code-error").html("We are not providing service in this " + res.zipCode + " area. We'll notify you if any helper would start working near your area.");
                 }
                 //console.log(res);
             },
@@ -142,21 +160,27 @@ jQueryAjaxPost = form => {
 };
 
 
-add_extra_service = (ele, id) => {
+add_extra_service = ele => {
     //console.log(ele);
-    //console.log(id);
     $(ele).toggleClass("selected");
-    if ($(id).is(':checked')) {
-        $(id).attr("checked", "");
-        $(id).checked = false;
+}
+
+go_to_backTab = (ele, idName) => {
+    console.log(ele.id);
+    console.log(idName);
+    if ($(ele).hasClass("color")) {
+        $("#" + ele.id + "~ .tab").removeClass("color");
+        $(ele).siblings().removeClass("active");
+        $(ele).addClass("active");
+        if (ele.id == "tab1") {
+            $("#" + idName + "+ form>div").css("display", "none");
+        }
+        else {
+            $("#" + idName).siblings().css("display", "none");
+        }
+        $("#" + idName).css("display", "block");
     }
-    else {
-        $(id).attr("checked", "checked");
-        $(id).checked = true;
-        $(id).setAttribute(':checked');
-    }
-    
-};
+}
 
 
 

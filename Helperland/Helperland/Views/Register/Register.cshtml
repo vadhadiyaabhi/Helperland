@@ -32,15 +32,24 @@
             <div class="full-width"><span class="text-danger d-block" asp-validation-for="Password"></span></div>
             <div class="full-width"><span class="text-danger d-block" asp-validation-for="ConfirmPassword"></span></div>
             <div class="full-width">
-                <input type="checkbox" name="terms" id="">Yes, I would like to subscribe to the newsletter of Helperland GmbH with vouchers, trends, promotions and individualized offers. I can unsubscribe from the newsletter at any time in the newsletter and in the customer account itself.
+                <label for="subscribe">
+                    <input type="checkbox" name="terms" id="subscribe">
+                    Yes, I would like to subscribe to the newsletter of Helperland GmbH with vouchers, trends, promotions and individualized offers. I can unsubscribe from the newsletter at any time in the newsletter and in the customer account itself.
+                </label>
             </div>
             <div class="full-width">
-                <input type="checkbox" name="terms" id="" required>I agree with the
-                <a href="" class="terms">terms and conditions</a> of Helperland.
+                <input type="checkbox" name="terms" id="term1" required>
+                <label for="term1">
+                    I agree with the
+                    <a href="" class="terms">terms and conditions</a> of Helperland.
+                </label>
             </div>
             <div class="full-width">
-                <input type="checkbox" name="terms" id="" required>I have read the
-                <a href="" class="terms">privacy policy.</a>
+                <input type="checkbox" name="terms" id="term2" required>
+                <label for="term2">
+                    I have read the
+                    <a href="" class="terms">privacy policy.</a>
+                </label>
             </div>
             <button type="submit" class="button my-3">Submit</button>
         </form>

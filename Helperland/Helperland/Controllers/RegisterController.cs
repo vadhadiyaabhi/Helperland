@@ -1,4 +1,5 @@
-﻿using Helperland.IRepositories;
+﻿using BC = BCrypt.Net.BCrypt;
+using Helperland.IRepositories;
 using Helperland.Models;
 using Helperland.ViewModel;
 using Microsoft.AspNetCore.Authorization;
@@ -75,7 +76,7 @@ namespace Helperland.Controllers
                     LastName = user.LastName,
                     Email = user.Email,
                     Mobile = user.Mobile,
-                    Password = user.Password,
+                    Password = BC.HashPassword(user.Password),
                     CreatedDate = DateTime.Now,
                     ModifiedDate = DateTime.Now,
                     UserTypeId = user.UserTypeId,
@@ -240,6 +241,7 @@ namespace Helperland.Controllers
 
                 return Json(new { reseterror = true });
             }
+            Console.WriteLine(forgotPassword.Token);
             return View("ForgotPassword");
         }
         

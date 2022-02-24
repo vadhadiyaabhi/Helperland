@@ -8,27 +8,25 @@ using System.Threading.Tasks;
 
 namespace Helperland.ViewModel
 {
-    public class ServiceRequestViewModel : UserAddressViewModel
+    public class ServiceRequestViewModel : ZipCodeViewModel
     {
 
-        [Column(TypeName = "datetime")]
-        public DateTime ServiceStartDate { get; set; }
+        //[Column(TypeName = "datetime")]
+        //public DateTime ServiceStartDate { get; set; }
 
         [Column(TypeName = "date")]
+        [Required]
         public string Date { get; set; }
 
+        [Required]
         public string Time { get; set; }
 
+        [Required]
         public double ServiceHours { get; set; }
 
         public double? ExtraHours { get; set; }
 
-        [Column(TypeName = "decimal(8, 2)")]
-        public decimal SubTotal { get; set; }
-
-        [Column(TypeName = "decimal(8, 2)")]
-        public decimal TotalCost { get; set; }
-
+        
         [Display(Prompt = "Add comment")]
         [StringLength(500)]
         public string Comments { get; set; }
@@ -45,6 +43,9 @@ namespace Helperland.ViewModel
         public bool ExtraService4 { get; set; }
 
         public bool ExtraService5 { get; set; }
+
+        [Required]
+        public int AddressId { get; set; }
 
 
     }

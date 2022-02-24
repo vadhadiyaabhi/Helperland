@@ -12,30 +12,30 @@
     <div class=" container">
         <div class="book-service-content">
             <div class="tabs">
-                <div class="tab active color" id="tab1"><img src="~/images/search.svg" class="mx-2" height="25"  /><span>Setup Service</span></div>
-                <div class="tab" id="tab2"><img src="~/images/calendar3.svg" class="mx-2" height="25" /><span>Schedule & Plan</span></div>
-                <div class="tab" id="tab3"><img src="~/images/house-door.svg" class="mx-2" height="25"  /><span>Your Details</span></div>
-                <div class="tab" id="tab4"><img src="~/images/credit-card.svg" class="mx-2" height="25" /><span>Make Payment</span></div>
+                <div class="tab active color" id="tab1" onclick="go_to_backTab(this, 'setup-service');"><img src="~/images/search.svg" class="mx-2" height="25" /><span>Setup Service</span></div>
+                <div class="tab" id="tab2" onclick="go_to_backTab(this, 'schedule-plan');"><img src="~/images/calendar3.svg" class="mx-2" height="25" /><span>Schedule & Plan</span></div>
+                <div class="tab" id="tab3" onclick="go_to_backTab(this, 'your-details');"><img src="~/images/house-door.svg" class="mx-2" height="25" /><span>Your Details</span></div>
+                <div class="tab" id="tab4" onclick="go_to_backTab(this, 'make-payment');"><img src="~/images/credit-card.svg" class="mx-2" height="25" /><span>Make Payment</span></div>
             </div>
+            @Html.ValidationSummary(false, "", new {@class = "text-danger"})
             <div class="book-service-form">
-                <div class="setup-service my-4 contact-page">
+                <div class="setup-service my-4 contact-page" id="setup-service">
                     <div class="small-title my-2">Enter your postal code</div>
                     <form asp-controller="User" asp-action="IsPostalCodeAvailable" class="contact-form mx-0" onsubmit="return jQueryAjaxPost(this);">
                         <div class="col-sm-7 col-12 col-md-5"><input asp-for="ZipCode" /></div>
                         <button type="submit" class="button mx-2 fs-6" style="padding: 10px 20px">Check Availability</button>
                     </form>
-                        <div id="postal-code-error" class="text-danger"></div>
+                    <div id="postal-code-error" class="text-danger"></div>
                 </div>
-                <form asp-controller="User" asp-action="BookService" >
-                    <div class="schedule-plan my-4">
+                <div class="schedule-plan my-4" id="schedule-plan">
+                    <form asp-controller="User" asp-action="BookService" id="service-req-form" onsubmit="return jQueryAjaxPost(this);">
+                        <input type="hidden" asp-for="ZipCode" value="" id="zip" />
                         <div class="row my-2">
-                            <div class="small-title fs-6 col-12 col-md-5">When do you need the cleaner ?</div>
-                            <div class="small-title fs-6 col-12 col-md-7">How long do you need your cleaner to stay ?</div>
-                        </div>
-                        <div class="row">
-                            <div class=" my-2 col-12 col-md-5">
-                                <input type="date" name="Date" style="width: auto;" class="pl-5" /><img src="~/images/calendar-color.png" class="calender" />
-                                <select asp-for="Date" class="">
+                            <div class="small-title fs-6 col-12 col-md-5">
+                                When do you need the cleaner ?
+                                <br />
+                                <input type="date" asp-for="Date" style="width: auto;" class="pl-5" /><img src="~/images/calendar-color.png" class="calender" />
+                                <select asp-for="Time" class="">
                                     <option value="8:00">8:00</option>
                                     <option value="8:30">8:30</option>
                                     <option value="9:00">9:00</option>
@@ -58,9 +58,9 @@
                                     <option value="17:30">17:30</option>
                                     <option value="18:00">18:00</option>
                                 </select>
-
                             </div>
-                            <div class=" my-2 col-12 col-md-7">
+                            <div class="small-title fs-6 col-12 col-md-7">
+                                How long do you need your cleaner to stay ? <br />
                                 <select asp-for="ServiceHours">
                                     <option value="3.0">3.0 Hrs</option>
                                     <option value="3.5">3.5 Hrs</option>
@@ -89,72 +89,109 @@
                             <div class="small-title fs-6 my-2">Extra Services</div>
                             <div class=" d-flex justify-content-sm-around justify-content-center flex-wrap">
                                 <div class="service my-2  d-flex flex-column align-items-center">
-                                    <div class="img mx-2" onclick="add_extra_service(this, ex1);">
-                                        <div><img src="/images/double-cabinate.png" alt=""></div>
-                                    </div>
-                                    <span>Inside cabinets</span>
+                                    <label for="ExtraService1">
+                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                            <div><img src="/images/double-cabinate.png" alt=""></div>
+                                        </div>
+                                        <div class="text-center">Inside cabinets</div>
+                                    </label>
                                 </div>
                                 <div class="service my-2 mx-2 d-flex flex-column align-items-center">
-                                    <div class="img mx-2" onclick="add_extra_service(this, ex2);">
-                                        <div><img src="/images/double-fridge.png" alt=""></div>
-                                    </div>
-                                    <span>Inside fridge</span>
+                                    <label for="ExtraService2">
+                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                            <div><img src="/images/double-fridge.png" alt=""></div>
+                                        </div>
+                                        <div class="text-center">Inside fridge</div>
+                                    </label>
                                 </div>
                                 <div class="service my-2 mx-2 d-flex flex-column align-items-center">
-                                    <div class="img mx-2" onclick="add_extra_service(this, ex3);">
-                                        <div><img src="/images/double_own.png" alt=""></div>
-                                    </div>
-                                    <span>Inside oven</span>
+                                    <label for="ExtraService3">
+                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                            <div><img src="/images/double_own.png" alt=""></div>
+                                        </div>
+                                        <div class="text-center">Inside oven</div>
+                                    </label>
                                 </div>
                                 <div class="service my-2 mx-2 d-flex flex-column align-items-center">
-                                    <div class="img mx-2" onclick="add_extra_service(this, ex4);">
-                                        <div><img src="/images/double-laudry.png" alt=""></div>
-                                    </div>
-                                    <span class="text-center">Laundry wash &amp; <br /> dry</span>
+                                    <label for="ExtraService4">
+                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                            <div><img src="/images/double-laudry.png" alt=""></div>
+                                        </div>
+                                        <div class="text-center">Laundry wash &amp; <br /> dry</div>
+                                    </label>
                                 </div>
                                 <div class="service my-2 mx-2 d-flex flex-column align-items-center">
-                                    <div class="img mx-2" onclick="add_extra_service(this, ex5);">
-                                        <div><img src="/images/double-window.png" alt=""></div>
-                                    </div>
-                                    <span>Interio window</span>
+                                    <label for="ExtraService5">
+                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                            <div><img src="/images/double-window.png" alt=""></div>
+                                        </div>
+                                        <div class="text-center">Interio window</div>
+                                    </label>
                                 </div>
                             </div>
                             <div class="d-none">
-                                <input type="checkbox" asp-for="ExtraService1" id="ex1" />
-                                <input type="checkbox" asp-for="ExtraService2" id="ex2" />
-                                <input type="checkbox" asp-for="ExtraService3" id="ex3" />
-                                <input type="checkbox" asp-for="ExtraService4" id="ex4" />
-                                <input type="checkbox" asp-for="ExtraService5" id="ex5" />
+                                <input type="checkbox" asp-for="ExtraService1" />
+                                <input type="checkbox" asp-for="ExtraService2" />
+                                <input type="checkbox" asp-for="ExtraService3" />
+                                <input type="checkbox" asp-for="ExtraService4" />
+                                <input type="checkbox" asp-for="ExtraService5" />
                             </div>
                         </div>
                         <hr />
                         <div class="my-4">
                             <div class="small-title fs-6 my-2">Comments</div>
                             <div class=""><textarea asp-for="Comments"></textarea></div>
-                            <div class="my-2 mr-3"><input asp-for="HasPets" />I have pets at home</div>
+                            <div class="my-2 mr-3"><input asp-for="HasPets" /><label for="HasPets">I have pets at home</label></div>
                         </div>
                         <hr />
                         <div class="contact-form">
-                            <button class="button fs-6 fw-bold" style="float:right;">Continue</button>
+                            <div class="button continue fs-5 fw-bold" style="float:right;" onclick="GetAddress();">Continue</div>
                         </div>
+                        <input type="hidden" asp-for="AddressId" value="" />
+                    </form>
+                </div>
+                <div class="your-details my-4" id="your-details">
+                    <div class="my-2 small-title fs-6">Enter your contact details, so we can serve you in better way!</div>
+                    <span class="text-danger" id="add-id-error"></span>
+                    <div class="addresses" id="addresses">
                     </div>
-                    <div class="your-details my-4">
-                        <div class="my-2 small-title fs-6">Enter your contact details, so we can serve you in better way!</div>
-                        <div class="addresses" id="address">
+                    <a class="new-address-button mb-3 mt-1" href="#" onclick="newAddress();">+ Add New Address</a>
+                    <hr />
+                    <div class="contact-form">
+                        <div class="button continue fs-5 fw-bold" style="float:right;">Continue</div>
+                    </div>
+                </div>
+                <div class="make-payment my-4" id="make-payment">
+                    <div class="my-3 small-title fs-6">Pay securely with Helperland payment gateway !</div>
+                    <div class="contact-form">
+                        Promo code (Optional) <br />
+                        <input type="text" placeholder="Promo code (Optional)" style="width: 240px;" /> <a class="button fs-6 mx-2">Apply</a>
+                    </div>
+                    <hr />
+                    <input type="text" placeholder="Card number" />
+                    <hr />
+                    <label for="terms">
+                        <input type="checkbox" name="terms" id="terms" required>
+                        <div class="d-inline">
+                            I accepted  <a href="" class="terms">terms and conditions</a>, the  <a href="" class="terms">cancellation policy</a> and the  <a href="" class="terms">privacy policy</a>. I confirm that Helperland starts to execute the contract before the expiry of the withdrawal period and I lose my right of withdrawal as a consumer with full performance of the contract.
+                        </div>
+                    </label>
+                    <hr />
+                    <div class="contact-form">
+                        <button type="submit" id="submit-req" class="button fs-5 fw-bold" style="float:right;">Complete Booking</button>
+                    </div>
+                    <div class="alert-success d-none" id="service-added">Your service has been booked successfully.<br />Add new Service Request or <a asp-controller="User" asp-action="Dashboard">Go to Dashboard</a></div>
+                </div>
 
-                        </div>
-                    </div>
-                    <div class="make-payment"></div>
-                </form>
             </div>
         </div>
-        <div>
+        <div class="mx-5">
             <div class="payment-card">
                 <div class="heading">Payment Summary</div>
                 <div class="payment-card-content">
                     <div id="schedule"></div>
                     <div id="">Duration</div>
-                    <div id="" class="d-flex justify-content-between"><span>Basic</span><span id="basic-hours">0 Hrs</span></div>
+                    <div id="" class="d-flex justify-content-between"><span>Basic</span><span id="basic-hours">3 Hrs</span></div>
                     <hr />
                     <div id="extra">
                         <span></span>
@@ -164,3 +201,32 @@
         </div>
     </div>
 </div>
+
+@section AddNewAddress{ 
+    <div class="new-address Modal" id="new-address">
+    </div>
+}
+<script>
+    function GetAddress() {
+        $("#tab3").addClass("color");
+        $("#tab3").siblings().removeClass("active");
+        $(".schedule-plan").css("display", "none");
+        $(".your-details").css("display", "block");
+        $("#tab3").addClass("active");
+        $("#addresses").html("Loading addresses...").load('@Url.Action("GetUserAddress", "User")');
+    }
+
+    function newAddress() {
+        let ZipCode = document.getElementById("zip").value;
+        console.log(ZipCode);
+        $("#new-address").html("Loading addresses...").load(`/User/AddNewAddress/${ZipCode}`);
+        $("#blur").addClass("blur");
+        $("#new-address").addClass("active");
+        console.log("Adding active class");
+    }
+
+    //$(".close-modal").click(function () {
+    //    $("#blur").removeClass("blur");
+    //    $(".Modal").removeClass("active");
+    //});
+</script>

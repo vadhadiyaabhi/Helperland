@@ -237,16 +237,16 @@
                 </form>
                 <form asp-controller="Home" asp-action="Login" onsubmit="return jQueryAjaxPost(this);">
                     <div>
-                        <img src="~/images/login-user.png" alt=" " />
                         <input asp-for="Email" />
-                        <span class="text-danger" asp-validation-for="Email"></span>
+                        <img src="~/images/login-user.png" alt=" " />
                     </div>
+                    <span class="text-danger" asp-validation-for="Email"></span>
                     <div>
                         <img src="~/images/lock.png" />
                         <input type="password" asp-for="Password" />
-                        <span class="text-danger" asp-validation-for="Password"></span>
                     </div>
-                    <input type="checkbox" class="mr-3" />Remember Me
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                    <div><input type="checkbox" class="mr-3" id="remember-me" /><label for="remember-me">Remember Me</label></div>
                     <button type="submit">LogIn</button>
                 </form>
                 <div class="text-center mt-4"><a href="#" id="password-reset">Forgot password ?</a></div>
@@ -262,8 +262,8 @@
                     <div>
                         <img src="~/images/login-user.png" alt=" " />
                         <input asp-for="Email" />
-                        <span class="text-danger" asp-validation-for="Email"></span>
                     </div>
+                        <span class="text-danger" asp-validation-for="Email"></span>
                     <button type="submit">Send</button>
                 </form>
                 <div class="text-center mt-4"><a href="#" class="login">LogIn Now</a></div>

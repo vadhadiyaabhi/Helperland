@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "tF1ipo/NA/DQpSiP9+2XzdZtvEQmlakH9Irq2nz0sGRpoI/bd8Euk6wGX7sEodRa5r/BKi/JaS6GhA62pIaJrA==",
+  "dgSpecHash": "UmqVzazoXiKp02+RACdV9KXrZXgKAIbRLF+OeGWo8eyLd34ONnio0c6I1TBE1ie/Jf8QkJhBrHm+NJfi3fq7Kw==",
   "success": true,
   "projectFilePath": "D:\\Tatvasoft\\Helperland\\Helperland\\Helperland.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\lenovo\\.nuget\\packages\\bcrypt.net-next\\4.0.2\\bcrypt.net-next.4.0.2.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\3.1.21\\microsoft.aspnetcore.mvc.razor.extensions.3.1.21.nupkg.sha512",
     "C:\\Users\\lenovo\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\3.1.21\\microsoft.aspnetcore.mvc.razor.runtimecompilation.3.1.21.nupkg.sha512",

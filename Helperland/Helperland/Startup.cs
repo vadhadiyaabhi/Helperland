@@ -33,7 +33,6 @@ namespace Helperland
             services.AddControllersWithViews();
             services.AddScoped<IContactRepository, ContactImplementation>();
             services.AddScoped<IUserRepository, UserImplementation>();
-            services.AddScoped<IAuthenticationRepository, AuthenticationImplementation>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<ICipherService, CipherService>();
             services.AddScoped<ILoginRepository, LoginImplementation>();

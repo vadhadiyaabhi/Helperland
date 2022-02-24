@@ -1,4 +1,5 @@
 ﻿using Helperland.IRepositories;
+using Helperland.Models;
 using Helperland.Repository;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Helperland.Implementations
             return (from zipCode in dbContext.Zipcodes
                     where zipCode.ZipcodeValue == postalCode
                     join city in dbContext.Cities on zipCode.CityId equals city.Id
-                    select new { city.CityName }).FirstOrDefault().ToString();
+                    select city.CityName).FirstOrDefault().ToString();
         }
 
         public bool IsPostalCodeAvailable(string postalCode)
@@ -35,6 +36,31 @@ namespace Helperland.Implementations
                 return true;
             else 
                 return false;
+        }
+
+        public IEnumerable<UserAddress> GetUserAddresses(int id)
+        {
+            return dbContext.UserAddresses.Where(add => add.UserId == id).ToList();
+        }
+
+        public int AddServiceRequest(ServiceRequest serviceRequest)
+        {
+            dbContext.ServiceRequests.Add(serviceRequest);
+            dbContext.SaveChanges();
+            int serviceId = serviceRequest.ServiceRequestId;
+            return serviceId;
+        }
+
+        public UserAddress GetUserAddress(int addId)
+        {
+            return dbContext.UserAddresses.Find(addId);
+        }
+
+        public bool AddServiceReqAddress(ServiceRequestAddress serviceAddress)
+        {
+            dbContext.ServiceRequestAddresses.Add(serviceAddress);
+            dbContext.SaveChanges();
+            return true;
         }
     }
 }

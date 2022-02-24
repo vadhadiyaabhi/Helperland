@@ -279,11 +279,31 @@ select{
     padding: 12px 14px;
 }
 
+label:hover{
+    cursor: pointer;
+}
+
 input:focus, textarea:focus, select:focus {
     transition: .2s linear;
     border: 1.3px solid rgb(49 115 139) !important;
     outline: none !important;
     box-shadow: 0px 0px 5px rgb(22 166 193);
+}
+
+.disabled-input {
+    background-color: #eeeeee;
+}
+
+.white-button {
+    border-color: #646464;
+    background-color: white;
+    padding: 8px 26px;
+    color: #646464;
+}
+.white-button:hover {
+    border-color: #1d7a8c;
+    background-color: #1d7a8c;
+    color: white;
 }
 /* ----------------------------------------------------------------------------- */
 
@@ -597,6 +617,7 @@ input:focus, textarea:focus, select:focus {
 
      .contact-form .button:hover{
          background-color: #146371 !important;
+         cursor:pointer;
      }
 
 
@@ -1288,6 +1309,34 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 .extra-services .img.selected img {
     left: -100%;
+}
+
+.addresses>div{
+    padding: 14px;
+    border: 1px solid #c8c8c8;
+    border-radius: 4px;
+}
+
+.addresses input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #1D7A8C !important;
+}
+
+.new-address-button {
+    font-weight: bold;
+    color: #1D7A8C;
+    padding: 8px 16px;
+    border-radius: 46px;
+    background-color: white;
+    border: 2px solid #1D7A8C;
+    display: inline-block;
+    transition: .2s;
+}
+
+.new-address-button:hover{
+    background-color: #1D7A8C;
+    color:white;
 }
 
 .payment-card {

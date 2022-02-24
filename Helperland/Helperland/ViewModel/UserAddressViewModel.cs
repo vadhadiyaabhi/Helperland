@@ -10,9 +10,12 @@ namespace Helperland.ViewModel
     {
         [Required]
         [StringLength(200)]
+        [Display(Prompt = "Street Name")]
         public string AddressLine1 { get; set; }
 
+        [Required]
         [StringLength(200)]
+        [Display(Prompt = "House Number")]
         public string AddressLine2 { get; set; }
 
         [Required]
@@ -23,6 +26,7 @@ namespace Helperland.ViewModel
         public string State { get; set; }
 
         [StringLength(20)]
+        [Display(Prompt = "Mobile Number")]
         public string Mobile { get; set; }
     }
 }

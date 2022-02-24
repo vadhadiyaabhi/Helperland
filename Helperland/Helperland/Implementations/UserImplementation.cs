@@ -1,4 +1,5 @@
-﻿using Helperland.IRepositories;
+﻿using BC = BCrypt.Net.BCrypt;
+using Helperland.IRepositories;
 using Helperland.Models;
 using Helperland.Repository;
 using Helperland.ViewModel;
@@ -148,7 +149,7 @@ namespace Helperland.Implementations
             {
                 if (GetCurrentTimeStamp() - timeStamp <= 3600)
                 {
-                    user.Password = forgotPassword.Password;
+                    user.Password = BC.HashPassword(forgotPassword.Password);
                     user.Token = null;
                     DbContext.SaveChanges();
                     return true;

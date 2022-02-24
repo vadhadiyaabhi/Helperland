@@ -6,8 +6,7 @@
     user-select: none;
 }
 
-
-a{
+a {
     text-decoration: none;
 }
 .Modal {
@@ -28,6 +27,9 @@ a{
     transition: .5s ease-out;
 }
 
+label:hover{
+    cursor:pointer;
+}
 
 .Modal .close-modal{
     position: absolute;
@@ -115,19 +117,52 @@ a{
     opacity: 2;
 }
 
+
+#new-address.Modal {
+    width: 614px;
+    max-width: 614px;
+    background-color: #f8f8f8;
+}
+#New-Add-Modal .contact-form > div {
+    width: 260px !important;
+}
+
+#New-Add-Modal .button{
+    width: auto !important;
+    padding: 8px 26px;
+}
+
+#New-Add-Modal .white-button {
+    border: 1px solid #646464;
+    width: auto !important;
+    background-color: white;
+    padding: 8px 26px;
+    color: #646464;
+}
+
+#New-Add-Modal .white-button:hover {
+    border:1px solid #1d7a8c;
+    border-radius: 48px;
+    background-color: #1d7a8c;
+    color: white;
+}
 /*-----------------------------------------------*/
-
 /*-------------------------------------------------*/
-
 @media screen and (max-width: 991px) {
     .blur .custom-navbar-menu {
         display: none !important;
+    }
+    #new-address.Modal.Modal{
+        width: 80%;
     }
 }
 
 @media screen and (max-width: 390px){
     .Modal{
         width: 300px;
+    }
+    #new-address.Modal.Modal {
+        width: 90%;
     }
 }    
 
