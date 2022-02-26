@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>New Service Request</title>
+    <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/emailTemplate.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="Container">
+        <h3> Dear {{SPName}},</h3>
+        <p>A new service request has been booked by <span class="fw-bold">{{UserName}}</span>  on <span class="fw-bold">{{DateTime}}</span>. <br /> Please note the below service details:</p>
+        <table>
+            <tr>
+                <th class="text-left" width="180px">Services</th>
+                <th class="text-left" width="120px">Service Time</th>
+                <th class="text-left" width="120px">Service Cost</th>
+            </tr>
+            {{Services}}
+        </table>
+
+        <p>Total payable amount is: {{TotalAmount}}</p>
+        <p>To accept this sevice request, Please click on the below link before someone accepts it.</p>
+        <a href="http://localhost:5000/Service/AcceptService/{{ServiceId}}" class="my-2 mx-auto">Accept This Service</a>
+        <br />
+        <br />
+        <b>Have a Cleanland,</b><br />
+        <b>Team Helperland</b>
+
+    </div>
+    <hr />
+    © 2018 Helperland. All rights reserved. Terms and Conditions | Privacy Policy
+
+</body>
+</html>
+

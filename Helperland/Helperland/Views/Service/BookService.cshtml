@@ -9,7 +9,7 @@
 <div class="container-fluid book-service">
     <h1 class="title fw-normal">Set up your cleaning service</h1>
     <div class="separator"><img src="~/images/separator.png" alt=""></div>
-    <div class=" container">
+    <div class="container">
         <div class="book-service-content">
             <div class="tabs">
                 <div class="tab active color" id="tab1" onclick="go_to_backTab(this, 'setup-service');"><img src="~/images/search.svg" class="mx-2" height="25" /><span>Setup Service</span></div>
@@ -17,18 +17,26 @@
                 <div class="tab" id="tab3" onclick="go_to_backTab(this, 'your-details');"><img src="~/images/house-door.svg" class="mx-2" height="25" /><span>Your Details</span></div>
                 <div class="tab" id="tab4" onclick="go_to_backTab(this, 'make-payment');"><img src="~/images/credit-card.svg" class="mx-2" height="25" /><span>Make Payment</span></div>
             </div>
-            @Html.ValidationSummary(false, "", new {@class = "text-danger"})
+            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             <div class="book-service-form">
                 <div class="setup-service my-4 contact-page" id="setup-service">
                     <div class="small-title my-2">Enter your postal code</div>
-                    <form asp-controller="User" asp-action="IsPostalCodeAvailable" class="contact-form mx-0" onsubmit="return jQueryAjaxPost(this);">
+                    <form asp-controller="Service" asp-action="IsPostalCodeAvailable" class="contact-form mx-0" onsubmit="return jQueryAjaxPost(this);">
                         <div class="col-sm-7 col-12 col-md-5"><input asp-for="ZipCode" /></div>
                         <button type="submit" class="button mx-2 fs-6" style="padding: 10px 20px">Check Availability</button>
                     </form>
+                    <span class="text-danger" asp-validation-for="ZipCode"></span>
                     <div id="postal-code-error" class="text-danger"></div>
+                    @if (ViewBag.submitted == 1)
+                    {
+                        <div class="alert-success" id="service-added" clear:both;">
+                            Your service has been booked successfully.<br />
+                            Add new Service Request or <a asp-controller="Service" asp-action="Dashboard">Go to Dashboard</a>
+                        </div>
+                    }
                 </div>
                 <div class="schedule-plan my-4" id="schedule-plan">
-                    <form asp-controller="User" asp-action="BookService" id="service-req-form" onsubmit="return jQueryAjaxPost(this);">
+                    <form asp-controller="Service" asp-action="BookService" id="service-req-form" method="post">
                         <input type="hidden" asp-for="ZipCode" value="" id="zip" />
                         <div class="row my-2">
                             <div class="small-title fs-6 col-12 col-md-5">
@@ -84,6 +92,7 @@
                                 </select>
                             </div>
                         </div>
+                        <span class="text-danger" id="date-error"></span>
                         <hr />
                         <div class="extra-services my-4" style="border:none;">
                             <div class="small-title fs-6 my-2">Extra Services</div>
@@ -156,6 +165,8 @@
                     <div class="addresses" id="addresses">
                     </div>
                     <a class="new-address-button mb-3 mt-1" href="#" onclick="newAddress();">+ Add New Address</a>
+                    <div class="new-address" id="new-address">
+                    </div>
                     <hr />
                     <div class="contact-form">
                         <div class="button continue fs-5 fw-bold" style="float:right;">Continue</div>
@@ -180,7 +191,6 @@
                     <div class="contact-form">
                         <button type="submit" id="submit-req" class="button fs-5 fw-bold" style="float:right;">Complete Booking</button>
                     </div>
-                    <div class="alert-success d-none" id="service-added">Your service has been booked successfully.<br />Add new Service Request or <a asp-controller="User" asp-action="Dashboard">Go to Dashboard</a></div>
                 </div>
 
             </div>
@@ -188,45 +198,73 @@
         <div class="mx-5">
             <div class="payment-card">
                 <div class="heading">Payment Summary</div>
-                <div class="payment-card-content">
+                <div class="pb-0 pt-4 px-4">
                     <div id="schedule"></div>
-                    <div id="">Duration</div>
+                    <div id="" class="small-title fw-normal">Duration</div>
                     <div id="" class="d-flex justify-content-between"><span>Basic</span><span id="basic-hours">3 Hrs</span></div>
-                    <hr />
-                    <div id="extra">
-                        <span></span>
+                    <div class="small-title fw-normal" style="display:none;">Extra</div>
+                    <div id="extra-service">
+
                     </div>
+                    <hr class="my-2" />
+                    <div class="small-title fs-6 d-flex justify-content-between"><span>Total Service Time</span><span id="total-time">3 Hrs</span></div>
                 </div>
+                <hr />
+                <div class="d-flex justify-content-between px-4">
+                    <span>Per Cleaning</span><span class="total-amount fw-bold">54.00 €</span>
+                </div>
+                <hr />
+                <div class="px-4 pb-4">
+                    <div class="d-flex justify-content-between align-items-center" style="color: #1d7a8c;">
+                        <span class="fs-4">Total Payment</span><span class="fs-1 fw-bold">54.00 €</span>
+                    </div>
+                    <div style="font-size: 14px;">According to § 19 UStG no sales tax is calculated.</div>
+                </div>
+                <div class="py-2 px-4 smily-div">
+                    😊 See what is always included
+                </div>
+
             </div>
         </div>
     </div>
 </div>
 
-@section AddNewAddress{ 
-    <div class="new-address Modal" id="new-address">
-    </div>
-}
-<script>
-    function GetAddress() {
-        $("#tab3").addClass("color");
-        $("#tab3").siblings().removeClass("active");
-        $(".schedule-plan").css("display", "none");
-        $(".your-details").css("display", "block");
-        $("#tab3").addClass("active");
-        $("#addresses").html("Loading addresses...").load('@Url.Action("GetUserAddress", "User")');
-    }
+    @section AddNewAddress{
+        <script>
+            document.getElementById("Date").valueAsDate = new Date();
+            function GetAddress() {
+                var GivenDate = new Date($("#Date").val());
+                if (GivenDate <= new Date()) {
+                    console.log("Select date first");
+                    $("#date-error").html("Service Date must be later than today");
+                }
+                else {
+                    $("#tab3").addClass("color");
+                    $("#tab3").siblings().removeClass("active");
+                    $(".schedule-plan").css("display", "none");
+                    $(".your-details").css("display", "block");
+                    $("#tab3").addClass("active");
+                    $(".new-address-button").css("display", "inline-block");
+                    $("#new-address").css("display", "block");
+                    $("#new-address").html("");
+                    $("#addresses").html("Loading addresses...").load('@Url.Action("GetUserAddress", "Service")');
+                    $("#date-error").html("");
+                }
 
-    function newAddress() {
-        let ZipCode = document.getElementById("zip").value;
-        console.log(ZipCode);
-        $("#new-address").html("Loading addresses...").load(`/User/AddNewAddress/${ZipCode}`);
-        $("#blur").addClass("blur");
-        $("#new-address").addClass("active");
-        console.log("Adding active class");
-    }
+            }
 
-    //$(".close-modal").click(function () {
-    //    $("#blur").removeClass("blur");
-    //    $(".Modal").removeClass("active");
-    //});
-</script>
+            function newAddress() {
+                let ZipCode = document.getElementById("zip").value;
+                console.log(ZipCode);
+                $(".new-address-button").css("display", "none");
+                $("#new-address").html("Loading...").load(`/Service/AddNewAddress/${ZipCode}`);
+                console.log("Loading New Address form");
+            }
+
+            function CloseNewAddress() {
+                $("#new-address").html("");
+                $(".new-address-button").css("display", "inline-block");
+            }
+        </script>
+
+     }

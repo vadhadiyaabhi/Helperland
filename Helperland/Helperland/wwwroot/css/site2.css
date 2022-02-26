@@ -1339,11 +1339,16 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     color:white;
 }
 
+#New-Add .contact-form{
+    max-width: 900px;
+}
+
+
 .payment-card {
     width: 380px;
     position: -webkit-sticky !important;
     position: sticky !important;
-    top: 0;
+    top: 74px;
     box-shadow: 0px 0px 5px #646464 !important;
     height: auto;
 }
@@ -1355,10 +1360,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     text-align: center;
 }
 
-.payment-card-content{
-    padding: 20px 16px;
+.smily-div {
+    background-color: #f3f3f3;
+    cursor: pointer;
 }
-
 
 /* ------------------------------------------------------------- */
 /* ------------------Responsive queries--------------- */

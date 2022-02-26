@@ -44,6 +44,8 @@ namespace Helperland.ViewModel
 
         public bool ExtraService5 { get; set; }
 
+        public bool[] ExtraServices { get; set; }
+
         [Required]
         public int AddressId { get; set; }
 

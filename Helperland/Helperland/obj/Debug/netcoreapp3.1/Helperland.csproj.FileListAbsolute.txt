@@ -393,9 +393,10 @@ D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Register\
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Home\Index.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Register\Forgotpassword.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_EmptyLayout.cshtml.g.cs
-D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\BookService.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_UserLayout.cshtml.g.cs
-D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_ViewStart.cshtml.g.cs
-D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\GetUserAddress.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\bin\Debug\netcoreapp3.1\BCrypt.Net-Next.dll
-D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\AddNewAddress.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\EmailTemplates\NewServiceRequest.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\AddNewAddress.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\BookService.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\GetUserAddress.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\_ViewStart.cshtml.g.cs

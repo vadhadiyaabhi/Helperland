@@ -62,5 +62,17 @@ namespace Helperland.Implementations
             dbContext.SaveChanges();
             return true;
         }
+
+        public int AddNewAddress(UserAddress userAddress)
+        {
+            dbContext.UserAddresses.Add(userAddress);
+            dbContext.SaveChanges();
+            return userAddress.AddressId;
+        }
+
+        public IEnumerable<User> GetUserWithZipCode(string zipCode, bool worksWithPet)
+        {
+            return dbContext.Users.Where(u => u.ZipCode == zipCode && u.UserTypeId == 2 && u.IsActive == true && u.WorksWithPets == worksWithPet).ToList();
+        }
     }
 }

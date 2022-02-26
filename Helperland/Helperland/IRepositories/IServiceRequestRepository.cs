@@ -15,5 +15,13 @@ namespace Helperland.IRepositories
         public IEnumerable<UserAddress> GetUserAddresses(int id);
 
         public int AddServiceRequest(ServiceRequest serviceRequest);
+
+        public UserAddress GetUserAddress(int addId);
+
+        public bool AddServiceReqAddress(ServiceRequestAddress serviceAddress);
+
+        public int AddNewAddress(UserAddress userAddress);
+
+        public IEnumerable<User> GetUserWithZipCode(string zipCode, bool worksWithPet);
     }
 }

@@ -115,10 +115,11 @@ jQueryAjaxPost = form => {
                     $("#error").html("Sorry...!! Admin has not approved your account yet, Once he will, You'll be able to LogIn and take services, THANK YOU")
                 }
                 else if (res.notexist) {
-                    $("#error1").html("No account exist with this email")
+                    $("#error1").html("No account exist with this email");
+                    $("#success1").css("display", "none");
                 }
                 else if (res.mailsent) {
-                    $("#success1").html("A password reset link has been sent to your registered email. Please use it to reset your password.")
+                    $("#success1").css("display", "block");
                     $("#error1").html("");
                 }
                 else if (res.required) {
@@ -145,7 +146,21 @@ jQueryAjaxPost = form => {
                 else if (res.zipCode && !res.zipAvailable) {
                     $("#postal-code-error").html("We are not providing service in this " + res.zipCode + " area. We'll notify you if any helper would start working near your area.");
                 }
-                //console.log(res);
+                //else if (res.serviceAdded) {
+                //    $("#setup-service").siblings().css("display", "none");
+                //    $("#setup-service").css("display", "block");
+                //    $("#service-added").css("display", "block");
+                //    $("#tab1~ .tab").removeClass("color");
+                //    $("#tab1").siblings().removeClass("active");
+                //    $("#tab1").addClass("active");
+                //}
+                else if (res.newAddressAdded) {
+                    GetAddress();
+                }
+                else if (res.newAddressError) {
+                    $("#new-address").html(res.view);
+                }
+                console.log(res);
             },
             error: function (err) {
                 console.log(err);
@@ -172,12 +187,13 @@ go_to_backTab = (ele, idName) => {
         $("#" + ele.id + "~ .tab").removeClass("color");
         $(ele).siblings().removeClass("active");
         $(ele).addClass("active");
-        if (ele.id == "tab1") {
-            $("#" + idName + "+ form>div").css("display", "none");
-        }
-        else {
-            $("#" + idName).siblings().css("display", "none");
-        }
+        //if (ele.id == "tab1") {
+        //    $("#" + idName + "+ form>div").css("display", "none");
+        //}
+        //else {
+        //    $("#" + idName).siblings().css("display", "none");
+        //}
+        $("#" + idName).siblings().css("display", "none");
         $("#" + idName).css("display", "block");
     }
 }

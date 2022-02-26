@@ -3,40 +3,38 @@
     Layout = null;
 }
 
-<div class=" " id="New-Add-Modal">
-    <img class="close-modal" src="~/images/close.png" />
-    <h4 class="modal-title">Add New Address</h4>
+<div class="contact-page " id="New-Add">
+    <h4 class="small-title">Add New Address</h4>
     <span class="d-block text-center text-danger" id="new-add-error"></span>
-
-    <form asp-controller="User" asp-action="Index" method="post" class="contact-form d-flex justify-content-between flex-wrap">
-        <div>
+    <form asp-controller="Service" asp-action="AddNewAddress" onsubmit="return jQueryAjaxPost(this);" class="row d-flex justify-content-between flex-wrap">
+        <div class="col-12 col-md-6">
             <label class="" asp-for="AddressLine1"></label>
             <input asp-for="AddressLine1">
             <span class="text-danger" asp-validation-for="AddressLine1"></span>
         </div>
-        <div>
+        <div class="col-12 col-md-6">
             <label class="" asp-for="AddressLine2"></label>
             <input asp-for="AddressLine2">
             <span class="text-danger" asp-validation-for="AddressLine2"></span>
         </div>
-        <div>
+        <div class="col-12 col-md-6">
             <label class="" asp-for="ZipCode"></label>
-            <input asp-for="ZipCode" class="disabled-input" disabled>
+            <input asp-for="ZipCode" value="@Model.ZipCode" class="disabled-input" readonly>
             <span class="text-danger" asp-validation-for="ZipCode"></span>
         </div>
-        <div>
+        <div class="col-12 col-md-6">
             <label class="" asp-for="City"></label>
-            <input asp-for="City" disabled style="background-color: white;">
+            <input asp-for="City" value="@Model.City" readonly style="background-color: white;">
             <span class="text-danger" asp-validation-for="City"></span>
         </div>
-        <div>
+        <div class="col-12 col-md-6">
             <label class="" asp-for="Mobile"></label>
             <div class="mobile"><span class="country-code">+49</span><input asp-for="Mobile"></div>
             <span class="text-danger" asp-validation-for="Mobile"></span>
         </div>
-        <div>
+        <div class="col-12">
             <button type="submit" class="button my-3 mr-3 d-inline-block">Save</button>
-            <button type="reset" class=" white-button my-3 d-inline-block">Cancle</button>
+            <button type="reset" id="" class="white-button my-3 d-inline-block" onclick="CloseNewAddress();">Cancle</button>
         </div>
     </form>
 </div>

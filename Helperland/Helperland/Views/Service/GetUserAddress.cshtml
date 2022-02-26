@@ -4,7 +4,6 @@
     int i = 1;
 }
 
-
 @foreach (UserAddress address in Model)
 {
     string AddId = "add" + i;
@@ -22,6 +21,11 @@
         </div>
     </div>
     i++;
+}
+
+@if(i == 1) 
+{ 
+    <div class="text-danger">You have not added any address yet, You can add new by clicking below button</div>
 }
 
 

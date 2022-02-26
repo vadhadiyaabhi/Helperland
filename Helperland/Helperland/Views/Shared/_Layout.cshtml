@@ -81,7 +81,7 @@
                                 </div>
                             }
                             <li class="nav-item">
-                                <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")" aria-current="page" asp-controller="User" asp-action="BookService">Book now</a>
+                                <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")" aria-current="page" asp-controller="Service" asp-action="BookService">Book now</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Prices & Services" ? "active" : "")" asp-controller="Home" asp-action="Prices">Prices & services</a>
@@ -257,7 +257,10 @@
                 <img class="close-modal" src="~/images/close.png" />
                 <h4 class="modal-title">Forgot Password</h4>
                 <span class="d-block text-center text-danger" id="error1"></span>
-                <span class="d-block text-center text-success" id="success1"></span>
+                <span class="p-2 text-center alert-success" id="success1" style="display: none;">
+                    A password reset link has been sent to your registered email. <br /> Please use it to reset your password. <br />
+                    <span class="fw-bold">Please note that, Link will expire within An Hour.</span>
+                </span>
                 <form asp-controller="Register" asp-action="ForgotPasswordEmail" onsubmit="return jQueryAjaxPost(this);">
                     <div>
                         <img src="~/images/login-user.png" alt=" " />

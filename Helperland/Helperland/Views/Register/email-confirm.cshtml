@@ -41,12 +41,15 @@
                 {
                     <div class="alert-danger">
                         Oops!! Your link is invalid Or get expired<br />
-                        Click on below button to get the link again.
+                        Click on below button to get the link again. <br />
+                        Please note that, <span class="fw-bold">Only latest email link will work.</span>
                     </div>
                 }
                 else if (Model.EmailSent == true)
                 {
-                    <div class="text-center alert-success">Confirmation email has been sent to your registerd account.</div>
+                    <div class="text-center alert-success">Confirmation email has been sent to your registerd account.<br />
+                        <span class="fw-bold">Please note that, Link will expire within 1 Hour</span>
+                    </div>
                     <p class="text-center">Click on the link to activate your account by confirming your email address.</p>
 
                 }

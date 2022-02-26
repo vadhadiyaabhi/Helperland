@@ -25,8 +25,10 @@ namespace Helperland.ViewModel
         [StringLength(50)]
         public string State { get; set; }
 
-        [StringLength(20)]
+        [Required]
         [Display(Prompt = "Mobile Number")]
+        [MinLength(10, ErrorMessage = "Please enter valid Mobile number"), MaxLength(10, ErrorMessage = "Please enter valid Mobile number")]
+        [StringLength(20)]
         public string Mobile { get; set; }
     }
 }
