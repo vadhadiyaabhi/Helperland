@@ -51,13 +51,15 @@
                         <ul class="navbar-nav ms-auto align-items-lg-center">
 
                             <div class="mobile-menu-items">
-                                <li class="nav-item mobile-link">
-                                    <a class="nav-link" href="#" disabled>
-                                        Welcome, <br>
-                                        <span class="fw-bold">First Provider</span>
-                                    </a>
-                                </li>
-                                <hr>
+                            <li class="nav-item mobile-link">
+                                <a class="nav-link" href="#" disabled>
+                                    Welcome, <br>
+                                    <span class="fw-bold">@User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value</span>
+                                </a>
+                            </li>
+                            <hr>
+                            @if (User.IsInRole("1"))
+                            {
                                 <li class="nav-item">
                                     <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" href="#">Dashboard</a>
                                 </li>
@@ -77,125 +79,171 @@
                                     <a class="nav-link" href="#">Notifications</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Logout <img src="~/images/logout.png" class="mx-1" alt="" height="18px" width="18px" style="filter: invert(0.5);"></a>
+                                    <a class="nav-link" asp-controller="User" asp-action="MyAccount">My Settings</a>
                                 </li>
-                                <hr>
-                            </div>
+                            }
+                            @if (User.IsInRole("2"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" href="#">Dashboard</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - New Service Requests" ? "active" : "")" href="#">New Service Requests</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Upcoming Services" ? "active" : "")" href="#">Upcoming Services</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" href="#">Service Schedules</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" href="#">Service History</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - My Ratings" ? "active" : "")" href="#">My Ratings</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Block Customer</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - MyAccount" ? "active" : "")" asp-controller="SP" asp-action="MyAccount">My Settings</a>
+                                </li>
+                            }
 
                             <li class="nav-item">
-                                <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")" aria-current="page" asp-controller="User" asp-action="BookService">Book now</a>
+                                <a class="nav-link" asp-controller="Home" asp-action="Logout">Logout <img src="~/images/logout.png" class="mx-1" alt="" height="18px" width="18px" style="filter: invert(0.5);"></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Prices & Services" ? "active" : "")" asp-controller="Home" asp-action="Prices">Prices & services</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Warranty</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Contact Us" ? "active" : "")" asp-controller="Home" asp-action="Contact">Contact</a>
-                            </li>
-
-                            <li class="nav-item notification">
-                                <span class="notification-number">2</span>
-                                <a class="nav-link nav-link2" href="#">
-                                    <img src="~/images/icon-notification.png" alt=""
-                                         height="31px" width="26px">
-                                </a>
-                            </li>
-                            <li class="nav-item dropdown fleg">
-                                <a class="nav-link  nav-link2" href="#" id="navbarDropdown" role="button"
-                                   data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="~/images//user.png" alt="logo" height="36px" width="36px">
-                                    <img src="~/images/keyboard-right-arrow-button.png" alt="logo">
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item" href="#" disabled>
-                                            Welcome, <br> <span class="fw-bold">
-                                                First Provider
-                                            </span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item" href="#"> My Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="#"> My Settings</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">
-                                            Logout <img src="~/images/logout.png" class="mx-1" alt="" height="18px" width="18px" style="filter: invert(0.5);">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
                             <hr>
-                            <span class="mobile-menu-items">
-                                <div class="media-icons">
-                                    <a href="#" class="d-inline m-0"><img src="~/images/facebook-mobile-menu.png" alt="" class="mx-2"></a>
-                                    <a href="#" class="d-inline m-0"><img src="~/images/instagram-mobile-menu.png" alt="" class="mx-2"></a>
-                                </div>
-                            </span>
-                        </ul>
                     </div>
-                </nav>
-            </header>
-            @RenderBody()
 
+                    @if (User.IsInRole("1"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")  @(ViewData["Title"].ToString() == "Helperland - Book Service" ? "active" : "")" aria-current="page" asp-controller="Service" asp-action="BookService">Book now</a>
+                        </li>
+                    }
+                    <li class="nav-item">
+                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Prices & Services" ? "active" : "")" asp-controller="Home" asp-action="Prices">Prices & services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Warranty</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Blog</a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Contact Us" ? "active" : "")" asp-controller="Home" asp-action="Contact">Contact</a>
+                    </li>
 
-            <!-- FOOTER area -->
-            <div class="footer px-2 mt-5" id="footer">
-                <div class="container d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-4 px-0">
-                    <a href="/" class="footer-logo">
-                        <img src="~/images/white-logo-transparent-background.png"
-                             alt="logo" class="logo">
-                    </a>
-                    <div class="links">
-                        <ul>
-                            <a asp-controller="Home" asp-action="Index">
-                            <li>HOME</li>
-                            </a>
-                            <a asp-controller="Home" asp-action="About">
-                            <li>ABOUT</li>
-                            </a>
-                            <a href="#">
-                            <li>TESTIMONIALS</li>
-                            </a>
-                            <a asp-controller="Home" asp-action="FAQs">
-                            <li>FAQS</li>
-                            </a>
-                            <a href="#">
-                            <li>INSURANCE POLICY</li>
-                            </a>
-                            <a href="#">
-                            <li>IMPRESSUM</li>
-                            </a>
-                        </ul>
-                    </div>
-                    <div class="media-icons">
-                        <a><img src="~/images/ic-facebook.png" alt="" class=""></a>
-                        <a><img src="~/images/ic-instagram.png" alt="" class=""></a>
-                    </div>
-                </div>
-                <hr class="divider container mx-auto">
-                <div class="copy-rights d-flex justify-content-center py-3" id="copy-rights">
-                    <div>
-                        ©2018 Helperland. All rights reserved. <a href="">Terms and Conditions</a> | <a href="">
-                            Privacy
-                            Policy
+                    <li class="nav-item notification">
+                        <span class="notification-number">2</span>
+                        <a class="nav-link nav-link2" href="#">
+                            <img src="~/images/icon-notification.png" alt=""
+                                 height="31px" width="26px">
                         </a>
-                    </div>
+                    </li>
+                    <li class="nav-item dropdown fleg">
+                        <a class="nav-link  nav-link2" href="#" id="navbarDropdown" role="button"
+                           data-bs-toggle="dropdown" aria-expanded="false">
+                            <img src="~/images//user.png" alt="logo" height="36px" width="36px">
+                            <img src="~/images/keyboard-right-arrow-button.png" alt="logo">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li>
+                                <a class="dropdown-item" href="#" disabled>
+                                    Welcome, <br>
+                                    <span class="fw-bold">
+                                        @*First Provider*@
+                                        @User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            @if (User.IsInRole("1"))
+                            {
+                                <li><a class="dropdown-item" asp-controller="User"> My Dashboard</a></li>
+                                <li><a class="dropdown-item" asp-controller="User" asp-action="MyAccount"> My Settings</a></li>
+                            }
+                            @if (User.IsInRole("2"))
+                            {
+                                <li><a class="dropdown-item" asp-controller="SP"> My Dashboard</a></li>
+                                <li><a class="dropdown-item" asp-controller="SP" asp-action="MyAccount"> My Settings</a></li>
+                            }
+                            <li>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                    Logout <img src="~/images/logout.png" class="mx-1" alt="" height="18px" width="18px" style="filter: invert(0.6);">
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <hr>
+                    <span class="mobile-menu-items">
+                        <div class="media-icons">
+                            <a href="#" class="d-inline m-0"><img src="~/images/facebook-mobile-menu.png" alt="" class="mx-2"></a>
+                            <a href="#" class="d-inline m-0"><img src="~/images/instagram-mobile-menu.png" alt="" class="mx-2"></a>
+                        </div>
+                    </span>
+                    </ul>
+    </div>
+    </nav>
+    </header>
+
+    @RenderBody()
+
+
+        <!-- FOOTER area -->
+        <div class="footer px-2 mt-5" id="footer">
+            <div class="container d-flex flex-wrap justify-content-center justify-content-sm-between align-items-center py-4 px-0">
+                <a href="/" class="footer-logo">
+                    <img src="~/images/white-logo-transparent-background.png"
+                         alt="logo" class="logo">
+                </a>
+                <div class="links">
+                    <ul>
+                        <a asp-controller="Home" asp-action="Index">
+                        <li>HOME</li>
+                        </a>
+                        <a asp-controller="Home" asp-action="About">
+                        <li>ABOUT</li>
+                        </a>
+                        <a href="#">
+                        <li>TESTIMONIALS</li>
+                        </a>
+                        <a asp-controller="Home" asp-action="FAQs">
+                        <li>FAQS</li>
+                        </a>
+                        <a href="#">
+                        <li>INSURANCE POLICY</li>
+                        </a>
+                        <a href="#">
+                        <li>IMPRESSUM</li>
+                        </a>
+                    </ul>
+                </div>
+                <div class="media-icons">
+                    <a><img src="~/images/ic-facebook.png" alt="" class=""></a>
+                    <a><img src="~/images/ic-instagram.png" alt="" class=""></a>
                 </div>
             </div>
+            <hr class="divider container mx-auto">
+            <div class="copy-rights d-flex justify-content-center py-3" id="copy-rights">
+                <div>
+                    ©2018 Helperland. All rights reserved. <a href="">Terms and Conditions</a> | <a href="">
+                        Privacy
+                        Policy
+                    </a>
+                </div>
+            </div>
+        </div>
         </main>
     </div>
 
     @if (IsSectionDefined("AddNewAddress"))
     {
-         @RenderSection("AddNewAddress", required: true)
+        @RenderSection("AddNewAddress", required: true)
     }
     <!--  -->
     <!-- bootstrap bundle JS -->
@@ -208,6 +256,22 @@
     <!-- jQuery Validation library-->
     <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <table>
+            @foreach (var claim in User.Claims)
+            {
+                <tr>
+                    <td>@claim.Type</td>
+                    <td>@claim.Value</td>
+                </tr>
+            }
+        </table>
+    }
 </body>
 
 

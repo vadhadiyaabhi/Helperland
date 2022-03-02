@@ -16,5 +16,11 @@ namespace Helperland.ViewModel
         [Required]
         [Display(Prompt = "Password")]
         public string Password { get; set; }
+
+        public string ReturnUrl { get; set; }
+
+        public bool RememberMe { get; set; }
+
+        public bool LoginModal { get; set; }
     }
 }

@@ -5,17 +5,16 @@
     ViewData["Header"] = "";
 }
 
-
-<div class="container-fluid book-service">
+<div class="container-fluid padded-fluid book-service">
     <h1 class="title fw-normal">Set up your cleaning service</h1>
     <div class="separator"><img src="~/images/separator.png" alt=""></div>
     <div class="container">
         <div class="book-service-content">
             <div class="tabs">
-                <div class="tab active color" id="tab1" onclick="go_to_backTab(this, 'setup-service');"><img src="~/images/search.svg" class="mx-2" height="25" /><span>Setup Service</span></div>
-                <div class="tab" id="tab2" onclick="go_to_backTab(this, 'schedule-plan');"><img src="~/images/calendar3.svg" class="mx-2" height="25" /><span>Schedule & Plan</span></div>
-                <div class="tab" id="tab3" onclick="go_to_backTab(this, 'your-details');"><img src="~/images/house-door.svg" class="mx-2" height="25" /><span>Your Details</span></div>
-                <div class="tab" id="tab4" onclick="go_to_backTab(this, 'make-payment');"><img src="~/images/credit-card.svg" class="mx-2" height="25" /><span>Make Payment</span></div>
+                <div class="tab active color  d-flex flex-wrap justify-content-center" id="tab1" onclick="go_to_backTab(this, 'setup-service');"><img src="~/images/search.svg" class="mx-2" height="25" /><div class=" service-tab-title">Setup Service</div></div>
+                <div class="tab  d-flex flex-wrap justify-content-center" id="tab2" onclick="go_to_backTab(this, 'schedule-plan');"><img src="~/images/calendar3.svg" class="mx-2" height="25" /><div class=" service-tab-title">Schedule & Plan</div></div>
+                <div class="tab  d-flex flex-wrap justify-content-center" id="tab3" onclick="go_to_backTab(this, 'your-details');"><img src="~/images/house-door.svg" class="mx-2" height="25" /><div class=" service-tab-title">Your Details</div></div>
+                <div class="tab  d-flex flex-wrap justify-content-center" id="tab4" onclick="go_to_backTab(this, 'make-payment');"><img src="~/images/credit-card.svg" class="mx-2" height="25" /><div class=" service-tab-title">Make Payment</div></div>
             </div>
             @Html.ValidationSummary(false, "", new { @class = "text-danger" })
             <div class="book-service-form">
@@ -23,10 +22,10 @@
                     <div class="small-title my-2">Enter your postal code</div>
                     <form asp-controller="Service" asp-action="IsPostalCodeAvailable" class="contact-form mx-0" onsubmit="return jQueryAjaxPost(this);">
                         <div class="col-sm-7 col-12 col-md-5"><input asp-for="ZipCode" /></div>
-                        <button type="submit" class="button mx-2 fs-6" style="padding: 10px 20px">Check Availability</button>
+                        <button type="submit" class="button mx-2 fs-6" style="padding: 10px 20px">Check Availability</button> <br />
+                        <span class="text-danger" asp-validation-for="ZipCode"></span>
                     </form>
-                    <span class="text-danger" asp-validation-for="ZipCode"></span>
-                    <div id="postal-code-error" class="text-danger"></div>
+                    @*<div id="postal-code-error" class="text-danger"></div>*@
                     @if (ViewBag.submitted == 1)
                     {
                         <div class="alert-success" id="service-added" clear:both;">
@@ -39,7 +38,7 @@
                     <form asp-controller="Service" asp-action="BookService" id="service-req-form" method="post">
                         <input type="hidden" asp-for="ZipCode" value="" id="zip" />
                         <div class="row my-2">
-                            <div class="small-title fs-6 col-12 col-md-5">
+                            <div class="small-title fs-6 col-12 col-md-7 col-lg-5">
                                 When do you need the cleaner ?
                                 <br />
                                 <input type="date" asp-for="Date" style="width: auto;" class="pl-5" /><img src="~/images/calendar-color.png" class="calender" />
@@ -66,8 +65,10 @@
                                     <option value="17:30">17:30</option>
                                     <option value="18:00">18:00</option>
                                 </select>
+                                <br />
+                                <span class="text-danger fw-normal" id="date-error"></span>
                             </div>
-                            <div class="small-title fs-6 col-12 col-md-7">
+                            <div class="small-title fs-6 col-12 col-md-5 col-lg-7">
                                 How long do you need your cleaner to stay ? <br />
                                 <select asp-for="ServiceHours">
                                     <option value="3.0">3.0 Hrs</option>
@@ -92,7 +93,7 @@
                                 </select>
                             </div>
                         </div>
-                        <span class="text-danger" id="date-error"></span>
+                        
                         <hr />
                         <div class="extra-services my-4" style="border:none;">
                             <div class="small-title fs-6 my-2">Extra Services</div>
@@ -195,7 +196,7 @@
 
             </div>
         </div>
-        <div class="mx-5">
+        <div class="mx-2" id="payment-card">
             <div class="payment-card">
                 <div class="heading">Payment Summary</div>
                 <div class="pb-0 pt-4 px-4">
@@ -216,7 +217,7 @@
                 <hr />
                 <div class="px-4 pb-4">
                     <div class="d-flex justify-content-between align-items-center" style="color: #1d7a8c;">
-                        <span class="fs-4">Total Payment</span><span class="fs-1 fw-bold">54.00 €</span>
+                        <span class="fs-4">Total Payment</span><span class="fs-2 fw-bold">54.00 €</span>
                     </div>
                     <div style="font-size: 14px;">According to § 19 UStG no sales tax is calculated.</div>
                 </div>

@@ -1,6 +1,7 @@
 ﻿using Helperland.IRepositories;
 using Helperland.Models;
 using Helperland.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace Helperland.Controllers
 {
+    [Authorize(Roles = "1")]
     public class ServiceController : Controller
     {
         private readonly IServiceRequestRepository serviceRequest;
@@ -26,6 +28,7 @@ namespace Helperland.Controllers
             return View();
         }
 
+        
         [HttpGet]
         public IActionResult BookService()
         {
@@ -60,9 +63,9 @@ namespace Helperland.Controllers
                     TotalCost = Convert.ToDecimal((newRequest.ServiceHours + (ES*0.5)) * 18),
                 };
 
-                Console.WriteLine(service.ExtraHours);
-                Console.WriteLine(service.SubTotal);
-                Console.WriteLine(service.TotalCost);
+                //Console.WriteLine(service.ExtraHours);
+                //Console.WriteLine(service.SubTotal);
+                //Console.WriteLine(service.TotalCost);
                 UserAddress userAddress = serviceRequest.GetUserAddress(newRequest.AddressId);
                 ServiceRequestAddress serviceAddress = new ServiceRequestAddress
                 {
@@ -75,9 +78,17 @@ namespace Helperland.Controllers
                     Email = userAddress.Email
                 };
                 service.ServiceRequestAddresses.Add(serviceAddress);
+                if(newRequest.ExtraService1) service.ServiceRequestExtras.Add(new ServiceRequestExtra() {ServiceExtraId = 1 })  ;
+                if(newRequest.ExtraService2) service.ServiceRequestExtras.Add(new ServiceRequestExtra() {ServiceExtraId = 2 })  ;
+                if(newRequest.ExtraService3) service.ServiceRequestExtras.Add(new ServiceRequestExtra() {ServiceExtraId = 3 })  ;
+                if(newRequest.ExtraService4) service.ServiceRequestExtras.Add(new ServiceRequestExtra() {ServiceExtraId = 4 })  ;
+                if(newRequest.ExtraService5) service.ServiceRequestExtras.Add(new ServiceRequestExtra() {ServiceExtraId = 5 })  ;
                 int serviceId = serviceRequest.AddServiceRequest(service);
                 //serviceRequest.AddServiceReqAddress(serviceAddress);
                 //Console.WriteLine("service id is: "+serviceId);
+
+
+
 
                 IEnumerable<User> usersWithSameZipCode = serviceRequest.GetUserWithZipCode(service.ZipCode, service.HasPets);
                 User user = await userRepository.GetUser(5024);

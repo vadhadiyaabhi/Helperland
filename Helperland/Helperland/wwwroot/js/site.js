@@ -53,7 +53,7 @@ $(document).ready(function () {
         $(".Modal").removeClass("active");
     });
 
-    $(".redirect").click(function () {
+    $(".redirect-to-login").click(function () {
         loginModal = true;
         window.location.replace("http://localhost:5000/Home/Login");
         //openLoginModal();
@@ -102,6 +102,9 @@ jQueryAjaxPost = form => {
             success: function (res) {
                 if (res.invalid) {
                     $("#error").html("Oops!! Invalid Credentials");
+                }
+                else if (res.loginSuccess) {
+                    window.location.replace("http://localhost:5000" + res.returnUrl);
                 }
                 else if (res.notactive) {
                     $("#error").html("User has not been varified...\n Click the below link to get verification email");

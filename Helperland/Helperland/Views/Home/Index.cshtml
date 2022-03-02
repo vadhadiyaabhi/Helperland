@@ -4,11 +4,6 @@
     ViewData["Header"] = "Sliding_Header";
 }
 
-@*@if(ViewBag.Login == 1) 
-{
-    <h1>Hello Login</h1>
-}*@
-<!-- home content with background-image-->
 <div id="home" class="home">
     <div class="fluid ">
         <div class="content1">
@@ -310,24 +305,40 @@
     </div>
 </div>
 
+@section Scripts{
+
+    @if (Model != null && Model.LoginModal)
+    {
+        <script>
+            function OpenLoginModal() {
+                $("#blur").addClass("blur");
+                $("#Login-Modal").addClass("active");
+                $("#Password-Modal").removeClass("active");
+            }
+
+            OpenLoginModal();
+        </script>
+    }
+}
+
 <!-- NEWSLETTER -->
 @*<div class="newsletter" id="newsletter">
-    <div class="container-fluid d-flex justify-content-between pb-5">
-        <a href="#home" class="order-sm-1 order-2">
-            <div class="up-arrow"><img src="~/images/forma-1.png" alt=""></div>
-        </a>
-        <div class="content  order-sm-2 order-1">
-            <h2 class="card-title text-center pt-5 pb-2">GET OUR NEWSLETTER</h2>
-            <form action="#" method="post" class="text-center">
-                <input type="email" name="" id="" placeholder="YOUR EMAIL">
-                <button type="submit" class="my-2 mx-2">Submit</button>
-            </form>
+        <div class="container-fluid d-flex justify-content-between pb-5">
+            <a href="#home" class="order-sm-1 order-2">
+                <div class="up-arrow"><img src="~/images/forma-1.png" alt=""></div>
+            </a>
+            <div class="content  order-sm-2 order-1">
+                <h2 class="card-title text-center pt-5 pb-2">GET OUR NEWSLETTER</h2>
+                <form action="#" method="post" class="text-center">
+                    <input type="email" name="" id="" placeholder="YOUR EMAIL">
+                    <button type="submit" class="my-2 mx-2">Submit</button>
+                </form>
+            </div>
+            <a href="#" class="order-sm-3 order-3">
+                <div class="layer"><img src="~/images/layer-598.png" height="63px" width="63px" alt=""></div>
+            </a>
         </div>
-        <a href="#" class="order-sm-3 order-3">
-            <div class="layer"><img src="~/images/layer-598.png" height="63px" width="63px" alt=""></div>
-        </a>
-    </div>
-</div>*@
+    </div>*@
 
 
 

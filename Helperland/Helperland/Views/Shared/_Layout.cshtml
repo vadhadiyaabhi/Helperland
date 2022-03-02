@@ -18,7 +18,7 @@
     {
         <link href="~/css/site.css" rel="stylesheet" />
     }
-    else 
+    else
     {
         <link href="~/css/site2.css" rel="stylesheet" />
     }
@@ -77,11 +77,14 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Notifications</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Home" asp-action="Logout">Logout</a>
+                                    </li>
                                     <hr>
                                 </div>
                             }
                             <li class="nav-item">
-                                <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")" aria-current="page" asp-controller="Service" asp-action="BookService">Book now</a>
+                                <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")   @(ViewData["Title"].ToString() == "Helperland - Book Service" ? "active" : "")" aria-current="page" asp-controller="Service" asp-action="BookService">Book now</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Prices & Services" ? "active" : "")" asp-controller="Home" asp-action="Prices">Prices & services</a>
@@ -95,7 +98,7 @@
                             <li class="nav-item">
                                 <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Contact Us" ? "active" : "")" asp-controller="Home" asp-action="Contact">Contact</a>
                             </li>
-                            @if (true)
+                            @if (!User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color") login" href="#">Login</a>
@@ -130,11 +133,20 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="#"> My Dashboard</a></li>
-                                        <li><a class="dropdown-item" href="#"> My Settings</a></li>
+                                        @if (User.IsInRole("1"))
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="User"> My Dashboard</a></li>
+                                            <li><a class="dropdown-item" asp-controller="User" asp-action="MyAccount"> My Settings</a></li>
+                                        }
+                                        @if (User.IsInRole("2"))
+                                        {
+                                            <li><a class="dropdown-item" asp-controller="SP"> My Dashboard</a></li>
+                                            <li><a class="dropdown-item" asp-controller="SP" asp-action="MyAccount"> My Settings</a></li>
+                                        }
+
                                         <li>
-                                            <a class="dropdown-item" href="#">
-                                                Logout <img src="public/Images/logout.png"
+                                            <a class="dropdown-item" asp-controller="Home" asp-action="Logout">
+                                                Logout <img src="~/images/logout.png" style="filter: invert(0.5);"
                                                             class="mx-1" alt="" height="18px" width="18px">
                                             </a>
                                         </li>
@@ -148,9 +160,9 @@
                                     <a href="#" class="d-inline m-0"><img src="~/images/instagram-mobile-menu.png" alt="" class="mx-2"></a>
                                 </div>
                             </span>
-                         </ul>
-                     </div>
-                </nav>
+                            </ul>
+            </div>
+            </nav>
             </header>
             @RenderBody()
 
@@ -221,8 +233,8 @@
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+            </main>
+            </div>
             <!--  -->
             <!-- -------------Login Modal--------------- -->
             <div class="Modal " id="Login-Modal">
@@ -236,6 +248,10 @@
                     <input type="submit" id="hiddenButton" value="Send Email" style="background-color: transparent; border: none !important; display: none; color: #0c8fa5; " class="my-0" />
                 </form>
                 <form asp-controller="Home" asp-action="Login" onsubmit="return jQueryAjaxPost(this);">
+                    @if (Model != null) 
+                    {
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                    }
                     <div>
                         <input asp-for="Email" />
                         <img src="~/images/login-user.png" alt=" " />
@@ -246,7 +262,7 @@
                         <input type="password" asp-for="Password" />
                     </div>
                     <span class="text-danger" asp-validation-for="Password"></span>
-                    <div><input type="checkbox" class="mr-3" id="remember-me" /><label for="remember-me">Remember Me</label></div>
+                    <div><input type="checkbox" class="mr-3" asp-for="RememberMe" id="remember-me" /><label for="remember-me">Remember Me</label></div>
                     <button type="submit">LogIn</button>
                 </form>
                 <div class="text-center mt-4"><a href="#" id="password-reset">Forgot password ?</a></div>
@@ -266,7 +282,7 @@
                         <img src="~/images/login-user.png" alt=" " />
                         <input asp-for="Email" />
                     </div>
-                        <span class="text-danger" asp-validation-for="Email"></span>
+                    <span class="text-danger" asp-validation-for="Email"></span>
                     <button type="submit">Send</button>
                 </form>
                 <div class="text-center mt-4"><a href="#" class="login">LogIn Now</a></div>
@@ -285,8 +301,8 @@
             <!-- jQuery Validation library-->
             <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
             <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+            @RenderSection("Scripts", required: false)
         </body>
-
-
-
+        
 </html>

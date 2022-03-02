@@ -2,6 +2,7 @@ using Helperland.Implementations;
 using Helperland.IRepositories;
 using Helperland.Repository;
 using Helperland.ViewModel;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -38,6 +39,13 @@ namespace Helperland
             services.AddScoped<ILoginRepository, LoginImplementation>();
             services.AddScoped<IServiceRequestRepository, ServiceRequestImplementation>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                options.LoginPath = "/Home/Login";
+                options.Cookie.Name = "AuthenticationCookie";
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +63,9 @@ namespace Helperland
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.UseCookiePolicy();
 
             app.UseEndpoints(endpoints =>
             {

@@ -37,8 +37,8 @@ namespace Helperland.Controllers
         public async Task<IActionResult> IsEmailInUse(string email)
         {
             var user =await UserRepository.GetUserByEmail(email);
-
-            if(user == null)
+            Console.WriteLine(HttpContext.Request.Path);
+            if (user == null)
             {
                 return Json(true);
             }

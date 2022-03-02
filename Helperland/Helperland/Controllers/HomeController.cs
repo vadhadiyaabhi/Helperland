@@ -1,6 +1,8 @@
 ﻿using Helperland.IRepositories;
 using Helperland.Models;
 using Helperland.ViewModel;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Helperland.Controllers
@@ -17,7 +20,6 @@ namespace Helperland.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IContactRepository contactRepository;
-
         public IWebHostEnvironment HostingEnvironment;
         private readonly ILoginRepository login;
 
@@ -28,6 +30,7 @@ namespace Helperland.Controllers
             contactRepository = contact;
             HostingEnvironment = hostingEnvironment;
             this.login = login;
+            //Console.WriteLine("Checking controller execution");
         }
 
         public IActionResult Index()
@@ -90,49 +93,63 @@ namespace Helperland.Controllers
         }
 
         [HttpGet]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = "/")
         {
-            
-            return View("Index");
+            AuthenticationViewModel authenticationViewModel = new AuthenticationViewModel();
+            authenticationViewModel.ReturnUrl = returnUrl;
+
+            authenticationViewModel.LoginModal = true;
+            return View("Index", authenticationViewModel);
         }
 
         [HttpPost]
-        public IActionResult Login([Bind("Email", "Password")] AuthenticationViewModel authenticationViewModel)
+        public async Task<IActionResult> Login([Bind("Email", "Password", "ReturnUrl", "RememberMe")] AuthenticationViewModel authenticationViewModel)
         {
-            //Console.WriteLine("Login controller");
             if (ModelState.IsValid)
             {
                 User user = login.Login(authenticationViewModel);
                 if(user != null)
                 {
-                    if (user.IsActive)
-                    {
-                        if(user.UserTypeId == 1)
-                        {
-                            Console.WriteLine("User Login Successfull");
-                            return RedirectToAction("User/Index");
-                        }
-                        else if(user.UserTypeId == 3)
-                        {
-                            return RedirectToAction("Admin/Index");
-                        }
-                        else if(user.UserTypeId == 2 && !user.IsApproved)
-                        {
-                            //Console.WriteLine("User not approved by admin");
-                            return Json(new { notapproved = true});
-                        }
-                        else
-                        {
-                            Console.WriteLine("SP Login Successfull");
-                            return RedirectToAction("SP/Index");
-                        }
-                    }
-                    else
+
+                    if (!user.IsActive)
                     {
                         ModelState.Clear();
                         //Console.WriteLine("Not active");
-                        return Json(new { notactive = true, email = user.Email, name = user.FirstName + " " + user.LastName, id=user.UserId});
+                        return Json(new { notactive = true, email = user.Email, name = user.FirstName + " " + user.LastName, id = user.UserId });
                     }
+                    if (user.UserTypeId == 2 && !user.IsApproved)
+                    {
+                        return Json(new { notapproved = true });
+                    }
+                    else
+                    {
+                        var claims = new List<Claim>()
+                            {
+                                new Claim(ClaimTypes.NameIdentifier, Convert.ToString(user.UserId)),
+                                new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                                new Claim(ClaimTypes.Role, Convert.ToString(user.UserTypeId)),
+                                new Claim("Email", user.Email),
+                                new Claim("FirstName", user.FirstName),
+                                new Claim("Helperland ", "AuthCookie")
+                            };
+
+                        var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var principal = new ClaimsPrincipal(identity);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal,
+                            new AuthenticationProperties()
+                            {
+                                IsPersistent = authenticationViewModel.RememberMe
+                            });
+
+                        if (authenticationViewModel.ReturnUrl == "/")
+                        {
+                            if (user.UserTypeId == 1) authenticationViewModel.ReturnUrl = "/User";
+                            if (user.UserTypeId == 2) authenticationViewModel.ReturnUrl = "/SP";
+                            if (user.UserTypeId == 3) authenticationViewModel.ReturnUrl = "/Admin";
+                        }
+                        return Json(new { loginSuccess = true, returnUrl = authenticationViewModel.ReturnUrl });
+                    }
+                    
                 }
                 //Console.WriteLine("Invalid credentials");
                 return Json(new { invalid=true });
@@ -142,6 +159,11 @@ namespace Helperland.Controllers
             return Json(new {required = true});
         }
 
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return LocalRedirect("/Home/Login");
+        }
         public IActionResult Register()
         {
             return View("../Register/Register");

@@ -27,7 +27,8 @@ html, body {
     color: #4F4F4F;
     font-weight: 600;
     text-align: center;
-    margin-top: 31px;
+    //margin-top: 31px;
+    padding-top: 31px;
 }
 
 .separator {
@@ -777,9 +778,14 @@ input:focus, textarea:focus, select:focus {
     color: white;
 }
 
-    .side-menu li:hover {
-        background-color: #146371;
-    }
+.side-menu li:hover {
+    background-color: #146371;
+}
+
+.side-menu li.active {
+    background-color: #146371;
+}
+
 
 .side-menu {
     width: calc(20% - 10px);
@@ -1224,8 +1230,13 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     position: relative;
 }
 
-.book-service-content .tabs{
+.book-service-content .tabs {
     display: flex;
+    width: 100%;
+}
+
+.service-tab-title{
+    text-align: center;
 }
 
 .tab img{
@@ -1414,6 +1425,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         margin: 0 15px;
         width: 100%;
     }
+
+    .payment-card {
+        width: 280px !important;
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -1429,6 +1444,24 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         text-align: center;
         max-width: 320px;
     }
+
+    .book-service-content {
+        width: 100%;
+    }
+
+    .service-tab-title{
+        display: none;
+    }
+
+    .book-service-content .tab{
+        width: 25%;
+    }
+
+    #payment-card{
+        display: none;
+    }
+
+    
 }
 
 @media screen and (max-width: 768px) {
@@ -1482,6 +1515,10 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 @media screen and (max-width: 576px) {
     .container-fluid {
         padding: 0px 10px;
+    }
+
+    .padded-fluid {
+        padding: 64px 10px;
     }
 
     .price-content > div:nth-child(2) {

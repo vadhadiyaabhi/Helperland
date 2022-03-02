@@ -436,7 +436,7 @@
     }
 }
 
-@media screen and (max-width: 576px) {
+@media screen and (max-width: 991px) {
     .service-provider-header .navbar-brand img {
         height: 54px;
         width: 73px;
