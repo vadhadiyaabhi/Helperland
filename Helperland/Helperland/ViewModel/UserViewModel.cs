@@ -80,6 +80,21 @@ namespace Helperland.Models
 
         public int? Status { get; set; }
 
-      
+        [Column(TypeName = "datetime")]
+        public DateTime CreatedDate
+        {
+            get
+            { return (DateTime.Now); }
+        }
+
+        [Column(TypeName = "datetime")]
+        public DateTime ModifiedDate
+        {
+            get
+            { return (DateTime.Now); }
+        }
+
+
+
     }
 }

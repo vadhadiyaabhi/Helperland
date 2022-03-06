@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -19,9 +20,17 @@ namespace Helperland.ViewModel
         [Required]
         [Display(Name = "Confirm Password")]
         [DataType(DataType.Password)]
-        [Compare("Password", ErrorMessage ="Password and ConfirmPassword must match")]
+        [Compare("Password", ErrorMessage = "Password and ConfirmPassword must match")]
         public string ConfirmPassword { get; set; }
-
+        
         public string Token { get; set; }
+
+        [Column(TypeName = "datetime")]
+        public DateTime ModifiedDate
+        {
+            get
+            { return (DateTime.Now); }
+        }
+
     }
 }

@@ -175,6 +175,17 @@ namespace Helperland.Implementations
             return await DbContext.Users.FindAsync(Id);
         }
 
+        public async Task<User> UpdateUser(UserUpdateViewModel userViewModel)
+        {
+            User user = await DbContext.Users.FindAsync(5024);
+            user.FirstName = userViewModel.FirstName;
+            user.LastName = userViewModel.LastName;
+            user.DateOfBirth = userViewModel.DateOfBirth;
+            user.Mobile = userViewModel.Mobile;
+            DbContext.SaveChanges();
+            return user;
+        }
+
         public async Task<User> GetUserByEmail(string email)
         {
             //User user = DbContext.Users.Where(user => user.Email == email).FirstOrDefault();

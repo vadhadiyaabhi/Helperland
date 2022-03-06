@@ -163,6 +163,13 @@ jQueryAjaxPost = form => {
                 else if (res.newAddressError) {
                     $("#new-address").html(res.view);
                 }
+                else if (res.userUpdateSuccess) {
+                    $("#index").html("Loading user details...").load(`/User/MyDetails`);
+                    $("#user-update-success").css("display", "block");
+                }
+                else if (res.userUpdateFail) {
+                    $("#user-update-error").css("display", "block");
+                }
                 console.log(res);
             },
             error: function (err) {

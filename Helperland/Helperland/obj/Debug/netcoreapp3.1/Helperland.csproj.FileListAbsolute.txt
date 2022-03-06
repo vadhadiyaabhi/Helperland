@@ -400,3 +400,8 @@ D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\B
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\GetUserAddress.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\_ViewStart.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\Index.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\MyAccount.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\_ViewStart.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\UserAddresses.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\MyDetails.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\ResetPassword.cshtml.g.cs

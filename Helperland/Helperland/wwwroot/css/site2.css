@@ -306,11 +306,27 @@ input:focus, textarea:focus, select:focus {
     background-color: #1d7a8c;
     color: white;
 }
+
+.small-button {
+    font-size: 20px;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 46px;
+    background-color: #1D7A8C;
+    border: none;
+    display: inline-block;
+    margin: auto;
+    transition: .2s;
+}
+
+.small-button:hover{
+    background-color: #146371 !important;
+    cursor:pointer;
+}
+
+
 /* ----------------------------------------------------------------------------- */
-
-
 /* --------------------------------FAQs css--------------------------- */
-
 .md-content1 {
     font-size: 18px;
     color: #646464;
@@ -749,6 +765,7 @@ input:focus, textarea:focus, select:focus {
     text-align: center;
     color: #4F4F4F;
     padding-top: 88px !important;
+    border-bottom: 1px solid #e1e1e1;
 }
 
     .welcome-heading h1 {
@@ -765,6 +782,14 @@ input:focus, textarea:focus, select:focus {
 .dashboard-table {
     /* max-width: 865px; */
     width: calc(80% - 20px);
+}
+
+.row-table tr{
+    display: table-row!important;
+}
+.row-table td{
+    padding: 5px !important;
+    border-bottom: inherit !important;
 }
 
 .side-menu ul {
@@ -908,10 +933,46 @@ tr img {
     font-weight: bold;
 }
 
+/*-------------MyAccount Page-----------------*/
+
+.my-setting-tab {
+    width: 100% !important;
+    display: flex;
+    justify-content: space-between;
+}
+
+.my-setting-tab > div {
+    border-bottom: 4px solid #e1e1e1;
+    color: #646464;
+    font-size: 17px;
+    font-weight: 750;
+    padding: 15px 10px;
+    width: 25%;
+    text-align: center;
+    transition: .3s linear;
+}
+
+.my-setting-tab > div.active {
+    color: #1d7a8c;
+    border-bottom-color: #1d7a8c;
+}
+
+my-settting-table thead {
+    background: #f3f3f3;
+    border-bottom: 2px solid #e1e1e1;
+}
+
+.my-setting form label {
+    font-weight: bold !important;
+}
+
+.my-setting form span{
+    font-size: 14px !important;
+}
+
+
 /* -------------------------------------------------------------- */
-
 /* -------------------------Admin Pages-------------------------- */
-
 .container-fluid.admin-page {
     padding: 0px;
     margin: 0px;
@@ -1481,7 +1542,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         display: block;
     }
 
-    tr {
+    .responsive-row tr {
         display: flex;
         flex-direction: column;
         margin: 20px 0;
@@ -1489,7 +1550,9 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
         box-shadow: 0px 0px 8px #646464;
     }
 
-    td {
+
+
+    .responsive-row td {
         padding: 10px 0px;
         border-bottom: 1px solid #b6b6b6;
     }

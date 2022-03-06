@@ -23,6 +23,8 @@ namespace Helperland.IRepositories
 
         public Task<User> GetUser(int Id);
 
+        public Task<User> UpdateUser(UserUpdateViewModel userViewModel);
+
         //public User GetUserByEmail(string email);
         public Task<User> GetUserByEmail(string email);
     }

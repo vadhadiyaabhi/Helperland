@@ -1,0 +1,53 @@
+﻿@model IEnumerable<UserAddress>
+
+@{
+    Layout = null;
+    int i = 1;
+}
+
+
+<div class="table-responsive">
+    <table class="my-setting-table my-4 " style="width: 100%;">
+        <theaad class="fw-noraml" style="background-color: #f3f3f3;">
+            <th>Invoicing</th>
+            <th>Addresses</th>
+            <th>Action</th>
+        </theaad>
+        <tbody>
+            @foreach (UserAddress address in Model)
+            {
+
+                <tr>
+                    <td>
+                        <form><input type="radio" name="AddressId" class="addId" value="@address.AddressId" id="" /></form>
+                    </td>
+                    <td>
+                        <div class="d-flex no-wrap align-items-center my-3" id="@address.AddressId">
+                            <div class="text-nowrap">
+                                <div>
+                                    <span class="small-title fs-6">Address: </span> @address.AddressLine1 @address.AddressLine2, @address.City @address.PostalCode
+                                </div>
+                                <div>
+                                    <span class="small-title fs-6">Phone number: </span> @address.Mobile
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div><a asp-controller="User" asp-action="Edit" onclick="EditAddress(@address.AddressId)"><img src="~/images/edit-icon.png" /></a></div>
+                        <div><a asp-controller="User" asp-action="Delete" onclick="Delete(@address.AddressId)"><img src="~/images/delete-icon.png" /></a></div>
+                    </td>
+                </tr>
+
+
+                i++;
+            }
+        </tbody>
+    </table>
+</div>
+
+@if (i == 1)
+{
+    <div class="text-danger">You have not added any address yet, You can add new by clicking below button</div>
+}
+

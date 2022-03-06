@@ -98,6 +98,8 @@ namespace Helperland.Controllers
             AuthenticationViewModel authenticationViewModel = new AuthenticationViewModel();
             authenticationViewModel.ReturnUrl = returnUrl;
 
+            //NOTEc: Without this function, ReturnUrl is not working, PLEASE FIX it first
+
             authenticationViewModel.LoginModal = true;
             return View("Index", authenticationViewModel);
         }

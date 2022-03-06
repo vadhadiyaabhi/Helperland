@@ -250,7 +250,8 @@
                 <form asp-controller="Home" asp-action="Login" onsubmit="return jQueryAjaxPost(this);">
                     @if (Model != null) 
                     {
-                        @Html.HiddenFor(x => x.ReturnUrl)
+                        @*@Html.HiddenFor(x => x.ReturnUrl)*@
+                        <input type="hidden" asp-for="ReturnUrl" value="/" />
                     }
                     <div>
                         <input asp-for="Email" />

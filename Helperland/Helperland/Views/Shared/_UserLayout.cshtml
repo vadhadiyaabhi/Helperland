@@ -1,5 +1,4 @@
-﻿@model AuthenticationViewModel
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -260,7 +259,7 @@
     @RenderSection("Scripts", required: false)
 
 
-    @if (User.Identity.IsAuthenticated)
+    @*@if (User.Identity.IsAuthenticated)
     {
         <table>
             @foreach (var claim in User.Claims)
@@ -271,7 +270,7 @@
                 </tr>
             }
         </table>
-    }
+    }*@
 </body>
 
 
