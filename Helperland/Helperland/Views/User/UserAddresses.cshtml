@@ -18,14 +18,14 @@
             {
 
                 <tr>
-                    <td>
-                        <form><input type="radio" name="AddressId" class="addId" value="@address.AddressId" id="" /></form>
+                    <td class="text-center">
+                        <input type="radio" name="AddressId" class="addId" value="@address.AddressId" onchange="setDefault(@address.AddressId)" />
                     </td>
                     <td>
                         <div class="d-flex no-wrap align-items-center my-3" id="@address.AddressId">
                             <div class="text-nowrap">
                                 <div>
-                                    <span class="small-title fs-6">Address: </span> @address.AddressLine1 @address.AddressLine2, @address.City @address.PostalCode
+                                    <span class="small-title fs-6">Address: </span> @address.AddressLine1, @address.AddressLine2, @address.City @address.PostalCode
                                 </div>
                                 <div>
                                     <span class="small-title fs-6">Phone number: </span> @address.Mobile
@@ -33,9 +33,11 @@
                             </div>
                         </div>
                     </td>
-                    <td>
-                        <div><a asp-controller="User" asp-action="Edit" onclick="EditAddress(@address.AddressId)"><img src="~/images/edit-icon.png" /></a></div>
-                        <div><a asp-controller="User" asp-action="Delete" onclick="Delete(@address.AddressId)"><img src="~/images/delete-icon.png" /></a></div>
+                    <td >
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div><a onclick="LoadAddressModal(@address.AddressId)"><img src="~/images/edit-icon.png" /></a></div>
+                            <div><a class="delete" onclick="Delete(@address.AddressId)"><img src="~/images/delete-icon.png" /></a></div>
+                        </div>
                     </td>
                 </tr>
 

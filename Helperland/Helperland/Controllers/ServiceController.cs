@@ -40,6 +40,7 @@ namespace Helperland.Controllers
         {
             if (ModelState.IsValid)
             {
+                int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
                 int ES = 0;
                 ES = newRequest.ExtraService1 ? ES + 1 : ES + 0;
                 ES = newRequest.ExtraService2 ? ES + 1 : ES + 0;
@@ -49,7 +50,7 @@ namespace Helperland.Controllers
 
                 ServiceRequest service = new ServiceRequest
                 {
-                    UserId = 5024,
+                    UserId = userId,
                     ServiceStartDate = Convert.ToDateTime(newRequest.Date + " " + newRequest.Time.ToString()),
                     ZipCode = newRequest.ZipCode,
                     Comments = newRequest.Comments,
@@ -91,14 +92,14 @@ namespace Helperland.Controllers
 
 
                 IEnumerable<User> usersWithSameZipCode = serviceRequest.GetUserWithZipCode(service.ZipCode, service.HasPets);
-                User user = await userRepository.GetUser(5024);
+                User user = await userRepository.GetUser(userId);
                 string ExtraServices = "";
                 ExtraServices = ExtraServices + "<tr><td>Basic Service</td><td>" + service.ServiceHours + " Hrs </td><td>" + (service.ServiceHours * 18.00) + " €</td></tr>";
                 ExtraServices = (newRequest.ExtraService1) ? ExtraServices + "<tr><td>Inside cabinets</td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
                 ExtraServices = (newRequest.ExtraService2) ? ExtraServices + "<tr><td>Inside fridge</td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
                 ExtraServices = (newRequest.ExtraService3) ? ExtraServices + "<tr><td>Inside oven</td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
-                ExtraServices = (newRequest.ExtraService4) ? ExtraServices + "<tr><td>Interio window</td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
-                ExtraServices = (newRequest.ExtraService5) ? ExtraServices + "<tr><td>Laundry wash & dry </td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
+                ExtraServices = (newRequest.ExtraService5) ? ExtraServices + "<tr><td>Interio window</td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
+                ExtraServices = (newRequest.ExtraService4) ? ExtraServices + "<tr><td>Laundry wash & dry </td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
                 foreach (User SP in usersWithSameZipCode)
                 {
 
@@ -174,7 +175,7 @@ namespace Helperland.Controllers
         {
             Console.WriteLine("Getting address");
             //var address = serviceRequest.GetUserAddresses(3021);
-            var address = serviceRequest.GetUserAddresses(5024);
+            var address = serviceRequest.GetUserAddresses(Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value));
             Console.WriteLine(address);
             return View(address);
             
@@ -210,8 +211,9 @@ namespace Helperland.Controllers
                     City = newAdd.City,
                     PostalCode = newAdd.ZipCode,
                     Mobile = newAdd.Mobile,
-                    Email = "test8@yopmail.com",
-                    UserId = 5024,
+                    //Email = "test8@yopmail.com",
+                    Email = HttpContext.User.FindFirst("Email").Value,
+                    UserId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value),
                     IsDefault = false,
                     IsDeleted = false
                 };

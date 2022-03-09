@@ -1,11 +1,7 @@
 ﻿@{  
-    ViewData["Login"] = "false";
-    //if (ViewBag.Login == "true")
-    //{
-    //    ViewData["Login"] = "true";
-    //}
-    @if (User.Identity.IsAuthenticated)
+    @*@if (User.Identity.IsAuthenticated)
         Layout = "_UserLayout";
      else
-        Layout = "_Layout";
+        Layout = "_Layout";*@
+    Layout = "_Layout";
 }

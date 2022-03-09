@@ -1,0 +1,50 @@
+﻿@model UserAddressViewModel
+@{
+    Layout = null;
+}
+
+<div class="contact-page " id="New-Add">
+    <span class="d-block text-center text-danger" id="new-add-error"></span>
+    <form class="row d-flex justify-content-between flex-wrap" asp-controller="User" asp-action="AddOrEditAddress" onsubmit="return jQueryAjaxPost(this);" >
+        <div class="col-12 col-sm-6">
+            <label class="fw-bold" asp-for="AddressLine1"></label>
+            <input asp-for="AddressLine1" value="@Model.AddressLine1">
+            <span class="text-danger" asp-validation-for="AddressLine1"></span>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label class="fw-bold" asp-for="AddressLine2"></label>
+            <input asp-for="AddressLine2" value="@Model.AddressLine2">
+            <span class="text-danger" asp-validation-for="AddressLine2"></span>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label class="fw-bold" asp-for="ZipCode"></label>
+            <input asp-for="ZipCode" value="@Model.ZipCode">
+            <span class="text-danger" asp-validation-for="ZipCode"></span>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label class="fw-bold" asp-for="City"></label>
+            <input asp-for="City" value="@Model.City">
+            <span class="text-danger" asp-validation-for="City"></span>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label class="fw-bold" asp-for="Mobile"></label>
+            <div class="mobile"><span class="country-code">+49</span><input asp-for="Mobile" value="@Model.Mobile"></div>
+            <span class="text-danger" asp-validation-for="Mobile"></span>
+        </div>
+        <input class=" " type="hidden" asp-for="AddressId" value="@Model.AddressId" />
+        <div class="col-12">
+            @if (Model.AddressId != 0)
+            {
+                <button type="submit" class="py-2 my-3">Edit</button>
+            }
+            else
+            {
+                <button type="submit" class="py-2 my-3">Add</button>
+            }
+        </div>
+    </form>
+</div>
+
+<!-- jQuery Validation library-->
+<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

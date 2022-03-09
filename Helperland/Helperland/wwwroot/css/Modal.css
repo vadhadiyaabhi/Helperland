@@ -11,7 +11,6 @@ a {
 }
 .Modal {
     z-index: 999;
-    max-width: 360px;
     width: 360px;
     padding: 20px 25px;
     color: #646464;
@@ -117,6 +116,39 @@ label:hover{
     opacity: 2;
 }
 
+.Modal .white-button {
+    border:1px solid #646464 !important;
+    border-radius: 46px !important;
+    background-color: white !important;
+    padding: 8px 26px;
+    color: #646464;
+}
+.Modal .white-button:hover {
+    border-color: #1d7a8c !important;
+    background-color: #1d7a8c !important;
+    color: white;
+}
+
+.Modal .small-button {
+    font-size: 20px;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 46px;
+    background-color: #1D7A8C;
+    border: none;
+    display: inline-block;
+    margin: auto;
+    transition: .2s;
+}
+
+.Modal .small-button:hover {
+    background-color: #146371 !important;
+    cursor: pointer;
+}
+.Modal.Address-Modal {
+    width: 620px;
+}
+
 
 /*-----------------------------------------------*/
 /*-------------------------------------------------*/
@@ -128,6 +160,14 @@ label:hover{
         width: 80%;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .Modal.Address-Modal {
+        width: 80% !important;
+    }
+}
+
+
 
 @media screen and (max-width: 390px){
     .Modal{

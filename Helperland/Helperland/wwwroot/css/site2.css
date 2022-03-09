@@ -251,8 +251,8 @@ input[type="checkbox"]:hover{
 .alert-success
 {
     border-radius: 7px;
-    //color: green;
-    background-color: #c1eca3;
+    /*color: green;*/
+    background-color: #dffecc;
     text-align: center;
     margin: 15px auto;
     padding: 8px 15px;
@@ -296,14 +296,15 @@ input:focus, textarea:focus, select:focus {
 }
 
 .white-button {
-    border-color: #646464;
-    background-color: white;
+    border-color: #646464 !important;
+    border-radius: 46px !important;
+    background-color: white !important;
     padding: 8px 26px;
     color: #646464;
 }
 .white-button:hover {
-    border-color: #1d7a8c;
-    background-color: #1d7a8c;
+    border-color: #1d7a8c !important;
+    background-color: #1d7a8c !important;
     color: white;
 }
 
@@ -952,6 +953,15 @@ tr img {
     transition: .3s linear;
 }
 
+.my-sp-setting .my-setting-tab > div {
+    width: 33%;
+}
+
+.my-setting-tab > div:hover{
+    color: #1d7a8c;
+    border-bottom-color: #1d7a8c;
+}
+
 .my-setting-tab > div.active {
     color: #1d7a8c;
     border-bottom-color: #1d7a8c;
@@ -963,13 +973,16 @@ my-settting-table thead {
 }
 
 .my-setting form label {
-    font-weight: bold !important;
+    font-weight: bold;
+}
+
+.my-sp-setting form label {
+    font-weight: normal;
 }
 
 .my-setting form span{
     font-size: 14px !important;
 }
-
 
 /* -------------------------------------------------------------- */
 /* -------------------------Admin Pages-------------------------- */
@@ -1389,9 +1402,9 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
     border-radius: 4px;
 }
 
-.addresses input[type="radio"] {
-    width: 16px;
-    height: 16px;
+input[type="radio"] {
+    width: 16px !important;
+    height: 16px !important;
     accent-color: #1D7A8C !important;
 }
 

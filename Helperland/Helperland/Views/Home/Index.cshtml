@@ -18,13 +18,16 @@
                 <img src="~/images/forma-1-copy-10.png">Lorem ipsum dolor sit amet consectetur adipisicing.
             </span><br>
         </div>
-        <div class="button">
-            <a href="#">
-                <a asp-controller="Service" asp-action="BookService" class="center-button">
-                    Let's Book a Cleaner
+        @if ((User.Identity.IsAuthenticated && User.IsInRole("1")) || !User.Identity.IsAuthenticated)
+        {
+            <div class="button">
+                <a href="#">
+                    <a asp-controller="Service" asp-action="BookService" class="center-button">
+                        Let's Book a Cleaner
+                    </a>
                 </a>
-            </a>
-        </div>
+            </div>
+        }
         <div class="down-logo-area d-flex mx-auto flex-wrap">
             <div class=" d-flex flex-column justify-content-center my-0">
                 <img src="~/images/down-logo-1.svg" height="55" width="52" class="mx-auto" alt="">

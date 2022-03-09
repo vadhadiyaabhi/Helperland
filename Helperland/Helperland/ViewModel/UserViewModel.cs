@@ -18,8 +18,6 @@ namespace Helperland.Models
         [Key]
         public int UserId { get; set; }
 
-
-
         [Required]
         [StringLength(100)]
         [MaxLength(30, ErrorMessage = "First name cannot exceed 30 Characters")]

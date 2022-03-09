@@ -190,8 +190,64 @@
     </nav>
     </header>
 
-    @RenderBody()
+    <div class="welcome-heading py-4">
+        <h1 class="welcome">Welcome,</h1>
+        <h1 class="fw-bold">@User.FindFirst("FirstName").Value</h1>
+    </div>
+    <div class="dashboard service-history d-flex justify-content-around">
+        @if (User.IsInRole("1"))
+        {
+            <div class="side-menu">
+                <ul>
+                    <a href="">
+                    <li class="side-menu-item" id="Dashboard">Dashboard</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Service-History">Service History</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Service-Schedules">Service Schedules</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Favourite-Pros">Favourite Pros</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Invoices">Invoices</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Notification">Notification</li>
+                    </a>
+                </ul>
+            </div>
+        }
+        else
+        {
+            <div class="side-menu">
+                <ul>
+                    <a href="">
+                    <li class="side-menu-item" id="Dashboard">Dashboard</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Service-History">Service History</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Service-Schedules">Service Schedules</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Favourite-Pros">Favourite Pros</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Invoices">Invoices</li>
+                    </a>
+                    <a href="">
+                    <li class="side-menu-item" id="Notification">Notification</li>
+                    </a>
+                </ul>
+            </div>
+        }
 
+        @RenderBody()
+    </div>
 
         <!-- FOOTER area -->
         <div class="footer px-2 mt-5" id="footer">
@@ -244,6 +300,7 @@
     {
         @RenderSection("AddNewAddress", required: true)
     }
+    @RenderSection("Modals", required: false)
     <!--  -->
     <!-- bootstrap bundle JS -->
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -259,18 +316,18 @@
     @RenderSection("Scripts", required: false)
 
 
-    @*@if (User.Identity.IsAuthenticated)
-    {
-        <table>
-            @foreach (var claim in User.Claims)
-            {
-                <tr>
-                    <td>@claim.Type</td>
-                    <td>@claim.Value</td>
-                </tr>
-            }
-        </table>
-    }*@
+    @if (User.Identity.IsAuthenticated)
+        {
+            <table>
+                @foreach (var claim in User.Claims)
+                {
+                    <tr>
+                        <td>@claim.Type</td>
+                        <td>@claim.Value</td>
+                    </tr>
+                }
+            </table>
+        }
 </body>
 
 

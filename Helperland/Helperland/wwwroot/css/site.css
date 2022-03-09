@@ -152,7 +152,8 @@ html, body {
 
 #home {
     color: white;
-    height: 930px;
+    /*height: 930px;*/
+    height: 800px;
     width: 100%;
 }
 
@@ -210,7 +211,8 @@ html, body {
         width: 80%;
         margin: auto;
         justify-content: space-around;
-        top: 696px;
+        /*top: 696px;*/
+        top: 540px;
         color: white;
     }
 
@@ -223,7 +225,8 @@ html, body {
     #home .down-arrow {
         text-align: center;
         position: absolute;
-        top: 870px;
+        /*top: 870px;*/
+        top: 710px;
         border-radius: 50%;
         justify-self: flex-end;
     }
@@ -523,6 +526,9 @@ html, body {
         height: 54px;
     }
 
+    #home{
+        height: 930px;
+    }
     #home .fluid .content1 {
         position: absolute;
         //top: 100px;
@@ -534,6 +540,10 @@ html, body {
         font-weight: 500;
         line-height: 1;
         text-align: left;
+    }
+
+    #home .down-arrow{
+        top: 870px;
     }
 
     #home .center-button{

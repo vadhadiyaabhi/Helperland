@@ -29,7 +29,7 @@
 
 <body>
     <div class="">
-        <main role="main" class="@(ViewData["Login"].ToString() == "true" ? "blur" : "")" id="blur">
+        <main role="main" class="" id="blur">
             <!-- header + navbar -->
             <header class="header @(ViewData["Header"].ToString() == "Sliding_Header" ? "service-provider-header" : "") " id="header">
                 <nav class="navbar navbar-expand-lg">
@@ -49,27 +49,29 @@
                     <!-- navbar content -->
                     <div class="custom-navbar-menu navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ms-auto align-items-lg-center">
-                            @if (false)
+                            @if (User.Identity.IsAuthenticated)
                             {
                                 <div class="mobile-menu-items">
-                                    <li class="nav-item mobile-link">
-                                        <a class="nav-link" href="#" disabled>
-                                            Welcome, <br>
-                                            <span class="fw-bold">First Provider</span>
-                                        </a>
-                                    </li>
-                                    <hr>
+                                <li class="nav-item mobile-link">
+                                    <a class="nav-link" href="#" disabled>
+                                        Welcome, <br>
+                                        <span class="fw-bold">@User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value</span>
+                                    </a>
+                                </li>
+                                <hr>
+                                @if (User.IsInRole("1"))
+                                {
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Dashboard</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Service History</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="#">Service Schedules</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" href="#">Dashboard</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="#">Favourite Pros</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" href="#">Service History</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" href="#">Service Schedules</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Favourite Pros" ? "active" : "")" href="#">Favourite Pros</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Invoices</a>
@@ -78,14 +80,49 @@
                                         <a class="nav-link" href="#">Notifications</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Home" asp-action="Logout">Logout</a>
+                                        <a class="nav-link" asp-controller="User" asp-action="MyAccount">My Settings</a>
                                     </li>
-                                    <hr>
-                                </div>
+                                }
+                                @if (User.IsInRole("2"))
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" href="#">Dashboard</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - New Service Requests" ? "active" : "")" href="#">New Service Requests</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Upcoming Services" ? "active" : "")" href="#">Upcoming Services</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" href="#">Service Schedules</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" href="#">Service History</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - My Ratings" ? "active" : "")" href="#">My Ratings</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="#">Block Customer</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - MyAccount" ? "active" : "")" asp-controller="SP" asp-action="MyAccount">My Settings</a>
+                                    </li>
+                                }
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Home" asp-action="Logout">Logout <img src="~/images/logout.png" class="mx-1" alt="" height="18px" width="18px" style="filter: invert(0.5);"></a>
+                                </li>
+                                <hr>
+                        </div>
+                    }
+                            @if ((User.Identity.IsAuthenticated && User.IsInRole("1")) || !User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")   @(ViewData["Title"].ToString() == "Helperland - Book Service" ? "active" : "")" aria-current="page" asp-controller="Service" asp-action="BookService">Book now</a>
+                                </li>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link @(ViewData["Header"].ToString() == "Sliding_Header" ? "button" : "button-color")   @(ViewData["Title"].ToString() == "Helperland - Book Service" ? "active" : "")" aria-current="page" asp-controller="Service" asp-action="BookService">Book now</a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Prices & Services" ? "active" : "")" asp-controller="Home" asp-action="Prices">Prices & services</a>
                             </li>
@@ -168,7 +205,7 @@
 
 
             <!-- NEWSLETTER area-->
-            @if (ViewData["Title"].ToString() != "Helperland - Create an account")
+            @if (ViewData["Title"].ToString() != "Helperland - Create an account" && ViewData["Title"].ToString() != "Helperland - Book Service")
             {
                 <div class="newsletter" id="newsletter">
                     <div class="container-fluid d-flex justify-content-between py-5">
@@ -184,7 +221,7 @@
                         </div>
                         @*<a href="" class="order-sm-3 order-3">
                                 <div class="layer"><img src="~/images/layer-598.png" height="63" width="63" alt=""></div>
-                            </a>*@
+                        </a>*@
                     </div>
                 </div>
             }
@@ -248,9 +285,12 @@
                     <input type="submit" id="hiddenButton" value="Send Email" style="background-color: transparent; border: none !important; display: none; color: #0c8fa5; " class="my-0" />
                 </form>
                 <form asp-controller="Home" asp-action="Login" onsubmit="return jQueryAjaxPost(this);">
-                    @if (Model != null) 
+                    @if (Model != null)
                     {
-                        @*@Html.HiddenFor(x => x.ReturnUrl)*@
+                        @Html.HiddenFor(x => x.ReturnUrl)
+                    }
+                    else
+                    {
                         <input type="hidden" asp-for="ReturnUrl" value="/" />
                     }
                     <div>
@@ -303,7 +343,11 @@
             <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
             <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-            @RenderSection("Scripts", required: false)
+            @*@RenderSection("Scripts", required: false)*@
+            @if (IsSectionDefined("Scripts"))
+            {
+                @RenderSection("Scripts", required: true)
+            }
         </body>
         
 </html>

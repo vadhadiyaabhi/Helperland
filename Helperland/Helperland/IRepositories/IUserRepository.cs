@@ -23,9 +23,21 @@ namespace Helperland.IRepositories
 
         public Task<User> GetUser(int Id);
 
-        public Task<User> UpdateUser(UserUpdateViewModel userViewModel);
+        public UserAddress GetSPAddress(int userId);
+
+        public Task<User> UpdateUser(UserUpdateViewModel userViewModel, int userId);
+
+        public Task<User> UpdateSp(SPUpdateViewModel spModel, int spId);
 
         //public User GetUserByEmail(string email);
         public Task<User> GetUserByEmail(string email);
+
+        public Task<bool> DeleteAddress(int addressId);
+
+        public Task<bool> ResetPassword(ResetPasswordViewModel resetPassword, int userId);
+
+        public Task<bool> UpdateUserAddress(UserAddressViewModel userAddress);
+
+        public Task<bool> UpdateSpAddress(SPUpdateViewModel userAddress);
     }
 }

@@ -22,6 +22,8 @@ namespace Helperland.ViewModel
         [StringLength(50)]
         public string City { get; set; }
 
+        public string Email { get; set; }
+
         [StringLength(50)]
         public string State { get; set; }
 
@@ -30,5 +32,19 @@ namespace Helperland.ViewModel
         [MinLength(10, ErrorMessage = "Please enter valid Mobile number"), MaxLength(10, ErrorMessage = "Please enter valid Mobile number")]
         [StringLength(20)]
         public string Mobile { get; set; }
+
+        public int AddressId { get; set; }
+
+        public DateTime ModifiedDate
+        {
+            get
+            { return (DateTime.Now); }
+        }
+        
+        public DateTime CreateDate
+        {
+            get
+            { return (DateTime.Now); }
+        }
     }
 }

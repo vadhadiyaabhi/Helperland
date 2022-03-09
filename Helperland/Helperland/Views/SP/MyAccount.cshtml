@@ -1,0 +1,91 @@
+﻿@model SPUpdateViewModel
+@{
+    ViewBag.title = "Helperland - MyAccount";
+    ViewData["Header"] = "";
+}
+
+<div class=" my-setting my-sp-setting dashboard-table row-table">
+    <div class="nav nav-tabs my-setting-tab" id="myTab" role="tablist">
+        <div class="tab1 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Index" type="button" role="tab" aria-controls="home" aria-selected="true" onclick="Show('Index');">My Details</div>
+        <div class="tab3" id="passowrd-tab" data-bs-toggle="tab" data-bs-target="#ResetPassword" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="Show('ResetPassword');">Change Password</div>
+        <div class="tab4" id="subscribe-tab" data-bs-toggle="tab" data-bs-target="#Subscribe" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="Show('Subscribe');">Subscribe Notifications</div>
+    </div>
+    <div class="" id="myTabContent">
+        <div class="tab-pane fade show active" id="Index" role="tabpanel" aria-labelledby="home-tab" style="display: block;">
+            <div class="Index" id="index">
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="ResetPassword" role="tabpanel" aria-labelledby="password-tab" style="display: none;">
+            <div class="alert-danger" id="password-reset-fail" style="display: none;">Oops!! Your current password is wrong!!!</div>
+            <div class="alert-success" id="password-reset-success" style="display: none;">Your Password has been changed successfully!!</div>
+            <div class="resetPassword" id="resetPassword">
+
+            </div>
+        </div>
+        <div class="tab-pane fade" id="Subscribe" role="tabpanel" aria-labelledby="subscribe-tab" style="display: none;">
+            <div class="d-flex contact-form my-4">
+                <label for="subscribe">
+                    <input name="subscribe" type="checkbox" class="p-0" id="subscribe" />
+                    Yes, I would like to subscribe to the newsletter of Helperland GmbH with vouchers, trends, promotions and individualized offers. I can unsubscribe from the newsletter at any time in the newsletter and in the customer account itself. If you no longer wish to receive our newsletter, remove the tick.
+                </label>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Modals{
+    <!-- ------------- Modal--------------- -->
+
+}
+
+@section Scripts
+{
+    <script>
+        window.onload = LoadMyDetails;
+        function LoadMyDetails() {
+            $("#index").html("Loading user details...").load(`/SP/MyDetails`);
+            $("#userAddress").html("Loading User addresses...").load(`/SP/UserAddress`);
+            $("#resetPassword").html("Loading Password reset form").load(`/SP/ResetPassword`);
+        }
+
+        function Show(action) {
+            $("#" + action).css("display", "block");
+            $("#" + action).siblings().css("display", "none");
+        };
+
+            //function Delete(AddId) {
+            //    console.log("delete modal");
+            //    $("#blur").addClass("blur");
+            //    $("#Delete-Add-Modal").addClass("active");
+            //    $('input[name="AddressId"]').val(AddId);
+            //}
+
+            //$(".close").click(function () {
+            //    $("#blur").removeClass("blur");
+            //    $(".Modal").removeClass("active");
+            //    $('input[name="AddressId"]').val('');
+            //});
+
+            //function setDefault(addId) {
+
+            //}
+
+            //function LoadAddressModal(addId = 0) {
+            //    if (addId != 0) {
+            //        $("#Address-Modal-Title").html("Edit Address");
+            //    }
+            //    else {
+            //        $("#Address-Modal-Title").html("Add New Address");
+            //    }
+            //    $("#add-or-edit-address").html("Loading Address Modal").load(`/User/AddOrEditAddress/${addId}`);
+            //    $("#blur").addClass("blur");
+            //    $("#Address-Modal").addClass("active");
+            //}
+
+
+    </script>
+
+}

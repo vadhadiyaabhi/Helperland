@@ -1,0 +1,37 @@
+﻿@model UserAddressViewModel
+@{
+    Layout = null;
+}
+
+<div>
+    <div class="small-title tab-content mt-4">My Address</div>
+    <hr />
+    <form class="row sp-address-form" asp-controller="SP" asp-action="UpdateAddress" onsubmit="return jQueryAjaxPost(this);">
+        <div class="alert-danger alert-dismissible" id="user-update-error" style="display:none;">Please provide valid details...</div>
+        <div class="col-12 col-sm-6 col-md-4 my-2">
+            <label class="" asp-for="AddressLine1"></label>
+            <input asp-for="AddressLine1" value="@Model.AddressLine1" />
+            <span class="text-danger" asp-validation-for="AddressLine1"></span>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 my-2">
+            <label class="" asp-for="AddressLine2"></label>
+            <input asp-for="AddressLine2" value="@Model.AddressLine2">
+            <span class="text-danger" asp-validation-for="AddressLine2"></span>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 my-2">
+            <label class="" asp-for="ZipCode"></label>
+            <input asp-for="ZipCode" value="@Model.ZipCode">
+            <span class="text-danger" asp-validation-for="ZipCode"></span>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 my-2">
+            <label class="" asp-for="City"></label>
+            <input asp-for="City" value="@Model.City">
+            <span class="text-danger" asp-validation-for="City"></span>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 my-2">
+            <label class="" asp-for="Mobile"></label>
+            <div class="mobile"><span class="country-code">+49</span><input asp-for="Mobile" value="@Model.Mobile"></div>
+            <span class="text-danger" asp-validation-for="Mobile"></span>
+        </div>
+    </form>
+</div>

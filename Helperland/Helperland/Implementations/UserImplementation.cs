@@ -175,15 +175,40 @@ namespace Helperland.Implementations
             return await DbContext.Users.FindAsync(Id);
         }
 
-        public async Task<User> UpdateUser(UserUpdateViewModel userViewModel)
+        public UserAddress GetSPAddress(int userId)
         {
-            User user = await DbContext.Users.FindAsync(5024);
+            return DbContext.UserAddresses.Where(add => add.UserId == userId).FirstOrDefault();
+        }
+
+        public async Task<User> UpdateUser(UserUpdateViewModel userViewModel, int userId)
+        {
+            User user = await DbContext.Users.FindAsync(userId);
             user.FirstName = userViewModel.FirstName;
             user.LastName = userViewModel.LastName;
-            user.DateOfBirth = userViewModel.DateOfBirth;
+            if(userViewModel.BirthDate != null && userViewModel.BirthMonth != null && userViewModel.BirthYear != null)
+                user.DateOfBirth = new DateTime(Convert.ToInt32(userViewModel.BirthYear), Convert.ToInt32(userViewModel.BirthMonth), Convert.ToInt32(userViewModel.BirthDate));
             user.Mobile = userViewModel.Mobile;
-            DbContext.SaveChanges();
+            user.ModifiedDate = userViewModel.ModifiedDate;
+            user.ModifiedBy = userId;
+            user.LanguageId = userViewModel.LanguageId;
+            await DbContext.SaveChangesAsync();
             return user;
+        }
+
+        public async Task<User> UpdateSp(SPUpdateViewModel spModel, int spId)
+        {
+            User sp = await DbContext.Users.FindAsync(spId);
+            sp.FirstName = spModel.FirstName;
+            sp.LastName = spModel.LastName;
+            sp.Mobile = spModel.Mobile;
+            if (spModel.BirthDate != null && spModel.BirthMonth != null && spModel.BirthYear != null)
+                sp.DateOfBirth = new DateTime(Convert.ToInt32(spModel.BirthYear), Convert.ToInt32(spModel.BirthMonth), Convert.ToInt32(spModel.BirthDate));
+            sp.ModifiedDate = spModel.ModifiedDate;
+            sp.ModifiedBy = spId;
+            sp.NationalityId = spModel.NationalityId;
+            sp.Gender = spModel.Gender;
+            await DbContext.SaveChangesAsync();
+            return sp;
         }
 
         public async Task<User> GetUserByEmail(string email)
@@ -195,6 +220,70 @@ namespace Helperland.Implementations
                 DbContext.Entry(user).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
             }
             return user;
+        }
+
+        public async Task<bool> DeleteAddress(int addressId)
+        {
+            UserAddress userAddress = await DbContext.UserAddresses.FindAsync(addressId);
+            if(userAddress != null)
+            {
+                DbContext.UserAddresses.Remove(userAddress);
+                DbContext.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> ResetPassword(ResetPasswordViewModel resetPassword, int userId)
+        {
+            User user = await DbContext.Users.FindAsync(userId);
+            if (user != null)
+            {
+                if (BC.Verify(resetPassword.OldPassword, user.Password))
+                {
+                    user.Password = BC.HashPassword(resetPassword.Password);
+                    user.ModifiedDate = resetPassword.ModifiedDate;
+                    user.ModifiedBy = userId;
+                    DbContext.SaveChanges();
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else 
+                return false;
+        }
+
+        public async Task<bool> UpdateUserAddress(UserAddressViewModel userAddress)
+        {
+            UserAddress newAddress = await DbContext.UserAddresses.FindAsync(userAddress.AddressId);
+            if(newAddress != null)
+            {
+                newAddress.AddressLine1 = userAddress.AddressLine1;
+                newAddress.AddressLine2 = userAddress.AddressLine2;
+                newAddress.Mobile = userAddress.Mobile;
+                newAddress.City = userAddress.City;
+                newAddress.PostalCode = userAddress.ZipCode;
+                await DbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        public async Task<bool> UpdateSpAddress(SPUpdateViewModel userAddress)
+        {
+            UserAddress newAddress = await DbContext.UserAddresses.FindAsync(userAddress.AddressId);
+            if (newAddress != null)
+            {
+                newAddress.AddressLine1 = userAddress.AddressLine1;
+                newAddress.AddressLine2 = userAddress.AddressLine2;
+                newAddress.Mobile = userAddress.Mobile;
+                newAddress.City = userAddress.City;
+                newAddress.PostalCode = userAddress.ZipCode;
+                await DbContext.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
     }
 }

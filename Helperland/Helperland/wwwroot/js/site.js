@@ -53,6 +53,7 @@ $(document).ready(function () {
         $(".Modal").removeClass("active");
     });
 
+
     $(".redirect-to-login").click(function () {
         loginModal = true;
         window.location.replace("http://localhost:5000/Home/Login");
@@ -136,7 +137,7 @@ jQueryAjaxPost = form => {
                     $("#reset-password").css("display", "none");
                 }
                 else if (res.zipInvalid) {
-                    $("#postal-code-error").html("Please enter valid Postal Code");
+                    //$("#postal-code-error").html("Please enter valid Postal Code");
                 }
                 else if (res.zipAvailable) {
                     $("#tab2").addClass("color");
@@ -164,11 +165,52 @@ jQueryAjaxPost = form => {
                     $("#new-address").html(res.view);
                 }
                 else if (res.userUpdateSuccess) {
-                    $("#index").html("Loading user details...").load(`/User/MyDetails`);
+                    //$("#index").html("Loading user details...").load(`/User/MyDetails`);
                     $("#user-update-success").css("display", "block");
                 }
                 else if (res.userUpdateFail) {
-                    $("#user-update-error").css("display", "block");
+                    $("#index").html(res.view);
+                    SetBirthDate();
+                }
+                else if (res.addressDeleted) {
+                    $("#address-success").html("Address deleted successfully...");
+                    $("#blur").removeClass("blur");
+                    $(".Modal").removeClass("active");
+                    $("#userAddresses").html("Loading User addresses...").load(`/User/UserAddresses`);
+                }
+                else if (res.addressNotDeleted) {
+                    $("#address-deleted-error").css("display", "block");
+                }
+                else if (res.passwordResetSuccess) {
+                    $("#password-reset-form").trigger("reset");
+                    $("#password-reset-success").css("display", "block");
+                    $("#password-reset-fail").css("display", "none");
+                }
+                else if (res.passwordResetFail) {
+                    $("#password-reset-fail").css("display", "block");
+                }
+                else if (res.passwordResetValidateError) {
+                    $("#resetPassword").html(res.view);
+                }
+                else if (res.addAddressSuccess) {
+                    $("#address-deleted-error").css("display", "none");
+                    $("#address-success").html("New address added successfully!!").css("display", "block");
+                    $("#blur").removeClass("blur");
+                    $(".Modal").removeClass("active");
+                    $("#userAddresses").html("Loading User addresses...").load(`/User/UserAddresses`);
+                }
+                else if (res.editAddressSuccess) {
+                    $("#address-deleted-error").css("display", "none");
+                    $("#address-success").html("Address edited successfully!!").css("display", "block");
+                    $("#blur").removeClass("blur");
+                    $(".Modal").removeClass("active");
+                    $("#userAddresses").html("Loading User addresses...").load(`/User/UserAddresses`);
+                }
+                else if (res.addOrEditAddressFail) {
+                    //$("#address-success").css("display", "none");
+                    //$("#address-deleted-error").css("display", "block");
+                    //$("#blur").removeClass("blur");
+                    //$(".Modal").removeClass("active");
                 }
                 console.log(res);
             },
@@ -188,6 +230,9 @@ jQueryAjaxPost = form => {
 add_extra_service = ele => {
     //console.log(ele);
     $(ele).toggleClass("selected");
+    //let id = $(ele).attr("data-val");
+    //console.log(id);
+    AddExtraService(ele);
 }
 
 go_to_backTab = (ele, idName) => {

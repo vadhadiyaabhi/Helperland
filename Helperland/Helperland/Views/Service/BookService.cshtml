@@ -5,7 +5,7 @@
     ViewData["Header"] = "";
 }
 
-<div class="container-fluid padded-fluid book-service">
+<div class="container-fluid padded-fluid book-service mb-5">
     <h1 class="title fw-normal">Set up your cleaning service</h1>
     <div class="separator"><img src="~/images/separator.png" alt=""></div>
     <div class="container">
@@ -25,12 +25,12 @@
                         <button type="submit" class="button mx-2 fs-6" style="padding: 10px 20px">Check Availability</button> <br />
                         <span class="text-danger" asp-validation-for="ZipCode"></span>
                     </form>
-                    @*<div id="postal-code-error" class="text-danger"></div>*@
+                    <div id="postal-code-error" class="text-danger"></div>
                     @if (ViewBag.submitted == 1)
                     {
                         <div class="alert-success" id="service-added" clear:both;">
                             Your service has been booked successfully.<br />
-                            Add new Service Request or <a asp-controller="Service" asp-action="Dashboard">Go to Dashboard</a>
+                            Add new Service Request or <a asp-controller="User" asp-action="">Go to Dashboard</a>
                         </div>
                     }
                 </div>
@@ -41,8 +41,8 @@
                             <div class="small-title fs-6 col-12 col-md-7 col-lg-5">
                                 When do you need the cleaner ?
                                 <br />
-                                <input type="date" asp-for="Date" style="width: auto;" class="pl-5" /><img src="~/images/calendar-color.png" class="calender" />
-                                <select asp-for="Time" class="">
+                                <input type="date" asp-for="Date" style="width: auto;" class="pl-5" onchange="setSchedule()" /><img src="~/images/calendar-color.png" class="calender" />
+                                <select asp-for="Time" class="" onchange="setSchedule()">
                                     <option value="8:00">8:00</option>
                                     <option value="8:30">8:30</option>
                                     <option value="9:00">9:00</option>
@@ -70,7 +70,7 @@
                             </div>
                             <div class="small-title fs-6 col-12 col-md-5 col-lg-7">
                                 How long do you need your cleaner to stay ? <br />
-                                <select asp-for="ServiceHours">
+                                <select asp-for="ServiceHours" onchange="changeCost()">
                                     <option value="3.0">3.0 Hrs</option>
                                     <option value="3.5">3.5 Hrs</option>
                                     <option value="4.0">4.0 Hrs</option>
@@ -100,7 +100,7 @@
                             <div class=" d-flex justify-content-sm-around justify-content-center flex-wrap">
                                 <div class="service my-2  d-flex flex-column align-items-center">
                                     <label for="ExtraService1">
-                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                        <div class="img mx-2" data-val="0" onclick="add_extra_service(this);">
                                             <div><img src="/images/double-cabinate.png" alt=""></div>
                                         </div>
                                         <div class="text-center">Inside cabinets</div>
@@ -108,7 +108,7 @@
                                 </div>
                                 <div class="service my-2 mx-2 d-flex flex-column align-items-center">
                                     <label for="ExtraService2">
-                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                        <div class="img mx-2" data-val="1" onclick="add_extra_service(this);">
                                             <div><img src="/images/double-fridge.png" alt=""></div>
                                         </div>
                                         <div class="text-center">Inside fridge</div>
@@ -116,7 +116,7 @@
                                 </div>
                                 <div class="service my-2 mx-2 d-flex flex-column align-items-center">
                                     <label for="ExtraService3">
-                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                        <div class="img mx-2" data-val="2" onclick="add_extra_service(this);">
                                             <div><img src="/images/double_own.png" alt=""></div>
                                         </div>
                                         <div class="text-center">Inside oven</div>
@@ -124,7 +124,7 @@
                                 </div>
                                 <div class="service my-2 mx-2 d-flex flex-column align-items-center">
                                     <label for="ExtraService4">
-                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                        <div class="img mx-2" data-val="3" onclick="add_extra_service(this);">
                                             <div><img src="/images/double-laudry.png" alt=""></div>
                                         </div>
                                         <div class="text-center">Laundry wash &amp; <br /> dry</div>
@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="service my-2 mx-2 d-flex flex-column align-items-center">
                                     <label for="ExtraService5">
-                                        <div class="img mx-2" onclick="add_extra_service(this);">
+                                        <div class="img mx-2" data-val="4" onclick="add_extra_service(this);">
                                             <div><img src="/images/double-window.png" alt=""></div>
                                         </div>
                                         <div class="text-center">Interio window</div>
@@ -200,24 +200,28 @@
             <div class="payment-card">
                 <div class="heading">Payment Summary</div>
                 <div class="pb-0 pt-4 px-4">
-                    <div id="schedule"></div>
+                    <div id="schedule" class="small-title fw-normal"></div>
                     <div id="" class="small-title fw-normal">Duration</div>
                     <div id="" class="d-flex justify-content-between"><span>Basic</span><span id="basic-hours">3 Hrs</span></div>
-                    <div class="small-title fw-normal" style="display:none;">Extra</div>
+                    <div class="small-title fw-normal" id="extra" style="display:none;">Extra</div>
                     <div id="extra-service">
-
+                        <div id="es0" class="" style="display:none;"><span>Inside cabinets</span><span style="float:right;">30 Mins</span></div>
+                        <div id="es1" style="display:none;" class=""><span>Inside fridge</span><span style="float:right;">30 Mins</span></div>
+                        <div id="es2" style="display:none;" class=""><span>Inside oven</span><span style="float:right;">30 Mins</span></div>
+                        <div id="es3" style="display:none;" class=""><span>Laundry wash & dry</span><span style="float:right;">30 Mins</span></div>
+                        <div id="es4" style="display:none;" class=""><span>Interio window</span><span style="float:right;">30 Mins</span></div>
                     </div>
                     <hr class="my-2" />
                     <div class="small-title fs-6 d-flex justify-content-between"><span>Total Service Time</span><span id="total-time">3 Hrs</span></div>
                 </div>
                 <hr />
                 <div class="d-flex justify-content-between px-4">
-                    <span>Per Cleaning</span><span class="total-amount fw-bold">54.00 €</span>
+                    <span>Per Cleaning</span><span class="total-amount fw-bold fs-5">54.00 €</span>
                 </div>
                 <hr />
                 <div class="px-4 pb-4">
                     <div class="d-flex justify-content-between align-items-center" style="color: #1d7a8c;">
-                        <span class="fs-4">Total Payment</span><span class="fs-2 fw-bold">54.00 €</span>
+                        <span class="fs-4">Total Payment</span><span class="fs-2 total-amount fw-bold">54.00 €</span>
                     </div>
                     <div style="font-size: 14px;">According to § 19 UStG no sales tax is calculated.</div>
                 </div>
@@ -230,8 +234,16 @@
     </div>
 </div>
 
-    @section AddNewAddress{
+    @section Scripts{
         <script>
+            var today = new Date();
+            var dd = String(today.getDate()).padStart(2, '0');
+            var mm = String(today.getMonth() + 1).padStart(2, '0');
+            var yyyy = today.getFullYear();
+
+            today = yyyy + '-' + mm + '-' + dd;
+            $("#Date").attr('min', today);
+
             document.getElementById("Date").valueAsDate = new Date();
             function GetAddress() {
                 var GivenDate = new Date($("#Date").val());
@@ -266,6 +278,64 @@
                 $("#new-address").html("");
                 $(".new-address-button").css("display", "inline-block");
             }
+
+            function setSchedule() {
+                //console.log("setting schedule");
+                let date = new Date($("#Date").val());
+
+                var dd = String(date.getDate()).padStart(2, '0');
+                var mm = String(date.getMonth() + 1).padStart(2, '0');
+                var yyyy = date.getFullYear();
+
+                date = dd + '/' + mm + '/' + yyyy;
+                let time = $("#Time").val();
+                $("#schedule").html(date + " " + time);
+            }
+
+            var extraCharge = 0.00;
+            var extraTime = 0;
+            var extraService = [];
+            var extraCount = 0;
+            for (let i = 0; i < 5; i++) {
+                extraService[i] = 0;
+            }
+            function changeCost() {
+                //basicHours = parseInt($("#ServiceHours").val());
+                basicHours = Math.abs($("#ServiceHours").val());
+                $("#basic-hours").html(basicHours + " Hrs");
+                //basicCost = Math.abs($("#ServiceHours").val()) * 18.00;
+                basicCost = $("#ServiceHours").val() * 18.00;
+                $(".total-amount").html(basicCost + extraCharge + " €");
+                $("#total-time").html(basicHours + extraTime + " Hrs");
+            }
+
+            function AddExtraService(obj) {
+                let id = $(obj).attr("data-val");
+                //console.log(id);
+                if (extraService[id] == 0) {
+                    extraCount++;
+                    if (extraCount == 1) {
+                        $("#extra").css("display", "block");
+                    }
+                    extraService[id] = 1;
+                    extraCharge = extraCharge + 9.00;
+                    extraTime = extraTime + 0.5;
+                    $("#es" + id).css("display", "block");
+                }
+                else {
+                    extraCount--;
+                    if (extraCount == 0) {
+                        $("#extra").css("display", "none");
+                    }
+                    extraService[id] = 0;
+                    extraCharge = extraCharge - 9.00;
+                    extraTime = extraTime - 0.5;
+                    $("#es" + id).css("display", "none");
+                }
+                changeCost();
+            }
+
+
         </script>
 
      }

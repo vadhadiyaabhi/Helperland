@@ -31,7 +31,20 @@ namespace Helperland.ViewModel
         [Column(TypeName = "datetime")]
         public DateTime? DateOfBirth { get; set; }
 
+        public string BirthDate { get; set; }
+        public string BirthMonth { get; set; }
+        public string BirthYear { get; set; }
+
         public int? LanguageId { get; set; }
+
+
+        public int? NationalityId { get; set; }
+
+        public bool AccountActive { get; set; }
+
+        public int? Gender { get; set; }
+
+        public int? AvatarId { get; set; }
 
         public string Email { get; set; }
 

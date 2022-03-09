@@ -1,10 +1,13 @@
 ﻿@model UserUpdateViewModel
-@{ 
+@{
     Layout = null;
 }
 
-<form class="row my-4" asp-controller="User" asp-action="UpdateUserDetails" onsubmit="return jQueryAjaxPost(this);">
-    <div class="alert-success alert-dismissible" id="user-update-success" style="display:none;">User updated successfully!!</div>
+<form class="row my-4" asp-controller="User" asp-action="Mydetails" onsubmit="return jQueryAjaxPost(this);">
+    <div class="alert-success text-start alert-dismissible fade show my-0" role="alert" id="user-update-success" style="display:none;">
+        <span>User updated successfully!!</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="alert-danger alert-dismissible" id="user-update-error" style="display:none;">Please provide valid details...</div>
     <div class="col-12 col-sm-6 col-md-4 my-2">
         <label class="" asp-for="FirstName"></label>
@@ -28,7 +31,11 @@
     </div>
     <div class="col-12 col-md-6 my-2">
         <label class="" for="">Date of Birth</label><br />
-        <select class="" name="birthdate" id="birthdate">
+        <select class="" name="BirthDate" id="birthdate">
+            @if (Model.DateOfBirth == null)
+            {
+                <option value="none" selected disabled hidden>Date</option>
+            }
             <option value="01">01</option>
             <option value="02">02</option>
             <option value="03">03</option>
@@ -61,21 +68,29 @@
             <option value="30">30</option>
             <option value="31">31</option>
         </select>
-        <select id="birthmonth" name="birthmonth" class="">
-            <option value="0">January</option>
-            <option value="1">February</option>
-            <option value="2">March</option>
-            <option value="3">April</option>
-            <option value="4">May</option>
-            <option value="5">June</option>
-            <option value="6">July</option>
-            <option value="7">August</option>
-            <option value="8">September</option>
-            <option value="9">October</option>
-            <option value="10">November</option>
-            <option value="11">Disember</option>
+        <select id="birthmonth" name="BirthMonth" class="">
+            @if (Model.DateOfBirth == null)
+            {
+                <option value="none" selected disabled hidden>Month</option>
+            }
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">Desember</option>
         </select>
-        <select id="birthyear" name="birthyear">
+        <select id="birthyear" name="BirthYear">
+            @if (Model.DateOfBirth == null)
+            {
+                <option value="none" selected disabled hidden>Year</option>
+            }
             <option value="2012">2012</option>
             <option value="2011">2011</option>
             <option value="2010">2010</option>
@@ -182,12 +197,45 @@
     <div class="col-12 col-md-6">
         <label class="" asp-for="LanguageId"></label>
         <select asp-for="LanguageId" class="">
-            <option value="1" selected="(@Model.LanguageId == 1 ? 'selected' : '');">English</option>
-            <option value="2" selected="(@Model.LanguageId == 1 ? 'selected' : '');">German</option>
+            <option value="1">English</option>
+            <option value="2">German</option>
         </select>
     </div>
-    <input type="hidden" asp-for="DateOfBirth" value="">
+    <input type="date" asp-for="DateOfBirth" value="" style="display: none;">
     <div class="col-12 ">
         <button type="submit" class="small-button my-3 mr-3 d-inline-block">Save</button>
     </div>
 </form>
+
+
+@if (Model.DateOfBirth != null)
+{
+    <script>
+    console.log("Setting birth date");
+
+    SetBirthDate();
+    function SetBirthDate() {
+        $("#LanguageId [value=@Model.LanguageId]").attr("selected", true);
+        console.log("@Model.DateOfBirth.ToString()");
+        //var birthDate = new Date("@Model.DateOfBirth.ToString()");
+        //console.log(birthDate.getFullYear());
+        //$(`#birthyear [value=${birthDate.getFullYear()}]`).attr("selected", true);
+        //$(`#birthmonth [value=${birthDate.getMonth()}]`).attr("selected", true);
+        //$(`#birthdate [value=${birthDate.getDate()}]`).attr("selected", true);
+        $(`#birthyear [value=@Model.BirthYear]`).attr("selected", true);
+        $(`#birthmonth [value=@Model.BirthMonth]`).attr("selected", true);
+        $(`#birthdate [value=@Model.BirthDate]`).attr("selected", true);
+    }
+
+    </script>
+}
+<script>
+    //function setBirthDate() {
+    //    var newBirthDate = new Date($("#birthyear").val(), $("#birthmonth").val(), $("#birthdate").val());
+    //    document.getElementById("DateOfBirth").valueAsDate = newBirthDate;
+    //}
+</script>
+
+<!-- jQuery Validation library-->
+<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

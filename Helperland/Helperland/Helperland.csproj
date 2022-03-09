@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\SP\" />
     <Folder Include="wwwroot\images\contactFile\" />
     <Folder Include="wwwroot\lib\" />
   </ItemGroup>

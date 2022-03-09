@@ -107,6 +107,7 @@ namespace Helperland.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([Bind("Email", "Password", "ReturnUrl", "RememberMe")] AuthenticationViewModel authenticationViewModel)
         {
+            Console.WriteLine(authenticationViewModel.ReturnUrl);
             if (ModelState.IsValid)
             {
                 User user = login.Login(authenticationViewModel);
