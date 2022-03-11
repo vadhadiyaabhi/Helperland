@@ -87,7 +87,8 @@ $(document).ready(function () {
 
     $(".make-payment #submit-req").click(function () {
         $("#service-req-form").submit();
-    })
+    });
+
 
 });
 
@@ -212,6 +213,9 @@ jQueryAjaxPost = form => {
                     //$("#blur").removeClass("blur");
                     //$(".Modal").removeClass("active");
                 }
+                else if (res.serviceDeleted == 4) {
+                    console.log(`service deleted with Service Id ${res.serviceId}`)
+                }
                 console.log(res);
             },
             error: function (err) {
@@ -308,7 +312,7 @@ function displaypage(limit) {
     buttonGenerator(limit);
 }
 
-displaypage(4);
+//displaypage(4);
 
 function buttonGenerator(limit) {
     const nofTr = arrayTr.length;

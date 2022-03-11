@@ -39,5 +39,9 @@ namespace Helperland.IRepositories
         public Task<bool> UpdateUserAddress(UserAddressViewModel userAddress);
 
         public Task<bool> UpdateSpAddress(SPUpdateViewModel userAddress);
+
+        public IEnumerable<ServiceRequest> GetCurrentServices(int userId);
+
+        public Task<int> DeleteServiceRequest(int ServiceReqId);
     }
 }

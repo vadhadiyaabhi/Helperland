@@ -8,6 +8,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+//Service Status
+//    new - 1
+//    pending - 2 (AcceptedAtActionResult by SP)
+//    completed - 3
+//    canclled - 4
+
 namespace Helperland.Controllers
 {
     [Authorize(Roles = "1")]
@@ -62,6 +68,7 @@ namespace Helperland.Controllers
                     ExtraHours = ES * 0.5,
                     SubTotal = Convert.ToDecimal(newRequest.ServiceHours + (ES*0.5)),
                     TotalCost = Convert.ToDecimal((newRequest.ServiceHours + (ES*0.5)) * 18),
+                    Status = 1
                 };
 
                 //Console.WriteLine(service.ExtraHours);

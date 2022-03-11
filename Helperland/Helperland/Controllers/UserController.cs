@@ -23,7 +23,9 @@ namespace Helperland.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            var services = userRepository.GetCurrentServices(userId);
+            return View(services);
         }
 
         public IActionResult MyAccount()
@@ -53,7 +55,10 @@ namespace Helperland.Controllers
                 userViewModel.BirthMonth = Convert.ToDateTime(user.DateOfBirth).Date.Month.ToString();
             }
 
+
             //Console.WriteLine(Convert.ToDateTime(user.DateOfBirth).TimeOfDay);
+            //Console.WriteLine((Convert.ToString(Convert.ToDateTime(service.ServiceStartDate).TimeOfDay).Substring(0,5));     // To get time hh:mm formate
+            //Console.WriteLine((service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal))));     // To Add time in datetime use Add method, AddHours, AddMinutes, AddSecond etc...
             //Thread.Sleep(5000);
             return View(userViewModel);
         }
@@ -170,6 +175,13 @@ namespace Helperland.Controllers
 
             }
             return Json(new { addOrEditAddressFail = true, view = Helper.RenderRazorViewToString(this, "AddOrEditAddress", userAddress) });
+        }
+
+        public async Task<IActionResult> DeleteServiceRequest(int ServiceRequestId, string cancleMessage)
+        {
+            Console.WriteLine(cancleMessage);
+            int res = await userRepository.DeleteServiceRequest(ServiceRequestId);
+            return Json(new { serviceDeleted = res, serviceId = ServiceRequestId });
         }
     }
 }

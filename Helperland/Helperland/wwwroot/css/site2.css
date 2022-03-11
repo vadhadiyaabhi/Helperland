@@ -840,8 +840,9 @@ td {
 }
 
 th {
-    /* background-color: #F9F9F9; */
-    background-color: #E1E1E1;
+    /*background-color: #F9F9F9;*/
+    background-color: #f4f4f4;
+    /*background-color: #E1E1E1;*/
     color: #646464;
     padding: 16px 14px;
     text-align: left;
@@ -856,7 +857,7 @@ th {
         }
 
 td {
-    padding: 5px 14px;
+    padding:10px 14px;
 }
 
     td.service-provider {
@@ -891,13 +892,15 @@ td {
 
 .export-button {
     color: white;
-    background-color: #146371;
+    /*background-color: #146371;*/
+    background-color: #1D7A8C;
     padding: 8px 13px;
     border-radius: 34px;
 }
 
     .export-button:hover {
         color: white;
+        background-color: #146371;;
     }
 
 .RateSP-button {
@@ -1633,4 +1636,23 @@ input[type="radio"] {
         .how-it-works > div:last-child {
             margin-bottom: 0px;
         }
+}
+
+
+/*==============Data table override====================*/
+
+#myTable_filter{
+    display:none;
+}
+
+#myTable_previous{
+    display:none;
+}
+
+#myTable_next {
+    display: none;
+}
+
+#myTable_info{
+    /*display:none;*/
 }

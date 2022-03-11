@@ -285,5 +285,35 @@ namespace Helperland.Implementations
             }
             return false;
         }
+
+        public IEnumerable<ServiceRequest> GetCurrentServices(int userId)
+        {
+            return DbContext.ServiceRequests.Include(x => x.ServiceProvider).Include(x => x.Ratings).Where(u => u.UserId == userId && u.Status != 3 && u.Status != 4)
+                .Select(s => new ServiceRequest
+                {
+                    ServiceRequestId = s.ServiceRequestId,
+                    TotalCost = s.TotalCost,
+                    SubTotal = s.SubTotal,
+                    ServiceProviderId = s.ServiceProviderId,
+                    ServiceStartDate = s.ServiceStartDate,
+                    ServiceProvider = s.ServiceProvider
+                }).ToList();
+
+            //return (from service in DbContext.ServiceRequests
+            //        where service.UserId == userId
+            //        join sp in DbContext.Users on service.ServiceProviderId equals sp.UserId
+            //        select (new CurrentService
+            //        {
+
+            //        }));
+        }
+
+        public async Task<int> DeleteServiceRequest(int ServiceReqId)
+        {
+            ServiceRequest service = await DbContext.ServiceRequests.FindAsync(ServiceReqId);
+            service.Status = 4;
+            DbContext.SaveChanges();
+            return Convert.ToInt32(service.Status);
+        }
     }
 }
