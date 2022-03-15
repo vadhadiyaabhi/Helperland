@@ -14,11 +14,13 @@ namespace Helperland.Controllers
     {
         private readonly IServiceRequestRepository serviceRepository;
         private readonly IUserRepository userRepository;
+        private readonly IEmailService emailService;
 
-        public UserController(IServiceRequestRepository serviceRepository, IUserRepository userRepository)
+        public UserController(IServiceRequestRepository serviceRepository, IUserRepository userRepository, IEmailService emailService)
         {
             this.serviceRepository = serviceRepository;
             this.userRepository = userRepository;
+            this.emailService = emailService;
         }
 
         public IActionResult Index()
@@ -177,11 +179,67 @@ namespace Helperland.Controllers
             return Json(new { addOrEditAddressFail = true, view = Helper.RenderRazorViewToString(this, "AddOrEditAddress", userAddress) });
         }
 
-        public async Task<IActionResult> DeleteServiceRequest(int ServiceRequestId, string cancleMessage)
+        public async Task<IActionResult> DeleteServiceRequest(int ServiceRequestId, string cancleMessage, string SPEmail)
         {
+            if (ServiceRequestId == 0 || string.IsNullOrEmpty(cancleMessage))
+                return Json(false);
             Console.WriteLine(cancleMessage);
             int res = await userRepository.DeleteServiceRequest(ServiceRequestId);
+            if (!string.IsNullOrEmpty(SPEmail))
+            {
+                UserEmailOptions userEmailOptions = new UserEmailOptions
+                {
+                    ToEmails = new List<string>() { SPEmail },
+                    templateName = "ServiceCancelled",
+                    Subject = "Service Request Cancelled",
+                    Placeholder = new List<KeyValuePair<string, string>>()
+                    {
+                        //new KeyValuePair<string, string>("{{SPName}}", newServiceEmail.SPName),
+                        new KeyValuePair<string, string>("{{Id}}", ServiceRequestId.ToString()),
+                        new KeyValuePair<string, string>("{{ServiceCancelMessage}}", cancleMessage),
+                    }
+                };
+
+                await emailService.SendTestEmail(userEmailOptions);
+            }
             return Json(new { serviceDeleted = res, serviceId = ServiceRequestId });
+        }
+
+        [Route("User/GetServiceDetails/{ServiceId}")]
+        public async Task<IActionResult> GetServiceDetails(int ServiceId)
+        {
+            ServiceRequest service = await userRepository.GetServiceDetails(ServiceId);
+            return View(service);
+        }
+
+        public IActionResult ServiceHistory()
+        {
+            int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            var history = userRepository.GetUserServiceHistory(userId);
+            return View(history);
+        }
+
+        public async Task<IActionResult> RateSP([Bind("ServiceId", "SPId", "OnTimeArrival", "Friendly", "QualityOfService", "Comment")] RatingViewModel ratingViewModel)
+        {
+            int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            Rating rating = new Rating()
+            {
+                ServiceRequestId = ratingViewModel.ServiceId,
+                RatingDate = ratingViewModel.RatingDate,
+                RatingFrom = userId,
+                RatingTo = ratingViewModel.SPId,
+                Comments = ratingViewModel.Comment,
+                OnTimeArrival = ratingViewModel.OnTimeArrival,
+                Friendly = ratingViewModel.Friendly,
+                QualityOfService = ratingViewModel.QualityOfService,
+                Ratings = (ratingViewModel.QualityOfService + ratingViewModel.Friendly + ratingViewModel.OnTimeArrival) / 3 
+            };
+
+            bool res = await userRepository.AddRating(rating);
+            if (res)
+                return Json(true);
+            else
+                return Json(false);
         }
     }
 }

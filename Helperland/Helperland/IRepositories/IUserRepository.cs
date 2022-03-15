@@ -43,5 +43,11 @@ namespace Helperland.IRepositories
         public IEnumerable<ServiceRequest> GetCurrentServices(int userId);
 
         public Task<int> DeleteServiceRequest(int ServiceReqId);
+
+        public Task<ServiceRequest> GetServiceDetails(int ServiceId);
+
+        public IEnumerable<ServiceRequest> GetUserServiceHistory(int userId);
+
+        public Task<bool> AddRating(Rating rating);
     }
 }

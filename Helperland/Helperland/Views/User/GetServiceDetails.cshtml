@@ -1,0 +1,84 @@
+﻿@model ServiceRequest
+@{
+    Layout = null;
+}
+
+@*@{ string[] Time = Model.ServiceStartDate.GetDateTimeFormats();
+        int i = 0; }
+    @foreach(string format in Time) {
+            <span>@format</span> <br /><span> @i </span>
+            i = i + 1;
+
+        }*@
+@*@Time[52]*@
+<div>
+    <div class="fs-5 fw-bold">@String.Format("{0:dd/MM/yyyy}", Model.ServiceStartDate) @(Convert.ToString(Convert.ToDateTime(Model.ServiceStartDate).TimeOfDay).Substring(0,5)) - @(Convert.ToString(Convert.ToDateTime(Model.ServiceStartDate.AddHours(Convert.ToDouble(Model.SubTotal))).TimeOfDay).Substring(0,5))</div>
+    <div><span class="small-title fs-6">Duration: </span> @Model.SubTotal Hrs</div>
+    <hr />
+    <div><span class="small-title fs-6">Service Id: </span>@Model.ServiceRequestId</div>
+    <div>
+        <span class="small-title fs-6">Extra Services: </span>
+        @foreach (ServiceRequestExtra extra in Model.ServiceRequestExtras)
+        {
+
+            @if (extra.ServiceExtraId == 1)
+            {
+                <span>Inside cabinets</span>
+            }
+            else if (extra.ServiceExtraId == 2)
+            {
+                <span>Inside fridge</span>
+            }
+            else if (extra.ServiceExtraId == 3)
+            {
+                <span>Inside oven</span>
+            }
+            else if (extra.ServiceExtraId == 4)
+            {
+                <span>
+                    Laundry wash & dry
+                </span>
+            }
+            else if (extra.ServiceExtraId == 5)
+            {
+                <span>
+                    Interio window
+                </span>
+            }
+
+
+        }
+    </div>
+    <div><span class="small-title fs-6">Net Amount: </span><span class="fs-5 fw-bold" style="color: #1d7a8c;">@Model.TotalCost € </span></div>
+
+    <hr />
+
+    @foreach (ServiceRequestAddress serviceAddress in Model.ServiceRequestAddresses)
+    {
+        <div><span class="small-title">Service Address: </span> @serviceAddress.AddressLine1 @serviceAddress.AddressLine2, @serviceAddress.PostalCode @serviceAddress.City</div>
+    }
+    <div><span class="small-title fs-6">Mobile: </span> +91 @Model.User.Mobile</div>
+    <div><span class="small-title fs-6">Email: </span> @Model.User.Email</div>
+
+    <hr />
+
+    <div><span class="small-title fs-6">Comments: </span></div>
+    @if (Model.HasPets)
+    {
+        <img src="~/images/not-included.png" class="me-2" />
+        <span>I don't have pets at home</span>
+    }
+    else
+    {
+        <img src="~/images/included.png" class="me-2" />
+        <span>I have pets at home</span>
+    }
+
+    <hr />
+    @if (Model.Status != 3 && Model.Status != 4)
+    {
+        <span class="RateSP-button" onclick="reSchedule(@Model.ServiceRequestId,  @((Model.ServiceProvider != null) ? Model.ServiceProvider.UserId : 0))"><img src="~/images/reschedule-icon-small.png" /> Reschedule</span>
+        <span class="cancle-button" onclick="Cancle(@Model.ServiceRequestId, '@(Model.ServiceProvider != null ? Model.ServiceProvider.Email : "")')"><img src="~/images/close-icon-small.png" /> Cancle</span>
+    }
+
+</div>

@@ -145,7 +145,7 @@ label:hover{
     background-color: #146371 !important;
     cursor: pointer;
 }
-.Modal.Address-Modal {
+.Modal.wide-modal {
     width: 620px;
 }
 
@@ -162,7 +162,7 @@ label:hover{
 }
 
 @media screen and (max-width: 768px) {
-    .Modal.Address-Modal {
+    .Modal.wide-modal {
         width: 80% !important;
     }
 }

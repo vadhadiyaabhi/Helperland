@@ -92,6 +92,11 @@ $(document).ready(function () {
 
 });
 
+function reloadPage() {
+    document.location.reload();
+}
+
+
 jQueryAjaxPost = form => {
     //console.log("method call");
     try {
@@ -214,6 +219,9 @@ jQueryAjaxPost = form => {
                     //$(".Modal").removeClass("active");
                 }
                 else if (res.serviceDeleted == 4) {
+                    $("#Delete-service-Modal").removeClass("active");
+                    $('#cancelled-id').html(res.serviceId);
+                    $('#Service-Deleted-Modal').addClass("active");
                     console.log(`service deleted with Service Id ${res.serviceId}`)
                 }
                 console.log(res);

@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Service Request Cancelled</title>
+    <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/emailTemplate.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="Container">
+        <h3> Dear Service Provider,</h3>
+        <p>
+            We appologize on behalf of our customer, <br />
+            <b>Your service with Id : {{Id}} has been cancelled by customer.</b> <br />
+            To take new service request click the below link: <br />
+            <a href="http://localhost:5000/Service/NewServiceRequests/" class="my-2 mx-auto">Accept New Service</a>
+        </p>
+        <p>
+            Here is the reason mentioned by customer, <br />
+            <b>{{ServiceCancelMessage}}</b>
+        </p>
+        <b>Have a Cleanland,</b><br />
+        <b>Team Helperland</b>
+
+    </div>
+    <hr />
+    © 2018 Helperland. All rights reserved. <a href="#" style="color:black">Terms and Conditions</a> | <a href="#" style="color:black">Privacy Policy</a>
+
+</body>
+</html>

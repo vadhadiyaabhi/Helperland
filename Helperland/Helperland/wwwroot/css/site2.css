@@ -325,6 +325,20 @@ input:focus, textarea:focus, select:focus {
     cursor:pointer;
 }
 
+.fs-7{
+    font-size: 14px !important;
+}
+
+.light-color{
+    color: #A0A0A0 !important;
+}
+
+.correct-img{
+    padding: 20px;
+    border-radius: 50%;
+    background-color: #3bc001;
+}
+
 
 /* ----------------------------------------------------------------------------- */
 /* --------------------------------FAQs css--------------------------- */
@@ -785,6 +799,11 @@ input:focus, textarea:focus, select:focus {
     width: calc(80% - 20px);
 }
 
+
+.sorting-img {
+    display: none;
+}
+
 .row-table tr{
     display: table-row!important;
 }
@@ -888,6 +907,7 @@ td {
     .cancle-button:hover {
         color: white;
         background-color: #db3030;
+        cursor: pointer;
     }
 
 .export-button {
@@ -900,7 +920,8 @@ td {
 
     .export-button:hover {
         color: white;
-        background-color: #146371;;
+        background-color: #146371;
+        cursor: pointer;
     }
 
 .RateSP-button {
@@ -914,6 +935,7 @@ td {
     .RateSP-button:hover {
         color: white;
         background-color: #3e818f;
+        cursor: pointer;
     }
 
 tr img {
@@ -970,6 +992,24 @@ tr img {
     border-bottom-color: #1d7a8c;
 }
 
+.myAccount-tab-icon {
+    width: 24px;
+    height: 26px;
+    overflow: hidden;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    display: none;
+}
+
+.tab-icon img{
+    position: relative;
+}
+
+.tab-icon.active img{
+    top: -100%;
+}
+
 my-settting-table thead {
     background: #f3f3f3;
     border-bottom: 2px solid #e1e1e1;
@@ -986,6 +1026,7 @@ my-settting-table thead {
 .my-setting form span{
     font-size: 14px !important;
 }
+
 
 /* -------------------------------------------------------------- */
 /* -------------------------Admin Pages-------------------------- */
@@ -1464,6 +1505,10 @@ input[type="radio"] {
     .cleaning .card {
         max-width: 300px;
     }
+
+    .dashboard {
+        width: 96%;
+    }
 }
 
 @media screen and (max-width: 991px) {
@@ -1589,6 +1634,15 @@ input[type="radio"] {
     .payment, .td-center {
         text-align: left;
     }
+
+    .myAccount-tab-title{
+        display:none;
+    }
+
+
+    .myAccount-tab-icon {
+        display: block;
+    }
 }
 
 @media screen and (max-width: 576px) {
@@ -1654,5 +1708,39 @@ input[type="radio"] {
 }
 
 #myTable_info{
-    /*display:none;*/
+    display: inline-block !important;
+    width: auto;
+}
+
+.dataTables_paginate{
+    display: inline-block;
+    width: auto;
+    float: right;
+}
+
+.dataTables_empty {
+    color: #dd4164 !important;
+}
+
+.paginate_button {
+    border-radius: 50%;
+    border: 1px solid #C8C8C8;
+    font-weight: bold;
+    height: 38px;
+    width: 38px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px 5px;
+    color: #646464;
+}
+
+.paginate_button:hover{
+    background-color: #1fb6ff;
+    color: white;
+}
+
+.current {
+    background-color: #1fb6ff;
+    color: white;
 }

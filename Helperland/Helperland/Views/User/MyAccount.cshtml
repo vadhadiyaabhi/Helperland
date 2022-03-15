@@ -8,8 +8,8 @@
     <h1 class="welcome">Welcome,</h1>
     <h1 class="fw-bold">@User.FindFirst("FirstName").Value</h1>
 </div>*@
-@*<div class="dashboard service-history d-flex justify-content-around">
-    <div class="side-menu">
+@*<div class="dashboard service-history d-flex justify-content-around">*@
+    @*<div class="side-menu">
         <ul>
             <a href="">
             <li class="side-menu-item" id="Dashboard">Dashboard</li>
@@ -31,12 +31,13 @@
             </a>
         </ul>
     </div>*@
+    @* ------------------------------------------My settings--------------------------------------- *@ 
     <div class=" my-setting dashboard-table row-table">
         <div class="nav nav-tabs my-setting-tab" id="myTab" role="tablist">
-            <div class="tab1 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Index" type="button" role="tab" aria-controls="home" aria-selected="true" onclick="Show('Index');">My Details</div>
-            <div class="tab2" id="address-tab" data-bs-toggle="tab" data-bs-target="#UserAddresses" type="button" role="tab" aria-controls="profile" aria-selected="false" onclick="Show('UserAddresses');">My Addresses</div>
-            <div class="tab3" id="passowrd-tab" data-bs-toggle="tab" data-bs-target="#ResetPassword" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="Show('ResetPassword');">Change Password</div>
-            <div class="tab4" id="subscribe-tab" data-bs-toggle="tab" data-bs-target="#Subscribe" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="Show('Subscribe');">Subscribe Notifications</div>
+            <div class="tab1 active" id="home-tab" data-bs-toggle="tab" data-bs-target="#Index" type="button" role="tab" aria-controls="home" aria-selected="true" onclick="Show('Index');"><span class="myAccount-tab-title">My Details</span><div class="tab-icon active" onclick="addActive(this)"><span class="myAccount-tab-icon "><img src="~/images/my-account-details.png" /></span></div></div>
+            <div class="tab2" id="address-tab" data-bs-toggle="tab" data-bs-target="#UserAddresses" type="button" role="tab" aria-controls="profile" aria-selected="false" onclick="Show('UserAddresses');"><span class="myAccount-tab-title">My Addresses</span><div class="tab-icon" onclick="addActive(this)"><span class="myAccount-tab-icon"><img src="~/images/my-account-address.png" /></span></div></div>
+            <div class="tab3" id="passowrd-tab" data-bs-toggle="tab" data-bs-target="#ResetPassword" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="Show('ResetPassword');"><span class="myAccount-tab-title">Change Password</span><div class="tab-icon" onclick="addActive(this)"><span class="myAccount-tab-icon" ><img src="~/images/my-account-password.png" /></span></div></div>
+            <div class="tab4" id="subscribe-tab" data-bs-toggle="tab" data-bs-target="#Subscribe" type="button" role="tab" aria-controls="contact" aria-selected="false" onclick="Show('Subscribe');"><span class="myAccount-tab-title">Subscribe Notifications</span><div class="tab-icon" onclick="addActive(this)"><span class="myAccount-tab-icon" ><img src="~/images/my-account-alert.png" /></span></div></div>
         </div>
         <div class="" id="myTabContent">
             <div class="tab-pane fade show active" id="Index" role="tabpanel" aria-labelledby="home-tab" style="display: block;">
@@ -71,29 +72,31 @@
         </div>
 
     </div>
+
+    @*---------------------------------------------------------------------------------------------*@
 @*</div>*@
 
 
 @section Modals{
-<!-- ------------- Modal--------------- -->
-<div class="Modal " id="Delete-Add-Modal">
-    <img class="close-modal" src="~/images/close.png" />
-    <h4 class="modal-title">Delete Address</h4>
-    <div>Are you sure you want to delete this address ?</div>
-    <form asp-controller="User" asp-action="DeleteAddress" onsubmit="return jQueryAjaxPost(this);" method="post">
-        <input type="hidden" name="AddressId" value="" />
-        <button type="submit" class="small-button d-inline" style="width: auto;" value="Delete" >Delete</button>
-        <button type="Reset" class="white-button d-inline close" style="width: auto;" value="Delete" >Cancle</button>
-    </form>
-</div>
-
-<div class="Modal Address-Modal mx-2" id="Address-Modal">
-    <img class="close-modal" src="~/images/close.png" />
-    <h4 class="modal-title my-2" id="Address-Modal-Title"></h4>
-    <div id="add-or-edit-address">
-
+    <!-- ------------- Modal--------------- -->
+    <div class="Modal " id="Delete-Add-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title">Delete Address</h4>
+        <div>Are you sure you want to delete this address ?</div>
+        <form asp-controller="User" asp-action="DeleteAddress" onsubmit="return jQueryAjaxPost(this);" method="post">
+            <input type="hidden" name="AddressId" value="" />
+            <button type="submit" class="small-button d-inline" style="width: auto;" value="Delete" >Delete</button>
+            <button type="Reset" class="white-button d-inline close" style="width: auto;" value="Delete" >Cancle</button>
+        </form>
     </div>
-</div>
+
+    <div class="Modal wide-modal Address-Modal mx-2" id="Address-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title"></h4>
+        <div id="add-or-edit-address">
+
+        </div>
+    </div>
 
 }
 
@@ -125,6 +128,8 @@
             $('input[name="AddressId"]').val('');
         });
 
+        
+
 
         //to set default address
         function setDefault(addId) {
@@ -141,6 +146,12 @@
             $("#add-or-edit-address").html("Loading Address Modal").load(`/User/AddOrEditAddress/${addId}`);
             $("#blur").addClass("blur");
             $("#Address-Modal").addClass("active");
+        }
+
+        function addActive(ele) {
+            //console.log(ele);
+            $(".tab-icon").removeClass("active");
+            $(ele).addClass("active");
         }
 
 

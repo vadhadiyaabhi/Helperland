@@ -4,10 +4,9 @@
     ViewBag.Header = "";
 }
 
-@*<link href="//cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css" />*@
+@* -----------------For dataTable plugIn--------------------------------*@
 <script src="~/lib/jquery/jquery.min.js"></script>
 <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-
 <script type="text/javascript">
     //window.onload = dataTable;
     //function dataTable() {
@@ -19,18 +18,22 @@
         $('#myTable').dataTable();
     });
 </script>
+@* -----------------------------------------------------------------------*@
+
+
+
 <div class="service-history-table dashboard-table service-history">
     <div class="d-flex justify-content-between align-item-center py-2">
         <span class="table-heading">Service History</span>
         <a href="" class="export-button">Export</a>
     </div>
-    <table class="" style="width: 100%;" id="myTable">
+    <table class="responsive-row" style="width: 100%;" id="myTable">
         <thead class="">
-        <th width="16%"><a href="#">Service ID <img src="~/images/sort.png" alt=""></a></th>
-        <th width="19%"><a href="#">Service Details <img src="~/images/sort.png" alt=""></a></th>
-        <th width="25%" style="width:25%;"><a href="#">Service Provider <img src="~/images/sort.png" alt=""></a></th>
-        <th width="15%" class="text-center">
-            <a href="#">Payment <img src="~/images/sort.png" alt=""></a>
+        <th width="16%" onclick="sortingImg(this)" id="ServiceIdCol"><a href="#">Service ID <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="19%" onclick="sortingImg(this)" id="ScheduleCol"><a href="#">Service Details <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="25%" style="width:25%;" onclick="sortingImg(this)" id="SPCol"><a href="#">Service Provider <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="15%" class="text-center" onclick="sortingImg(this)" id="PaymentCol">
+            <a href="#">Payment <img src="~/images/sort.png" class="sorting-img" alt=""></a>
         </th>
         <th width="25%" class="text-center">
             <a>Actions</a>
@@ -41,12 +44,12 @@
             {
                 <tr>
                     <td>@service.ServiceRequestId</td>
-                    <td>
+                    <td onclick="ServiceDetails(@service.ServiceRequestId)">
                         <div class="d-none">@String.Format("{0:yyyy/MM/dd}", service.ServiceStartDate) @Convert.ToDateTime(service.ServiceStartDate).TimeOfDay</div>
                         <div class="line-break">
-                            <a href="" class="fw-bold"><img src="~/images/calendar2.png" alt="">@String.Format("{0:dd/MM/yyyy}", service.ServiceStartDate)</a>
+                            <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@String.Format("{0:dd/MM/yyyy}", service.ServiceStartDate)</a>
                             @*<a href="" class="fw-bold"><img src="~/images/calendar2.png" alt="">@Convert.ToDateTime(service.ServiceStartDate).Date</a>*@
-                            <a href=""><img src="~/images/layer-712.png" alt="">@(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate).TimeOfDay).Substring(0,5)) - @(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal))).TimeOfDay).Substring(0,5))</a>
+                            <a href="#"><img src="~/images/layer-712.png" alt="">@(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate).TimeOfDay).Substring(0,5)) - @(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal))).TimeOfDay).Substring(0,5))</a>
                         </div>
                     </td>
                     <td class="service-provider">
@@ -70,8 +73,8 @@
                     </td>
                     <td class="payment td-center">€<span>@service.TotalCost</span></td>
                     <td class="service-status text-center">
-                        <a href="#" class="RateSP-button" onclick="reSchedule(@service.ServiceRequestId)">Reschedule</a>
-                        <a href="#" class="cancle-button" onclick="Cancle(@service.ServiceRequestId)">Cancle</a>
+                        <span class="RateSP-button" onclick="reSchedule(@service.ServiceRequestId, @((service.ServiceProvider != null) ? service.ServiceProvider.UserId : 0))">Reschedule</span>
+                        <span class="cancle-button" onclick="Cancle(@service.ServiceRequestId, '@(service.ServiceProvider != null ? service.ServiceProvider.Email : "")')">Cancle</span>
                     </td>
                 </tr>
             }
@@ -81,42 +84,82 @@
         </tbody>
     </table>
 
-    <!-- =====================Custom pegination section============================= -->
-    @*<div class="pegination">
-            <div class="pegination-rows">
-                Show <select id="pegination-select" onchange="rowCount();">
-                    <option value="4">4</option>
-                    <option value="2">2</option>
-                    <option value="6">6</option>
-                    <option value="8">8</option>
-                    <option value="12">12</option>
-                    <option value="15">30</option>
-                </select> Entries, Showing Entries from <span id="from-entry"></span> to <span id="to-entry"></span>
-            </div>
-            <ul class="pegination-pages">
-                <li class="prev" id="prev"><a href="#">&#139;</a></li>
-                <li class="next" id="next"><a href="#">&#155;</a></li>
-            </ul>
-        </div>*@
-
 </div>
 
-<!-- jQuery Validation library-->
-<script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
-<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-@section Modals{
-    <!-- ------------- Modal--------------- -->
-    <div class="Modal " id="Delete-Add-Modal">
+<!-- ------------- Modal--------------- -->
+@section Modals
+{
+    <div class="Modal " id="Delete-service-Modal">
         <img class="close-modal" src="~/images/close.png" />
         <h4 class="modal-title mb-3">Delete Address</h4>
-        <form asp-controller="User" asp-action="DeleteServiceRequest" onsubmit="return jQueryAjaxPost(this);" method="post">
+        <form asp-controller="User" asp-action="DeleteServiceRequest" onsubmit="return jQueryAjaxPost(this);">
             <input type="hidden" name="ServiceRequestId" value="" />
-            <label for="cancleMessage">Why do you want to cancle the service request ?</label>
-            <textarea class="mb-0 valid" name="cancleMessage" data-val="true" data-val-length="The Comment must be a string with a maximum length of 200." maxlength="200" rows="3" id="cancleMessage" data-val-required="The FirstName field is required." data-val-length-max="200" aria-describedby="cancleMessage-error" aria-invalid="false"></textarea>
+            <input type="hidden" name="SPEmail" value="" />
+            <label>Why do you want to cancle the service request ?</label>
+            <textarea class="mb-0" name="cancleMessage" data-val="true" data-val-length="The Comment must be a string with a maximum length of 200." maxlength="200" rows="3" id="cancleMessage" data-val-required="The cancellation message is required." data-val-length-max="200" aria-describedby="cancleMessage-error" aria-invalid="true" required></textarea>
             <span class="text-danger field-validation-error" data-valmsg-for="cancleMessage" data-valmsg-replace="true" style="font-size: 14px;"></span>
             <button type="submit" class="fw-normal" value="Delete">Cancle Now</button>
         </form>
+    </div>
+
+    <div class="Modal  text-center " id="Service-Deleted-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-5">Your service request cancelled successfully</div>
+        <div class="text-center fs-7 my-3">Cancelled Request Id : <span id="cancelled-id"></span></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto"  style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+
+    <div class="Modal wide-modal mx-2" id="Service-Details-Modal" >
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title">Service Details</h4>
+        <div id="ServiceDetails">
+
+        </div>
+    </div>
+
+    <div class="Modal Address-Modal mx-2" id="Reschedule-Modal" style="width: auto;">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title">Reschedule Service Request</h4>
+        <div id="add-or-edit-address">
+            <form asp-controller="User" onsubmit="return jQueryAjaxPost(this);">
+                <input type="hidden" name="ServiceId" value="" />
+                <input type="hidden" name="SPId" value="" />
+                <div>Select New Date & Time</div>
+                <div class="row">
+                    <div class="col-6 pe-1" style="position:relative">
+                        <img src="~/images/calendar-color.png" class="calender" />
+                        <input type="date" id="Date" name="Date" class="" />
+                    </div>                    
+                    <div class="col-6 ps-1">
+                        <select name="Time" class="" style="width:100%">
+                            <option value="8:00">8:00</option>
+                            <option value="8:30">8:30</option>
+                            <option value="9:00">9:00</option>
+                            <option value="9:30">9:30</option>
+                            <option value="10:00">10:00</option>
+                            <option value="10:30">10:30</option>
+                            <option value="11:00">11:00</option>
+                            <option value="11:30">11:30</option>
+                            <option value="12:00">12:00</option>
+                            <option value="12:30">12:30</option>
+                            <option value="13:00">13:00</option>
+                            <option value="13:30">13:30</option>
+                            <option value="14:00">14:00</option>
+                            <option value="14:30">14:30</option>
+                            <option value="15:00">15:00</option>
+                            <option value="15:30">15:30</option>
+                            <option value="16:00">16:00</option>
+                            <option value="16:30">16:30</option>
+                            <option value="17:00">17:00</option>
+                            <option value="17:30">17:30</option>
+                            <option value="18:00">18:00</option>
+                        </select>
+                    </div>
+                </div>
+                <button type="submit">Update</button>
+            </form>
+        </div>
     </div>
 
     <div class="Modal Address-Modal mx-2" id="Address-Modal">
@@ -126,18 +169,50 @@
 
         </div>
     </div>
-
 }
 
 
 @section Scripts
 {
     <script>
-        function Cancle(ServiceId) {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $("#Date").attr('min', today);
+
+        function Cancle(ServiceId, SPEmail) {
             console.log("delete modal");
             $("#blur").addClass("blur");
-            $("#Delete-Add-Modal").addClass("active");
+            $("#Service-Details-Modal").removeClass("active");
+            $("#Delete-service-Modal").addClass("active");
             $('input[name="ServiceRequestId"]').val(ServiceId);
+            $('input[name="SPEmail"]').val(SPEmail);
         }
+
+
+        function ServiceDetails(ServiceId) {
+            $("#ServiceDetails").load(`/User/GetServiceDetails/${ServiceId}`);
+            $("#Service-Details-Modal").addClass("active");
+        }
+
+        function reSchedule(ServiceId, SPId) {
+            console.log("Reschedule modal");
+            $("#blur").addClass("blur");
+            $("#Service-Details-Modal").removeClass("active");
+            $("#Reschedule-Modal").addClass("active");
+            $('input[name="ServiceId"]').val(ServiceId);
+            $('input[name="SPId"]').val(SPId);
+        }
+
+        function sortingImg(ele) {
+            console.log("sorting img display");
+            $(".sorting-img").css("display", "none");
+            $("#" + ele.id + " .sorting-img").css("display", "inline-block");
+        }
+
     </script>
 }
+

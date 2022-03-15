@@ -288,7 +288,7 @@ namespace Helperland.Implementations
 
         public IEnumerable<ServiceRequest> GetCurrentServices(int userId)
         {
-            return DbContext.ServiceRequests.Include(x => x.ServiceProvider).Include(x => x.Ratings).Where(u => u.UserId == userId && u.Status != 3 && u.Status != 4)
+            return DbContext.ServiceRequests.Include(x => x.ServiceProvider).ThenInclude(x => x.RatingRatingToNavigations).Where(u => u.UserId == userId && u.Status != 3 && u.Status != 4)
                 .Select(s => new ServiceRequest
                 {
                     ServiceRequestId = s.ServiceRequestId,
@@ -296,7 +296,8 @@ namespace Helperland.Implementations
                     SubTotal = s.SubTotal,
                     ServiceProviderId = s.ServiceProviderId,
                     ServiceStartDate = s.ServiceStartDate,
-                    ServiceProvider = s.ServiceProvider
+                    ServiceProvider = s.ServiceProvider,
+                    Ratings = s.ServiceProvider.RatingRatingToNavigations
                 }).ToList();
 
             //return (from service in DbContext.ServiceRequests
@@ -315,5 +316,34 @@ namespace Helperland.Implementations
             DbContext.SaveChanges();
             return Convert.ToInt32(service.Status);
         }
+
+        public async Task<ServiceRequest> GetServiceDetails(int ServiceId)
+        {
+            ServiceRequest service = await DbContext.ServiceRequests.Include(service => service.ServiceProvider)
+                                            .Include(service => service.User)
+                                            .Include(service => service.ServiceRequestAddresses).AsSplitQuery()
+                                            .Include(service => service.ServiceRequestExtras).AsSplitQuery()
+                                            .Where(service => service.ServiceRequestId == ServiceId)
+                                            .FirstOrDefaultAsync();
+        //https://docs.microsoft.com/en-us/ef/core/querying/single-split-queries
+            return service;
+        }
+
+        public IEnumerable<ServiceRequest> GetUserServiceHistory(int userId)
+        {
+            return DbContext.ServiceRequests.Include(x => x.ServiceProvider)
+                                            .ThenInclude(sp => sp.RatingRatingToNavigations).AsSplitQuery()
+                                            .Where(s => s.UserId == userId && (s.Status == 3 || s.Status == 4)).ToList();
+        }
+
+        public async Task<bool> AddRating(Rating rating)
+        {
+            await DbContext.Ratings.AddAsync(rating);
+            if (rating.RatingId != 0)
+                return true;
+            else
+                return false;
+        }
     }
+
 }
