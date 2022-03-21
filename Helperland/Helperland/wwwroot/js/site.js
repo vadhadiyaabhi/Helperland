@@ -11,14 +11,18 @@ $(document).ready(function () {
         if (this.scrollY > 20) {
             $(".navbar").addClass("sticky");
             $(".nav-item > .button").addClass("button-color");
+            $(".back-top").addClass("back-top-scroll");
         }
         else {
             $(".navbar").removeClass("sticky");
             $(".nav-item > .button").removeClass("button-color");
+            $(".back-top").removeClass("back-top-scroll");
         }
     });
-        
 
+    $(".back-top").click(function () {
+        $("html, body").animate({ scrollTop: 0 }, 500);
+    });
     
 
     $('.menu-toggler').click(function () {
@@ -95,6 +99,7 @@ $(document).ready(function () {
 function reloadPage() {
     document.location.reload();
 }
+
 
 
 jQueryAjaxPost = form => {
@@ -224,6 +229,51 @@ jQueryAjaxPost = form => {
                     $('#Service-Deleted-Modal').addClass("active");
                     console.log(`service deleted with Service Id ${res.serviceId}`)
                 }
+
+                else if (res.ratingSuccess) {
+                    $("#blur").removeClass("blur");
+                    $('.Modal').removeClass("active");
+                    $("#rate-success").css("display", "block");
+                }
+                else if (res.reScheduleFail) {
+                    $("#reSchedule-fail").html(`oops!! Your Service Provier has been assigend to another Service Request on date ${res.conflictDate} from ${res.conflictStart} to ${res.conflictEnd}. <br > Either choose another date or pick up a different time slot.`);
+                }
+                else if (res.reScheduleDataRequired) {
+                    $("#reSchedule-fail").html("Please select a Date");
+                }
+                else if (res.reScheduleSuccess) {
+                    $("#reSchedule-message").html(`Your Service Request with ServiceId ${res.serviceId} has been rescheduled on ${res.reScheduleDate} from ${res.reScheduleTime}`);
+                    $('#Reschedule-Modal').removeClass('active');
+                    $("#Service-ReScheduled-Modal").addClass("active");
+
+                }
+                else if (res.serviceAlreadyAccepted) {
+                    $(".Modal").removeClass("active");
+                    $("#Service-NotAccepted-Modal").addClass("active");
+                    $("#service-accept-fail").html(`Oops!! This service with Id ${res.serviceId} has been already accepted by another Service Provider.`);
+                }
+                else if (res.spServiceConflict) {
+                    $(".Modal").removeClass("active");
+                    $("#Service-NotAccepted-Modal").addClass("active");
+                    $("#service-accept-fail").html(`You cannot accept this service request, because time conflicts with your another service with ServiceId ${res.conflictServiceId}`);
+                }
+                else if (res.serviceAccepted) {
+                    $("#Service-Details-Modal").removeClass("active");
+                    $("#Service-Accepted-Modal").addClass("active");
+                    $("#accepted-id").html(res.serviceId);
+                }
+                else if (res.serviceCompleted) {
+                    $(".Modal").removeClass("active");
+                    $("#completed-message").html(`Service Request with ServiceId ${res.serviceId} has been successfully marked as completed`)
+                    $("#Service-Completed-Modal").addClass("active");
+                }
+                else if (res.serviceCancelledBySP == 5) {
+                    $("#Delete-service-Modal").removeClass("active");
+                    $('#cancelled-id').html(res.serviceId);
+                    $('#Service-Deleted-Modal').addClass("active");
+                    console.log(`service deleted by SP with Service Id ${res.serviceId}`)
+                }
+
                 console.log(res);
             },
             error: function (err) {

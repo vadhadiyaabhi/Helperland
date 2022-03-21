@@ -1,15 +1,18 @@
 ﻿using Helperland.IRepositories;
 using Helperland.Models;
 using Helperland.ViewModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace Helperland.Controllers
 {
+    [Authorize(Roles = "1")]
     public class UserController : Controller
     {
         private readonly IServiceRequestRepository serviceRepository;
@@ -61,6 +64,7 @@ namespace Helperland.Controllers
             //Console.WriteLine(Convert.ToDateTime(user.DateOfBirth).TimeOfDay);
             //Console.WriteLine((Convert.ToString(Convert.ToDateTime(service.ServiceStartDate).TimeOfDay).Substring(0,5));     // To get time hh:mm formate
             //Console.WriteLine((service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal))));     // To Add time in datetime use Add method, AddHours, AddMinutes, AddSecond etc...
+            //String.Format("{0:yyyy/MM/dd}", service.ServiceStartDate)
             //Thread.Sleep(5000);
             return View(userViewModel);
         }
@@ -105,8 +109,10 @@ namespace Helperland.Controllers
         [HttpPost]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel passwordReset)
         {
+            Console.WriteLine("password before valid state");
             if (ModelState.IsValid)
             {
+                Console.WriteLine("password after valid state");
                 int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
                 Console.WriteLine(userId);
                 bool result = await userRepository.ResetPassword(passwordReset, userId);
@@ -222,6 +228,9 @@ namespace Helperland.Controllers
         public async Task<IActionResult> RateSP([Bind("ServiceId", "SPId", "OnTimeArrival", "Friendly", "QualityOfService", "Comment")] RatingViewModel ratingViewModel)
         {
             int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            //Console.WriteLine(ratingViewModel.OnTimeArrival);
+            //Console.WriteLine(ratingViewModel.Friendly);
+            //Console.WriteLine(ratingViewModel.QualityOfService);
             Rating rating = new Rating()
             {
                 ServiceRequestId = ratingViewModel.ServiceId,
@@ -234,12 +243,157 @@ namespace Helperland.Controllers
                 QualityOfService = ratingViewModel.QualityOfService,
                 Ratings = (ratingViewModel.QualityOfService + ratingViewModel.Friendly + ratingViewModel.OnTimeArrival) / 3 
             };
+            Console.WriteLine("Ratings is " + rating.Ratings);
 
             bool res = await userRepository.AddRating(rating);
             if (res)
-                return Json(true);
+                return Json(new { ratingSuccess = true });
             else
                 return Json(false);
         }
+
+        public async Task<IActionResult> ReScheduleService(int ServiceId, string Date, string Time)
+        {
+            if(ServiceId != 0 && !string.IsNullOrEmpty(Date) && !string.IsNullOrEmpty(Time))
+            {
+                ServiceRequest service = await userRepository.GetService(ServiceId);
+                DateTime dateTime = Convert.ToDateTime(Date + " " + Time);
+                if(service.ServiceProviderId != null)
+                {
+                    ServiceTimeConflict conflict = userRepository.ChechScheduleConflict(dateTime,service.SubTotal,Convert.ToInt32(service.ServiceProviderId));
+
+                    Console.WriteLine(conflict.Conflict);
+                    if (conflict.Conflict)
+                    {
+                        return Json(new { reScheduleFail = true, conflictStart = conflict.ConflictStartTime, conflictEnd = conflict.ConflictEndTime, conflictDate = conflict.ConflictDate });
+                    }
+                    
+                }
+                ServiceRequest reScheduledservice = await userRepository.ReScheduleService(ServiceId, dateTime);
+                service = await userRepository.GetService(ServiceId);
+
+                //First Check whether service has SP assigned or not ----------------------------IMP
+                if (service.ServiceProvider != null && service.ServiceProviderId != null)
+                {
+                    Console.WriteLine(service.ServiceProvider.Email);
+                    UserEmailOptions userEmailOptions = new UserEmailOptions
+                    {
+                        ToEmails = new List<string>() { service.ServiceProvider.Email },
+                        templateName = "ServiceReScheduled",
+                        Subject = "Service Request ReScheduled",
+                        Placeholder = new List<KeyValuePair<string, string>>()
+                        {
+                            new KeyValuePair<string, string>("{{Name}}", service.ServiceProvider.FirstName + " " + service.ServiceProvider.LastName),
+                            new KeyValuePair<string, string>("{{ServiceId}}", service.ServiceRequestId.ToString()),
+                            new KeyValuePair<string, string>("{{Date}}", service.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')),
+                            new KeyValuePair<string, string>("{{StartTime}}", service.ServiceStartDate.ToString("HH:mm")),
+                            new KeyValuePair<string, string>("{{EndTime}}", service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm")),
+                        }
+                    };
+
+                    await emailService.SendTestEmail(userEmailOptions);
+                }
+                return Json(new { reScheduleSuccess = true, serviceId = ServiceId, reScheduleDate = service.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/'), reScheduleTime = service.ServiceStartDate.ToString("HH:mm") + " to " + service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm")});
+            }
+
+            return Json(new { reScheduleDataRequired = true });
+        }
+
+        public IActionResult FavouritePros()
+        {
+            int userId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var FavouritePros = userRepository.GetFavouritePros(userId);
+            List<FavouriteProsViewModel> favouriteViewModel = new List<FavouriteProsViewModel>();
+            foreach(FavoriteAndBlocked favorite in FavouritePros)
+            {
+                FavouriteProsViewModel newObject = new FavouriteProsViewModel()
+                {
+                    Id = favorite.Id,
+                    UserId = favorite.UserId,
+                    TargetUserId = favorite.TargetUserId,
+                    IsBlocked = favorite.IsBlocked,
+                    IsFavourite = favorite.IsFavorite,
+                    TargetUserName = favorite.TargetUser.FirstName + " " + favorite.TargetUser.LastName,
+                    Ratings = favorite.TargetUser.RatingRatingToNavigations.Where(u => u.RatingTo == favorite.TargetUserId).Average(r => r.Ratings),
+                };
+                int cleanings = userRepository.GetNoOfCleanings(userId, favorite.TargetUserId);
+                newObject.Cleanings = cleanings;
+                favouriteViewModel.Add(newObject);
+            }
+            return View(favouriteViewModel);
+        }
+
+        [Route("User/Blockunblock/{ID}/{value}")]
+        public string BlockUnblock(int Id, bool Value)
+        {
+            bool res = userRepository.Blockunblock(Id, Value);
+            if (res)
+                return "Unblock";
+            else
+                return "Block";
+        }
+
+        [Route("User/FavUnfav/{ID}/{value}")]
+        public string FavUnfav(int Id, bool Value)
+        {
+            bool res = userRepository.FavUnfav(Id, Value);
+            if (res)
+                return "Remove";
+            else
+                return "Favourite";
+        }
+
+        public IActionResult ReportAnIssue(int serviceId)
+        {
+            return RedirectToAction("Contact", "Home", new { serviceId = serviceId });
+        }
+
+        [Route("User/GetUserWithServiceId/{serviceId}")]
+        public async Task<IActionResult> GetUserWithServiceId(int serviceId)
+        {
+            ServiceRequest service = await userRepository.GetServiceWithUser(serviceId);
+            ContactCreateViewModel reportModel = new ContactCreateViewModel()
+            {
+                ServiceId = service.ServiceRequestId,
+                firstname = service.User.FirstName,
+                lastname = service.User.LastName,
+                PhoneNumber = service.User.Mobile,
+                Email = service.User.Email
+            };
+            return Json(new { firstName = service.User.FirstName, lastName = service.User.LastName, mobile = service.User.Mobile, email = service.User.Email });
+        }
+
+        //public ServiceTimeConflict ChechScheduleConflict(DateTime dateTime, decimal totalHours, int spId)
+        //{
+        //    ICollection<ServiceRequest> spService = userRepository.GetSPService(spId);
+        //    DateTime newStartTime = dateTime;
+        //    DateTime newEndTime = dateTime.AddHours(Convert.ToDouble(totalHours));
+        //    ServiceTimeConflict conflict;
+        //    foreach (ServiceRequest service in spService)
+        //    {
+        //        DateTime startTime = service.ServiceStartDate.AddHours(-1);
+        //        DateTime endTime = service.ServiceStartDate.AddHours(Convert.ToDouble(totalHours) + 1);
+
+        //        if ((newStartTime <= startTime && newEndTime >= endTime) 
+        //            || (newStartTime >= startTime && newStartTime <= endTime) 
+        //            || (newEndTime >= startTime && newEndTime <= endTime))
+        //        {
+        //            conflict = new ServiceTimeConflict()
+        //            {
+        //                Conflict = true,
+        //                ConflictDate = service.ServiceStartDate.ToString("dd-MM-yyyy"),
+        //                ConflictStartTime = service.ServiceStartDate.ToString("HH:mm"),
+        //                ConflictEndTime = service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm"),
+        //                ServiceId = service.ServiceRequestId
+        //            };
+        //            return conflict;
+        //        }
+        //    }
+        //    conflict = new ServiceTimeConflict()
+        //    {
+        //        Conflict = false
+        //    };
+        //    return conflict;
+        //}
     }
 }

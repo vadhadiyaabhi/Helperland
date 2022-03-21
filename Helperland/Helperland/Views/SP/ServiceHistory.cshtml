@@ -1,0 +1,106 @@
+﻿@model IEnumerable<ServiceRequest>
+@{
+    ViewBag.Title = "Helperland - Service History";
+    ViewBag.Header = "";
+}
+
+@* -----------------For dataTable plugIn--------------------------------*@
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    //window.onload = dataTable;
+    //function dataTable() {
+    //    console.log("sorting and paging");
+    //    $("#myTable").DataTable();
+    //}
+    $(document).ready(function () {
+        $.noConflict();
+        $('#myTable').dataTable();
+    });
+</script>
+@* -----------------------------------------------------------------------*@
+
+
+<div class="service-history-table dashboard-table service-history">
+    <div class="d-flex justify-content-between align-item-center py-2">
+        <span class="table-heading">Upcoming Services</span>
+        <a href="" class="export-button">Export</a>
+    </div>
+    <table class="responsive-row" style="width: 100%;" id="myTable">
+        <thead class="">
+        <th width="17%" onclick="sortingImg(this)" id="ServiceIdCol"><a href="#">Service ID <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="26%" onclick="sortingImg(this)" id="ScheduleCol"><a href="#">Service Details <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="40%" onclick="sortingImg(this)" id="SPCol"><a href="#">Customer Details <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="17%" class="text-center" onclick="sortingImg(this)" id="PaymentCol">
+            <a href="#">Payment <img src="~/images/sort.png" class="sorting-img" alt=""></a>
+        </th>
+        </thead>
+        <tbody>
+            @foreach (ServiceRequest service in Model)
+            {
+                <tr>
+                    <td>@service.ServiceRequestId</td>
+                    <td onclick="ServiceDetails(@service.ServiceRequestId)">
+                        <div class="d-none">@service.ServiceStartDate.ToString("yyyy-MM-dd") @Convert.ToDateTime(service.ServiceStartDate).TimeOfDay</div>
+                        <div class="line-break">
+                            <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@service.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')</a>
+                            @*<a href="" class="fw-bold"><img src="~/images/calendar2.png" alt="">@Convert.ToDateTime(service.ServiceStartDate).Date</a>*@
+                            <a href="#"><img src="~/images/layer-712.png" alt="">@service.ServiceStartDate.ToString("HH:mm") - @service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm")</a>
+                        </div>
+                    </td>
+                    <td class=" d-flex align-item-center">
+                        <img src="~/images/layer-15.png" class="align-self-center" alt="" height="25">
+                        <div>
+                            <span class="cust-name fw-bold">@(service.User.FirstName + " " + service.User.LastName)</span><br>
+                            @foreach (ServiceRequestAddress address in service.ServiceRequestAddresses)
+                            {
+                                <span>@address.AddressLine1, </span> <span>@address.AddressLine2</span> <br />
+                                <span>@address.PostalCode </span> <span>@address.City</span>
+                            }
+                        </div>
+                    </td>
+                    <td class="payment td-center">€<span>@service.TotalCost</span></td>
+                </tr>
+            }
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+@section Modals
+{
+    <div class="Modal wide-modal mx-2" id="Service-Details-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title">Service Details</h4>
+        <div id="ServiceDetails">
+
+        </div>
+    </div>
+
+
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        function ServiceDetails(ServiceId) {
+            console.log("service details function");
+            $("#blur").addClass("blur");
+            $("#ServiceDetails").load(`/SP/GetServiceDetails/${ServiceId}`);
+            $("#Service-Details-Modal").addClass("active");
+        }
+
+        function sortingImg(ele) {
+            console.log("sorting img display");
+            $(".sorting-img").css("display", "none");
+            $("#" + ele.id + " .sorting-img").css("display", "inline-block");
+        }
+
+
+    </script>
+}

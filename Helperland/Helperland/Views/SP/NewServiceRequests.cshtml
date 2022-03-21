@@ -1,0 +1,137 @@
+﻿@model IEnumerable<ServiceRequest>
+@{
+    ViewBag.Title = "Helperland - New Service Requests";
+    ViewBag.Header = "";
+}
+
+@* -----------------For dataTable plugIn--------------------------------*@
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    //window.onload = dataTable;
+    //function dataTable() {
+    //    console.log("sorting and paging");
+    //    $("#myTable").DataTable();
+    //}
+    $(document).ready(function () {
+        $.noConflict();
+        $('#myTable').dataTable();
+    });
+</script>
+@* -----------------------------------------------------------------------*@
+
+
+<div class="service-history-table dashboard-table service-history">
+    <div class="d-flex justify-content-between align-item-center py-2">
+        <span class="table-heading">New Service Requests</span>
+        <form><input type="checkbox" name="IncludePet" id="IncludePet"  /><label for="IncludePet">Include Pets at Home</label></form>
+    </div>
+    <table class="responsive-row" style="width: 100%;" id="myTable">
+        <thead class="">
+        <th width="15%" onclick="sortingImg(this)" id="ServiceIdCol"><a href="#">Service ID <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="20%" onclick="sortingImg(this)" id="ScheduleCol"><a href="#">Service Details <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="35%" style="width:25%;" onclick="sortingImg(this)" id="SPCol"><a href="#">Customer Details <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="15%" class="text-center" onclick="sortingImg(this)" id="PaymentCol">
+            <a href="#">Payment <img src="~/images/sort.png" class="sorting-img" alt=""></a>
+        </th>
+        <!-- <th width="15%" class="text-center">Time Conflict</th> -->
+        <th width="15%" class="text-center">
+            <a>Actions</a>
+        </th>
+        </thead>
+        <tbody>
+            @foreach (ServiceRequest service in Model)
+            {
+                <tr>
+                    <td>@service.ServiceRequestId</td>
+                    <td onclick="ServiceDetails(@service.ServiceRequestId)">
+                        <div class="d-none">@service.ServiceStartDate.ToString("yyyy-MM-dd") @Convert.ToDateTime(service.ServiceStartDate).TimeOfDay</div>
+                        <div class="line-break">
+                            <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@service.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')</a>
+                            @*<a href="" class="fw-bold"><img src="~/images/calendar2.png" alt="">@Convert.ToDateTime(service.ServiceStartDate).Date</a>*@
+                            <a href="#"><img src="~/images/layer-712.png" alt="">@service.ServiceStartDate.ToString("HH:mm") - @service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm")</a>
+                        </div>
+                    </td>
+                    <td class=" d-flex align-item-center">
+                        <img src="~/images/layer-15.png" class="align-self-center" alt="" height="25">
+                        <div>
+                            <span class="cust-name fw-bold">@(service.User.FirstName + " " + service.User.LastName)</span><br>
+                            @foreach (ServiceRequestAddress address in service.ServiceRequestAddresses)
+                            {
+                                <span>@address.AddressLine1, </span> <span>@address.AddressLine2</span> <br />
+                                <span>@address.PostalCode </span> <span>@address.City</span>
+                            }
+                        </div>
+                    </td>
+                    <td class="payment td-center">€<span>@service.TotalCost</span></td>
+                    <!-- <td></td> -->
+                    <td class="service-status text-center">
+                        <span class="export-button fs-7" onclick="Accept(@service.ServiceRequestId)">Accept</span>
+                    </td>
+                </tr>
+            }
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+@section Modals
+{
+    <div class="Modal wide-modal mx-2" id="Service-Details-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title">Service Details</h4>
+        <div id="ServiceDetails">
+
+        </div>
+    </div>
+
+    <div class="Modal  text-center " id="Service-Accepted-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-5">Your service request has been accepted successfully</div>
+        <div class="text-center fs-7 my-3">Accepted Service Id is : <span id="accepted-id"></span></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+
+    <div class="Modal  text-center " id="Service-NotAccepted-Modal">
+        <img src="~/images/close-icon-small.png" class="incorrect-img mt-3 mb-2" />
+        <div class="text-center fs-6 my-3" id="service-accept-fail"></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="closeModal()">Ok</div>
+    </div>
+    
+}
+
+@section Scripts
+{
+    <script>
+
+        function ServiceDetails(ServiceId) {
+            console.log("service details function");
+            $("#blur").addClass("blur");
+            $("#ServiceDetails").load(`/SP/GetServiceDetails/${ServiceId}`);
+            $("#Service-Details-Modal").addClass("active");
+        }
+
+        function sortingImg(ele) {
+            console.log("sorting img display");
+            $(".sorting-img").css("display", "none");
+            $("#" + ele.id + " .sorting-img").css("display", "inline-block");
+        }
+
+        function Accept(ServiceId) {
+            console.log("service details function");
+            $("#blur").addClass("blur");
+            $("#ServiceDetails").load(`/SP/GetServiceDetails/${ServiceId}`);
+            $("#Service-Details-Modal").addClass("active");
+        }
+
+        function closeModal() {
+            $("#blur").removeClass("blur");
+            $(".Modal").removeClass("active");
+        }
+
+    </script>
+}

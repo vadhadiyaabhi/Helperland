@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>New Service Request(Assigned To You)</title>
+    <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/emailTemplate.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="Container">
+        <h3> Dear {{SPName}},</h3>
+        <p>A new service request has been booked by <span class="fw-bold">{{UserName}}</span> with ServiceId <b>{{ServiceId}}</b>  on <span class="fw-bold"><b>{{DateTime}}</b></span>. <br /> Please note the below service details:</p>
+        <table>
+            <tr>
+                <th class="text-left" width="180px">Services</th>
+                <th class="text-left" width="120px">Service Time</th>
+                <th class="text-left" width="120px">Service Cost</th>
+            </tr>
+            {{Services}}
+        </table>
+
+        <p>Total payable amount is: <b>{{TotalAmount}} €</b></p>
+        <p><b>Please Take a note that,</b> <br /> <b>This service has been directly assigned to you..!</b></p>
+        <a href="http://localhost:5000/SP/UpcomingServices/" class="my-2 mx-auto">Click Here to See</a>
+        <br />
+        <br />
+        <b>Have a Cleanland,</b><br />
+        <b>Team Helperland</b>
+
+    </div>
+    <hr />
+    © 2018 Helperland. All rights reserved. Terms and Conditions | Privacy Policy
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<FavouriteProsViewModel>
+@{
+    ViewBag.Title = "Helperland - Favourite Pros";
+    ViewBag.Header = "";
+}
+
+<div class=" my-setting my-sp-setting dashboard-table row-table">
+    <div class="d-flex px-4 justify-content-between flex-wrap">
+        @foreach (FavouriteProsViewModel fav in Model)
+        {
+            <div class="user-box my-3 py-2">
+                <div class="text-center">
+                    <div class="my-2 text-center"><img src="~/images/avatar-hat.png" class="avatar-img" /></div>
+                    <div class="fw-bold mt-3">@fav.TargetUserName</div>
+                    <div class="mb-3">
+                        <span class="rating-star">
+                            @{ int i = 0; }
+                            @for (i = 0; i < @Math.Round(fav.Ratings); i++)
+                            {
+                                <img src="~/images/star-ratting-filled.svg" alt="">
+                            }
+                            @while (i != 5)
+                            {
+                                <img src="~/images/star-ratting-empty.svg" alt="">
+                                i++;
+                            }
+
+                            <span class="ratting-number">@fav.Ratings.ToString("F")</span>
+                        </span>
+                    </div>
+                    <div class="my-3">@fav.Cleanings Cleanings</div>
+                    <div class="my-3" id="@fav.Id">
+                        <span class="block-button fav-button @(fav.IsFavourite ? "blocked" : "")" onclick="favourite(@fav.Id)">@(fav.IsFavourite ? "Remove" : "Favourite")</span>
+                        <span class="block-button blk-button @(fav.IsBlocked ? "blocked" : "")" onclick="block(@fav.Id)">@(fav.IsBlocked ? "Unblock" : "Block")</span>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.Count() == 0) 
+        {
+            <div class="text-danger m-2">No Service Provider has worked with you as of now</div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function block(id) {
+        console.log("block funtion");
+        var value;
+        if ($("#" + id + " .blk-button").html() == "Block") {
+            value = 'False';
+        }
+        else {
+            value = 'True';
+        }
+        $("#" + id + " .blk-button").html("Processing").load(`/User/BlockUnblock/${id}/${value}`);
+        $("#" + id + " .blk-button").toggleClass("blocked");
+    }
+    function favourite(id) {
+        console.log("Fav funtion");
+        var value;
+        if ($("#" + id + " .fav-button").html() == "Favourite") {
+            value = 'False';
+        }
+        else {
+            value = 'True';
+        }
+        $("#" + id + " .fav-button").html("Processing").load(`/User/FavUnfav/${id}/${value}`);
+        $("#" + id + " .fav-button").toggleClass("blocked");
+    }
+</script>

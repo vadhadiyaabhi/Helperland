@@ -8,8 +8,9 @@
 </head>
 <body>
     <div class="Container">
-        <h3> Dear {{SPName}},</h3>
-        <p>A new service request has been booked by <span class="fw-bold">{{UserName}}</span>  on <span class="fw-bold">{{DateTime}}</span>. <br /> Please note the below service details:</p>
+        <!--<h3> Dear {{SPName}},</h3>-->
+        <h3> Dear Service Provider,</h3>
+        <p>A new service request has been booked by <span class="fw-bold">{{UserName}}</span> with ServiceId <b>{{ServiceId}}</b>  on <span class="fw-bold"><b>{{DateTime}}</b></span>. <br /> Please note the below service details:</p>
         <table>
             <tr>
                 <th class="text-left" width="180px">Services</th>
@@ -19,9 +20,9 @@
             {{Services}}
         </table>
 
-        <p>Total payable amount is: {{TotalAmount}}</p>
+        <p>Total payable amount is: <b>{{TotalAmount}} €</b></p>
         <p>To accept this sevice request, Please click on the below link before someone accepts it.</p>
-        <a href="http://localhost:5000/Service/AcceptService/{{ServiceId}}" class="my-2 mx-auto">Accept This Service</a>
+        <a href="http://localhost:5000/SP/NewServiceRequests/" class="my-2 mx-auto">Accept This Service</a>
         <br />
         <br />
         <b>Have a Cleanland,</b><br />

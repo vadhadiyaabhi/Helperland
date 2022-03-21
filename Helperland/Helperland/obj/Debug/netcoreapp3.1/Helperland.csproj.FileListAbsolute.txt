@@ -414,3 +414,12 @@ D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\ResetP
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\Dashboard.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\GetServiceDetails.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\ServiceHistory.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\GetServiceDetails.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\Index.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\UpcomingServices.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\NewServiceRequests.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\ServiceHistory.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\MyRatings.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\BlockCustomer.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\FavouritePros.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\GetFavouritePros.cshtml.g.cs

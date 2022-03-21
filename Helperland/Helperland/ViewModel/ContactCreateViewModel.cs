@@ -39,5 +39,7 @@ namespace Helperland.ViewModel
         public string PhotoPath { get; set; }
 
         public int? submitted { get; set; }
+
+        public int ServiceId { get; set; }
     }
 }

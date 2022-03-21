@@ -24,8 +24,8 @@
 
 <div class="service-history-table dashboard-table service-history">
     <div class="d-flex justify-content-between align-item-center py-2">
-        <span class="table-heading">Service History</span>
-        <a href="" class="export-button">Export</a>
+        <span class="table-heading">Current Service Requests</span>
+        <a asp-controller="Service" asp-action="BookService" class="export-button fs-7">+ Add New Service Request</a>
     </div>
     <table class="responsive-row" style="width: 100%;" id="myTable">
         <thead class="">
@@ -45,27 +45,35 @@
                 <tr>
                     <td>@service.ServiceRequestId</td>
                     <td onclick="ServiceDetails(@service.ServiceRequestId)">
-                        <div class="d-none">@String.Format("{0:yyyy/MM/dd}", service.ServiceStartDate) @Convert.ToDateTime(service.ServiceStartDate).TimeOfDay</div>
+                        <div class="d-none">@service.ServiceStartDate.ToString("yyyy-MM-dd") @Convert.ToDateTime(service.ServiceStartDate).TimeOfDay</div>
                         <div class="line-break">
-                            <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@String.Format("{0:dd/MM/yyyy}", service.ServiceStartDate)</a>
+                            <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@service.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')</a>
                             @*<a href="" class="fw-bold"><img src="~/images/calendar2.png" alt="">@Convert.ToDateTime(service.ServiceStartDate).Date</a>*@
-                            <a href="#"><img src="~/images/layer-712.png" alt="">@(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate).TimeOfDay).Substring(0,5)) - @(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal))).TimeOfDay).Substring(0,5))</a>
+                            <a href="#"><img src="~/images/layer-712.png" alt="">@service.ServiceStartDate.ToString("HH:mm") - @service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm")</a>
                         </div>
                     </td>
                     <td class="service-provider">
                         @if (service.ServiceProvider != null)
                         {
+                            decimal spRate = service.ServiceProvider.RatingRatingToNavigations.Where(x => x.RatingTo == service.ServiceProviderId).Average(t => t.Ratings);
+                            int i = 0;
+
                             <img src="~/images/cap.png" alt="">
                             <div class="sp-detail">
                                 <span class="fw-bold">@(service.ServiceProvider != null ? (service.ServiceProvider.FirstName + " " + service.ServiceProvider.LastName ) : "")</span>
                                 <br>
                                 <span class="rating-star">
-                                    <img src="~/images/star-ratting-filled.svg" alt="">
-                                    <img src="~/images/star-ratting-filled.svg" alt="">
-                                    <img src="~/images/star-ratting-filled.svg" alt="">
-                                    <img src="~/images/star-ratting-filled.svg" alt="">
-                                    <img src="~/images/star-ratting-empty.svg" alt="">
-                                    <span class="ratting-number">4</span>
+                                    @for (i = 0; i < @Math.Round(spRate); i++)
+                                    {
+                                        <img src="~/images/star-ratting-filled.svg" alt="">
+                                    }
+                                    @while (i != 5)
+                                    {
+                                        <img src="~/images/star-ratting-empty.svg" alt="">
+                                        i++;
+                                    }
+
+                                    <span class="ratting-number">@spRate.ToString("F")</span>
                                 </span>
 
                             </div>
@@ -73,8 +81,8 @@
                     </td>
                     <td class="payment td-center">€<span>@service.TotalCost</span></td>
                     <td class="service-status text-center">
-                        <span class="RateSP-button" onclick="reSchedule(@service.ServiceRequestId, @((service.ServiceProvider != null) ? service.ServiceProvider.UserId : 0))">Reschedule</span>
-                        <span class="cancle-button" onclick="Cancle(@service.ServiceRequestId, '@(service.ServiceProvider != null ? service.ServiceProvider.Email : "")')">Cancle</span>
+                        <div class="d-inline-block my-2"><span class="complete-button fs-7 " onclick="reSchedule(@service.ServiceRequestId, @((service.ServiceProvider != null) ? service.ServiceProvider.UserId : 0))">Reschedule</span></div>
+                        <div class="d-inline-block my-2" ><span class="cancle-button fs-7" onclick="Cancle(@service.ServiceRequestId, '@(service.ServiceProvider != null ? service.ServiceProvider.Email : "")')">Cancle</span></div>
                     </td>
                 </tr>
             }
@@ -92,7 +100,7 @@
 {
     <div class="Modal " id="Delete-service-Modal">
         <img class="close-modal" src="~/images/close.png" />
-        <h4 class="modal-title mb-3">Delete Address</h4>
+        <h4 class="modal-title mb-3">Cancel Service</h4>
         <form asp-controller="User" asp-action="DeleteServiceRequest" onsubmit="return jQueryAjaxPost(this);">
             <input type="hidden" name="ServiceRequestId" value="" />
             <input type="hidden" name="SPEmail" value="" />
@@ -110,6 +118,12 @@
         <div class="small-button fw-normal px-4 py-1 mx-auto"  style="width: auto;" onclick="reloadPage()">Ok</div>
     </div>
 
+    <div class="Modal  text-center " id="Service-ReScheduled-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-6 my-2" id="reSchedule-message"></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+
     <div class="Modal wide-modal mx-2" id="Service-Details-Modal" >
         <img class="close-modal" src="~/images/close.png" />
         <h4 class="modal-title my-2" id="Address-Modal-Title">Service Details</h4>
@@ -118,11 +132,12 @@
         </div>
     </div>
 
-    <div class="Modal Address-Modal mx-2" id="Reschedule-Modal" style="width: auto;">
+    <div class="Modal Address-Modal mx-2" id="Reschedule-Modal" style="width: auto; max-width: 380px;">
         <img class="close-modal" src="~/images/close.png" />
         <h4 class="modal-title my-2" id="Address-Modal-Title">Reschedule Service Request</h4>
+        <span id="reSchedule-fail" class="d-block text-center text-danger fs-7"></span>
         <div id="add-or-edit-address">
-            <form asp-controller="User" onsubmit="return jQueryAjaxPost(this);">
+            <form asp-controller="User" asp-action="ReScheduleService" onsubmit="return jQueryAjaxPost(this);">
                 <input type="hidden" name="ServiceId" value="" />
                 <input type="hidden" name="SPId" value="" />
                 <div>Select New Date & Time</div>
@@ -162,6 +177,8 @@
         </div>
     </div>
 
+
+    <!-- ------------------modal format------------------------ -->
     <div class="Modal Address-Modal mx-2" id="Address-Modal">
         <img class="close-modal" src="~/images/close.png" />
         <h4 class="modal-title my-2" id="Address-Modal-Title"></h4>
@@ -202,6 +219,7 @@
             console.log("Reschedule modal");
             $("#blur").addClass("blur");
             $("#Service-Details-Modal").removeClass("active");
+            $("#reSchedule-fail").html("");
             $("#Reschedule-Modal").addClass("active");
             $('input[name="ServiceId"]').val(ServiceId);
             $('input[name="SPId"]').val(SPId);

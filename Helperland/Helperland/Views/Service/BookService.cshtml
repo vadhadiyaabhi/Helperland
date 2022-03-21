@@ -158,6 +158,7 @@
                             <div class="button continue fs-5 fw-bold" style="float:right;" onclick="GetAddress();">Continue</div>
                         </div>
                         <input type="hidden" asp-for="AddressId" value="" />
+                        <input type="hidden" asp-for="FavouriteProsId" value="0" />
                     </form>
                 </div>
                 <div class="your-details my-4" id="your-details">
@@ -167,6 +168,9 @@
                     </div>
                     <a class="new-address-button mb-3 mt-1" href="#" onclick="newAddress();">+ Add New Address</a>
                     <div class="new-address" id="new-address">
+                    </div>
+                    <div class="favourite-pros" id="favourite-pros">
+
                     </div>
                     <hr />
                     <div class="contact-form">
@@ -247,7 +251,8 @@
             document.getElementById("Date").valueAsDate = new Date();
             function GetAddress() {
                 var GivenDate = new Date($("#Date").val());
-                if (GivenDate <= new Date()) {
+                //if (GivenDate <= new Date()) {
+                if (GivenDate < new Date()) {
                     console.log("Select date first");
                     $("#date-error").html("Service Date must be later than today");
                 }
@@ -261,6 +266,7 @@
                     $("#new-address").css("display", "block");
                     $("#new-address").html("");
                     $("#addresses").html("Loading addresses...").load('@Url.Action("GetUserAddress", "Service")');
+                    $("#favourite-pros").html("Loading Favourite Pros...").load('@Url.Action("GetFavouritePros", "Service")');
                     $("#date-error").html("");
                 }
 
@@ -333,6 +339,22 @@
                     $("#es" + id).css("display", "none");
                 }
                 changeCost();
+            }
+
+            function selectFav(ele, FavId) {
+                console.log(ele);
+                if ($(ele).html() != "Select") {
+                    $("input[name=FavouriteProsId]").val(0);
+                    $(".select-fav").removeClass("active");
+                    $(ele).html("Select")
+                }
+                else {
+                    $("input[name=FavouriteProsId]").val(FavId);
+                    $(".select-fav").removeClass("active");
+                    $(ele).addClass("active");
+                    $(ele).html("Remove")
+                }
+                
             }
 
 

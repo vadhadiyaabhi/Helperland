@@ -49,5 +49,50 @@ namespace Helperland.IRepositories
         public IEnumerable<ServiceRequest> GetUserServiceHistory(int userId);
 
         public Task<bool> AddRating(Rating rating);
+
+        public Task<ServiceRequest> GetServiceWithUser(int ServiceId);
+
+        public Task<ServiceRequest> GetService(int ServiceId);
+
+        public ICollection<ServiceRequest> GetSPService(int spId);
+
+        public Task<ServiceRequest> ReScheduleService(int ServiceId, DateTime dateTime);
+
+        public ServiceTimeConflict ChechScheduleConflict(DateTime dateTime, decimal totalHours, int spId);
+
+        public IEnumerable<ServiceRequest> GetNewServiceRequests(int spId);
+
+        public Task<ServiceRequest> AcceptService(int ServiceId, int spId);
+
+        public IEnumerable<ServiceRequest> GetSPServiceHistory(int spId);
+
+        public IEnumerable<ServiceRequest> GetSPUpcomingServices(int spId);
+
+        public Task<bool> MarkAsCompleted(int ServiceId, int spId);
+
+        public Task<ServiceRequest> CancelServiceBySP(int serviceId, int spId);
+
+        public IEnumerable<Rating> MyRatings(int spId);
+
+        public IEnumerable<FavoriteAndBlocked> GetBlockedBySP(int spId);
+
+        public IEnumerable<FavoriteAndBlocked> GetFavouritePros(int userId);
+
+        public bool Blockunblock(int Id, bool Value);
+
+        public bool FavUnfav(int Id, bool Value);
+
+        public int GetNoOfCleanings(int userId, int spId);
+
+        public IEnumerable<int> GetBlocked(int Id);
+
+        public Task SendNewReqEmail(NewReqEmailModel newServiceEmail);
+
+        public Task<bool> HasIssue(int serviceId);
+
+        public IEnumerable<User> GetOtherSPs(int spId, string zipCode);
+
+
+        public IEnumerable<FavoriteAndBlocked> GetFavorites(int userId);
     }
 }

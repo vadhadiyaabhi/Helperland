@@ -21,77 +21,110 @@
         <span class="table-heading">Service History</span>
         <a href="" class="export-button">Export</a>
     </div>
+    <div class="alert-success" style="display:none;" id="rate-success">Your rating has been saved successfully</div>
     <table class="responsive-row" style="width: 100%;" id="myTable">
         <thead class="">
-        <th width="16%" onclick="sortingImg(this)" id="ServiceIdCol"><a href="#">Service ID <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
-        <th width="19%" onclick="sortingImg(this)" id="ScheduleCol"><a href="#">Service Date <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
-        <th width="25%" style="width:25%;" onclick="sortingImg(this)" id="SPCol"><a href="#">Service Provider <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
-        <th width="15%" class="text-center" onclick="sortingImg(this)" id="PaymentCol">
-            <a href="#">Payment <img src="~/images/sort.png" class="sorting-img" alt=""></a>
-        </th>
-        <th width="15%" class="text-center">
-            <a>Status </a>
-        </th>
-        <th width="15%" class="text-center">Rate SP</th>
+            @*<th width="16%" onclick="sortingImg(this)" id="ServiceIdCol"><a href="#">ServiceID <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+            <th width="19%" onclick="sortingImg(this)" id="ScheduleCol"><a href="#">Service Date <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+            <th width="25%" style="width:25%;" onclick="sortingImg(this)" id="SPCol"><a href="#">Service Provider <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+            <th width="15%" class="text-center" onclick="sortingImg(this)" id="PaymentCol">
+                <a href="#">Payment <img src="~/images/sort.png" class="sorting-img" alt=""></a>
+            </th>
+            <th width="15%" class="text-center">
+                <a>Status </a>
+            </th>
+            <th width="15%" class="text-center">Rate SP</th>*@
+            <th width="15%" onclick="sortingImg(this)" id="ServiceIdCol"><a href="#">ServiceID<img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+            <th onclick="sortingImg(this)" id="ScheduleCol"><a href="#">Service Date <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+            <th onclick="sortingImg(this)" id="SPCol"><a href="#">Service Provider <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+            <th class="text-center" onclick="sortingImg(this)" id="PaymentCol">
+                <a href="#">Payment <img src="~/images/sort.png" class="sorting-img" alt=""></a>
+            </th>
+            <th class="text-center">Report</th>
+            <th class="text-center" onclick="sortingImg(this)" id="StatusCol">
+                <a>Status </a>
+            </th>
+            <th class="text-center">Rate SP</th>
         </thead>
         <tbody>
             @foreach (ServiceRequest service in Model)
             {
                 <tr>
-                <td>@service.ServiceRequestId</td>
-                <td onclick="ServiceDetails(@service.ServiceRequestId)">
-                    <div class="d-none">@String.Format("{0:yyyy/MM/dd}", service.ServiceStartDate) @Convert.ToDateTime(service.ServiceStartDate).TimeOfDay</div>
-                    <div class="line-break">
-                        <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@String.Format("{0:dd/MM/yyyy}", service.ServiceStartDate)</a>
-                        @*<a href="" class="fw-bold"><img src="~/images/calendar2.png" alt="">@Convert.ToDateTime(service.ServiceStartDate).Date</a>*@
-                        <a href="#"><img src="~/images/layer-712.png" alt="">@(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate).TimeOfDay).Substring(0,5)) - @(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal))).TimeOfDay).Substring(0,5))</a>
-                    </div>
-                </td>
-                <td class="service-provider">
-                    @if (service.ServiceProvider != null)
-                    {
-                        <img src="~/images/cap.png" alt="">
-                        <div class="sp-detail">
-                            <span class="fw-bold">@(service.ServiceProvider != null ? (service.ServiceProvider.FirstName + " " + service.ServiceProvider.LastName ) : "")</span>
-                            <br>
-                            <span class="rating-star">
-                                <img src="~/images/star-ratting-filled.svg" alt="">
-                                <img src="~/images/star-ratting-filled.svg" alt="">
-                                <img src="~/images/star-ratting-filled.svg" alt="">
-                                <img src="~/images/star-ratting-filled.svg" alt="">
-                                <img src="~/images/star-ratting-empty.svg" alt="">
-                                <span class="ratting-number">4</span>
-                            </span>
-
+                    <td>@service.ServiceRequestId</td>
+                    <td onclick="ServiceDetails(@service.ServiceRequestId)">
+                        <div class="d-none">@String.Format("{0:yyyy/MM/dd}", service.ServiceStartDate) @Convert.ToDateTime(service.ServiceStartDate).TimeOfDay</div>
+                        <div class="line-break">
+                            <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@service.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')</a>
+                            @*<a href="" class="fw-bold"><img src="~/images/calendar2.png" alt="">@Convert.ToDateTime(service.ServiceStartDate).Date</a>*@
+                            <a href="#"><img src="~/images/layer-712.png" alt="">@(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate).TimeOfDay).Substring(0,5)) - @(Convert.ToString(Convert.ToDateTime(service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal))).TimeOfDay).Substring(0,5))</a>
                         </div>
-                    }
-                </td>
-                <td class="payment td-center"><span>@service.TotalCost</span>€</td>
-                <td class="service-status text-center">
-                    @if (service.Status == 3)
-                    {
-                        <span class="completed">Completed</span>
-                    }
-                    else
-                    {
-                        <span class="cancelled">Cancelled</span>
-                    }
-                </td>
-                <td class="text-center">
-                    @if (service.Status == 3 && service.ServiceProvider != null)
-                    {
-                        <a class="fs-7 export-button" style="cursor: pointer" onclick="RateSP('@(service.ServiceProvider.FirstName + " " + service.ServiceProvider.LastName)', @service.ServiceProvider.UserId, @service.ServiceRequestId)"
-                           title="RateSP">RateSP</a>
-                    }
-                    else
-                    {
-                        <a class="fs-7 RateSP-button pe-none " style="cursor: pointer" title="RateSP">RateSP</a>
-                    }
+                    </td>
+                    <td class="service-provider">
+                        @if (service.ServiceProvider != null)
+                        {
+                            decimal spRate = service.ServiceProvider.RatingRatingToNavigations.Where(x => x.RatingTo == service.ServiceProviderId).Average(t => t.Ratings);
+                            int i = 0;
 
-                    @*<a class="fs-7 @(service.Status == 3 ? "export-button" : "RateSP-button pe-none")" style="cursor: pointer" onclick="RateSP(@(service.ServiceProvider != null ? (service.ServiceProvider.FirstName + " " + service.ServiceProvider.LastName ) : ""))"
-                       title="RateSP">RateSP</a>*@
-                </td>
-            </tr>
+                            <img src="~/images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="fw-bold">@(service.ServiceProvider != null ? (service.ServiceProvider.FirstName + " " + service.ServiceProvider.LastName ) : "")</span>
+                                <br>
+                                <span class="rating-star">
+                                    @for (i = 0; i < @Math.Round(spRate); i++)
+                                    {
+                                        <img src="~/images/star-ratting-filled.svg" alt="">
+                                    }
+                                    @while (i != 5)
+                                    {
+                                        <img src="~/images/star-ratting-empty.svg" alt="">
+                                        i++;
+                                    }
+
+                                    <span class="ratting-number">@spRate.ToString("F")</span>
+                                </span>
+
+                            </div>
+                        }
+                    </td>
+                    <td class="payment td-center"><span>@service.TotalCost</span>€</td>
+                    <td class="td-center"><a asp-controller="User" asp-action="ReportAnIssue" asp-route-serviceId="@service.ServiceRequestId"><img src="~/images/inquiry.png" /></a></td>
+                    <td class="service-status text-center">
+                        @if (service.Status == 3)
+                        {
+                            <span class="completed">Completed</span>
+                        }
+                        else
+                        {
+                            <span class="cancelled">Cancelled</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @if (service.Status == 3 && service.ServiceProvider != null)
+                        {
+                            <a class="fs-7 export-button" style="cursor: pointer" onclick="RateSP('@(service.ServiceProvider.FirstName + " " + service.ServiceProvider.LastName)', @service.ServiceProvider.UserId, @service.ServiceRequestId)"
+                               title="RateSP">RateSP</a>
+                        }
+                        else
+                        {
+                            <a class="fs-7 RateSP-button pe-none " title="RateSP">RateSP</a>
+                        }
+
+                        @*<a class="fs-7 @(service.Status == 3 ? "export-button" : "RateSP-button pe-none")" style="cursor: pointer" onclick="RateSP(@(service.ServiceProvider != null ? (service.ServiceProvider.FirstName + " " + service.ServiceProvider.LastName ) : ""))"
+                        title="RateSP">RateSP</a>*@
+                    </td>
+                    @*@if(service.ServiceProvider != null && service.ServiceProvider.RatingRatingToNavigations != null) {
+                        <div>@service.ServiceProvider.RatingRatingToNavigations.Where(x => x.RatingTo == service.ServiceProviderId).Average(t => t.Ratings)</div>
+                    }*@
+                </tr>
+
+                @*@if(service.ServiceProvider != null && service.ServiceProvider.RatingRatingToNavigations != null)
+                {
+                    <span>@foreach (Rating rating in service.ServiceProvider.RatingRatingToNavigations.Where(x => x.RatingTo == service.ServiceProviderId)) {
+                        <div>@rating.RatingFrom</div>
+                        <div>@rating.RatingTo</div>
+                        <div>@rating.Ratings</div>
+                    }</span>
+                }*@
             }
 
         </tbody>
@@ -128,19 +161,44 @@
         </div>
         <h4 class="fw-bold fs-6 my-2 " id="Address-Modal-Title">Rate your service provider</h4>
         <hr class="my-2" />
-        <form asp-controller="User" asp-action="RateSP" onsubmit="return jQueryAjaxPost(this);">
+        <form asp-controller="User" asp-action="RateSP" id="Rating-form" onsubmit="return jQueryAjaxPost(this);">
             <input type="hidden" name="ServiceId" value="" />
             <input type="hidden" name="SPId" value="" />
-            <div>
+            <div class="">
                 <span>On time arrival</span>
+                <div class="rating">
+                    <input type="radio" name="star1" id="star11" /><label for="star11" onclick="setRatingValue('OnTimeArrival', 5)"></label>
+                    <input type="radio" name="star1" id="star12" /><label for="star12" onclick="setRatingValue('OnTimeArrival', 4)"></label>
+                    <input type="radio" name="star1" id="star13" /><label for="star13" onclick="setRatingValue('OnTimeArrival', 3)"></label>
+                    <input type="radio" name="star1" id="star14" /><label for="star14" onclick="setRatingValue('OnTimeArrival', 2)"></label>
+                    <input type="radio" name="star1" id="star15" /><label for="star15" onclick="setRatingValue('OnTimeArrival', 1)"></label>
+                    <input type="text" name="OnTimeArrival" value="" />
+                </div>
             </div>
             <div>
                 <span>Friendly</span>
+                <div class="rating">
+                    <input type="radio" name="star2" id="star21" /><label for="star21" onclick="setRatingValue('Friendly', 5)"></label>
+                    <input type="radio" name="star2" id="star22" /><label for="star22" onclick="setRatingValue('Friendly', 4)"></label>
+                    <input type="radio" name="star2" id="star23" /><label for="star23" onclick="setRatingValue('Friendly', 3)"></label>
+                    <input type="radio" name="star2" id="star24" /><label for="star24" onclick="setRatingValue('Friendly', 2)"></label>
+                    <input type="radio" name="star2" id="star25" /><label for="star25" onclick="setRatingValue('Friendly', 1)"></label>
+                    <input type="text" name="Friendly" value="" />
+                </div>
             </div>
             <div>
                 <span>Quality Of Service</span>
+                <div class="rating">
+                    <input type="radio" name="star3" id="star31" /><label for="star31" onclick="setRatingValue('QualityOfService', 5)"></label>
+                    <input type="radio" name="star3" id="star32" /><label for="star32" onclick="setRatingValue('QualityOfService', 4)"></label>
+                    <input type="radio" name="star3" id="star33" /><label for="star33" onclick="setRatingValue('QualityOfService', 3)"></label>
+                    <input type="radio" name="star3" id="star34" /><label for="star34" onclick="setRatingValue('QualityOfService', 2)"></label>
+                    <input type="radio" name="star3" id="star35" /><label for="star35" onclick="setRatingValue('QualityOfService', 1)"></label>
+                    <input type="text" name="QualityOfService" value="" />
+                </div>
             </div>
-            <textarea name="Feedback"></textarea>
+            <span>Feedback on Service Provider</span>
+            <textarea name="Comment"></textarea>
             <button type="submit" class="small-button" style="width: auto;" >Submit</button>
         </form>
         <div id="">
@@ -168,6 +226,7 @@
 
 
         function RateSP(SPName, SPId, ServiceId) {
+            $("#Rating-form").trigger("reset");
             console.log("RateSP modal");
             $("#blur").addClass("blur");
             $("#Service-Details-Modal").removeClass("active");
@@ -175,6 +234,13 @@
             $('input[name="ServiceId"]').val(ServiceId);
             $('input[name="SPId"]').val(SPId);
             $('#sp_name').html(SPName);
+        }
+
+        function setRatingValue(name, value) {
+            //console.log("setting rating value");
+            //console.log(name);
+            //console.log(value);
+            $(`input[name="${name}"]`).val(value);
         }
     </script>
 }

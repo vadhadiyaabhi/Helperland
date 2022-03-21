@@ -1,0 +1,49 @@
+﻿@model IEnumerable<FavoriteAndBlocked>
+@{ 
+    ViewBag.Title = "Helperland - Block Customer";
+    ViewBag.Header = "";
+}
+
+<div class=" my-setting my-sp-setting dashboard-table row-table">
+    <div class="d-flex px-4 justify-content-between flex-wrap">
+        @foreach (FavoriteAndBlocked blocked in Model)
+        {
+            <div class="user-box my-3">
+                <div class="text-center">
+                    <div class="my-2 text-center"><img src="~/images/avatar-hat.png" class="avatar-img" /></div>
+                    <div class="fw-bold my-3">@(blocked.TargetUser.FirstName + " " + blocked.TargetUser.LastName)</div>
+                    <div class="my-3" id="@blocked.Id">
+                        @*<form class="block-form my-2 @(blocked.IsBlocked ? "d-none" : "")">
+                            <button type="submit" class="block-button py-0">Block</button>
+                        </form>
+                        <form class="unblock-form my-2">
+                            <span type="submit" class="export-button">Unblock</span>
+                        </form>*@
+                        @*<span class="export-button @(blocked.IsBlocked ? "" : "d-none")" onclick="unblock(@blocked.Id)">Unblock</span>
+                        <span class="block-button button @(blocked.IsBlocked ? "d-none" : "")" onclick="block(@blocked.Id)">Block</span>*@
+                        <span class="block-button @(blocked.IsBlocked ? "blocked" : "")" onclick="block(@blocked.Id)">@(blocked.IsBlocked ? "Unblock" : "Block")</span>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (Model.Count() == 0)
+        {
+            <div class="text-danger m-2">You haven't completed any service with customer as of now</div>
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+    function block(id) {
+        var value;
+        if ($("#" + id + " .block-button").html() == "Block") {
+            console.log("blocked");
+            value = 'False';
+        }
+        else {
+            value = 'True';
+        }
+        $("#" + id + " .block-button").html("Processing").load(`/SP/BlockUnblock/${id}/${value}`);
+        $("#" + id + " .block-button").toggleClass("blocked");
+    }
+</script>

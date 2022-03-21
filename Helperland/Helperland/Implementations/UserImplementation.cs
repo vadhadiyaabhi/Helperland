@@ -16,11 +16,13 @@ namespace Helperland.Implementations
     {
         private AppDbContext DbContext;
         private readonly ICipherService cipherService;
+        private readonly IEmailService emailService;
 
-        public UserImplementation(AppDbContext dbContext, ICipherService cipherService)
+        public UserImplementation(AppDbContext dbContext, ICipherService cipherService, IEmailService emailService)
         {
             DbContext = dbContext;
             this.cipherService = cipherService;
+            this.emailService = emailService;
         }
 
         public async Task<User> Activate(string cipher)
@@ -205,8 +207,10 @@ namespace Helperland.Implementations
                 sp.DateOfBirth = new DateTime(Convert.ToInt32(spModel.BirthYear), Convert.ToInt32(spModel.BirthMonth), Convert.ToInt32(spModel.BirthDate));
             sp.ModifiedDate = spModel.ModifiedDate;
             sp.ModifiedBy = spId;
+            sp.ZipCode = spModel.ZipCode;
             sp.NationalityId = spModel.NationalityId;
             sp.Gender = spModel.Gender;
+            sp.WorksWithPets = spModel.WorksWithPet;
             await DbContext.SaveChangesAsync();
             return sp;
         }
@@ -288,7 +292,9 @@ namespace Helperland.Implementations
 
         public IEnumerable<ServiceRequest> GetCurrentServices(int userId)
         {
-            return DbContext.ServiceRequests.Include(x => x.ServiceProvider).ThenInclude(x => x.RatingRatingToNavigations).Where(u => u.UserId == userId && u.Status != 3 && u.Status != 4)
+            return DbContext.ServiceRequests.Include(x => x.ServiceProvider)
+                .ThenInclude(x => x.RatingRatingToNavigations).AsSplitQuery()
+                .Where(u => u.UserId == userId && u.Status != 3 && u.Status != 4)
                 .Select(s => new ServiceRequest
                 {
                     ServiceRequestId = s.ServiceRequestId,
@@ -333,16 +339,340 @@ namespace Helperland.Implementations
         {
             return DbContext.ServiceRequests.Include(x => x.ServiceProvider)
                                             .ThenInclude(sp => sp.RatingRatingToNavigations).AsSplitQuery()
-                                            .Where(s => s.UserId == userId && (s.Status == 3 || s.Status == 4)).ToList();
+                                            .Where(s => s.UserId == userId && (s.Status == 3 || s.Status == 4))
+                                            .Select(s => new ServiceRequest
+                                            {
+                                                ServiceRequestId = s.ServiceRequestId,
+                                                TotalCost = s.TotalCost,
+                                                SubTotal = s.SubTotal,
+                                                ServiceProviderId = s.ServiceProviderId,
+                                                ServiceStartDate = s.ServiceStartDate,
+                                                ServiceProvider = s.ServiceProvider,
+                                                //new User { UserId = s.ServiceProvider.UserId, FirstName = s.ServiceProvider.FirstName, LastName = s.ServiceProvider.LastName },
+                                                Ratings = s.ServiceProvider.RatingRatingToNavigations,
+                                                Status = s.Status
+                                            })
+                                            .ToList();
         }
 
         public async Task<bool> AddRating(Rating rating)
         {
             await DbContext.Ratings.AddAsync(rating);
+            await DbContext.SaveChangesAsync();
             if (rating.RatingId != 0)
                 return true;
             else
                 return false;
+        }
+
+        public async Task<ServiceRequest> GetServiceWithUser(int ServiceId)
+        {
+            return await DbContext.ServiceRequests.Include(x => x.User)
+                                    .Select(s => new ServiceRequest
+                                    {
+                                        ServiceRequestId = s.ServiceRequestId,
+                                        //ServiceProvider = new User { UserId = s.ServiceProvider.UserId, FirstName = s.ServiceProvider.FirstName, LastName = s.ServiceProvider.LastName, Email = s.ServiceProvider.Email}
+                                        User = s.User
+                                    }).Where(s => s.ServiceRequestId == ServiceId).FirstOrDefaultAsync();
+        }
+
+        public async Task<ServiceRequest> GetService(int ServiceId)
+        {
+            return await DbContext.ServiceRequests.Include(x => x.ServiceProvider)
+                                    .Select(s => new ServiceRequest
+                                    {
+                                        ServiceRequestId = s.ServiceRequestId,
+                                        ServiceStartDate = s.ServiceStartDate,
+                                        ServiceProviderId = s.ServiceProviderId,
+                                        SubTotal = s.SubTotal,
+                                        TotalCost = s.TotalCost,
+                                        Status = s.Status,
+                                        ZipCode = s.ZipCode,
+                                        //ServiceProvider = new User { UserId = s.ServiceProvider.UserId, FirstName = s.ServiceProvider.FirstName, LastName = s.ServiceProvider.LastName, Email = s.ServiceProvider.Email}
+                                        ServiceProvider = s.ServiceProvider
+                                    }).Where(s => s.ServiceRequestId == ServiceId).FirstOrDefaultAsync();
+        }
+
+        public ICollection<ServiceRequest> GetSPService(int spId)
+        {
+            return DbContext.ServiceRequests.Where(x => x.ServiceProviderId == spId && x.Status == 2)
+                                            .Select(s => new ServiceRequest
+                                            {
+                                                ServiceRequestId = s.ServiceRequestId,
+                                                ServiceStartDate = s.ServiceStartDate,
+                                                SubTotal = s.SubTotal,
+                                                ServiceProviderId = s.ServiceProviderId,
+                                                UserId = s.UserId
+                                            })
+                                            .ToList();
+        }
+
+        public async Task<ServiceRequest> ReScheduleService(int ServiceId, DateTime dateTime)
+        {
+            ServiceRequest service = await DbContext.ServiceRequests.FindAsync(ServiceId);
+            service.ServiceStartDate = dateTime;
+            service.ModifiedDate = DateTime.Now;
+            service.ModifiedBy = service.UserId;
+            DbContext.SaveChanges();
+            return service;
+        }
+
+        public ServiceTimeConflict ChechScheduleConflict(DateTime dateTime, decimal totalHours, int spId)
+        {
+            ICollection<ServiceRequest> spService = GetSPService(spId);
+            DateTime newStartTime = dateTime;
+            DateTime newEndTime = dateTime.AddHours(Convert.ToDouble(totalHours));
+            ServiceTimeConflict conflict;
+            foreach (ServiceRequest service in spService)
+            {
+                DateTime startTime = service.ServiceStartDate.AddHours(-1);
+                DateTime endTime = service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal) + 1);
+                Console.WriteLine(startTime + " to " + endTime);
+
+                if ((newStartTime < startTime && newEndTime > endTime)
+                    || (newStartTime > startTime && newStartTime < endTime)
+                    || (newEndTime > startTime && newEndTime < endTime))
+                {
+                    conflict = new ServiceTimeConflict()
+                    {
+                        Conflict = true,
+                        ConflictDate = service.ServiceStartDate.ToString("dd-MM-yyyy"),
+                        ConflictStartTime = service.ServiceStartDate.ToString("HH:mm"),
+                        ConflictEndTime = service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm"),
+                        ServiceId = service.ServiceRequestId
+                    };
+                    return conflict;
+                }
+            }
+            conflict = new ServiceTimeConflict()
+            {
+                Conflict = false
+            };
+            return conflict;
+        }
+
+        public IEnumerable<ServiceRequest> GetNewServiceRequests(int spId)
+        {
+            var spBlockedByUser = DbContext.FavoriteAndBlockeds.Where(x => x.TargetUserId == spId && x.IsBlocked == true).Select(x => x.UserId).ToArray();
+            var blockedUser = DbContext.FavoriteAndBlockeds.Where(x => x.UserId == spId && x.IsBlocked == true).Select(x => x.TargetUserId).ToArray();
+            string zipCode = DbContext.Users.Where(u => u.UserId == spId).Select(x => x.ZipCode).FirstOrDefault();
+            return DbContext.ServiceRequests.Include(u => u.User).Include(sp => sp.ServiceRequestAddresses).AsSplitQuery().Where(s => s.ZipCode == zipCode && (s.Status == 1 || s.Status == 5) &&  !blockedUser.Contains(s.UserId) && !spBlockedByUser.Contains(s.UserId)).ToList();
+        }
+
+        public async Task<ServiceRequest> AcceptService(int ServiceId, int spId)
+        {
+            ServiceRequest service = await DbContext.ServiceRequests.FindAsync(ServiceId);
+            service.ServiceProviderId = spId;
+            service.SpacceptedDate = DateTime.Now;
+            service.Status = 2;
+            await DbContext.SaveChangesAsync();
+            return service;
+        }
+
+        public IEnumerable<ServiceRequest> GetSPServiceHistory(int spId)
+        {
+            return DbContext.ServiceRequests.Include(x => x.User)
+                                            .Include(x => x.ServiceRequestAddresses).AsSingleQuery()
+                                            .Where(s => s.ServiceProviderId == spId && (s.Status == 3)).ToList();
+        }
+
+        public IEnumerable<ServiceRequest> GetSPUpcomingServices(int spId)
+        {
+            return DbContext.ServiceRequests.Include(x => x.User)
+                                            .Include(x => x.ServiceRequestAddresses).AsSplitQuery()
+                                            .Where(s => s.ServiceProviderId == spId && s.Status == 2).ToList();
+        }
+
+        public async Task<bool> MarkAsCompleted(int ServiceId, int spId)
+        {
+            ServiceRequest service = await DbContext.ServiceRequests.FindAsync(ServiceId);
+            service.Status = 3;
+            service.ModifiedDate = DateTime.Now;
+            service.ModifiedBy = spId;
+            await DbContext.SaveChangesAsync();
+            int favAndBlockCount = DbContext.FavoriteAndBlockeds.Where(x => x.UserId == service.UserId && x.TargetUserId == spId).Count();
+            if(favAndBlockCount == 0)
+            {
+                FavoriteAndBlocked newObject = new FavoriteAndBlocked()
+                {
+                    UserId = service.UserId,
+                    TargetUserId = spId,
+                    IsBlocked = false,
+                    IsFavorite = false,
+                };
+                FavoriteAndBlocked newObject2 = new FavoriteAndBlocked()
+                {
+                    UserId = spId,
+                    TargetUserId = service.UserId,
+                    IsBlocked = false,
+                    IsFavorite = false,
+                };
+                DbContext.FavoriteAndBlockeds.Add(newObject);
+                DbContext.FavoriteAndBlockeds.Add(newObject2);
+                await DbContext.SaveChangesAsync();
+            }
+            return true;
+        }
+
+        public async Task<ServiceRequest> CancelServiceBySP(int serviceId, int spId)
+        {
+            ServiceRequest service = await DbContext.ServiceRequests.FindAsync(serviceId);
+            //if(service.ServiceStartDate < DateTime.Now)
+            //{
+            //    service.Status = 4;
+            //}
+            //else
+            //{
+                service.Status = 5;
+            //}
+            service.ServiceProviderId = null;
+            service.ModifiedDate = DateTime.Now;
+            service.ModifiedBy = spId;
+            await DbContext.SaveChangesAsync();
+            return service;
+        }
+
+        public IEnumerable<Rating> MyRatings(int spId)
+        {
+            return DbContext.Ratings.Include(x => x.RatingFromNavigation)
+                                    .Include(x => x.ServiceRequest).AsSplitQuery()
+                                    .Where(r => r.RatingTo == spId).ToList();
+        }
+
+        //----------------NOT IN USE------------------------Just to check EF Core functions
+        public IEnumerable<int> Dummy(IEnumerable<Int32> spId)
+        {
+            return DbContext.ServiceRequests.Where(s => s.ServiceProviderId == 2 && !spId.Contains(s.UserId)).Select(s => s.UserId).Distinct();
+        }
+        //--------------------------------------------------------------------------------------
+
+        public IEnumerable<FavoriteAndBlocked> GetBlockedBySP(int spId)
+        {
+            //var usersFromBlocked = DbContext.FavoriteAndBlockeds.Where(u => u.UserId == spId).Select(u => u.TargetUserId).ToArray();
+            //foreach(int id in usersFromBlocked)
+            //{
+            //    //Console.WriteLine(id);
+            //}
+            //var usersWithSP = DbContext.ServiceRequests.Where(s => s.ServiceProviderId == spId && s.Status == 3 && !usersFromBlocked.Contains(s.UserId)).Select(u => u.UserId).Distinct().ToArray();
+            //foreach (int targetUserId in usersWithSP)
+            //{
+            //    //Console.WriteLine(targetUserId);
+            //    FavoriteAndBlocked newObject = new FavoriteAndBlocked()
+            //    {
+            //        UserId = spId,
+            //        TargetUserId = targetUserId,
+            //        IsBlocked = false,
+            //        IsFavorite = false
+            //    };
+
+            //    DbContext.FavoriteAndBlockeds.Add(newObject);
+            //    DbContext.SaveChanges();
+            //}
+
+            return DbContext.FavoriteAndBlockeds.Include(u => u.TargetUser).Where(u => u.UserId == spId).ToList();
+
+        }
+
+
+        public IEnumerable<FavoriteAndBlocked> GetFavouritePros(int userId)
+        {
+            //var usersFromFavouritePros = DbContext.FavoriteAndBlockeds.Where(u => u.UserId == userId).Select(u => u.TargetUserId).ToArray();
+            //var spWithUser = DbContext.ServiceRequests.Where(s => s.UserId == userId && s.Status == 3).Select(u => u.ServiceProviderId).Distinct().ToArray();
+            //List<int> newSp = new List<int>();
+            //foreach(int id in spWithUser)
+            //{
+            //    if (!usersFromFavouritePros.Contains(id))
+            //        newSp.Add(id);
+            //}
+            //foreach (int targetUserId in newSp)
+            //{
+            //    //Console.WriteLine(targetUserId);
+            //    FavoriteAndBlocked newObject = new FavoriteAndBlocked()
+            //    {
+            //        UserId = userId,
+            //        TargetUserId = targetUserId,
+            //        IsBlocked = false,
+            //        IsFavorite = false
+            //    };
+
+            //    DbContext.FavoriteAndBlockeds.Add(newObject);
+            //    DbContext.SaveChanges();
+            //}
+
+            return DbContext.FavoriteAndBlockeds.Include(u => u.TargetUser)
+                                                .ThenInclude(r => r.RatingRatingToNavigations)
+                                                .Where(u => u.UserId == userId).ToList();
+
+        }
+
+        public bool Blockunblock(int Id, bool Value)
+        {
+            FavoriteAndBlocked FavAndBlock = DbContext.FavoriteAndBlockeds.Find(Id);
+            FavAndBlock.IsBlocked = !Value;
+            DbContext.SaveChanges();
+            return FavAndBlock.IsBlocked;
+        }
+
+        public bool FavUnfav(int Id, bool Value)
+        {
+            FavoriteAndBlocked FavAndBlock = DbContext.FavoriteAndBlockeds.Find(Id);
+            FavAndBlock.IsFavorite = !Value;
+            DbContext.SaveChanges();
+            return FavAndBlock.IsFavorite;
+        }
+
+        public int GetNoOfCleanings(int userId, int spId)
+        {
+            return DbContext.ServiceRequests.Where(s => s.UserId == userId && s.ServiceProviderId == spId && s.Status == 3).Count();
+        }
+
+        public IEnumerable<int> GetBlocked(int Id)
+        {
+            return DbContext.FavoriteAndBlockeds.Where(x => x.TargetUserId == Id && x.IsBlocked == true).Select(x => x.UserId).ToArray();
+        }
+
+        public IEnumerable<FavoriteAndBlocked> GetFavorites(int userId)
+        {
+            return DbContext.FavoriteAndBlockeds.Include(x => x.TargetUser).Where(x => x.UserId == userId && x.IsFavorite == true).ToList();
+        }
+
+        public async Task<bool> HasIssue(int serviceId)
+        {
+            ServiceRequest service = await DbContext.ServiceRequests.FindAsync(serviceId);
+            service.HasIssue = true;
+            await DbContext.SaveChangesAsync();
+            return true;
+        }
+
+        public IEnumerable<User> GetOtherSPs(int spId, string zipCode)
+        {
+            return DbContext.Users.Where(u => u.UserTypeId == 2 && u.UserId != spId && u.ZipCode == zipCode).ToList();
+        }
+
+        public async Task SendNewReqEmail(NewReqEmailModel newServiceEmail)
+        {
+            UserEmailOptions userEmailOptions = new UserEmailOptions
+            {
+                ToEmails = new List<string>() { newServiceEmail.Email },
+                templateName = "NewServiceRequest",
+                Subject = "New Service Request",
+                Placeholder = new List<KeyValuePair<string, string>>()
+                    {
+                        //new KeyValuePair<string, string>("{{SPName}}", newServiceEmail.SPName),
+                        new KeyValuePair<string, string>("{{UserName}}", newServiceEmail.UserName),
+                        new KeyValuePair<string, string>("{{DateTime}}", newServiceEmail.DateTime.ToString()),
+                        new KeyValuePair<string, string>("{{Services}}", newServiceEmail.ExtraServices),
+                        new KeyValuePair<string, string>("{{TotalAmount}}", newServiceEmail.TotalAmount.ToString()),
+                        new KeyValuePair<string, string>("{{ServiceId}}", newServiceEmail.ServiceId.ToString()),
+                        //new KeyValuePair<string, string>("{{Id}}", newServiceEmail.SPId.ToString()),
+                    }
+            };
+            if (newServiceEmail.DirectAssigned)
+            {
+                userEmailOptions.templateName = "DirectAssignedServiceRequest";
+            }
+
+            await emailService.SendTestEmail(userEmailOptions);
         }
     }
 

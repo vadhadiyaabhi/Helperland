@@ -21,6 +21,7 @@ namespace Helperland.Models
         [ForeignKey(nameof(TargetUserId))]
         [InverseProperty("FavoriteAndBlockedTargetUsers")]
         public virtual User TargetUser { get; set; }
+
         [ForeignKey(nameof(UserId))]
         [InverseProperty("FavoriteAndBlockedUsers")]
         public virtual User User { get; set; }

@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 //    pending - 2 (AcceptedAtActionResult by SP)
 //    completed - 3
 //    canclled - 4
+//    Cancelled by SP - 5
 
 namespace Helperland.Controllers
 {
@@ -71,6 +72,13 @@ namespace Helperland.Controllers
                     Status = 1
                 };
 
+                if (newRequest.FavouriteProsId != 0)
+                {
+                    service.ServiceProviderId = newRequest.FavouriteProsId;
+                    service.Status = 2;
+                    service.SpacceptedDate = DateTime.Now;
+                }
+
                 //Console.WriteLine(service.ExtraHours);
                 //Console.WriteLine(service.SubTotal);
                 //Console.WriteLine(service.TotalCost);
@@ -97,8 +105,6 @@ namespace Helperland.Controllers
 
 
 
-
-                IEnumerable<User> usersWithSameZipCode = serviceRequest.GetUserWithZipCode(service.ZipCode, service.HasPets);
                 User user = await userRepository.GetUser(userId);
                 string ExtraServices = "";
                 ExtraServices = ExtraServices + "<tr><td>Basic Service</td><td>" + service.ServiceHours + " Hrs </td><td>" + (service.ServiceHours * 18.00) + " €</td></tr>";
@@ -107,25 +113,53 @@ namespace Helperland.Controllers
                 ExtraServices = (newRequest.ExtraService3) ? ExtraServices + "<tr><td>Inside oven</td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
                 ExtraServices = (newRequest.ExtraService5) ? ExtraServices + "<tr><td>Interio window</td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
                 ExtraServices = (newRequest.ExtraService4) ? ExtraServices + "<tr><td>Laundry wash & dry </td><td>0.5 Hrs</td><td>9.00 €</td></tr>" : ExtraServices + "";
-                foreach (User SP in usersWithSameZipCode)
-                {
 
+                if(newRequest.FavouriteProsId != 0)
+                {
+                    User SP = await userRepository.GetUser(newRequest.FavouriteProsId);
                     Console.WriteLine(SP.Email);
                     NewReqEmailModel newReqEmail = new NewReqEmailModel
                     {
-                        DateTime = service.ServiceStartDate,
-                        TotalAmount = service.TotalCost,
-                        ExtraServices = ExtraServices,
-                        SPName = SP.FirstName + " " + SP.LastName,
-                        UserName = user.FirstName + " " + user.LastName,
-                        Email = SP.Email,
-                        SPId = SP.UserId,
-                        ServiceId = serviceId
+                            DateTime = service.ServiceStartDate,
+                            TotalAmount = service.TotalCost,
+                            ExtraServices = ExtraServices,
+                            SPName = SP.FirstName + " " + SP.LastName,
+                            UserName = user.FirstName + " " + user.LastName,
+                            Email = SP.Email,
+                            SPId = SP.UserId,
+                            ServiceId = serviceId,
+                            DirectAssigned = true
                     };
 
-                    await SendNewReqEmail(newReqEmail);
-
+                    await userRepository.SendNewReqEmail(newReqEmail);
                 }
+                else
+                {
+                    IEnumerable<User> usersWithSameZipCode = serviceRequest.GetUserWithZipCode(service.ZipCode, service.HasPets);
+                    var blockedSP = userRepository.GetBlocked(userId);
+                    foreach (User SP in usersWithSameZipCode)
+                    {
+                        Console.WriteLine(SP.Email);
+                        if (!blockedSP.Contains(SP.UserId))
+                        {
+                            NewReqEmailModel newReqEmail = new NewReqEmailModel
+                            {
+                                DateTime = service.ServiceStartDate,
+                                TotalAmount = service.TotalCost,
+                                ExtraServices = ExtraServices,
+                                SPName = SP.FirstName + " " + SP.LastName,
+                                UserName = user.FirstName + " " + user.LastName,
+                                Email = SP.Email,
+                                SPId = SP.UserId,
+                                ServiceId = serviceId,
+                                DirectAssigned = false
+                            };
+
+                            await userRepository.SendNewReqEmail(newReqEmail);
+                        }
+                    }
+                }
+                
 
                 ViewBag.submitted = 1;
                 ModelState.Clear();
@@ -135,27 +169,30 @@ namespace Helperland.Controllers
         }
 
 
-        public async Task SendNewReqEmail(NewReqEmailModel newServiceEmail)
-        {
-            UserEmailOptions userEmailOptions = new UserEmailOptions
-            {
-                ToEmails = new List<string>() { newServiceEmail.Email },
-                templateName = "NewServiceRequest",
-                Subject = "New Service Request",
-                Placeholder = new List<KeyValuePair<string, string>>()
-                    {
-                        new KeyValuePair<string, string>("{{SPName}}", newServiceEmail.SPName),
-                        new KeyValuePair<string, string>("{{UserName}}", newServiceEmail.UserName),
-                        new KeyValuePair<string, string>("{{DateTime}}", newServiceEmail.DateTime.ToString()),
-                        new KeyValuePair<string, string>("{{Services}}", newServiceEmail.ExtraServices),
-                        new KeyValuePair<string, string>("{{TotalAmount}}", newServiceEmail.TotalAmount.ToString()),
-                        new KeyValuePair<string, string>("{{ServiceId}}", newServiceEmail.ServiceId.ToString()),
-                        //new KeyValuePair<string, string>("{{Id}}", newServiceEmail.SPId.ToString()),
-                    }
-            };
+        //---------------------------THIS FUNCTION ADDED IN UserRepository, It can be used from Service Controller and SP Controller----------------------
+        //public async Task SendNewReqEmail(NewReqEmailModel newServiceEmail)
+        //{
+        //    UserEmailOptions userEmailOptions = new UserEmailOptions
+        //    {
+        //        ToEmails = new List<string>() { newServiceEmail.Email },
+        //        templateName = "NewServiceRequest",
+        //        Subject = "New Service Request",
+        //        Placeholder = new List<KeyValuePair<string, string>>()
+        //            {
+        //                new KeyValuePair<string, string>("{{SPName}}", newServiceEmail.SPName),
+        //                new KeyValuePair<string, string>("{{UserName}}", newServiceEmail.UserName),
+        //                new KeyValuePair<string, string>("{{DateTime}}", newServiceEmail.DateTime.ToString()),
+        //                new KeyValuePair<string, string>("{{Services}}", newServiceEmail.ExtraServices),
+        //                new KeyValuePair<string, string>("{{TotalAmount}}", newServiceEmail.TotalAmount.ToString()),
+        //                new KeyValuePair<string, string>("{{ServiceId}}", newServiceEmail.ServiceId.ToString()),
+        //                //new KeyValuePair<string, string>("{{Id}}", newServiceEmail.SPId.ToString()),
+        //            }
+        //    };
 
-            await emailService.SendTestEmail(userEmailOptions);
-        }
+        //    await emailService.SendTestEmail(userEmailOptions);
+        //}
+
+        //------------------------------------------------------------------------------------------------------------------------------------------------
 
         public IActionResult IsPostalCodeAvailable(ZipCodeViewModel obj)
         {
@@ -186,6 +223,13 @@ namespace Helperland.Controllers
             Console.WriteLine(address);
             return View(address);
             
+        }
+
+        public IActionResult GetFavouritePros()
+        {
+            int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+            var favorite = userRepository.GetFavorites(userId);
+            return View(favorite);
         }
 
         [HttpGet]

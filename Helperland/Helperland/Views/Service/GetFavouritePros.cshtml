@@ -1,0 +1,18 @@
+﻿@model IEnumerable<FavoriteAndBlocked>
+@{
+    Layout = null;
+}
+
+@if(Model.Count() > 0) 
+{
+    <div class="d-flex flex-wrap">
+        @foreach(FavoriteAndBlocked favorite in Model) 
+        {
+            <div class="m-3 text-center">
+                <div class="my-2"><img src="~/images/avatar-male.png" class="avatar-img" /></div>
+                <div class="fw-bold">@(favorite.TargetUser.FirstName + " " + favorite.TargetUser.LastName)</div>
+                <div><button class="view-all my-2 select-fav" onclick="selectFav(this, @favorite.TargetUserId)">Select</button></div>
+            </div>
+        }
+    </div>
+}

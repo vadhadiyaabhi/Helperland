@@ -32,9 +32,11 @@ namespace Helperland.Models
         [ForeignKey(nameof(RatingFrom))]
         [InverseProperty(nameof(User.RatingRatingFromNavigations))]
         public virtual User RatingFromNavigation { get; set; }
+
         [ForeignKey(nameof(RatingTo))]
         [InverseProperty(nameof(User.RatingRatingToNavigations))]
         public virtual User RatingToNavigation { get; set; }
+
         [ForeignKey(nameof(ServiceRequestId))]
         [InverseProperty("Ratings")]
         public virtual ServiceRequest ServiceRequest { get; set; }

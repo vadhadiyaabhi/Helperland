@@ -24,6 +24,7 @@
 
     <link href="~/css/common.css" rel="stylesheet" />
     <link href="~/css/Modal.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 
 <body>
@@ -69,7 +70,7 @@
                                     <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" asp-controller="User" >Service Schedules</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Favourite Pros" ? "active" : "")" asp-controller="User">Favourite Pros</a>
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Favourite Pros" ? "active" : "")" asp-controller="User" asp-action="FavouritePros">Favourite Pros</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">Invoices</a>
@@ -84,25 +85,25 @@
                             @if (User.IsInRole("2"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" asp-controller="SP">Dashboard</a>
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" asp-controller="SP" asp-action="Index">Dashboard</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - New Service Requests" ? "active" : "")" asp-controller="SP">New Service Requests</a>
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - New Service Requests" ? "active" : "")" asp-controller="SP" asp-action="NewServiceRequests">New Service Requests</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Upcoming Services" ? "active" : "")" asp-controller="SP">Upcoming Services</a>
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Upcoming Services" ? "active" : "")" asp-controller="SP" asp-action="UpcomingServices">Upcoming Services</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" asp-controller="SP">Service Schedules</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" asp-controller="SP">Service History</a>
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" asp-controller="SP" asp-action="ServiceHistory">Service History</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - My Ratings" ? "active" : "")" asp-controller="SP">My Ratings</a>
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - My Ratings" ? "active" : "")" asp-controller="SP" asp-action="MyRatings">My Ratings</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Block Customer</a>
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Block Customer" ? "active" : "")" asp-controller="SP" asp-action="BlockCustomer">Block Customer</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - MyAccount" ? "active" : "")" asp-controller="SP" asp-action="MyAccount">My Settings</a>
@@ -162,12 +163,12 @@
                             </li>
                             @if (User.IsInRole("1"))
                             {
-                                <li><a class="dropdown-item" asp-controller="User"> My Dashboard</a></li>
+                                <li><a class="dropdown-item" asp-controller="User" asp-action="Index"> My Dashboard</a></li>
                                 <li><a class="dropdown-item" asp-controller="User" asp-action="MyAccount"> My Settings</a></li>
                             }
                             @if (User.IsInRole("2"))
                             {
-                                <li><a class="dropdown-item" asp-controller="SP"> My Dashboard</a></li>
+                                <li><a class="dropdown-item" asp-controller="SP" asp-action="Index"> My Dashboard</a></li>
                                 <li><a class="dropdown-item" asp-controller="SP" asp-action="MyAccount"> My Settings</a></li>
                             }
                             <li>
@@ -208,7 +209,7 @@
                     <a asp-controller="User">
                     <li class="side-menu-item" id="Service-Schedules">Service Schedules</li>
                     </a>
-                    <a asp-controller="User">
+                    <a asp-controller="User" asp-action="FavouritePros">
                     <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Favourite Pros" ? "active" : "")" id="Favourite-Pros">Favourite Pros</li>
                     </a>
                     <a href="#">
@@ -224,17 +225,26 @@
         {
             <div class="side-menu">
                 <ul>
-                    <a asp-controller="SP">
-                    <li class="side-menu-item" id="Dashboard">Dashboard</li>
+                    <a asp-controller="SP" asp-action="Index">
+                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" id="Dashboard">Dashboard</li>
+                    </a>
+                    <a asp-controller="SP" asp-action="NewServiceRequests">
+                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - New Service Requests" ? "active" : "")" id="">New Service Requests</li>
+                    </a>
+                    <a asp-controller="SP" asp-action="UpcomingServices">
+                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Upcoming Services" ? "active" : "")" id="">Upcoming Services</li>
                     </a>
                     <a asp-controller="SP">
-                    <li class="side-menu-item" id="Service-History">Service History</li>
+                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Service Schedule" ? "active" : "")" id="">Service Schedule</li>
                     </a>
-                    <a asp-controller="SP">
-                    <li class="side-menu-item" id="Service-Schedules">Service Schedules</li>
+                    <a asp-controller="SP" asp-action="ServiceHistory">
+                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" id="">Service History</li>
                     </a>
-                    <a asp-controller="SP">
-                    <li class="side-menu-item" id="Favourite-Pros">Favourite Pros</li>
+                    <a asp-controller="SP" asp-action="MyRatings">
+                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - My Ratings" ? "active" : "")" id="">My Ratings</li>
+                    </a>
+                    <a asp-controller="SP" asp-action="BlockCustomer">
+                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Block Customer" ? "active" : "")" id="">Block Customer</li>
                     </a>
                     <a href="#">
                     <li class="side-menu-item" id="Invoices">Invoices</li>
@@ -292,6 +302,11 @@
                     </a>
                 </div>
             </div>
+        </div>
+
+        <!-- Back to top button -->
+        <div class="back-top">
+            <img src="~/images/forma-1.png" />
         </div>
         </main>
     </div>

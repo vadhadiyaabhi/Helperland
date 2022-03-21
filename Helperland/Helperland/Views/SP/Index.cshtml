@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Helperland - Dashboard";
+    ViewBag.Header = "";
+}
+
+<div class=" my-setting my-sp-setting dashboard-table row-table">
+    <div class="row dashboard-cards">
+        <div class="col-md-4 col-12" style="border-right: 1px solid #e8e8e8;">
+            <a asp-controller="SP" asp-action="NewServiceRequests">
+                <div class="rounded-number">
+                    <span class="">@ViewBag.newServiceRequests</span>
+                </div>
+                <div class="fs-5 my-2">New Service Requests</div>
+                <button class="view-all">View all</button>
+            </a>
+        </div>
+        <div class="col-md-4 col-12" style="border-right: 1px solid #e8e8e8;">
+            <a asp-controller="SP" asp-action="UpcomingServices">
+                <div class="rounded-number">
+                    <span class="" style="background-color: #2cc896;">@ViewBag.upcomingServices</span>
+                </div>
+                <div class="fs-5 my-2">Upcoming Services</div>
+                <button class="view-all">View all</button>
+            </a>
+        </div>
+        <div class="col-md-4 col-12" >
+            <a asp-controller="SP" asp-action="Index">
+                <div class="rounded-number">
+                    <span class="" style="background-color: #fd6966;">0</span>
+                </div>
+                <div class="fs-5 my-2">Payment Due</div>
+                <button class="view-all">View all</button>
+            </a>
+        </div>
+    </div>
+</div>

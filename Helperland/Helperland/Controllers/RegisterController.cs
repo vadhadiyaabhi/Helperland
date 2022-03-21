@@ -54,6 +54,7 @@ namespace Helperland.Controllers
         public async Task<IActionResult> Index(UserViewModel user)
         {
             User result= null;
+            Console.WriteLine("Backend call before front end validation");
             if (ModelState.IsValid)
             {
                 result =await UserRepository.GetUserByEmail(user.Email);

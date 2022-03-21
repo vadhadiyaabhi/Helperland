@@ -1,0 +1,161 @@
+﻿@model IEnumerable<ServiceRequest>
+@{
+    ViewBag.Title = "Helperland - Upcoming Services";
+    ViewBag.Header = "";
+}
+
+@* -----------------For dataTable plugIn--------------------------------*@
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    //window.onload = dataTable;
+    //function dataTable() {
+    //    console.log("sorting and paging");
+    //    $("#myTable").DataTable();
+    //}
+    $(document).ready(function () {
+        $.noConflict();
+        $('#myTable').dataTable();
+    });
+</script>
+@* -----------------------------------------------------------------------*@
+
+
+<div class="service-history-table dashboard-table service-history">
+    <div class="d-flex justify-content-between align-item-center py-2">
+        <span class="table-heading">Upcoming Services</span>
+    </div>
+    <table class="responsive-row" style="width: 100%;" id="myTable">
+        <thead class="">
+        <th width="15%" onclick="sortingImg(this)" id="ServiceIdCol"><a href="#">Service ID <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="17%" onclick="sortingImg(this)" id="ScheduleCol"><a href="#">Service Details <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="30%" onclick="sortingImg(this)" id="SPCol"><a href="#">Customer Details <img src="~/images/sort.png" class="sorting-img" alt=""></a></th>
+        <th width="15%" class="text-center" onclick="sortingImg(this)" id="PaymentCol">
+            <a href="#">Payment <img src="~/images/sort.png" class="sorting-img" alt=""></a>
+        </th>
+        <!-- <th width="15%" class="text-center">Time Conflict</th> -->
+        <th width="23%" class="text-center">
+            <a>Actions</a>
+        </th>
+        </thead>
+        <tbody>
+            @foreach (ServiceRequest service in Model)
+            {
+                <tr>
+                    <td>@service.ServiceRequestId</td>
+                    <td onclick="ServiceDetails(@service.ServiceRequestId)">
+                        <div class="d-none">@service.ServiceStartDate.ToString("yyyy-MM-dd") @Convert.ToDateTime(service.ServiceStartDate).TimeOfDay</div>
+                        <div class="line-break">
+                            <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@service.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')</a>
+                            @*<a href="" class="fw-bold"><img src="~/images/calendar2.png" alt="">@Convert.ToDateTime(service.ServiceStartDate).Date</a>*@
+                            <a href="#"><img src="~/images/layer-712.png" alt="">@service.ServiceStartDate.ToString("HH:mm") - @service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm")</a>
+                        </div>
+                    </td>
+                    <td class=" d-flex align-item-center">
+                        <img src="~/images/layer-15.png" class="align-self-center" alt="" height="25">
+                        <div>
+                            <span class="cust-name fw-bold">@(service.User.FirstName + " " + service.User.LastName)</span><br>
+                            @foreach (ServiceRequestAddress address in service.ServiceRequestAddresses)
+                            {
+                                <span>@address.AddressLine1, </span> <span>@address.AddressLine2</span> <br />
+                                <span>@address.PostalCode </span> <span>@address.City</span>
+                            }
+                        </div>
+                    </td>
+                    <td class="payment td-center">€<span>@service.TotalCost</span></td>
+                    <!-- <td></td> -->
+                    <td class="service-status text-center">
+                        @if (service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)) < DateTime.Now)
+                        {
+                            @*<form class="d-inline service-complete-form" asp-controller="SP" asp-action="CompleteServiceRequest" onsubmit="return jQueryAjaxPost(this);">
+                                <input type="hidden" name="ServiceId" value="@service.ServiceRequestId" />*@
+                                <span class="completed complete-button " style="width:auto;" onclick="ServiceDetails(@service.ServiceRequestId)">Complete</span>
+                            @*</form>*@
+                        }
+                        <div class="d-inline-block my-2"><span class="cancle-button fs-7 " onclick="CancleBySp(@service.ServiceRequestId, '@service.User.Email')">Cancle</span></div>
+                    </td>
+                </tr>
+            }
+
+
+
+        </tbody>
+    </table>
+
+</div>
+
+
+@section Modals
+{
+    <div class="Modal wide-modal mx-2" id="Service-Details-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title">Service Details</h4>
+        <div id="ServiceDetails">
+
+        </div>
+    </div>
+
+    <div class="Modal  text-center " id="Service-Completed-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-6 my-2" id="completed-message"></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+
+    <div class="Modal " id="Delete-service-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title mb-3">Cancel Service</h4>
+        <form asp-controller="SP" asp-action="CancleServiceRequestBySp" onsubmit="return jQueryAjaxPost(this);">
+            <input type="hidden" name="ServiceRequestId" value="" />
+            <input type="hidden" name="UserEmail" value="" />
+            <label>Why do you want to cancle the service request ?</label>
+            <textarea class="mb-0" name="cancleMessage" data-val="true" data-val-length="The Comment must be a string with a maximum length of 200." maxlength="200" rows="3" id="cancleMessage" data-val-required="The cancellation message is required." data-val-length-max="200" aria-describedby="cancleMessage-error" aria-invalid="true" required></textarea>
+            <span class="text-danger field-validation-error" data-valmsg-for="cancleMessage" data-valmsg-replace="true" style="font-size: 14px;"></span>
+            <button type="submit" class="fw-normal" value="Delete">Cancle Now</button>
+        </form>
+    </div>
+
+    <div class="Modal  text-center " id="Service-Deleted-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-5">Your service request cancelled successfully</div>
+        <div class="text-center fs-7 my-3">Cancelled Request Id : <span id="cancelled-id"></span></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        function ServiceDetails(ServiceId) {
+            console.log("service details function");
+            $("#blur").addClass("blur");
+            $("#ServiceDetails").load(`/SP/GetServiceDetails/${ServiceId}`);
+            $("#Service-Details-Modal").addClass("active");
+        }
+
+        function sortingImg(ele) {
+            console.log("sorting img display");
+            $(".sorting-img").css("display", "none");
+            $("#" + ele.id + " .sorting-img").css("display", "inline-block");
+        }
+
+        function closeModal() {
+            $("#blur").removeClass("blur");
+            $(".Modal").removeClass("active");
+        }
+
+        function CancleBySp(ServiceId, UserEmail) {
+            console.log("delete modal");
+            $("#blur").addClass("blur");
+            $("#Service-Details-Modal").removeClass("active");
+            $("#Delete-service-Modal").addClass("active");
+            $('input[name="ServiceRequestId"]').val(ServiceId);
+            $('input[name="UserEmail"]').val(UserEmail);
+        }
+
+        $('.completed').click(function () {
+            $('.service-complete-form').submit();
+        })
+
+    </script>
+}

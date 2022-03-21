@@ -9,6 +9,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Dynamic;
 using System.IO;
 using System.Linq;
 using System.Security.Claims;
@@ -22,14 +23,16 @@ namespace Helperland.Controllers
         private readonly IContactRepository contactRepository;
         public IWebHostEnvironment HostingEnvironment;
         private readonly ILoginRepository login;
+        private readonly IUserRepository userRepository;
 
         public HomeController(ILogger<HomeController> logger,IContactRepository contact,
-                              IWebHostEnvironment hostingEnvironment, ILoginRepository login)
+                              IWebHostEnvironment hostingEnvironment, ILoginRepository login, IUserRepository userRepository)
         {
             _logger = logger;
             contactRepository = contact;
             HostingEnvironment = hostingEnvironment;
             this.login = login;
+            this.userRepository = userRepository;
             //Console.WriteLine("Checking controller execution");
         }
 
@@ -52,15 +55,20 @@ namespace Helperland.Controllers
         }
 
         [HttpGet]
-        public IActionResult Contact()
+        [Route("Home/Contact")]
+        [Route("Home/Contact/{serviceId}")]
+        public IActionResult Contact(int? serviceId = 0)
         {
+            //Console.WriteLine("Report service id is " + serviceId);
+            ViewBag.ServiceId = serviceId;
             return View();
         }
 
         [HttpPost]
-        public IActionResult Contact(ContactCreateViewModel contact)
+        public async Task<IActionResult> Contact(ContactCreateViewModel contact)
         {
             ContactU result = null;
+            Console.WriteLine("Checking form submitting without validation or not");
             if (ModelState.IsValid)
             {
                 string uniqueFileName = null;
@@ -83,7 +91,15 @@ namespace Helperland.Controllers
                     UploadFileName = uniqueFileName,
                     CreatedOn = DateTime.Now
                 };
+                if(contact.ServiceId != 0)
+                {
+                    newContact.CreatedBy = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
+                }
                 result = contactRepository.Create(newContact);
+                if (contact.ServiceId != 0)
+                {
+                    bool hasIssue = await userRepository.HasIssue(contact.ServiceId);
+                }
                 ViewBag.submitted = 1;
                 ViewBag.Id = result.ContactUsId;
                 ViewBag.name = result.Name;

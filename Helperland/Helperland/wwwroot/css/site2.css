@@ -339,6 +339,75 @@ input:focus, textarea:focus, select:focus {
     background-color: #3bc001;
 }
 
+.incorrect-img {
+    padding: 20px;
+    border-radius: 50%;
+    background-color: #ff4343;
+}
+
+.avatar-img {
+    width: 86px;
+    height: 86px;
+    border: 1px solid #acacac;
+    border-radius: 50%;
+    background-color: white;
+}
+
+.block-button {
+    padding: 9px 16px !important;
+    border-radius: 30px;
+    color: white;
+    background-color: #FF6B6B;
+    transition: .3s linear;
+    border: none !important;
+}
+
+.block-button:hover {
+    color: white;
+    background-color: #db3030;
+    cursor: pointer;
+}
+
+button{
+    border: none;
+}
+
+.block-button.blocked {
+    background-color: #1d7a8c;
+}
+
+.block-button.blocked:hover{
+    background-color: #146371;
+}
+
+
+/* -------------Back stop top button----------------- */
+.back-top {
+    width: 48px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: #515151;
+    z-index: 100;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease 0.3s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.back-top:hover {
+    background: #1d7a8c;
+}
+
+.back-top-scroll {
+    visibility: visible;
+    opacity: 1;
+}
 
 /* ----------------------------------------------------------------------------- */
 /* --------------------------------FAQs css--------------------------- */
@@ -799,6 +868,57 @@ input:focus, textarea:focus, select:focus {
     width: calc(80% - 20px);
 }
 
+.dashboard-cards > div{
+    padding: 15px;
+    text-align: center;
+    color: #646464;
+}
+
+.dashboard-cards a{
+    color: #646464 !important;
+}
+
+.view-all {
+    padding: 6px 12px;
+    border-radius: 30px;
+    border: 1px solid #1d7a8c;
+    color: #1d7a8c;
+    background-color: white;
+}
+
+.view-all:hover{
+    color: white;
+    background-color: #1d7a8c;
+}
+
+.view-all.active{
+    color: white;
+    background-color: #1d7a8c;
+}
+
+.dashboard-cards a:hover .view-all{
+    color: white;
+    background-color: #1d7a8c;
+}
+
+.rounded-number{
+    width: 100px;
+    margin: auto;
+}
+
+.rounded-number span {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #1fb6ff;
+    border-radius: 50%;
+    font-weight: bold;
+    color: white;
+    font-size: 44px;
+}
+
 
 .sorting-img {
     display: none;
@@ -876,7 +996,8 @@ th {
         }
 
 td {
-    padding:10px 14px;
+    /*padding:10px 14px;*/
+    padding: 10px;
 }
 
     td.service-provider {
@@ -898,10 +1019,11 @@ td {
 }
 
 .cancle-button {
-    padding: 7px 15px;
+    padding: 7px 15px !important;
     border-radius: 30px;
     color: white;
     background-color: #FF6B6B;
+    transition: .2s linear;
 }
 
     .cancle-button:hover {
@@ -910,12 +1032,25 @@ td {
         cursor: pointer;
     }
 
+.complete-button {
+    padding: 7px 15px !important;
+    border-radius: 30px;
+    color: white;
+    background-color: #1D7A8C;
+    cursor: pointer;
+}
+
+.complete-button:hover{
+    background-color: #146371;
+}
+
 .export-button {
     color: white;
     /*background-color: #146371;*/
     background-color: #1D7A8C;
     padding: 8px 13px;
     border-radius: 34px;
+
 }
 
     .export-button:hover {
@@ -1028,7 +1163,24 @@ my-settting-table thead {
 }
 
 
-/* -------------------------------------------------------------- */
+/*-----------------------------My Ratings-----------------------------*/
+
+.rating-div {
+    border: 1px solid #cecece;
+    border-radius: 4px;
+}
+
+/*-----------------------------Block and Favourite---------------------*/
+
+.user-box {
+    border: 1px solid #e1e1e1;
+    padding: 30px 10px;
+    width: calc(33% - 20px);
+}
+
+/*--------------------------------------------------------------------*/
+
+
 /* -------------------------Admin Pages-------------------------- */
 .container-fluid.admin-page {
     padding: 0px;
@@ -1599,6 +1751,13 @@ input[type="radio"] {
         margin: 15px;
     }
 
+    .dashboard-cards > div {
+        border-bottom: 1px solid #cecece;
+        width: 60%;
+        margin: auto;
+        border-right: none !important;
+    }
+
     .mobile-table-heading {
         display: block;
     }
@@ -1692,6 +1851,12 @@ input[type="radio"] {
         }
 }
 
+@media screen and (max-width: 400px){
+    .dashboard-cards > div{
+        width: 90%;
+    }
+}
+
 
 /*==============Data table override====================*/
 
@@ -1743,4 +1908,56 @@ input[type="radio"] {
 .current {
     background-color: #1fb6ff;
     color: white;
+}
+
+.paging_simple_numbers span{
+    display:flex;
+}
+
+
+/*-------------CSS form rating star----------------------*/
+.rating {
+    position: absolute;
+    display: inline;
+    left: 50%;
+    transform: rotateY(180deg);
+}
+
+.rating input{
+    display: none;
+}  
+
+.rating label{
+    display:;
+    cursor: pointer;
+    width: 20px;
+}
+
+.rating label::before{
+    content: '\f005';
+    font-family: fontAwesome;
+    position: absolute;
+    top: 0;
+    font-size: 16px;
+    color: #B0C9CE;
+    transition: .3s linear;
+}
+
+.rating label::after{
+    content: '\f005';
+    font-family: fontAwesome;
+    position: absolute;
+    font-size: 16px;
+    color: #ecb91c;
+    top: 0;
+    opacity: 0;
+    transition: .3s linear;
+    text-shadow: 0 2px 5px rgba(0,0,0,.2);
+}
+
+.rating label:hover::after,
+.rating label:hover ~ label::after,
+.rating input:checked ~ label::after
+{
+    opacity: 1;
 }

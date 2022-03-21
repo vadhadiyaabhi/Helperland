@@ -62,16 +62,16 @@
                                 @if (User.IsInRole("1"))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" href="#">Dashboard</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" asp-controller="User" asp-action="Index">Dashboard</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" href="#">Service History</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" asp-controller="User" asp-action="ServiceHistory">Service History</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" href="#">Service Schedules</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" asp-controller="User">Service Schedules</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Favourite Pros" ? "active" : "")" href="#">Favourite Pros</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Favourite Pros" ? "active" : "")"asp-controller="User" asp-action="FavouritePros">Favourite Pros</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Invoices</a>
@@ -86,22 +86,22 @@
                                 @if (User.IsInRole("2"))
                                 {
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" href="#">Dashboard</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Dashboard" ? "active" : "")" asp-controller="SP" asp-action="Index">Dashboard</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - New Service Requests" ? "active" : "")" href="#">New Service Requests</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - New Service Requests" ? "active" : "")" asp-controller="SP" asp-action="NewServiceRequests">New Service Requests</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Upcoming Services" ? "active" : "")" href="#">Upcoming Services</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Upcoming Services" ? "active" : "")" asp-controller="SP" asp-action="UpcomingServices">Upcoming Services</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" href="#">Service Schedules</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" asp-controller="SP">Service Schedules</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" href="#">Service History</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" asp-controller="SP" asp-action="ServiceHistory">Service History</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - My Ratings" ? "active" : "")" href="#">My Ratings</a>
+                                        <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - My Ratings" ? "active" : "")" asp-controller="SP" asp-action="MyRatings">My Ratings</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" href="#">Block Customer</a>
@@ -115,8 +115,8 @@
                                     <a class="nav-link" asp-controller="Home" asp-action="Logout">Logout <img src="~/images/logout.png" class="mx-1" alt="" height="18px" width="18px" style="filter: invert(0.5);"></a>
                                 </li>
                                 <hr>
-                        </div>
-                    }
+                                </div>
+                            }
                             @if ((User.Identity.IsAuthenticated && User.IsInRole("1")) || !User.Identity.IsAuthenticated)
                             {
                                 <li class="nav-item">
@@ -163,7 +163,7 @@
                                         <li>
                                             <a class="dropdown-item" href="#" disabled>
                                                 Welcome, <br> <span class="fw-bold">
-                                                    First Provider
+                                                    @User.FindFirst(System.Security.Claims.ClaimTypes.Name).Value
                                                 </span>
                                             </a>
                                         </li>
@@ -172,12 +172,12 @@
                                         </li>
                                         @if (User.IsInRole("1"))
                                         {
-                                            <li><a class="dropdown-item" asp-controller="User"> My Dashboard</a></li>
+                                            <li><a class="dropdown-item" asp-controller="User" asp-action="Index"> My Dashboard</a></li>
                                             <li><a class="dropdown-item" asp-controller="User" asp-action="MyAccount"> My Settings</a></li>
                                         }
                                         @if (User.IsInRole("2"))
                                         {
-                                            <li><a class="dropdown-item" asp-controller="SP"> My Dashboard</a></li>
+                                            <li><a class="dropdown-item" asp-controller="SP" asp-action="Index"> My Dashboard</a></li>
                                             <li><a class="dropdown-item" asp-controller="SP" asp-action="MyAccount"> My Settings</a></li>
                                         }
 
@@ -220,8 +220,8 @@
                             </form>
                         </div>
                         @*<a href="" class="order-sm-3 order-3">
-                                <div class="layer"><img src="~/images/layer-598.png" height="63" width="63" alt=""></div>
-                        </a>*@
+                                    <div class="layer"><img src="~/images/layer-598.png" height="63" width="63" alt=""></div>
+                            </a>*@
                     </div>
                 </div>
             }
@@ -270,6 +270,12 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Back to top button -->
+            <div class="back-top">
+                <img src="~/images/forma-1.png" />
+            </div>
+
             </main>
             </div>
             <!--  -->

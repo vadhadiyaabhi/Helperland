@@ -49,6 +49,8 @@ namespace Helperland.ViewModel
         [Required]
         public int AddressId { get; set; }
 
+        public int FavouriteProsId { get; set; }
+
 
     }
 }

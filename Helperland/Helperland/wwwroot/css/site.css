@@ -149,6 +149,36 @@ html, body {
 
 /* ----------------navbar area---------------- */
 
+/* -------------Back stop top button----------------- */
+.back-top {
+    width: 48px;
+    aspect-ratio: 1;
+    cursor: pointer;
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
+    background: #515151;
+    z-index: 100;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all ease 0.3s;
+    visibility: hidden;
+    opacity: 0;
+}
+
+    .back-top:hover {
+        background: #1d7a8c;
+    }
+
+.back-top-scroll {
+    visibility: visible;
+    opacity: 1;
+}
+
+/*-----------------------------------------------*/
+
 
 #home {
     color: white;

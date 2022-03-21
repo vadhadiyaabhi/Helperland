@@ -9,6 +9,8 @@ namespace Helperland.ViewModel
     {
         public string UserName { get; set; }
 
+        public List<string> Emails { get; set; }
+
         public string Email { get; set; }
 
         public DateTime DateTime { get; set; }
@@ -22,5 +24,7 @@ namespace Helperland.ViewModel
         public int SPId { get; set; }
 
         public int ServiceId { get; set; }
+
+        public bool DirectAssigned { get; set; }
     }
 }

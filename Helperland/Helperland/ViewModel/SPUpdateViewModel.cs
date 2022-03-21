@@ -29,5 +29,7 @@ namespace Helperland.ViewModel
         [RegularExpression(@"[0-9]{6}", ErrorMessage = "Enter valid Postal Code")]
         //[MinLength(6, ErrorMessage = "Enter Valid Postal Code"), MaxLength(6, ErrorMessage = "Enter Valid Postal Code")]
         public string ZipCode { get; set; }
+
+        public bool WorksWithPet { get; set; }
     }
 }
