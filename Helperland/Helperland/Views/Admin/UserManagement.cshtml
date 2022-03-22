@@ -1,0 +1,97 @@
+﻿@model User
+
+<div class="admin-content">
+    <div class="admin-header">
+        <h1 class="heading">User Management</h1>
+        <a href="#" class="admin-blue-button"><img src="public/Images/plus-1.png" alt=""> Add New User</a>
+    </div>
+    <div class="admin-search">
+        <form action="" method="post">
+            <select name="" id="">
+                <option value="User name">User name</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            <select name="" id="" aria-placeholder="placehosder">
+                <option value="User role">User role</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            <div class="phone">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1">+49</span>
+                    <input type="text" class="" placeholder="Phone number">
+                </div>
+            </div>
+            <input type="text" name="zipcode" id="" placeholder="Zipcode">
+            <input type="submit" value="Search" class="admin-blue-button" style="color: white;">
+            <input type="reset" value="Clear" class="admin-button">
+        </form>
+    </div>
+    <table class="admin-table my-3 table-responsive" style="width: 100%;">
+        <thead class="">
+        <th><a href="#">User Name <img src="public/Images/sort.png" alt=""></a></th>
+        <th>User Type </th>
+        <th>Role </th>
+        <th><a href="#">Postal Code <img src="public/Images/sort.png" alt=""></a></th>
+        <th class="">City </a></th>
+        <th class="text-center"><a href="#">Radius <img src="public/Images/sort.png" alt=""></a></th>
+        <th class="text-center"><a href="#">User Status <img src="public/Images/sort.png" alt=""></a></th>
+        <th class="text-center">Actions </a></th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>John Smith</td>
+                <td>Call Center</td>
+                <td>Inquiry Manager</td>
+                <td>123456</td>
+                <td>Berlin</td>
+                <td class="text-center">10 km</td>
+                <td class="service-status text-center">
+                    <span class="completed">Active</span>
+                    <!-- <span class="cancelled">Inactive</span> -->
+                </td>
+                <td class="text-center">
+                    <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <img src="public/Images/group-38.png" alt="">
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+
+    <!-- pegination section -->
+    <div class="pegination">
+        <div class="pegination-rows">
+            Show <select id="pegination-select" onchange="rowCount();">
+                <option value="4">4</option>
+                <option value="2">2</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="12">12</option>
+                <option value="15">30</option>
+            </select> Entries, Showing Entries from <span id="from-entry"></span> to <span id="to-entry"></span>
+        </div>
+        <ul class="pegination-pages">
+            <li class="prev" id="prev"><a href="#">&#139;</a></li>
+            <li class="next" id="next"><a href="#">&#155;</a></li>
+        </ul>
+    </div>
+
+    <!-- copy-rights section -->
+    <footer class="admin-copyRights py-3">
+        © 2018 Helperland. All rights reserved.
+    </footer>
+</div>

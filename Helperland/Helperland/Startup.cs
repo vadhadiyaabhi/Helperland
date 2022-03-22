@@ -38,6 +38,7 @@ namespace Helperland
             services.AddScoped<ICipherService, CipherService>();
             services.AddScoped<ILoginRepository, LoginImplementation>();
             services.AddScoped<IServiceRequestRepository, ServiceRequestImplementation>();
+            services.AddScoped<IAdminRepository, AdminImplementation>();
             services.AddRazorPages().AddRazorRuntimeCompilation();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
             {

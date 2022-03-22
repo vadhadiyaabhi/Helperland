@@ -187,10 +187,11 @@ namespace Helperland.Controllers
 
         public async Task<IActionResult> DeleteServiceRequest(int ServiceRequestId, string cancleMessage, string SPEmail)
         {
+            int userId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             if (ServiceRequestId == 0 || string.IsNullOrEmpty(cancleMessage))
                 return Json(false);
             Console.WriteLine(cancleMessage);
-            int res = await userRepository.DeleteServiceRequest(ServiceRequestId);
+            int res = await userRepository.DeleteServiceRequest(ServiceRequestId, userId);
             if (!string.IsNullOrEmpty(SPEmail))
             {
                 UserEmailOptions userEmailOptions = new UserEmailOptions

@@ -423,3 +423,8 @@ D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\MyRati
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\SP\BlockCustomer.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\User\FavouritePros.cshtml.g.cs
 D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Service\GetFavouritePros.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Admin\Index.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Admin\UserManagement.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Admin\_ViewStart.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_AdminLayout.cshtml.g.cs
+D:\Tatvasoft\Helperland\Helperland\obj\Debug\netcoreapp3.1\Razor\Views\Admin\GetServiceDetails.cshtml.g.cs

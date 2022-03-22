@@ -1308,6 +1308,10 @@ my-settting-table thead {
     margin: 5px 5px 5px 0px;
 }
 
+.admin-search input {
+    width: auto;
+}
+
 .admin-search select {
     /* width: 16%; */
     color: #A0A0A0;
@@ -1451,8 +1455,6 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 .admin-copyRights {
     color: #A2A6A8;
-    position: absolute;
-    bottom: 0%;
     font-size: 14px;
 }
 

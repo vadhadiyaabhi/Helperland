@@ -62,7 +62,16 @@
                     <td class="service-provider">
                         @if (service.ServiceProvider != null)
                         {
-                            decimal spRate = service.ServiceProvider.RatingRatingToNavigations.Where(x => x.RatingTo == service.ServiceProviderId).Average(t => t.Ratings);
+                            var rateList = service.ServiceProvider.RatingRatingToNavigations.Where(x => x.RatingTo == service.ServiceProviderId);
+                            decimal spRate;
+                            if (rateList.Count() > 0)
+                            {
+                                spRate = rateList.Average(t => t.Ratings);
+                            }
+                            else
+                            {
+                                spRate = 0;
+                            }
                             int i = 0;
 
                             <img src="~/images/cap.png" alt="">

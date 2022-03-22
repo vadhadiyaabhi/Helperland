@@ -315,10 +315,12 @@ namespace Helperland.Implementations
             //        }));
         }
 
-        public async Task<int> DeleteServiceRequest(int ServiceReqId)
+        public async Task<int> DeleteServiceRequest(int ServiceReqId, int userId)
         {
             ServiceRequest service = await DbContext.ServiceRequests.FindAsync(ServiceReqId);
             service.Status = 4;
+            service.ModifiedDate = DateTime.Now;
+            service.ModifiedBy = userId;
             DbContext.SaveChanges();
             return Convert.ToInt32(service.Status);
         }
@@ -388,6 +390,7 @@ namespace Helperland.Implementations
                                         TotalCost = s.TotalCost,
                                         Status = s.Status,
                                         ZipCode = s.ZipCode,
+                                        HasPets = s.HasPets,
                                         //ServiceProvider = new User { UserId = s.ServiceProvider.UserId, FirstName = s.ServiceProvider.FirstName, LastName = s.ServiceProvider.LastName, Email = s.ServiceProvider.Email}
                                         ServiceProvider = s.ServiceProvider
                                     }).Where(s => s.ServiceRequestId == ServiceId).FirstOrDefaultAsync();
@@ -644,16 +647,16 @@ namespace Helperland.Implementations
             return true;
         }
 
-        public IEnumerable<User> GetOtherSPs(int spId, string zipCode)
+        public IEnumerable<User> GetOtherSPs(int spId, string zipCode, bool hasPets)
         {
-            return DbContext.Users.Where(u => u.UserTypeId == 2 && u.UserId != spId && u.ZipCode == zipCode).ToList();
+            return DbContext.Users.Where(u => u.UserTypeId == 2 && u.UserId != spId && u.ZipCode == zipCode && u.WorksWithPets == hasPets).ToList();
         }
 
         public async Task SendNewReqEmail(NewReqEmailModel newServiceEmail)
         {
             UserEmailOptions userEmailOptions = new UserEmailOptions
             {
-                ToEmails = new List<string>() { newServiceEmail.Email },
+                ToEmails = newServiceEmail.Emails,
                 templateName = "NewServiceRequest",
                 Subject = "New Service Request",
                 Placeholder = new List<KeyValuePair<string, string>>()

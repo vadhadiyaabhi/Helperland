@@ -42,7 +42,7 @@ namespace Helperland.IRepositories
 
         public IEnumerable<ServiceRequest> GetCurrentServices(int userId);
 
-        public Task<int> DeleteServiceRequest(int ServiceReqId);
+        public Task<int> DeleteServiceRequest(int ServiceReqId, int userId);
 
         public Task<ServiceRequest> GetServiceDetails(int ServiceId);
 
@@ -90,7 +90,7 @@ namespace Helperland.IRepositories
 
         public Task<bool> HasIssue(int serviceId);
 
-        public IEnumerable<User> GetOtherSPs(int spId, string zipCode);
+        public IEnumerable<User> GetOtherSPs(int spId, string zipCode, bool hasPets);
 
 
         public IEnumerable<FavoriteAndBlocked> GetFavorites(int userId);

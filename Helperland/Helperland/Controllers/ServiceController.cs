@@ -137,27 +137,42 @@ namespace Helperland.Controllers
                 {
                     IEnumerable<User> usersWithSameZipCode = serviceRequest.GetUserWithZipCode(service.ZipCode, service.HasPets);
                     var blockedSP = userRepository.GetBlocked(userId);
+                    //foreach (User SP in usersWithSameZipCode)
+                    //{
+                    //    Console.WriteLine(SP.Email);
+                    //    if (!blockedSP.Contains(SP.UserId))
+                    //    {
+                    //        NewReqEmailModel newReqEmail = new NewReqEmailModel
+                    //        {
+                    //            DateTime = service.ServiceStartDate,
+                    //            TotalAmount = service.TotalCost,
+                    //            ExtraServices = ExtraServices,
+                    //            SPName = SP.FirstName + " " + SP.LastName,
+                    //            UserName = user.FirstName + " " + user.LastName,
+                    //            Email = SP.Email,
+                    //            SPId = SP.UserId,
+                    //            ServiceId = serviceId,
+                    //            DirectAssigned = false
+                    //        };
+
+                    //        await userRepository.SendNewReqEmail(newReqEmail);
+                    //    }
+                    //}
+                    NewReqEmailModel newReqEmail = new NewReqEmailModel
+                    {
+                        DateTime = service.ServiceStartDate,
+                        TotalAmount = service.TotalCost,
+                        ExtraServices = ExtraServices,
+                        UserName = service.User.FirstName + " " + service.User.LastName,
+                        Emails = new List<string>(),
+                        ServiceId = service.ServiceRequestId
+                    };
                     foreach (User SP in usersWithSameZipCode)
                     {
                         Console.WriteLine(SP.Email);
-                        if (!blockedSP.Contains(SP.UserId))
-                        {
-                            NewReqEmailModel newReqEmail = new NewReqEmailModel
-                            {
-                                DateTime = service.ServiceStartDate,
-                                TotalAmount = service.TotalCost,
-                                ExtraServices = ExtraServices,
-                                SPName = SP.FirstName + " " + SP.LastName,
-                                UserName = user.FirstName + " " + user.LastName,
-                                Email = SP.Email,
-                                SPId = SP.UserId,
-                                ServiceId = serviceId,
-                                DirectAssigned = false
-                            };
-
-                            await userRepository.SendNewReqEmail(newReqEmail);
-                        }
+                        newReqEmail.Emails.Add(SP.Email);
                     }
+                    await userRepository.SendNewReqEmail(newReqEmail);
                 }
                 
 

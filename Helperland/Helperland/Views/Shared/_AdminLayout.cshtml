@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Helperland - Admin Panel</title>
+
+    <!-- Link for fav icon-->
+    <link href="~/images/favicon_img.png" rel="shortcut icon" />
+
+    <!-- bootstrap css bundle -->
+    <link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+    <link href="~/css/site2.css" rel="stylesheet" />
+    <link href="~/css/common.css" rel="stylesheet" />
+    <link href="~/css/Modal.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div>
+        <main role="main" class="" id="blur">
+            <!-- header + navbar -->
+            <header class="header" id="header">
+                <nav class="admin-navbar navbar navbar-expand-lg">
+                    <!-- Logo -->
+                    <a class="navbar-brand admin-logo" href="#">
+                        helperland
+                    </a>
+
+                    <div class="mx-2">
+                        <a href="#"><img src="~/images/user.png" alt=""></a>
+                        <a href="#"><span>James Smith</span></a>
+                        <a asp-controller="Home" asp-action="Logout"><img src="~/images/logout.png" alt=""></a>
+                    </div>
+
+                    <!-- mobile menu collapse-->
+                    <button class="menu-toggler">
+                        <!-- active will be added on mobile view-->
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+
+                    <!-- navbar content -->
+                    <div class="custom-navbar-menu" id="navbarSupportedContent">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                            <div class="mobile-menu-items">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Service Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Role Management</a>
+                            </li>
+                            <li class="side-menu-item admin-submenu " id="admin-submenu4">
+                                <a class="nav-link" href="#">Coupon Code Management <img src="~/images/sp-right-arrow-gray.svg" alt=""></a>
+                                <ul class="admin-submenu-item " id="admin-submenu4-item">
+                                    <a href="#">
+                                    <li>Coupon Codes</li>
+                                    </a>
+                                    <a href="#">
+                                    <li>Usage History</li>
+                                    </a>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Escalation Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Service Requests</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Service Providers</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">User Management</a>
+                            </li>
+                            <li class="side-menu-item admin-submenu" id="admin-submenu5">
+                                <a class="nav-link" href="#">Finance Module <img src="~/images/sp-right-arrow-gray.svg" alt=""></a>
+                                <ul class="admin-submenu-item" id="admin-submenu5-item">
+                                    <a href="#">
+                                    <li>All Transactions</li>
+                                    </a>
+                                    <a href="#">
+                                    <li>Generate Payment</li>
+                                    </a>
+                                    <a href="#">
+                                    <li>Customer Invoices</li>
+                                    </a>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Zip Code Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Ratting Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Inquiry Management</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Newsletter Management</a>
+                            </li>
+                            <li class="side-menu-item admin-submenu" id="admin-submenu6">
+                                <a class="nav-link" href="#">Content Management<img src="~/images/sp-right-arrow-gray.svg" alt=""></a>
+                                <ul class="admin-submenu-item" id="admin-submenu6-item">
+                                    <a href="#">
+                                    <li>Coupon Codes</li>
+                                    </a>
+                                    <a href="#">
+                                    <li>Usage History</li>
+                                    </a>
+                                </ul>
+                            </li>
+                            </div>
+                            <hr>
+                            <span class="mobile-menu-items">
+                                <div class="media-icons">
+                                    <img src="~/images/facebook-mobile-menu.png" alt="" class="mx-2">
+                                    <img src="~/images/instagram-mobile-menu.png" alt="" class="mx-2">
+                                </div>
+                            </span>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <div class="container-fluid admin-page">
+                <div class="admin-menu">
+                    <ul>
+                        <a href="#">
+                        <li class="side-menu-item">Service Management</li>
+                        </a>
+                        <a href="#">
+                        <li class="side-menu-item">Role Management</li>
+                        </a>
+                        <li class="side-menu-item admin-submenu " id="admin-submenu1">
+                            Coupon Code Management <img src="~/images/sp-right-arrow-gray.svg" alt="">
+                            <ul class="admin-submenu-item " id="admin-submenu1-item">
+                                <a href="#">
+                                <li>Coupon Codes</li>
+                                </a>
+                                <a href="#">
+                                <li>Usage History</li>
+                                </a>
+                            </ul>
+                        </li>
+                        <a href="#">
+                        <li class="side-menu-item">Escalation Management</li>
+                        </a>
+                        <a href="#">
+                        <li class="side-menu-item">Service Requests</li>
+                        </a>
+                        <a href="#">
+                        <li class="side-menu-item">Service Providers</li>
+                        </a>
+                        <a href="#">
+                        <li class="side-menu-item">User Management</li>
+                        </a>
+                        <li class="side-menu-item admin-submenu" id="admin-submenu2">
+                            Finance Module <img src="~/images/sp-right-arrow-gray.svg" alt="">
+                            <ul class="admin-submenu-item" id="admin-submenu2-item">
+                                <a href="#">
+                                <li>All Transactions</li>
+                                </a>
+                                <a href="#">
+                                <li>Generate Payment</li>
+                                </a>
+                                <a href="#">
+                                <li>Customer Invoices</li>
+                                </a>
+                            </ul>
+                        </li>
+                        <a href="#">
+                        <li class="side-menu-item">Zip Code Management</li>
+                        </a>
+                        <a href="#">
+                        <li class="side-menu-item">Ratting Management</li>
+                        </a>
+                        <a href="#">
+                        <li class="side-menu-item">Inquiry Management</li>
+                        </a>
+                        <a href="#">
+                        <li class="side-menu-item">Newsletter Management</li>
+                        </a>
+                        <li class="side-menu-item admin-submenu" id="admin-submenu3">
+                            Content Management <img src="~/images/sp-right-arrow-gray.svg" alt="">
+                            <ul class="admin-submenu-item" id="admin-submenu3-item">
+                                <a href="#">
+                                <li>Blog</li>
+                                </a>
+                                <a href="#">
+                                <li>FAQs</li>
+                                </a>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+
+    <!-- Back to top button -->
+    <div class="back-top">
+        <img src="~/images/forma-1.png" />
+    </div>
+
+    @RenderSection("Modals", required: false)
+    @RenderSection("Scripts", required: false)
+
+    <!-- bootstrap bundle JS -->
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- jquery cdnjs -->
+    <script src="~/lib/jquery/jquery.min.js"></script>
+    <!-- Custom Script file -->
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- jQuery Validation library-->
+    <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+</body>

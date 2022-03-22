@@ -1,0 +1,286 @@
+﻿@model IEnumerable<ServiceRequest>
+
+@* -----------------For dataTable plugIn--------------------------------*@
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    //window.onload = dataTable;
+    //function dataTable() {
+    //    console.log("sorting and paging");
+    //    $("#myTable").DataTable();
+    //}
+    $(document).ready(function () {
+        $.noConflict();
+        $('#myTable').dataTable();
+    });
+</script>
+@* -----------------------------------------------------------------------*@
+
+
+<div class="admin-content">
+    <div class="admin-header">
+        <h1 class="heading">Service Requests</h1>
+        <a href="#" class="admin-blue-button"><img src="~/images/plus-1.png" alt=""> Add New User</a>
+    </div>
+    <div class="admin-search">
+        <form action="" method="post">
+            <input type="text" name="serviceId" id="" placeholder="Service ID" style="width: 100px;">
+            <select name="" id="">
+                <option value="User name">Customer</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            <select name="" id="" aria-placeholder="placehosder">
+                <option value="User role">Service Providers</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            <select name="" id="" aria-placeholder="placehosder">
+                <option value="User role">Status</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+            </select>
+            <div class="calender">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><img src="~/images/icon-calendar-blue.png" alt=""></span>
+                    <input type="text" name="from_date" id="date" class="dateInput" onmouseout="(this.type = 'text')" onmouseenter="(this.type='date')" placeholder="From Date">
+                </div>
+            </div>
+            <div class="calender">
+                <div class="input-group">
+                    <span class="input-group-text" id="basic-addon1"><img src="~/images/icon-calendar-blue.png" alt=""></span>
+                    <input type="text" name="to_date" id="date" class="dateInput" onmouseout="(this.type = 'text')" onmouseenter="(this.type='date')" placeholder="To Date">
+                </div>
+            </div>
+            <input type="submit" value="Search" class="admin-blue-button" style="color: white;">
+            <input type="reset" value="Clear" class="admin-button">
+        </form>
+    </div>
+    <table class="admin-table my-3 table-responsive" style="width: 100%;" id="myTable">
+        <thead class="">
+        <th onclick="sortingImg(this)" id="ServiceIdCol" class="text-center"><a href="#">Service ID <img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th width="15%" onclick="sortingImg(this)" id="ServiceDateCol"><a href="#">Service Date <img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th onclick="sortingImg(this)" id="UserCol"><a href="#">Customer details <img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th onclick="sortingImg(this)" id="SPCol"><a href="#">Service Provider <img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th onclick="sortingImg(this)" id="PaymentCol" class="text-center"><a href="#">Total Amount <img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th class="text-center px-0" onclick="sortingImg(this)" id="StatusCol"><a href="#">Status <img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th class="text-center px-0">Actions </a></th>
+        </thead>
+        <tbody>
+            @foreach (ServiceRequest service in Model)
+            {
+                <tr>
+                    <td>@service.ServiceRequestId</td>
+                    <td>
+                        <div class="line-break" onclick="ServiceDetails(@service.ServiceRequestId)">
+                            <div class="d-none">@service.ServiceStartDate.ToString("yyyy-MM-dd") @service.ServiceStartDate.ToString("HH:mm") - @service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm")</div>
+                            <a href="#" class="fw-bold"><img src="~/images/calendar2.png" alt="">@service.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')</a>
+                            <a href="#"><img src="~/images/layer-712.png" alt="">@service.ServiceStartDate.ToString("HH:mm") - @service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm")</a>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="cust-name">@(service.User.FirstName + " " + service.User.LastName)</span><br>
+                        <img src="~/images/layer-15.png" alt="">
+                        @foreach (ServiceRequestAddress address in service.ServiceRequestAddresses)
+                        {
+                            <span>@address.AddressLine1 @address.AddressLine2</span> <br />
+                            <span>@address.PostalCode @address.City</span>
+                        }
+                    </td>
+                    <td class="service-provider">
+                        @if (service.ServiceProvider != null)
+                        {
+                            var rateList = service.ServiceProvider.RatingRatingToNavigations.Where(x => x.RatingTo == service.ServiceProviderId);
+                            decimal spRate;
+                            if (rateList.Count() > 0)
+                            {
+                                spRate = rateList.Average(t => t.Ratings);
+                            }
+                            else
+                            {
+                                spRate = 0;
+                            }
+                            int i = 0;
+
+                            <img src="~/images/cap.png" alt="">
+                            <div class="sp-detail">
+                                <span class="">@service.ServiceProvider.FirstName @service.ServiceProvider.LastName</span> <br>
+                                <span class="rating-star">
+                                    @for (i = 0; i < @Math.Round(spRate); i++)
+                                    {
+                                        <img src="~/images/star-ratting-filled.svg" alt="">
+                                    }
+                                    @while (i != 5)
+                                    {
+                                        <img src="~/images/star-ratting-empty.svg" alt="">
+                                        i++;
+                                    }
+
+                                    <span class="ratting-number">@spRate.ToString("F")</span>
+                                </span>
+                            </div>
+                        }
+
+
+                    </td>
+                    <td class="td-center">@service.TotalCost €</td>
+                    <td class="service-status text-center">
+                        @if (service.Status == 1 || service.Status == 5)
+                        {
+                            <span class="new">New</span>
+                        }
+                        else if (service.Status == 2)
+                        {
+                            <span class="pending">Pending</span>
+                        }
+                        else if (service.Status == 3)
+                        {
+                            <span class="completed">Completed</span>
+                        }
+                        else if (service.Status == 4)
+                        {
+                            <span class="cancelled">Cancelled</span>
+                        }
+                    </td>
+                    <td class="text-center">
+                        <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <img src="~/images/group-38.png" alt="">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @if (service.Status == 1 || service.Status == 2 || service.Status == 5)
+                            {
+                                <li><a class="dropdown-item" href="#">Edit & Reschedule</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="Cancle(@service.ServiceRequestId, '@(service.ServiceProvider != null ? service.ServiceProvider.Email : "" )', '@service.User.Email')">Cancel Service</a></li>
+                            }
+                            <li><a class="dropdown-item" href="#">Inquiry</a></li>
+                            <li><a class="dropdown-item" href="#">Refund</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Download Invoice</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            }
+
+
+
+        </tbody>
+    </table>
+
+    <!-- pegination section -->
+    @*<div class="pegination">
+        <div class="pegination-rows">
+            Show <select id="pegination-select" onchange="rowCount();">
+                <option value="4">4</option>
+                <option value="2">2</option>
+                <option value="6">6</option>
+                <option value="8">8</option>
+                <option value="12">12</option>
+                <option value="15">30</option>
+            </select> Entries, Showing Entries from <span id="from-entry"></span> to <span id="to-entry"></span>
+        </div>
+        <ul class="pegination-pages">
+            <li class="prev" id="prev"><a href="#">&#139;</a></li>
+            <li class="next" id="next"><a href="#">&#155;</a></li>
+        </ul>
+    </div>*@
+
+    <!-- copy-rights section -->
+    <footer class="admin-copyRights pt-3">
+        © 2018 Helperland. All rights reserved.
+    </footer>
+</div>
+
+@section Modals{
+
+    <div class="Modal " id="Delete-service-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title mb-3">Cancel Service</h4>
+        <form asp-controller="User" asp-action="CancelServiceRequest" onsubmit="return jQueryAjaxPost(this);">
+            <input type="hidden" name="ServiceRequestId" value="" />
+            <input type="hidden" name="SPEmail" value="" />
+            <input type="hidden" name="UserEmail" value="" />
+            <label>Why do you want to cancle the service request ?</label>
+            <textarea class="mb-0" name="cancleMessage" data-val="true" data-val-length="The Comment must be a string with a maximum length of 200." maxlength="200" rows="3" id="cancleMessage" data-val-required="The cancellation message is required." data-val-length-max="200" aria-describedby="cancleMessage-error" aria-invalid="true" required></textarea>
+            <span class="text-danger field-validation-error" data-valmsg-for="cancleMessage" data-valmsg-replace="true" style="font-size: 14px;"></span>
+            <button type="submit" class="fw-normal" value="Delete">Cancle Now</button>
+        </form>
+    </div>
+
+    <div class="Modal  text-center " id="Service-Deleted-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-5">Your service request cancelled successfully</div>
+        <div class="text-center fs-7 my-3">Cancelled Request Id : <span id="cancelled-id"></span></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+
+    <div class="Modal wide-modal mx-2" id="Service-Details-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title">Service Details</h4>
+        <div id="ServiceDetails">
+
+        </div>
+    </div>
+
+    <div class="Modal Address-Modal mx-2" id="Reschedule-Modal" style="width: auto; max-width: 380px;">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title">Edit Service Request</h4>
+        <span id="reSchedule-fail" class="d-block text-center text-danger fs-7"></span>
+        <div id="EditService">
+        </div>
+    </div>
+
+    <div class="Modal  text-center " id="Service-ReScheduled-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-6 my-2" id="reSchedule-message"></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0');
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        $("#Date").attr('min', today);
+
+        function Cancle(ServiceId, SPEmail, UserEmail) {
+            console.log("delete modal");
+            $("#blur").addClass("blur");
+            $("#Service-Details-Modal").removeClass("active");
+            $("#Delete-service-Modal").addClass("active");
+            $('input[name="ServiceRequestId"]').val(ServiceId);
+            $('input[name="SPEmail"]').val(SPEmail);
+            $('input[name="UserEmail"]').val(UserEmail);
+        }
+
+
+        function ServiceDetails(ServiceId) {
+            $("#ServiceDetails").load(`/Admin/GetServiceDetails/${ServiceId}`);
+            $("#blur").addClass("blur");
+            $("#Service-Details-Modal").addClass("active");
+        }
+
+        function ServiceDetails(ServiceId) {
+            $(".Modal").removeClass("active");
+            $("#EditService").load(`/Admin/EditAndReschedule/${ServiceId}`);
+            $("#Reschedule-Modal").addClass("active");
+        }
+
+        function sortingImg(ele) {
+            console.log("sorting img display");
+            $(".sorting-img").css("display", "none");
+            $("#" + ele.id + " .sorting-img").css("display", "inline-block");
+        }
+    </script>
+}

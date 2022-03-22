@@ -224,7 +224,7 @@ namespace Helperland.Controllers
                 return Json(new { spServiceConflict = true, conflictServiceId=conflict.ServiceId, conflictStart = conflict.ConflictStartTime, conflictEnd = conflict.ConflictEndTime, conflictDate = conflict.ConflictDate });
             }
             ServiceRequest acceptedService = await userRepository.AcceptService(ServiceId, spId);
-            var SPs = userRepository.GetOtherSPs(spId, service.ZipCode);
+            var SPs = userRepository.GetOtherSPs(spId, service.ZipCode, service.HasPets);
             UserEmailOptions userEmailOptions = new UserEmailOptions
             {
                 ToEmails = new List<string>(),
@@ -276,25 +276,23 @@ namespace Helperland.Controllers
                     else if (extraService.ServiceRequestExtraId == 5)
                         ExtraServices += "<tr><td>Interio window</td><td>0.5 Hrs</td><td>9.00 €</td></tr>";
                 }
+
+                //-------Sending emails---------------------------
+                NewReqEmailModel newReqEmail = new NewReqEmailModel
+                {
+                    DateTime = service.ServiceStartDate,
+                    TotalAmount = service.TotalCost,
+                    ExtraServices = ExtraServices,
+                    UserName = service.User.FirstName + " " + service.User.LastName,
+                    Emails = new List<string>(),
+                    ServiceId = ServiceRequestId
+                };
                 foreach (User SP in usersWithSameZipCode)
                 {
-
                     Console.WriteLine(SP.Email);
-                    NewReqEmailModel newReqEmail = new NewReqEmailModel
-                    {
-                        DateTime = service.ServiceStartDate,
-                        TotalAmount = service.TotalCost,
-                        ExtraServices = ExtraServices,
-                        SPName = SP.FirstName + " " + SP.LastName,
-                        UserName = service.User.FirstName + " " + service.User.LastName,
-                        Email = SP.Email,
-                        SPId = SP.UserId,
-                        ServiceId = ServiceRequestId
-                    };
-
-                    await userRepository.SendNewReqEmail(newReqEmail);
-
+                    newReqEmail.Emails.Add(SP.Email);
                 }
+                await userRepository.SendNewReqEmail(newReqEmail);
             }
             return Json(new { serviceCancelledBySP = service.Status, serviceId = ServiceRequestId });
         }
