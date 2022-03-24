@@ -6,16 +6,15 @@
 <div class="contact-page " id="New-Add">
     <span class="d-block text-center text-danger" id="new-add-error"></span>
     <form class="row d-flex justify-content-between flex-wrap" asp-controller="Admin" asp-action="EditAndReschedule" onsubmit="return jQueryAjaxPost(this);">
-        <div class="col-12">
-            <div class="col-6 pe-1" style="position:relative">
+            <div class="col-12 col-sm-6" style="position:relative">
                 <label class="fw-bold" for="Date">Date</label>
-                <img src="~/images/calendar-color.png" class="calender" />
-                <input type="date" id="Date" name="Date" class="" value="@Model.ServiceStartDate.ToString("dd-MM-yyyy")" />
+                <img src="~/images/icon-calendar-blue.png" class="calender" style="top:50%; right: 10%;" />
+                <input type="date" id="Date" name="Date" class="" value="@Model.Date"  />
+                <span class="text-danger" id="Date-error"></span>
             </div>
-            <span class="text-danger" id="Date-error"></span>
-            <div class="col-6 ps-1">
+            <div class="col-12 col-sm-6">
                 <label class="fw-bold" for="Time">Time</label>
-                <select name="Time" class="" style="width:100%">
+                <select asp-for="Time" class="" style="width:100%">
                     <option value="8:00">8:00</option>
                     <option value="8:30">8:30</option>
                     <option value="9:00">9:00</option>
@@ -39,17 +38,16 @@
                     <option value="18:00">18:00</option>
                 </select>
             </div>
-        </div>
         <div class="col-12 fw-bold fs-5">Service Address</div>
-        <div class="col-12 col-sm-6">
-            <label class="" asp-for="AddressLine2"></label>
-            <input asp-for="AddressLine2" value="@Model.AddressLine2">
-            <span class="text-danger" asp-validation-for="AddressLine2"></span>
-        </div>
         <div class="col-12 col-sm-6">
             <label class="" asp-for="AddressLine1"></label>
             <input asp-for="AddressLine1" value="@Model.AddressLine1">
             <span class="text-danger" asp-validation-for="AddressLine1"></span>
+        </div>
+        <div class="col-12 col-sm-6">
+            <label class="" asp-for="AddressLine2"></label>
+            <input asp-for="AddressLine2" value="@Model.AddressLine2">
+            <span class="text-danger" asp-validation-for="AddressLine2"></span>
         </div>
         <div class="col-12 col-sm-6">
             <label class="" asp-for="ZipCode"></label>
@@ -59,14 +57,22 @@
         <div class="col-12 col-sm-6">
             <label class="" asp-for="City"></label>
             <input asp-for="City" value="@Model.City">
-            <span class="text-danger" asp-validation-for="ZipCode"></span>
+            <span class="text-danger" asp-validation-for="City"></span>
         </div>
         <input class=" " type="hidden" asp-for="ServiceId" value="@Model.ServiceId" />
         <input class=" " type="hidden" asp-for="AddressId" value="@Model.AddressId" />
+        <input class=" " type="hidden" asp-for="UserEmail" value="@Model.UserEmail" />
+        <input class=" " type="hidden" asp-for="SPEmail" value="@Model.SPEmail" />
+        <input class=" " type="hidden" asp-for="SubTotal" value="@Model.SubTotal" />
+        <input class=" " type="hidden" asp-for="UserId" value="@Model.UserId" />
+        <input class=" " type="hidden" asp-for="SPId" value="@Model.SPId" />
         <div class="col-12 fw-bold" >Why do you want to reschedule service request ?</div>
-        <textarea class="" name="Comment" placeholder="Why do you want to reschedule service request ?"></textarea>
         <div class="col-12">
-            <button type="submit" class="py-2 my-3" style="background-color: #1fb6ff; border-radius: 7px;">Update</button>
+            <textarea class="" asp-for="Comment" placeholder="Why do you want to reschedule service request ?"></textarea>
+            <span class="text-danger" asp-validation-for="Comment"></span>
+        </div>
+        <div class="col-12">
+            <button type="submit" class="py-2 my-3 admin-blue-button" style="background-color: #1fb6ff; border-radius: 4px;">Update</button>
         </div>
     </form>
 </div>
@@ -74,3 +80,16 @@
 <!-- jQuery Validation library-->
 <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script type="text/javascript">
+
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0');
+    var yyyy = today.getFullYear();
+
+    today = yyyy + '-' + mm + '-' + dd;
+    $("#Date").attr('min', today);
+
+    $("#Time [value=@Model.Time]").attr("selected", true);
+</script>

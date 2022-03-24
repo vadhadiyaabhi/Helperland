@@ -1162,6 +1162,15 @@ my-settting-table thead {
     font-size: 14px !important;
 }
 
+.avatar{
+    border-radius : 50%;
+    border: 3px solid white;
+}
+
+    .avatar.selected-avatar {
+        border-color: #1d7a8c;
+    }
+
 
 /*-----------------------------My Ratings-----------------------------*/
 
@@ -1184,6 +1193,7 @@ my-settting-table thead {
 /* -------------------------Admin Pages-------------------------- */
 .container-fluid.admin-page {
     padding: 0px;
+    padding-top: 64px !important;
     margin: 0px;
 }
 
@@ -1392,7 +1402,8 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 .admin-table th {
-    background-color: #E1E1E1;
+    /*background-color: #E1E1E1;*/
+    background-color: #eae9e9;
 }
 
 .admin-table tbody {
@@ -1400,7 +1411,7 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 }
 
 .userManagement .admin-table td {
-    padding: 24px 14px;
+    padding: 30px 14px !important;
 }
 
 .admin-table tr td:last-child {

@@ -9,6 +9,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using static Helperland.Helper;
 
 namespace Helperland.Controllers
 {
@@ -39,6 +40,7 @@ namespace Helperland.Controllers
         }
 
         [HttpGet]
+        [NoDirectAccess]
         public async Task<IActionResult> Mydetails()
         {
             int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
@@ -70,6 +72,7 @@ namespace Helperland.Controllers
         }
 
         [HttpPost]
+        [NoDirectAccess]
         public async Task<IActionResult> Mydetails(UserUpdateViewModel userViewModel)
         {
             //Console.WriteLine(userViewModel.DateOfBirth);
@@ -83,6 +86,7 @@ namespace Helperland.Controllers
             return Json(new { userUpdateFail = true, view = Helper.RenderRazorViewToString(this, "Mydetails", userViewModel) });
         }
 
+        [NoDirectAccess]
         public IActionResult UserAddresses()
         {
             int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
@@ -91,6 +95,7 @@ namespace Helperland.Controllers
         }
 
         [HttpPost]
+        [NoDirectAccess]
         public async Task<IActionResult> DeleteAddress(string addressId)
         {
             bool result = await userRepository.DeleteAddress(Convert.ToInt32(addressId));
@@ -101,12 +106,14 @@ namespace Helperland.Controllers
         }
 
         [HttpGet]
+        [NoDirectAccess]
         public IActionResult ResetPassword()
         {
             return View();
         }
 
         [HttpPost]
+        [NoDirectAccess]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel passwordReset)
         {
             Console.WriteLine("password before valid state");
@@ -130,6 +137,7 @@ namespace Helperland.Controllers
 
         [HttpGet]
         [Route("User/AddOrEditAddress/{addressId}")]
+        [NoDirectAccess]
         public IActionResult AddOrEditAddress(int addressId)
         {
             if(addressId == 0)
@@ -155,6 +163,7 @@ namespace Helperland.Controllers
         }
 
         [HttpPost]
+        [NoDirectAccess]
         public async Task<IActionResult> AddOrEditAddress(UserAddressViewModel userAddress)
         {
             if (ModelState.IsValid)
@@ -185,6 +194,7 @@ namespace Helperland.Controllers
             return Json(new { addOrEditAddressFail = true, view = Helper.RenderRazorViewToString(this, "AddOrEditAddress", userAddress) });
         }
 
+        [NoDirectAccess]
         public async Task<IActionResult> DeleteServiceRequest(int ServiceRequestId, string cancleMessage, string SPEmail)
         {
             int userId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -213,6 +223,7 @@ namespace Helperland.Controllers
         }
 
         [Route("User/GetServiceDetails/{ServiceId}")]
+        [NoDirectAccess]
         public async Task<IActionResult> GetServiceDetails(int ServiceId)
         {
             ServiceRequest service = await userRepository.GetServiceDetails(ServiceId);
@@ -226,6 +237,7 @@ namespace Helperland.Controllers
             return View(history);
         }
 
+        [NoDirectAccess]
         public async Task<IActionResult> RateSP([Bind("ServiceId", "SPId", "OnTimeArrival", "Friendly", "QualityOfService", "Comment")] RatingViewModel ratingViewModel)
         {
             int userId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
@@ -253,6 +265,7 @@ namespace Helperland.Controllers
                 return Json(false);
         }
 
+        [NoDirectAccess]
         public async Task<IActionResult> ReScheduleService(int ServiceId, string Date, string Time)
         {
             if(ServiceId != 0 && !string.IsNullOrEmpty(Date) && !string.IsNullOrEmpty(Time))
@@ -325,6 +338,7 @@ namespace Helperland.Controllers
         }
 
         [Route("User/Blockunblock/{ID}/{value}")]
+        [NoDirectAccess]
         public string BlockUnblock(int Id, bool Value)
         {
             bool res = userRepository.Blockunblock(Id, Value);
@@ -335,6 +349,7 @@ namespace Helperland.Controllers
         }
 
         [Route("User/FavUnfav/{ID}/{value}")]
+        [NoDirectAccess]
         public string FavUnfav(int Id, bool Value)
         {
             bool res = userRepository.FavUnfav(Id, Value);
@@ -344,12 +359,14 @@ namespace Helperland.Controllers
                 return "Favourite";
         }
 
+        [NoDirectAccess]
         public IActionResult ReportAnIssue(int serviceId)
         {
             return RedirectToAction("Contact", "Home", new { serviceId = serviceId });
         }
 
         [Route("User/GetUserWithServiceId/{serviceId}")]
+        [NoDirectAccess]
         public async Task<IActionResult> GetUserWithServiceId(int serviceId)
         {
             ServiceRequest service = await userRepository.GetServiceWithUser(serviceId);

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Service Updated By Admin</title>
+    <link href="/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/emailTemplate.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="Container">
+        <h3> Hello User,</h3>
+        <p>
+            <b>Your service request with ServiceId : {{Id}} has been updated by Admin.</b> <br />
+        </p>
+        <p>
+            Please Note the below updated details: <br />
+            <b> Date:</b> {{Date}} <br />
+            <b> Time:</b> {{Time}} <br />
+            <b> Service Address:</b> <br />
+            <span>{{AddressLine1}}</span>, <span>{{AddressLine2}}</span> <br />
+            <span>{{ZipCode}}</span>, <span>{{City}}</span>
+        </p>
+        <p>
+            Here is the reason mentioned by Admin, <br />
+            <b>{{ServiceUpdateMessage}}</b>
+        </p>
+        <b>Have a Cleanland,</b><br />
+        <b>Team Helperland</b>
+
+    </div>
+    <hr />
+    © 2018 Helperland. All rights reserved. <a href="#" style="color:black">Terms and Conditions</a> | <a href="#" style="color:black">Privacy Policy</a>
+
+</body>
+</html>

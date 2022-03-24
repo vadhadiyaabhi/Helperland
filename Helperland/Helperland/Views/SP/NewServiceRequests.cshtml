@@ -24,7 +24,10 @@
 <div class="service-history-table dashboard-table service-history">
     <div class="d-flex justify-content-between align-item-center py-2">
         <span class="table-heading">New Service Requests</span>
-        <form><input type="checkbox" name="IncludePet" id="IncludePet"  /><label for="IncludePet">Include Pets at Home</label></form>
+        <form asp-controller="SP" asp-action="NewServiceRequests" id="PetsForm" method="get">
+            <input type="checkbox" name="IncludePet" id="IncludePet" value="true"  /><label for="IncludePet" onclick="IncludePet()">Include Pets at Home</label>
+            <input type="submit" value="submit" class="d-none" id="form-submit" />
+        </form>
     </div>
     <table class="responsive-row" style="width: 100%;" id="myTable">
         <thead class="">
@@ -106,7 +109,8 @@
 
 @section Scripts
 {
-    <script>
+    <script type="text/javascript">
+        console.log('@ViewBag.Pets')
 
         function ServiceDetails(ServiceId) {
             console.log("service details function");
@@ -133,5 +137,32 @@
             $(".Modal").removeClass("active");
         }
 
+        function IncludePet() {
+            $("#PetsForm").submit();
+        }
+        //function IncludePet() {
+        //    if ($("#IncludePet").is(':checked')) {
+        //        console.log($("#IncludePet").val())
+        //        //$("#IncludePet").val(true);
+        //        //$("#PetsForm").submit();
+        //        $("#form-submit").trigger("click");
+        //    }
+        //    else {
+        //        console.log($("#IncludePet").val())
+        //        $("input [name=IncludePet]").val(false);
+        //        $("#PetsForm").submit();
+        //    }
+        //    //$("#PetsForm").submit();
+        //}
+        //$("#PetsForm").on('change', ':checkbox', function () {
+        //    if (this.checked) {
+        //        $(this).val(true);
+        //        $(this).submit();
+        //    }
+        //    else {
+        //        $(this).val(false);
+        //        $(this).submit();
+        //    }
+        //})
     </script>
 }

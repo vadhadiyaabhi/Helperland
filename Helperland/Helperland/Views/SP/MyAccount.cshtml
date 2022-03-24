@@ -43,7 +43,7 @@
 
 @section Scripts
 {
-    <script>
+    <script type="text/javascript">
         window.onload = LoadMyDetails;
         function LoadMyDetails() {
             $("#index").html("Loading user details...").load(`/SP/MyDetails`);
@@ -55,6 +55,11 @@
             $("#" + action).css("display", "block");
             $("#" + action).siblings().css("display", "none");
         };
+
+        function SelectAvatar(ele) {
+            $(ele).siblings().removeClass("selected-avatar");
+            $(ele).addClass("selected-avatar")
+        }
 
             //function Delete(AddId) {
             //    console.log("delete modal");

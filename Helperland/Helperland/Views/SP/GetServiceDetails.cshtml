@@ -63,7 +63,7 @@
     <hr />
 
     <div><span class="small-title fs-6">Comments: </span></div>
-    @if (Model.HasPets)
+    @if (!Model.HasPets)
     {
         <img src="~/images/not-included.png" class="me-2" />
         <span>I don't have pets at home</span>

@@ -23,40 +23,58 @@
         <a href="#" class="admin-blue-button"><img src="~/images/plus-1.png" alt=""> Add New User</a>
     </div>
     <div class="admin-search">
-        <form action="" method="post">
-            <input type="text" name="serviceId" id="" placeholder="Service ID" style="width: 100px;">
-            <select name="" id="">
-                <option value="User name">Customer</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
-            <select name="" id="" aria-placeholder="placehosder">
-                <option value="User role">Service Providers</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
-            <select name="" id="" aria-placeholder="placehosder">
-                <option value="User role">Status</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+        <form asp-controller="Admin" asp-action="Index" method="post" id="FilterForm">
+            <input type="text" name="serviceId" id="" placeholder="@(ViewBag.serviceId == 0 ? "Service Id" : ViewBag.serviceId)" style="width: 100px;">
+            <input type="text" list="Customer" placeholder="@(ViewBag.Customer != null ? ViewBag.Customer : "Customer")" name="Customer" onkeyup="FetchCustomer(this.value)" />
+            <datalist id="Customer">
+            </datalist>
+            <input type="text" list="SPName" placeholder="@(ViewBag.SP != null ? ViewBag.SP : "Service Provider")" name="SP" onkeyup="FetchSP(this.value)" />
+            <datalist id="SPName">
+            </datalist>
+            <select name="Status" id="UserStatus" aria-placeholder="Status">
+                <option value="none" selected disabled>
+                    @{
+                        if (ViewBag.Status == 1)
+                        {
+                            <span>New</span>
+                        }
+                        else if (ViewBag.Status == 2)
+                        {
+                            <span>Pending</span>
+                        }
+                        else if (ViewBag.Status == 3)
+                        {
+                            <span>Cpmpleted</span>
+                        }
+                        else if (ViewBag.Status == 4)
+                        {
+                            <span>Cancelled</span>
+                        }
+                        else
+                        {
+                            <span>Status</span>
+                        }
+                    }
+                </option>
+                <option value="1">New</option>
+                <option value="2">Pending</option>
+                <option value="3">Completed</option>
+                <option value="4">Cancelled</option>
             </select>
             <div class="calender">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><img src="~/images/icon-calendar-blue.png" alt=""></span>
-                    <input type="text" name="from_date" id="date" class="dateInput" onmouseout="(this.type = 'text')" onmouseenter="(this.type='date')" placeholder="From Date">
+                    <input type="text" name="from_date" id="date" value="" class="dateInput" onmouseout="(this.type = 'text')" onmouseenter="(this.type='date')" placeholder="@(ViewBag.from_date != null ? ViewBag.from_date :"From Date")">
                 </div>
             </div>
             <div class="calender">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1"><img src="~/images/icon-calendar-blue.png" alt=""></span>
-                    <input type="text" name="to_date" id="date" class="dateInput" onmouseout="(this.type = 'text')" onmouseenter="(this.type='date')" placeholder="To Date">
+                    <input type="text" name="to_date" id="date" value="@ViewBag.to_date" class="dateInput" onmouseout="(this.type = 'text')" onmouseenter="(this.type='date')" placeholder="@(ViewBag.to_date != null ? ViewBag.to_date :"To Date")">
                 </div>
             </div>
-            <input type="submit" value="Search" class="admin-blue-button" style="color: white;">
-            <input type="reset" value="Clear" class="admin-button">
+            <input type="submit" name="Search" id="Search" value="Search" class="admin-blue-button" style="color: white;">
+            <input type="reset" value="Clear" id="Clear" class="admin-button" onclick="ClearForm()">
         </form>
     </div>
     <table class="admin-table my-3 table-responsive" style="width: 100%;" id="myTable">
@@ -153,7 +171,7 @@
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             @if (service.Status == 1 || service.Status == 2 || service.Status == 5)
                             {
-                                <li><a class="dropdown-item" href="#">Edit & Reschedule</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="EditAndReschedule(@service.ServiceRequestId)">Edit & Reschedule</a></li>
                                 <li><a class="dropdown-item" href="#" onclick="Cancle(@service.ServiceRequestId, '@(service.ServiceProvider != null ? service.ServiceProvider.Email : "" )', '@service.User.Email')">Cancel Service</a></li>
                             }
                             <li><a class="dropdown-item" href="#">Inquiry</a></li>
@@ -201,7 +219,7 @@
     <div class="Modal " id="Delete-service-Modal">
         <img class="close-modal" src="~/images/close.png" />
         <h4 class="modal-title mb-3">Cancel Service</h4>
-        <form asp-controller="User" asp-action="CancelServiceRequest" onsubmit="return jQueryAjaxPost(this);">
+        <form asp-controller="Admin" asp-action="CancelServiceRequest" onsubmit="return jQueryAjaxPost(this);">
             <input type="hidden" name="ServiceRequestId" value="" />
             <input type="hidden" name="SPEmail" value="" />
             <input type="hidden" name="UserEmail" value="" />
@@ -227,7 +245,7 @@
         </div>
     </div>
 
-    <div class="Modal Address-Modal mx-2" id="Reschedule-Modal" style="width: auto; max-width: 380px;">
+    <div class="Modal wide-modal  mx-2" id="Reschedule-Modal" style="max-width: 430px;">
         <img class="close-modal" src="~/images/close.png" />
         <h4 class="modal-title my-2" id="Address-Modal-Title">Edit Service Request</h4>
         <span id="reSchedule-fail" class="d-block text-center text-danger fs-7"></span>
@@ -254,6 +272,15 @@
         today = yyyy + '-' + mm + '-' + dd;
         $("#Date").attr('min', today);
 
+        $(document).ready(function () {
+            console.log("on load do things");
+            //$("#UserStatus [value=@ViewBag.Status]").attr("selected", true);
+            $("#Customer").html("");
+            $("#SPName").html("");
+            console.log('@ViewBag.from_date');
+        })
+
+
         function Cancle(ServiceId, SPEmail, UserEmail) {
             console.log("delete modal");
             $("#blur").addClass("blur");
@@ -271,7 +298,7 @@
             $("#Service-Details-Modal").addClass("active");
         }
 
-        function ServiceDetails(ServiceId) {
+        function EditAndReschedule(ServiceId) {
             $(".Modal").removeClass("active");
             $("#EditService").load(`/Admin/EditAndReschedule/${ServiceId}`);
             $("#Reschedule-Modal").addClass("active");
@@ -281,6 +308,46 @@
             console.log("sorting img display");
             $(".sorting-img").css("display", "none");
             $("#" + ele.id + " .sorting-img").css("display", "inline-block");
+        }
+
+
+        function FetchCustomer(name) {
+            $("#Customer").html("");
+            if (name != "") {
+                console.log(name);
+                $.ajax({
+                    url: `/Admin/FetchCustomerNames/${name}`,
+                    success: function (res) {
+                        res.forEach(AddCustNames);
+                    }
+                });
+            }
+
+        }
+
+        function FetchSP(name) {
+            $("#SPName").html("");
+            if (name != "") {
+                console.log(name);
+                $.ajax({
+                    url: `/Admin/FetchSPNames/${name}`,
+                    success: function (res) {
+                        res.forEach(AddSPNames);
+                    }
+                });
+            }
+
+        }
+
+        function AddCustNames(item) {
+            $("#Customer").append(`<option>${item}</option>`);
+        }
+        function AddSPNames(item) {
+            $("#SPName").append(`<option>${item}</option>`);
+        }
+
+        function ClearForm() {
+            $("#FilterForm").submit();
         }
     </script>
 }

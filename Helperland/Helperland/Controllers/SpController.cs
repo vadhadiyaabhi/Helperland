@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using static Helperland.Helper;
 
 namespace Helperland.Controllers
 {
@@ -45,6 +46,7 @@ namespace Helperland.Controllers
         }
 
         [HttpGet]
+        [NoDirectAccess]
         public async Task<IActionResult> Mydetails()
         {
             int spId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -64,9 +66,9 @@ namespace Helperland.Controllers
                 NationalityId = user.NationalityId,
                 AccountActive = user.IsApproved,
                 Gender = user.Gender ?? 0,
-                WorksWithPet = user.WorksWithPets
+                WorksWithPet = user.WorksWithPets,
+                Avatar = user.UserProfilePicture
             };
-            Console.WriteLine(spViewModel.Gender);
             if(spAddress != null)
             {
                 spViewModel.AddressLine1 = spAddress.AddressLine1;
@@ -79,9 +81,9 @@ namespace Helperland.Controllers
         }
 
         [HttpPost]
+        [NoDirectAccess]
         public async Task<IActionResult> Mydetails(SPUpdateViewModel spViewModel)
         {
-            //Console.WriteLine(userViewModel.DateOfBirth);
             if (ModelState.IsValid)
             {
                 int userId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -170,12 +172,14 @@ namespace Helperland.Controllers
         //-------------------------------------------------------------------------------
 
         [HttpGet]
+        [NoDirectAccess]
         public IActionResult ResetPassword()
         {
             return View();
         }
 
         [HttpPost]
+        [NoDirectAccess]
         public async Task<IActionResult> ResetPassword(ResetPasswordViewModel passwordReset)
         {
             if (ModelState.IsValid)
@@ -195,20 +199,29 @@ namespace Helperland.Controllers
 
         }
 
-        public IActionResult NewServiceRequests()
+        [HttpGet]
+        public IActionResult NewServiceRequests(bool IncludePet)
         {
+            Console.WriteLine(IncludePet);
             int spId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var services = userRepository.GetNewServiceRequests(spId);
+            if (!IncludePet)
+            {
+                services = services.Where(x => x.HasPets == false).ToList();
+            }
+            ViewBag.Pets = IncludePet;
             return View(services);
         }
 
         [Route("SP/GetServiceDetails/{ServiceId}")]
+        [NoDirectAccess]
         public async Task<IActionResult> GetServiceDetails(int ServiceId)
         {
             ServiceRequest service = await userRepository.GetServiceDetails(ServiceId);
             return View(service);
         }
 
+        [NoDirectAccess]
         public async Task<IActionResult> AcceptService(int ServiceId)
         {
             int spId = Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value);
@@ -251,6 +264,7 @@ namespace Helperland.Controllers
             return View(services);
         }
 
+        [NoDirectAccess]
         public async Task<IActionResult> CancleServiceRequestBySp(int ServiceRequestId, string cancleMessage, string UserEmail)
         {
             if (ServiceRequestId == 0 || string.IsNullOrEmpty(cancleMessage))
@@ -297,6 +311,7 @@ namespace Helperland.Controllers
             return Json(new { serviceCancelledBySP = service.Status, serviceId = ServiceRequestId });
         }
 
+        [NoDirectAccess]
         public async Task<IActionResult> CompleteServiceRequest(int ServiceId)
         {
             int spId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -331,6 +346,7 @@ namespace Helperland.Controllers
         }
 
         [Route("SP/Blockunblock/{ID}/{value}")]
+        [NoDirectAccess]
         public string BlockUnblock(int Id, bool Value)
         {
             bool res = userRepository.Blockunblock(Id, Value);

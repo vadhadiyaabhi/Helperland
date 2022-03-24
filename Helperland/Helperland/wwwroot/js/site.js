@@ -273,6 +273,10 @@ jQueryAjaxPost = form => {
                     $('#Service-Deleted-Modal').addClass("active");
                     console.log(`service deleted by SP with Service Id ${res.serviceId}`)
                 }
+                else if (res.editServiceFail) {
+                    $("#EditService").html(res.view);
+                    console.log("Please provide valid input details");
+                }
 
                 console.log(res);
             },

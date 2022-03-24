@@ -42,5 +42,17 @@ namespace Helperland.ViewModel
         [Required]
         [MaxLength(200)]
         public string Comment { get; set; }
+
+        [Required]
+        public int UserId { get; set; }
+
+        public int SPId { get; set; }
+
+        [Required]
+        public string UserEmail { get; set; }
+
+        public string SPEmail { get; set; }
+
+        public decimal SubTotal { get; set; }
     }
 }

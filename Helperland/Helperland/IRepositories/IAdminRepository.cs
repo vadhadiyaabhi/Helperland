@@ -14,5 +14,7 @@ namespace Helperland.IRepositories
         public Task<bool> EditService(EditServiceViewModel editService, int userId);
 
         public IEnumerable<User> GetAllUsers();
+
+        public Task<bool> ApproveUnapproveUser(int userId, bool value, int adminId);
     }
 }

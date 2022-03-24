@@ -136,7 +136,8 @@ namespace Helperland.Controllers
                         //Console.WriteLine("Not active");
                         return Json(new { notactive = true, email = user.Email, name = user.FirstName + " " + user.LastName, id = user.UserId });
                     }
-                    if (user.UserTypeId == 2 && !user.IsApproved)
+                    //if (user.UserTypeId == 2 && !user.IsApproved)
+                    if (!user.IsApproved)
                     {
                         return Json(new { notapproved = true });
                     }

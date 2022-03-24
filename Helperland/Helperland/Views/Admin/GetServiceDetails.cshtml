@@ -69,8 +69,8 @@
     <hr />
     @if (Model.Status != 3 && Model.Status != 4)
     {
-        <span class="RateSP-button" onclick="reSchedule(@Model.ServiceRequestId,  @((Model.ServiceProvider != null) ? Model.ServiceProvider.UserId : 0))"><img src="~/images/reschedule-icon-small.png" /> Reschedule</span>
-        <span class="cancle-button" onclick="Cancle(@Model.ServiceRequestId, '@(Model.ServiceProvider != null ? Model.ServiceProvider.Email : "")')"><img src="~/images/close-icon-small.png" /> Cancle</span>
+        <span class="RateSP-button" onclick="EditAndReschedule(@Model.ServiceRequestId)"><img src="~/images/reschedule-icon-small.png" /> Reschedule</span>
+        <span class="cancle-button" onclick="Cancle(@Model.ServiceRequestId, '@(Model.ServiceProvider != null ? Model.ServiceProvider.Email : "" )', '@Model.User.Email')"><img src="~/images/close-icon-small.png" /> Cancle</span>
     }
 
 </div>

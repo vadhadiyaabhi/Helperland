@@ -125,11 +125,12 @@ namespace Helperland.Controllers
                             ExtraServices = ExtraServices,
                             SPName = SP.FirstName + " " + SP.LastName,
                             UserName = user.FirstName + " " + user.LastName,
-                            Email = SP.Email,
+                            Emails = new List<string>(),
                             SPId = SP.UserId,
                             ServiceId = serviceId,
                             DirectAssigned = true
                     };
+                    newReqEmail.Emails.Add(SP.Email);
 
                     await userRepository.SendNewReqEmail(newReqEmail);
                 }

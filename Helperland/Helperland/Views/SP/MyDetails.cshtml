@@ -4,7 +4,7 @@
 }
 
 <div>
-    <span style="float:right"><img src="~/images/avatar-male.png" /></span>
+    <span style="float:right"><img src="@(Model.Avatar != null ? "/images/" + Model.Avatar : "/images/avatar-male.png")"  /></span>
     <div>
         <span class="small-title fs-5 tab-content">Account Status:</span>
         <span class="fs-5 fw-bold" style="color: green;">@(Model.AccountActive ? "Active" : "InActive")</span>
@@ -412,7 +412,23 @@
         <div class="col-12">
             <input type="checkbox" asp-for="WorksWithPet" /><label class="fw-bold" for="WorksWithPet">Interested in Working With Pet</label>
         </div>
-
+        <div class="col-12 my-3">
+            <span>Select Avatar</span> <br />
+            <div class="Select-Avatar my-3">
+                <label for="Avatar1" class="avatar mx-1" onclick="SelectAvatar(this);"><img src="~/images/avatar-car.png" /></label>
+                <label for="Avatar2" class="avatar mx-1" onclick="SelectAvatar(this);"><img src="~/images/avatar-female.png" /></label>
+                <label for="Avatar3" class="avatar mx-1" onclick="SelectAvatar(this);"><img src="~/images/avatar-hat.png" /></label>
+                <label for="Avatar4" class="avatar mx-1" onclick="SelectAvatar(this);"><img src="~/images/avatar-male.png" /></label>
+                <label for="Avatar5" class="avatar mx-1" onclick="SelectAvatar(this);"><img src="~/images/avatar-ship.png" /></label>
+            </div>
+            <div class="d-none" id="radio-avatar">
+                <input type="radio" name="Avatar" value="avatar-car.png" id="Avatar1" />
+                <input type="radio" name="Avatar" value="avatar-female.png" id="Avatar2" />
+                <input type="radio" name="Avatar" value="avatar-hat.png" id="Avatar3" />
+                <input type="radio" name="Avatar" value="avatar-male.png" id="Avatar4" />
+                <input type="radio" name="Avatar" value="avatar-ship.png" id="Avatar5" />
+            </div>
+        </div>
         <div class="small-title tab-content mt-4">My Address</div>
         <hr />
         <div class="col-12 col-sm-6 col-md-4 my-2">
@@ -452,9 +468,15 @@
     function SetBirthDate() {
         //$("#LanguageId [value=@Model.LanguageId]").attr("selected", true);
 
-        if (@Model.Gender != 0) {
-            console.log(@Model.Gender);
-            $("input:radio[name=Gender][value=" + @Model.Gender + "]").prop("checked", true);
+        if ('@(Convert.ToInt32(Model.Gender))' != 0) {
+            console.log('@Model.Gender');
+            //$(`input [value=@Model.Gender]`).attr("checked", true);
+            $(`input:radio[name=Gender]`).filter(`[value="@Model.Gender"]`).attr("checked", true);
+        }
+
+        if ('@Model.Avatar' != null) {
+            console.log('@Model.Avatar');
+            $("#radio-avatar [value='@Model.Avatar']").attr("checked", true).addClass("selected-avatar");
         }
 
         console.log("@Model.DateOfBirth.ToString()");
@@ -470,11 +492,15 @@
 
 </script>
 }
+
+
 <script>
     //function setBirthDate() {
     //    var newBirthDate = new Date($("#birthyear").val(), $("#birthmonth").val(), $("#birthdate").val());
     //    document.getElementById("DateOfBirth").valueAsDate = newBirthDate;
     //}
+
+
 </script>
 
 <!-- jQuery Validation library-->

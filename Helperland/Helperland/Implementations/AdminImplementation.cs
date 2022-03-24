@@ -48,5 +48,15 @@ namespace Helperland.Implementations
         {
             return dbContext.Users.Where(u => u.UserTypeId != 3).ToList();
         }
+
+        public async Task<bool> ApproveUnapproveUser(int userId, bool value, int adminId)
+        {
+            User user = await dbContext.Users.FindAsync(userId);
+            user.IsApproved = !value;
+            user.ModifiedBy = adminId;
+            user.ModifiedDate = DateTime.Now;
+            await dbContext.SaveChangesAsync();
+            return user.IsApproved;
+        }
     }
 }

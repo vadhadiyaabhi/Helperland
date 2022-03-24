@@ -211,6 +211,7 @@ namespace Helperland.Implementations
             sp.NationalityId = spModel.NationalityId;
             sp.Gender = spModel.Gender;
             sp.WorksWithPets = spModel.WorksWithPet;
+            sp.UserProfilePicture = spModel.Avatar;
             await DbContext.SaveChangesAsync();
             return sp;
         }

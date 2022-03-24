@@ -31,5 +31,7 @@ namespace Helperland.ViewModel
         public string ZipCode { get; set; }
 
         public bool WorksWithPet { get; set; }
+
+        public string Avatar { get; set; }
     }
 }

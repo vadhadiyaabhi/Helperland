@@ -69,13 +69,13 @@
                                 <a class="nav-link" href="#">Escalation Management</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Service Requests</a>
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">Service Requests</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#">Service Providers</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">User Management</a>
+                                <a class="nav-link" asp-controller="Admin" asp-action="UserManagement">User Management</a>
                             </li>
                             <li class="side-menu-item admin-submenu" id="admin-submenu5">
                                 <a class="nav-link" href="#">Finance Module <img src="~/images/sp-right-arrow-gray.svg" alt=""></a>
@@ -149,13 +149,13 @@
                         <a href="#">
                         <li class="side-menu-item">Escalation Management</li>
                         </a>
-                        <a href="#">
+                        <a asp-controller="Admin" asp-action="Index">
                         <li class="side-menu-item">Service Requests</li>
                         </a>
                         <a href="#">
                         <li class="side-menu-item">Service Providers</li>
                         </a>
-                        <a href="#">
+                        <a asp-controller="Admin" asp-action="UserManagement">
                         <li class="side-menu-item">User Management</li>
                         </a>
                         <li class="side-menu-item admin-submenu" id="admin-submenu2">

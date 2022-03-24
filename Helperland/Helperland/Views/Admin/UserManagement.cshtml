@@ -1,97 +1,184 @@
-﻿@model User
+﻿@model IEnumerable<User>
+
+@* -----------------For dataTable plugIn--------------------------------*@
+<script src="~/lib/jquery/jquery.min.js"></script>
+<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+    //window.onload = dataTable;
+    //function dataTable() {
+    //    console.log("sorting and paging");
+    //    $("#myTable").DataTable();
+    //}
+    $(document).ready(function () {
+        $.noConflict();
+        $('#myTable').dataTable();
+    });
+</script>
+@* -----------------------------------------------------------------------*@
 
 <div class="admin-content">
     <div class="admin-header">
         <h1 class="heading">User Management</h1>
-        <a href="#" class="admin-blue-button"><img src="public/Images/plus-1.png" alt=""> Add New User</a>
+        <a href="#" class="admin-blue-button"><img src="~/images/plus-1.png" alt=""> Add New User</a>
     </div>
     <div class="admin-search">
-        <form action="" method="post">
-            <select name="" id="">
-                <option value="User name">User name</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
-            </select>
-            <select name="" id="" aria-placeholder="placehosder">
-                <option value="User role">User role</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+        <form asp-controller="Admin" asp-action="UserManagement" method="post" id="FilterForm">
+            <input type="text" list="Name" value="" name="Name" placeholder="@(ViewBag.Name != null ? ViewBag.Name : "Name")" onkeyup="FetchName(this.value)" />
+            <datalist id="Name">
+            </datalist>
+            <select name="UserRole" id="UserRole" >
+                <option value="none" selected disabled>
+                    @{
+                        if (ViewBag.UserRole == 1)
+                        {
+                            <span>Customer</span>
+                        }
+                        else if (ViewBag.UserRole == 2)
+                        {
+                            <span>Service Provider</span>
+                        }
+                        else if (ViewBag.UserRole == 3)
+                        {
+                            <span>Admin</span>
+                        }
+                        else
+                        {
+                            <span>User Role</span>
+                        }
+                    }
+                </option>
+                <option value="1">Customer</option>
+                <option value="2">Service Provider</option>
+                <option value="3">Admin</option>
             </select>
             <div class="phone">
                 <div class="input-group">
                     <span class="input-group-text" id="basic-addon1">+49</span>
-                    <input type="text" class="" placeholder="Phone number">
+                    <input type="text" name="Mobile" value="" class="" placeholder="@(ViewBag.Mobile != null ? ViewBag.Mobile : "Phone number")">
                 </div>
             </div>
-            <input type="text" name="zipcode" id="" placeholder="Zipcode">
+            <input type="text" name="ZipCode" value="" id="" placeholder="@(ViewBag.ZipCode != null ? ViewBag.ZipCode : "Zipcode")">
             <input type="submit" value="Search" class="admin-blue-button" style="color: white;">
-            <input type="reset" value="Clear" class="admin-button">
+            <input type="reset" value="Clear" onclick="ClearForm()" class="admin-button">
         </form>
     </div>
-    <table class="admin-table my-3 table-responsive" style="width: 100%;">
+    <table class="admin-table my-3 table-responsive" style="width: 100%;" id="myTable">
         <thead class="">
-        <th><a href="#">User Name <img src="public/Images/sort.png" alt=""></a></th>
-        <th>User Type </th>
-        <th>Role </th>
-        <th><a href="#">Postal Code <img src="public/Images/sort.png" alt=""></a></th>
-        <th class="">City </a></th>
-        <th class="text-center"><a href="#">Radius <img src="public/Images/sort.png" alt=""></a></th>
-        <th class="text-center"><a href="#">User Status <img src="public/Images/sort.png" alt=""></a></th>
+        <th onclick="sortingImg(this)" id="UserNameCol"><a href="#">User Name<img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th onclick="sortingImg(this)" id="RegDateCol">Date Of Registration<img src="~/images/sort.png" alt="" class="sorting-img"></th>
+        <th onclick="sortingImg(this)" id="UserTypeCol">User Type<img src="~/images/sort.png" alt="" class="sorting-img"></th>
+        <th onclick="sortingImg(this)" id="MobileCol">Mobile No.<img src="~/images/sort.png" alt="" class="sorting-img"></th>
+        <th onclick="sortingImg(this)" id="PostalCol"><a href="#">Postal Code<img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th onclick="sortingImg(this)" id="StatusCol" class="text-center"><a href="#">Status<img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
         <th class="text-center">Actions </a></th>
         </thead>
         <tbody>
-            <tr>
-                <td>John Smith</td>
-                <td>Call Center</td>
-                <td>Inquiry Manager</td>
-                <td>123456</td>
-                <td>Berlin</td>
-                <td class="text-center">10 km</td>
-                <td class="service-status text-center">
-                    <span class="completed">Active</span>
-                    <!-- <span class="cancelled">Inactive</span> -->
-                </td>
-                <td class="text-center">
-                    <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
-                       aria-expanded="false">
-                        <img src="public/Images/group-38.png" alt="">
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </td>
-            </tr>
+            @foreach (User user in Model)
+            {
+                <tr>
+                    <td class="py-4">@user.FirstName @user.LastName</td>
+                    <td><span class="d-none">@user.CreatedDate.ToString("yyyy-MM-dd HH:mm")</span>
+                        <img src="~/images/calendar2.png" class="me-1" alt="">@user.CreatedDate.ToString("dd-MM-yyyy").Replace('-', '/')
+                    </td>
+                    <td>
+                        @if (user.UserTypeId == 1)
+                        {
+                            <span>Customer</span>
+                        }
+                        else if (user.UserTypeId == 2)
+                        {
+                            <span>Service Provider</span>
+                        }
+                        else if (user.UserTypeId == 3)
+                        {
+                            <span>Admin</span>
+                        }
+                    </td>
+                    <td>+91 @user.Mobile</td>
+                    <td>@user.ZipCode</td>
+                    <td class="service-status text-center" id="@("status" + user.UserId)">
+                        <span class="d-none sorting-status">@(user.IsApproved ? 1 : 0)</span>
+                        <span class="completed @(user.IsApproved ? "" : "d-none")">Active</span>
+                        <span class="cancelled @(user.IsApproved ? "d-none" : "")">Inactive</span>
+                    </td>
+                    <td class="text-center">
+                        <a class="admin-td-dropdown" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                           aria-expanded="false">
+                            <img src="~/images/group-38.png" alt="">
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#" onclick="ApproveUser(this, '@("status" + user.UserId)', @user.UserId)">@(user.IsApproved ? "InActive" : "Active")</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </td>
+                </tr>
+            }
 
         </tbody>
     </table>
 
-    <!-- pegination section -->
-    <div class="pegination">
-        <div class="pegination-rows">
-            Show <select id="pegination-select" onchange="rowCount();">
-                <option value="4">4</option>
-                <option value="2">2</option>
-                <option value="6">6</option>
-                <option value="8">8</option>
-                <option value="12">12</option>
-                <option value="15">30</option>
-            </select> Entries, Showing Entries from <span id="from-entry"></span> to <span id="to-entry"></span>
-        </div>
-        <ul class="pegination-pages">
-            <li class="prev" id="prev"><a href="#">&#139;</a></li>
-            <li class="next" id="next"><a href="#">&#155;</a></li>
-        </ul>
-    </div>
 
     <!-- copy-rights section -->
     <footer class="admin-copyRights py-3">
         © 2018 Helperland. All rights reserved.
     </footer>
 </div>
+
+
+@section Scripts
+{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            console.log("on load do things");
+            //$("#UserRole [value=@ViewBag.UserRole]").attr("selected", true);
+            $("#Name").html("");
+        })
+
+        function sortingImg(ele) {
+            console.log("sorting img display");
+            $(".sorting-img").css("display", "none");
+            $("#" + ele.id + " .sorting-img").css("display", "inline-block");
+        }
+
+        function ApproveUser(ele, id, userId) {
+            var value;
+            console.log($(ele).html());
+            if ($(ele).html() == "Active") {
+                value = 'False';
+                $("#" + id + " .sorting-status").html("1");
+            }
+            else {
+                value = 'True';
+                $("#" + id + " .sorting-status").html("0");
+            }
+            $(ele).load(`/Admin/ApproveUser/${userId}/${value}`);
+            $("#" + id + " .completed").toggleClass("d-none");
+            $("#" + id + " .cancelled").toggleClass("d-none");
+        }
+
+        function FetchName(name) {
+            $("#Name").html("");
+            console.log(name);
+            $.ajax({
+                url: `/Admin/FetchUserNames/${name}`,
+                success: function (res) {
+                    res.forEach(AddUserNames);
+                }
+            });
+        }
+
+        function AddUserNames(item) {
+            $("#Name").append(`<option>${item}</option>`);
+        }
+
+
+        function ClearForm() {
+            $("#FilterForm").submit();
+        }
+    </script>
+}
