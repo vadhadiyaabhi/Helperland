@@ -199,8 +199,9 @@ namespace Helperland.Controllers
 
         }
 
+        [Route("SP/NewServiceRequests/{IncludePet?}")]
         [HttpGet]
-        public IActionResult NewServiceRequests(bool IncludePet)
+        public IActionResult NewServiceRequests(bool IncludePet=false)
         {
             Console.WriteLine(IncludePet);
             int spId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);

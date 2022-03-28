@@ -51,6 +51,8 @@ namespace Helperland.ViewModel
 
         public int FavouriteProsId { get; set; }
 
+        public decimal SubTotal { get; set; }
+
 
     }
 }

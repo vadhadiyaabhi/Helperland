@@ -8,9 +8,11 @@ namespace Helperland.IRepositories
 {
     public interface IServiceRequestRepository
     {
-        public string GetCityName(string PostalCode);
+        public City GetCityName(string PostalCode);
 
         public bool IsPostalCodeAvailable(string postalCode);
+
+        public IEnumerable<UserAddress> GetUserAddresses(int id, string zipCode);
 
         public IEnumerable<UserAddress> GetUserAddresses(int id);
 

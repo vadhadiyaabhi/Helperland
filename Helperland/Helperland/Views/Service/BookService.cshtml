@@ -216,7 +216,7 @@
                         <div id="es4" style="display:none;" class=""><span>Interio window</span><span style="float:right;">30 Mins</span></div>
                     </div>
                     <hr class="my-2" />
-                    <div class="small-title fs-6 d-flex justify-content-between"><span>Total Service Time</span><span id="total-time">3 Hrs</span></div>
+                    <div class="small-title fs-6 d-flex justify-content-between"><span>Total Service Time</span><div><span id="total-time">3</span> Hrs</div></div>
                 </div>
                 <hr />
                 <div class="d-flex justify-content-between px-4">
@@ -250,26 +250,78 @@
 
             document.getElementById("Date").valueAsDate = new Date();
             function GetAddress() {
+                $("#SP-Schedule-conflict").html("");
                 var GivenDate = new Date($("#Date").val());
                 //if (GivenDate <= new Date()) {
-                if (GivenDate < new Date()) {
+                //if (GivenDate < new Date()) {
+                if (0) {
                     console.log("Select date first");
                     $("#date-error").html("Service Date must be later than today");
                 }
                 else {
-                    $("#tab3").addClass("color");
-                    $("#tab3").siblings().removeClass("active");
-                    $(".schedule-plan").css("display", "none");
-                    $(".your-details").css("display", "block");
-                    $("#tab3").addClass("active");
-                    $(".new-address-button").css("display", "inline-block");
-                    $("#new-address").css("display", "block");
-                    $("#new-address").html("");
-                    $("#addresses").html("Loading addresses...").load('@Url.Action("GetUserAddress", "Service")');
-                    $("#favourite-pros").html("Loading Favourite Pros...").load('@Url.Action("GetFavouritePros", "Service")');
-                    $("#date-error").html("");
+                    $("#SP-Schedule-conflict").html("");
+                        $("#tab3").addClass("color");
+                        $("#tab3").siblings().removeClass("active");
+                        $(".schedule-plan").css("display", "none");
+                        $(".your-details").css("display", "block");
+                        $("#tab3").addClass("active");
+                        $(".new-address-button").css("display", "inline-block");
+                        $("#new-address").css("display", "block");
+                        $("#new-address").html("");
+                    var ZipCode = $("#zip").val();
+                        $("#addresses").html("Loading addresses...").load(`/Service/GetUserAddress/${ZipCode}`);
+                        $("#favourite-pros").html("Loading Favourite Pros...").load('@Url.Action("GetFavouritePros", "Service")');
+                        $("#date-error").html("");
+
                 }
 
+            }
+
+            $(".your-details .continue").click(function () {
+                addId = $("input[name=AddressId]:checked", "#addresses").val();
+                console.log(addId);
+                if (!addId) {
+                    console.log("select address");
+                    $("#add-id-error").html("Please select address first");
+                }
+                else {
+                    if ($("#FavouriteProsId").val() != 0) {
+                        var favSPConflict = {};
+                        favSPConflict.FavouriteProsId = $("#FavouriteProsId").val();
+                        favSPConflict.Date = $("#Date").val();
+                        favSPConflict.Time = $("#Time").val();
+                        favSPConflict.SubTotal = $("#total-time").html();
+                        console.log(favSPConflict.Date);
+                        $.ajax({
+                            type: 'POST',
+                            url: `/Service/CheckFavSPAvailability`,
+                            //dataType: 'json',
+                            //contentType: 'application/json',
+                            data: favSPConflict,
+                            success: function (res) {
+                                if (res.favSPSuccess) {
+                                    FavSPAvailable();
+                                }
+                                else if (res.favSPFail) {
+                                    $("#SP-Schedule-conflict").html(`Oop!! Your favourite SP has another Service Request on Date ${res.conflictDate} From ${res.conflictStart} To ${res.conflictEnd}, Choose another date or pick-up a diff Time Slot`)
+                                }
+                            }
+                        })
+                    }
+                    else {
+                        FavSPAvailable();
+                    }
+                }
+
+            });
+
+            function FavSPAvailable() {
+                $("#AddressId").val(addId);
+                $("#tab4").siblings().removeClass("active");
+                $(".your-details").css("display", "none");
+                $(".make-payment").css("display", "block");
+                $("#tab4").addClass("color");
+                $("#tab4").addClass("active");
             }
 
             function newAddress() {
@@ -312,7 +364,8 @@
                 //basicCost = Math.abs($("#ServiceHours").val()) * 18.00;
                 basicCost = $("#ServiceHours").val() * 18.00;
                 $(".total-amount").html(basicCost + extraCharge + " €");
-                $("#total-time").html(basicHours + extraTime + " Hrs");
+                $("#total-time").html(basicHours + extraTime);
+                //$("#total-time").html(basicHours + extraTime + " Hrs");
             }
 
             function AddExtraService(obj) {
@@ -342,6 +395,7 @@
             }
 
             function selectFav(ele, FavId) {
+                $("#SP-Schedule-conflict").html("");
                 console.log(ele);
                 if ($(ele).html() != "Select") {
                     $("input[name=FavouriteProsId]").val(0);
@@ -354,7 +408,7 @@
                     $(ele).addClass("active");
                     $(ele).html("Remove")
                 }
-                
+
             }
 
 

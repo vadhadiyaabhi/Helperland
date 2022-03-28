@@ -30,6 +30,10 @@ namespace Helperland.Controllers
         }
         public async Task<IActionResult> Index(int serviceId=0, string Customer=null, string SP=null, int Status = 0, string from_date = null, string to_date =null)
         {
+            Console.WriteLine(serviceId);
+            Console.WriteLine(Customer);
+            Console.WriteLine(SP);
+            Console.WriteLine(Status);
             var services = await adminRepository.GetAllServiceRequests();
             if(serviceId != 0)
             {
@@ -41,7 +45,7 @@ namespace Helperland.Controllers
             }
             if (!string.IsNullOrEmpty(SP))
             {
-                services = services.Where(x => (x.ServiceProvider.FirstName + " " + x.ServiceProvider.LastName).Contains(Customer)).ToList();
+                services = services.Where(x => x.ServiceProvider != null && (x.ServiceProvider.FirstName + " " + x.ServiceProvider.LastName).Contains(SP)).ToList();
             }
             if (Status != 0)
             {
@@ -52,12 +56,13 @@ namespace Helperland.Controllers
             if (!string.IsNullOrEmpty(from_date))
             {
                 From_Date = Convert.ToDateTime(from_date);
-                services = services.Where(x => x.ServiceStartDate <= From_Date).ToList();
+                Console.WriteLine(From_Date);
+                services = services.Where(x => x.ServiceStartDate >= From_Date).ToList();
             }
             if (!string.IsNullOrEmpty(to_date))
             {
                 To_Date = Convert.ToDateTime(to_date);
-                services = services.Where(x => x.ServiceStartDate >= To_Date).ToList();
+                services = services.Where(x => x.ServiceStartDate <= To_Date).ToList();
             }
             ViewBag.Customer = Customer;
             ViewBag.SP = SP;

@@ -22,5 +22,7 @@ namespace Helperland.ViewModel
         public decimal Ratings { get; set; }
 
         public int Cleanings { get; set; }
+
+        public string AvatarImg { get; set; }
     }
 }

@@ -9,10 +9,12 @@
         @foreach(FavoriteAndBlocked favorite in Model) 
         {
             <div class="m-3 text-center">
-                <div class="my-2"><img src="~/images/avatar-male.png" class="avatar-img" /></div>
+                <div class="my-2"><img src="@(favorite.TargetUser.UserProfilePicture != null ? "/images/" + favorite.TargetUser.UserProfilePicture : "/images/avatar-hat.png")" class="avatar-img" /></div>
                 <div class="fw-bold">@(favorite.TargetUser.FirstName + " " + favorite.TargetUser.LastName)</div>
                 <div><button class="view-all my-2 select-fav" onclick="selectFav(this, @favorite.TargetUserId)">Select</button></div>
             </div>
         }
     </div>
 }
+
+<div class="text-danger text-center mx-auto" id="SP-Schedule-conflict" style="max-width: 600px" ></div>

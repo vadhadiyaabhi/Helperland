@@ -17,12 +17,19 @@ namespace Helperland.Implementations
             this.dbContext = dbContext;
         }
 
-        public string GetCityName(string postalCode)
+        public City GetCityName(string postalCode)
         {
-            return (from zipCode in dbContext.Zipcodes
-                    where zipCode.ZipcodeValue == postalCode
-                    join city in dbContext.Cities on zipCode.CityId equals city.Id
-                    select city.CityName).FirstOrDefault().ToString();
+            int id = dbContext.Zipcodes.Where(x => x.ZipcodeValue == postalCode).Select(x => x.CityId).FirstOrDefault();
+            if(id > 0)
+            {
+                return dbContext.Cities.Find(id);
+            }
+            return null;
+            //return (from zipCode in dbContext.Zipcodes
+            //        where zipCode.ZipcodeValue == postalCode
+            //        join city in dbContext.Cities on zipCode.CityId equals city.Id
+            //        select city.CityName).FirstOrDefault().ToString();
+
         }
 
         public bool IsPostalCodeAvailable(string postalCode)
@@ -36,6 +43,11 @@ namespace Helperland.Implementations
                 return true;
             else 
                 return false;
+        }
+
+        public IEnumerable<UserAddress> GetUserAddresses(int id, string zipCode)
+        {
+            return dbContext.UserAddresses.Where(add => add.UserId == id && add.PostalCode == zipCode).ToList();
         }
 
         public IEnumerable<UserAddress> GetUserAddresses(int id)

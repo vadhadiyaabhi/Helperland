@@ -441,8 +441,10 @@ namespace Helperland.Implementations
                     {
                         Conflict = true,
                         ConflictDate = service.ServiceStartDate.ToString("dd-MM-yyyy"),
-                        ConflictStartTime = service.ServiceStartDate.ToString("HH:mm"),
-                        ConflictEndTime = service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm"),
+                        //ConflictStartTime = service.ServiceStartDate.ToString("HH:mm"),
+                        //ConflictEndTime = service.ServiceStartDate.AddHours(Convert.ToDouble(service.SubTotal)).ToString("HH:mm"),
+                        ConflictStartTime = startTime.ToString("HH:mm"),
+                        ConflictEndTime = endTime.ToString("HH:mm"),
                         ServiceId = service.ServiceRequestId
                     };
                     return conflict;
@@ -632,12 +634,21 @@ namespace Helperland.Implementations
 
         public IEnumerable<int> GetBlocked(int Id)
         {
-            return DbContext.FavoriteAndBlockeds.Where(x => x.TargetUserId == Id && x.IsBlocked == true).Select(x => x.UserId).ToArray();
+            return DbContext.FavoriteAndBlockeds.Where(x => (x.TargetUserId == Id && x.IsBlocked == true)).Select(x => x.UserId).ToArray();
+        }
+
+        public IEnumerable<int> GetSPBlockedByUser(int userId)
+        {
+            return DbContext.FavoriteAndBlockeds.Where(x => x.UserId == userId && x.IsBlocked == true).Select(x => x.TargetUserId).ToArray();
         }
 
         public IEnumerable<FavoriteAndBlocked> GetFavorites(int userId)
         {
-            return DbContext.FavoriteAndBlockeds.Include(x => x.TargetUser).Where(x => x.UserId == userId && x.IsFavorite == true).ToList();
+            //return DbContext.FavoriteAndBlockeds.Include(x => x.TargetUser).Where(x => x.UserId == userId && x.IsFavorite == true).ToList();
+            return DbContext.FavoriteAndBlockeds.Include(x => x.TargetUser)
+                                                .ThenInclude(sp => sp.FavoriteAndBlockedUsers)
+                                                .Where(x => x.UserId == userId && x.IsFavorite == true 
+                                                && !x.TargetUser.FavoriteAndBlockedUsers.Any(y => y.TargetUserId == userId && y.IsBlocked == true)).ToList();
         }
 
         public async Task<bool> HasIssue(int serviceId)

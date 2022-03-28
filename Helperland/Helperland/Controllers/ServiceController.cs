@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Helperland.Helper;
 
 //Service Status
 //    new - 1
@@ -137,7 +138,8 @@ namespace Helperland.Controllers
                 else
                 {
                     IEnumerable<User> usersWithSameZipCode = serviceRequest.GetUserWithZipCode(service.ZipCode, service.HasPets);
-                    var blockedSP = userRepository.GetBlocked(userId);
+                    var blockedBySP = userRepository.GetBlocked(userId);
+                    var blockedSP = userRepository.GetSPBlockedByUser(userId);
                     //foreach (User SP in usersWithSameZipCode)
                     //{
                     //    Console.WriteLine(SP.Email);
@@ -170,8 +172,11 @@ namespace Helperland.Controllers
                     };
                     foreach (User SP in usersWithSameZipCode)
                     {
-                        Console.WriteLine(SP.Email);
-                        newReqEmail.Emails.Add(SP.Email);
+                        if (!blockedBySP.Contains(SP.UserId) && !blockedSP.Contains(SP.UserId))
+                        {
+                            Console.WriteLine(SP.Email);
+                            newReqEmail.Emails.Add(SP.Email);
+                        }
                     }
                     await userRepository.SendNewReqEmail(newReqEmail);
                 }
@@ -231,12 +236,12 @@ namespace Helperland.Controllers
                 
         }
 
-        public IActionResult GetUserAddress()
+        [Route("Service/GetUserAddress/{zipCode}")]
+        public IActionResult GetUserAddress(string ZipCode)
         {
             Console.WriteLine("Getting address");
             //var address = serviceRequest.GetUserAddresses(3021);
-            var address = serviceRequest.GetUserAddresses(Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value));
-            Console.WriteLine(address);
+            var address = serviceRequest.GetUserAddresses(Convert.ToInt32(HttpContext.User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier).Value), ZipCode);
             return View(address);
             
         }
@@ -253,10 +258,10 @@ namespace Helperland.Controllers
         public IActionResult AddNewAddress(string zipCode)
         {
             Console.WriteLine("getting city name and New Address View");
-            string city = serviceRequest.GetCityName(zipCode);
+            City city = serviceRequest.GetCityName(zipCode);
             UserAddressViewModel userAddress = new UserAddressViewModel
             {
-                City = city,
+                City = city.CityName,
                 ZipCode = zipCode
             };
             Console.WriteLine(userAddress);
@@ -290,6 +295,23 @@ namespace Helperland.Controllers
             }
             return Json(new { newAddressError = true, view = Helper.RenderRazorViewToString(this, "AddNewAddress", newAdd) }) ;
             
+        }
+
+        [NoDirectAccess]
+        [HttpPost]
+        public IActionResult CheckFavSPAvailability(ServiceRequestViewModel favSPConflict)
+        {
+            Console.WriteLine(favSPConflict);
+            DateTime dateTime = Convert.ToDateTime(favSPConflict.Date + " " + favSPConflict.Time);
+            ServiceTimeConflict conflict = userRepository.ChechScheduleConflict(dateTime, favSPConflict.SubTotal, favSPConflict.FavouriteProsId);
+            if (conflict.Conflict)
+            {
+                return Json(new { favSPFail = true, conflictStart = conflict.ConflictStartTime, conflictEnd = conflict.ConflictEndTime, conflictDate = conflict.ConflictDate });
+            }
+            else
+            {
+                return Json(new { favSPSuccess = true });
+            }
         }
     }
 }

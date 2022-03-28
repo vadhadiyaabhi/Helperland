@@ -4,27 +4,29 @@
     ViewBag.Header = "";
 }
 
-@* -----------------For dataTable plugIn--------------------------------*@
-<script src="~/lib/jquery/jquery.min.js"></script>
-<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
-    //window.onload = dataTable;
-    //function dataTable() {
-    //    console.log("sorting and paging");
-    //    $("#myTable").DataTable();
-    //}
-    $(document).ready(function () {
-        $.noConflict();
-        $('#myTable').dataTable();
-    });
-</script>
-@* -----------------------------------------------------------------------*@
 
 
 <div class="service-history-table dashboard-table service-history">
-    <div class="d-flex justify-content-between align-item-center py-2">
+    <div class="d-flex justify-content-between align-item-center py-2 flex-wrap">
         <span class="table-heading">Upcoming Services</span>
-        <a href="" class="export-button">Export</a>
+        <div class="mobile-sort">
+            <span class="" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                <img src="~/images/sorting.png" class="ms-2" />
+            </span>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><div class="dropdown-item" onclick="sortByDropdown(0, 'asc')"><input type="radio" name="sort" id="sort1" /><label for="sort1">Service Id : Asceding</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(0, 'desc')"><input type="radio" name="sort" id="sort2" /><label for="sort2">Service Id : Desceding</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(1, 'asc')"><input type="radio" name="sort" id="sort3" /><label for="sort3">Service Date : Latest</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(1, 'desc')"><input type="radio" name="sort" id="sort4" /><label for="sort4">Service Date : Oldest</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(3, 'asc')"><input type="radio" name="sort" id="sort5" /><label for="sort5">Payment: Low to High</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(3, 'desc')"><input type="radio" name="sort" id="sort6" /><label for="sort6">Payment: Hight to Low</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(2, 'asc')"><input type="radio" name="sort" id="sort7" /><label for="sort7">Customer Details: A to Z</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(2, 'desc')"><input type="radio" name="sort" id="sort8" /><label for="sort8">Customer Details: Z to A</label> </div></li>
+
+            </ul>
+        </div>
+        <div class="export-button-div"><a href="" class="export-button">Export</a></div>
     </div>
     <table class="responsive-row" style="width: 100%;" id="myTable">
         <thead class="">
@@ -100,7 +102,10 @@
             $(".sorting-img").css("display", "none");
             $("#" + ele.id + " .sorting-img").css("display", "inline-block");
         }
-
+        var table = $('#myTable').DataTable();
+        function sortByDropdown(column, orderBy) {
+            table.order([[column, orderBy]]).draw();
+        }
 
     </script>
 }

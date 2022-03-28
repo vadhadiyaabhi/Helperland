@@ -5,27 +5,37 @@
 }
 
 @* -----------------For dataTable plugIn--------------------------------*@
-<script src="~/lib/jquery/jquery.min.js"></script>
+@*<script src="~/lib/jquery/jquery.min.js"></script>
 <script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
-    //window.onload = dataTable;
-    //function dataTable() {
-    //    console.log("sorting and paging");
-    //    $("#myTable").DataTable();
-    //}
     $(document).ready(function () {
         $.noConflict();
         $('#myTable').dataTable();
     });
-</script>
+</script>*@
 @* -----------------------------------------------------------------------*@
 
 
 
 <div class="service-history-table dashboard-table service-history">
-    <div class="d-flex justify-content-between align-item-center py-2">
+    <div class="d-flex justify-content-between align-item-center py-2 flex-wrap">
         <span class="table-heading">Current Service Requests</span>
-        <a asp-controller="Service" asp-action="BookService" class="export-button fs-7">+ Add New Service Request</a>
+        <div class="mobile-sort">
+            <span class="" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+                  aria-expanded="false">
+                <img src="~/images/sorting.png" class="ms-2" />
+            </span>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><div class="dropdown-item" onclick="sortByDropdown(1, 'asc')"><input type="radio" name="sort" id="sort3" /><label for="sort3">Service Date : Latest</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(1, 'desc')"><input type="radio" name="sort" id="sort4" /><label for="sort4">Service Date : Oldest</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(2, 'asc')"><input type="radio" name="sort" id="sort5" /><label for="sort5">Service Provider: A to Z</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(2, 'desc')"><input type="radio" name="sort" id="sort6" /><label for="sort6">Service Provider: Z to A</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(3, 'asc')"><input type="radio" name="sort" id="sort6" /><label for="sort6">Payment: Low to High</label> </div></li>
+                <li><div class="dropdown-item" onclick="sortByDropdown(3, 'desc')"><input type="radio" name="sort" id="sort6" /><label for="sort6">Payment: Hight to Low</label> </div></li>
+
+            </ul>
+        </div>
+        <div class="export-button-div"><a asp-controller="Service" asp-action="BookService" class="export-button text-center fs-7">+ Add New Service Request</a></div>
     </div>
     <table class="responsive-row" style="width: 100%;" id="myTable">
         <thead class="">
@@ -238,6 +248,11 @@
             console.log("sorting img display");
             $(".sorting-img").css("display", "none");
             $("#" + ele.id + " .sorting-img").css("display", "inline-block");
+        }
+
+        var table = $('#myTable').DataTable();
+        function sortByDropdown(column, orderBy) {
+            table.order([[column, orderBy]]).draw();
         }
 
     </script>

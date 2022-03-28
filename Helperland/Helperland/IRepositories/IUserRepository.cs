@@ -86,6 +86,8 @@ namespace Helperland.IRepositories
 
         public IEnumerable<int> GetBlocked(int Id);
 
+        public IEnumerable<int> GetSPBlockedByUser(int userId);
+
         public Task SendNewReqEmail(NewReqEmailModel newServiceEmail);
 
         public Task<bool> HasIssue(int serviceId);

@@ -5,90 +5,115 @@
 }
 
 @* -----------------For dataTable plugIn--------------------------------*@
-<script src="~/lib/jquery/jquery.min.js"></script>
-<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
-    //window.onload = dataTable;
-    //function dataTable() {
-    //    console.log("sorting and paging");
-    //    $("#myTable").DataTable();
-    //}
-    $(document).ready(function () {
-        $.noConflict();
-        $('#myTable').dataTable();
-    });
-</script>
+
 @* -----------------------------------------------------------------------*@
 
 
 <div class="service-history-table dashboard-table service-history">
-    @foreach (Rating rating in Model)
-    {
-        <div class="p-2 m-3 rating-div">
-            <div class="d-flex justify-content-between" >
-                <div class="d-flex">
-                    <div class="me-3" style="width: 200px;">
-                        <div>@rating.ServiceRequestId</div>
-                        <div>@(rating.RatingFromNavigation.FirstName + " " + rating.RatingFromNavigation.LastName)</div>
-                    </div>
-                    <div class="">
-                        <div class="line-break">
-                            <span class="fw-bold"><img src="~/images/calendar2.png" class="me-2" alt="">@rating.ServiceRequest.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')</span>
-                            <span><img src="~/images/layer-712.png" class="me-2" alt="">@rating.ServiceRequest.ServiceStartDate.ToString("HH:mm") - @rating.ServiceRequest.ServiceStartDate.AddHours(Convert.ToDouble(rating.ServiceRequest.SubTotal)).ToString("HH:mm")</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="me-3">
-                    <div class="fw-bold">Ratings</div>
-                    <div>
-                        @{ 
-                            decimal spRate = rating.Ratings;
-                            int i = 0;
-                        }
-                        <div class="sp-detail">
-                            <span class="rating-star">
-                                @for (i = 0; i < @Math.Round(spRate); i++)
-                                {
-                                    <img src="~/images/star-ratting-filled.svg" alt="">
-                                }
-                                @{ var rate = i; }
-                                @while (i != 5)
-                                {
-                                    <img src="~/images/star-ratting-empty.svg" alt="">
-                                    i++;
-                                }
-                                @if (rate == 5)
-                                {
-                                    <span class="ratting-number fw-bold">Excellent</span>
-                                }
-                                else if (rate == 4)
-                                {
-                                    <span class="ratting-number fw-bold">Very Good</span>
-                                }
-                                else if (rate == 3)
-                                {
-                                    <span class="ratting-number fw-bold">Good</span>
-                                }
-                                else if (rate == 2)
-                                {
-                                    <span class="ratting-number fw-bold">Poor</span>
-                                }
-                                else if (rate == 1)
-                                {
-                                    <span class="ratting-number fw-bold">Very Poor</span>
-                                }
-                                @*<span class="ratting-number fw-bold">@spRate.ToString("F")</span>*@
-                            </span>
+    <div class="float-end mobile-sort d-inline-block">
+        <span class="" href="#" id="navbarDropdown" data-bs-toggle="dropdown"
+              aria-expanded="false">
+            sorting<img src="~/images/sorting.png" class="ms-2" />
+        </span>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><div class="dropdown-item" onclick="sortByDropdown(0, 'asc')"><input type="radio" name="sort" id="sort1" /><label for="sort1">Customer Name : Asceding</label> </div></li>
+            <li><div class="dropdown-item" onclick="sortByDropdown(0, 'desc')"><input type="radio" name="sort" id="sort2" /><label for="sort2">Customer Name : Descading</label> </div></li>
+            <li><div class="dropdown-item" onclick="sortByDropdown(1, 'asc')"><input type="radio" name="sort" id="sort3" /><label for="sort3">Service Date : Latest</label> </div></li>
+            <li><div class="dropdown-item" onclick="sortByDropdown(1, 'desc')"><input type="radio" name="sort" id="sort4" /><label for="sort4">Service Date : Oldest</label> </div></li>
+            <li><div class="dropdown-item" onclick="sortByDropdown(2, 'asc')"><input type="radio" name="sort" id="sort5" /><label for="sort5">Ratings: Low to High</label> </div></li>
+            <li><div class="dropdown-item" onclick="sortByDropdown(2, 'desc')"><input type="radio" name="sort" id="sort6" /><label for="sort6">Ratings: High to Low</label> </div></li>
 
+        </ul>
+    </div>
+    <table class="responsive-row ratting-table" style="width: 100%;" id="myTable">
+        <thead class="d-none">
+        <th>Name</th>
+        <th>Date</th>
+        <th>Ratting</th>
+        <th>Comment</th>
+        </thead>
+        <tbody>
+            @foreach (Rating rating in Model)
+            {
+
+                <tr class="my-3 d-flex flex-column" style="width: 100%; border-radius: 4px">
+                    <td class="d-none" onclick="">@rating.RatingFromNavigation.FirstName @rating.RatingFromNavigation.LastName</td>
+                    <td class="d-none" onclick="">@rating.ServiceRequest.ServiceStartDate.ToString("yyyy-MM-dd")</td>
+                    <td class="d-flex p-3 flex-wrap justify-content-between" style="border-bottom: 1px solid #dfdede;">
+                        <div class="d-none">@rating.Ratings;</div>
+                        <div class="d-flex flex-wrap">
+                            <div style="width:200px;" class="me-2">
+                                <div>@rating.ServiceRequestId</div>
+                                <div>@(rating.RatingFromNavigation.FirstName + " " + rating.RatingFromNavigation.LastName)</div>
+                            </div>
+                            <div class="line-break">
+                                <span class="fw-bold"><img src="~/images/calendar2.png" class="me-2" alt="">@rating.ServiceRequest.ServiceStartDate.ToString("dd-MM-yyyy").Replace('-', '/')</span>
+                                <span><img src="~/images/layer-712.png" class="me-2" alt="">@rating.ServiceRequest.ServiceStartDate.ToString("HH:mm") - @rating.ServiceRequest.ServiceStartDate.AddHours(Convert.ToDouble(rating.ServiceRequest.SubTotal)).ToString("HH:mm")</span>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <hr class="my-1" />
-            <div>
-                <div class="fw-bold">Customer Comment</div>
-                <span>@rating.Comments</span>
-            </div>
-        </div>
-    }
+                        <div class="me-2" style="float:right;">
+                            <div class="fw-bold">Ratings</div>
+                            <div>
+                                @{
+                                    decimal spRate = rating.Ratings;
+                                    int i = 0;
+                                }
+                                <div class="sp-detail">
+                                    <span class="rating-star">
+                                        @for (i = 0; i < @Math.Round(spRate); i++)
+                                        {
+                                            <img src="~/images/star-ratting-filled.svg" alt="">
+                                        }
+                                        @{ var rate = i; }
+                                        @while (i != 5)
+                                        {
+                                            <img src="~/images/star-ratting-empty.svg" alt="">
+                                            i++;
+                                        }
+                                        @if (rate == 5)
+                                        {
+                                            <span class="ratting-number fw-bold">Excellent</span>
+                                        }
+                                        else if (rate == 4)
+                                        {
+                                            <span class="ratting-number fw-bold">Very Good</span>
+                                        }
+                                        else if (rate == 3)
+                                        {
+                                            <span class="ratting-number fw-bold">Good</span>
+                                        }
+                                        else if (rate == 2)
+                                        {
+                                            <span class="ratting-number fw-bold">Poor</span>
+                                        }
+                                        else if (rate == 1)
+                                        {
+                                            <span class="ratting-number fw-bold">Very Poor</span>
+                                        }
+                                    </span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td style="display:block; width: 100%">
+                        <div class="fw-bold">Customer Comment</div>
+                        <span>@rating.Comments</span>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
 </div>
+
+@section Scripts{
+    <script type="text/javascript">
+         
+        var table = $('#myTable').DataTable();
+        function sortByDropdown(column, orderBy) {
+            table.order([[column, orderBy]]).draw();
+        }
+
+    </script>
+}

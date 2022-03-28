@@ -1,20 +1,5 @@
 ﻿@model IEnumerable<User>
 
-@* -----------------For dataTable plugIn--------------------------------*@
-<script src="~/lib/jquery/jquery.min.js"></script>
-<script src="//cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
-    //window.onload = dataTable;
-    //function dataTable() {
-    //    console.log("sorting and paging");
-    //    $("#myTable").DataTable();
-    //}
-    $(document).ready(function () {
-        $.noConflict();
-        $('#myTable').dataTable();
-    });
-</script>
-@* -----------------------------------------------------------------------*@
 
 <div class="admin-content">
     <div class="admin-header">
@@ -65,9 +50,9 @@
     <table class="admin-table my-3 table-responsive" style="width: 100%;" id="myTable">
         <thead class="">
         <th onclick="sortingImg(this)" id="UserNameCol"><a href="#">User Name<img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
-        <th onclick="sortingImg(this)" id="RegDateCol">Date Of Registration<img src="~/images/sort.png" alt="" class="sorting-img"></th>
-        <th onclick="sortingImg(this)" id="UserTypeCol">User Type<img src="~/images/sort.png" alt="" class="sorting-img"></th>
-        <th onclick="sortingImg(this)" id="MobileCol">Mobile No.<img src="~/images/sort.png" alt="" class="sorting-img"></th>
+        <th onclick="sortingImg(this)" id="RegDateCol"><a href="#">Date Of Registration<img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th onclick="sortingImg(this)" id="UserTypeCol"><a href="#">User Type<img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
+        <th onclick="sortingImg(this)" id="MobileCol" class="pe-none">Mobile No.<img src="~/images/sort.png" alt="" class="sorting-img"></th>
         <th onclick="sortingImg(this)" id="PostalCol"><a href="#">Postal Code<img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
         <th onclick="sortingImg(this)" id="StatusCol" class="text-center"><a href="#">Status<img src="~/images/sort.png" alt="" class="sorting-img"></a></th>
         <th class="text-center">Actions </a></th>
@@ -179,6 +164,11 @@
 
         function ClearForm() {
             $("#FilterForm").submit();
+        }
+
+        var table = $('#myTable').DataTable();
+        function sortByDropdown(column, orderBy) {
+            table.order([[column, orderBy]]).draw();
         }
     </script>
 }

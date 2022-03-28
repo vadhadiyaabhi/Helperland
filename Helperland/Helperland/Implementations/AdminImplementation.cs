@@ -46,7 +46,8 @@ namespace Helperland.Implementations
 
         public IEnumerable<User> GetAllUsers()
         {
-            return dbContext.Users.Where(u => u.UserTypeId != 3).ToList();
+            //return dbContext.Users.Where(u => u.UserTypeId != 3).ToList();
+            return dbContext.Users.ToList();
         }
 
         public async Task<bool> ApproveUnapproveUser(int userId, bool value, int adminId)

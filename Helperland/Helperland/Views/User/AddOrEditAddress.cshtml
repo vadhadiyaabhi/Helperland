@@ -18,13 +18,22 @@
         </div>
         <div class="col-12 col-sm-6">
             <label class="fw-bold" asp-for="ZipCode"></label>
-            <input asp-for="ZipCode" value="@Model.ZipCode">
-            <span class="text-danger" asp-validation-for="ZipCode"></span>
+            <input asp-for="ZipCode" value="@Model.ZipCode" on>
+            <span class="text-danger" asp-validation-for="ZipCode" id="zip-error"></span>
         </div>
         <div class="col-12 col-sm-6">
             <label class="fw-bold" asp-for="City"></label>
-            <input asp-for="City" value="@Model.City">
+            <select asp-for="City" style="width:100%">
+                @*<option value="none" disabled selected hidden>City
+                </option>*@
+                @if (Model != null) 
+                { 
+                    <option value="@Model.City">@Model.City</option>
+                }
+            </select>
             <span class="text-danger" asp-validation-for="City"></span>
+            @*<input asp-for="City" value="@Model.City">
+            <span class="text-danger" asp-validation-for="City"></span>*@
         </div>
         <div class="col-12 col-sm-6">
             <label class="fw-bold" asp-for="Mobile"></label>
@@ -48,3 +57,25 @@
 <!-- jQuery Validation library-->
 <script src="~/lib/jquery-validate/jquery.validate.min.js"></script>
 <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
+<script type="text/javascript">
+    $("#ZipCode").focusout(function () {
+        var ZipCode = $("#ZipCode").val();
+        $.ajax({
+            url: `/User/GetCityName/${ZipCode}`,
+            success: function (res) {
+                if (res.pinAvailable) {
+                    $("#City").html("");
+                    $("#City").append(`<option value="${res.city}">${res.city}</option>`);
+                }
+                else if (res.pinNotAvailable) {
+                    if ($("#zip-error").html() == "")
+                        $("#zip-error").html("Services are not available in this area, Enter another ZipCode");
+                
+                }
+                console.log(res);
+                
+            }
+        });
+    })
+</script>

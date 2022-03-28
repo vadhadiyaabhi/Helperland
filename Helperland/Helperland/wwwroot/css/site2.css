@@ -299,11 +299,11 @@ input:focus, textarea:focus, select:focus {
     border-color: #646464 !important;
     border-radius: 46px !important;
     background-color: white !important;
-    padding: 8px 26px;
+    padding: 8px 20px;
     color: #646464;
 }
 .white-button:hover {
-    border-color: #1d7a8c !important;
+    border-color: #1d7a8c ;
     background-color: #1d7a8c !important;
     color: white;
 }
@@ -1016,6 +1016,7 @@ td {
 .line-break {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
 .cancle-button {
@@ -1053,11 +1054,16 @@ td {
 
 }
 
-    .export-button:hover {
-        color: white;
-        background-color: #146371;
-        cursor: pointer;
-    }
+.export-button-div{
+    display:flex;
+    align-items:center;
+}
+
+.export-button:hover {
+    color: white;
+    background-color: #146371;
+    cursor: pointer;
+}
 
 .RateSP-button {
     font-size: 14px;
@@ -1179,12 +1185,14 @@ my-settting-table thead {
     border-radius: 4px;
 }
 
-/*-----------------------------Block and Favourite---------------------*/
 
+/*-----------------------------Block and Favourite---------------------*/
 .user-box {
     border: 1px solid #e1e1e1;
     padding: 30px 10px;
-    width: calc(33% - 20px);
+    //width: calc(33% - 20px);
+    width: 270px;
+    margin: 15px;
 }
 
 /*--------------------------------------------------------------------*/
@@ -1660,216 +1668,6 @@ input[type="radio"] {
 }
 
 /* ------------------------------------------------------------- */
-/* ------------------Responsive queries--------------- */
-@media screen and (min-width: 1281px) {
-    .content{
-        max-width: 1120px;
-    }
-}
-@media screen and (max-width: 1280px) {
-    .cleaning .card {
-        max-width: 300px;
-    }
-
-    .dashboard {
-        width: 96%;
-    }
-}
-
-@media screen and (max-width: 991px) {
-    .cleaning .card {
-        max-width: 280px;
-    }
-
-    .service-provider-header {
-        background-color: #525252;
-    }
-
-    .admin-menu {
-        display: none;
-    }
-
-    .admin-content {
-        width: 100%;
-    }
-
-    .admin-search .admin-blue-button, .admin-search .admin-button {
-        margin: 10px 0px;
-    }
-}
-
-
-@media screen and (max-width: 991px) {
-    .side-menu {
-        display: none;
-    }
-
-    .dashboard {
-        width: 100%;
-    }
-
-    .dashboard-table {
-        margin: 0 15px;
-        width: 100%;
-    }
-
-    .payment-card {
-        width: 280px !important;
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .cleaning .card {
-        max-width: 280px;
-    }
-
-    .why-helperland .div1 {
-        text-align: center;
-    }
-
-    .why-helperland div {
-        text-align: center;
-        max-width: 320px;
-    }
-
-    .book-service-content {
-        width: 100%;
-    }
-
-    .service-tab-title{
-        display: none;
-    }
-
-    .book-service-content .tab{
-        width: 25%;
-    }
-
-    #payment-card{
-        display: none;
-    }
-
-    
-}
-
-@media screen and (max-width: 768px) {
-    thead {
-        display: none;
-    }
-
-    .dashboard {
-        margin: 0px;
-    }
-
-    .dashboard-table {
-        margin: 15px;
-    }
-
-    .dashboard-cards > div {
-        border-bottom: 1px solid #cecece;
-        width: 60%;
-        margin: auto;
-        border-right: none !important;
-    }
-
-    .mobile-table-heading {
-        display: block;
-    }
-
-    .responsive-row tr {
-        display: flex;
-        flex-direction: column;
-        margin: 20px 0;
-        padding: 0px 25px;
-        box-shadow: 0px 0px 8px #646464;
-    }
-
-
-
-    .responsive-row td {
-        padding: 10px 0px;
-        border-bottom: 1px solid #b6b6b6;
-    }
-
-    .line-break {
-        flex-direction: row;
-    }
-
-        .line-break a, .line-break span {
-            margin-right: 15px;
-        }
-
-    td:last-child {
-        text-align: center;
-        border-bottom: none;
-    }
-
-    .payment, .td-center {
-        text-align: left;
-    }
-
-    .myAccount-tab-title{
-        display:none;
-    }
-
-
-    .myAccount-tab-icon {
-        display: block;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .container-fluid {
-        padding: 0px 10px;
-    }
-
-    .padded-fluid {
-        padding: 64px 10px;
-    }
-
-    .price-content > div:nth-child(2) {
-        width: 80%;
-    }
-
-    .extra-services .img {
-        margin: 10px 20px;
-    }
-
-    .cleaning .card {
-        margin: 15px 0px;
-    }
-
-    .contact-page .contact-form div {
-        display: block;
-        width: 100%;
-    }
-
-    .register-now .form {
-        padding: 20px 18px;
-    }
-
-    .register-now .down-arrow {
-        top: 170px;
-    }
-
-    .how-it-works p, .how-it-works div {
-        text-align: center;
-    }
-
-    .how-it-works > div {
-        margin-bottom: 25px;
-    }
-
-        .how-it-works > div:last-child {
-            margin-bottom: 0px;
-        }
-}
-
-@media screen and (max-width: 400px){
-    .dashboard-cards > div{
-        width: 90%;
-    }
-}
-
 
 /*==============Data table override====================*/
 
@@ -1974,3 +1772,243 @@ input[type="radio"] {
 {
     opacity: 1;
 }
+
+
+
+.mobile-sort{
+    display:none;
+}
+
+.mobile-sort:hover {
+    cursor: pointer;
+    color: #1D7A8C;
+    transition: .1s linear;
+}
+
+
+/* ----------------------------------Responsive queries----------------------------------- */
+@media screen and (min-width: 1281px) {
+    .content{
+        max-width: 1120px;
+    }
+}
+@media screen and (max-width: 1280px) {
+    .cleaning .card {
+        max-width: 300px;
+    }
+
+    .dashboard {
+        width: 96%;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .cleaning .card {
+        max-width: 280px;
+    }
+
+    .service-provider-header {
+        background-color: #525252;
+    }
+
+    .admin-menu {
+        display: none;
+    }
+
+    .admin-content {
+        width: 100%;
+    }
+
+    .admin-search .admin-blue-button, .admin-search .admin-button {
+        margin: 10px 0px;
+    }
+}
+
+
+@media screen and (max-width: 991px) {
+    .side-menu {
+        display: none;
+    }
+
+    .dashboard {
+        width: 100%;
+    }
+
+    .dashboard-table {
+        margin: 0 15px;
+        width: 100%;
+    }
+
+    .payment-card {
+        width: 280px !important;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .cleaning .card {
+        max-width: 280px;
+    }
+
+    .why-helperland .div1 {
+        text-align: center;
+    }
+
+    .why-helperland div {
+        text-align: center;
+        max-width: 320px;
+    }
+
+    .book-service-content {
+        width: 100%;
+    }
+
+    .service-tab-title{
+        display: none;
+    }
+
+    .book-service-content .tab{
+        width: 25%;
+    }
+
+    #payment-card{
+        display: none;
+    }
+
+    
+}
+
+@media screen and (max-width: 768px) {
+    thead {
+        display: none;
+    }
+
+    .mobile-sort{
+        display: block;
+    }
+
+    .dashboard {
+        margin: 0px;
+    }
+
+    .dashboard-table {
+        margin: 15px;
+    }
+
+    .dashboard-cards > div {
+        border-bottom: 1px solid #cecece;
+        width: 60%;
+        margin: auto;
+        border-right: none !important;
+    }
+
+    .mobile-table-heading {
+        display: block;
+    }
+
+    .responsive-row tr {
+        display: flex;
+        flex-direction: column;
+        margin: 20px 10px;
+        padding: 0px 25px;
+        box-shadow: 0px 0px 8px #646464;
+    }
+
+
+
+    .responsive-row td {
+        padding: 10px 0px;
+        border-bottom: 1px solid #b6b6b6;
+    }
+
+    .line-break {
+        flex-direction: row;
+    }
+
+        .line-break a, .line-break span {
+            margin-right: 15px;
+        }
+
+    td:last-child {
+        text-align: center;
+        border-bottom: none;
+    }
+
+    .payment, .td-center {
+        text-align: left;
+    }
+
+    .myAccount-tab-title{
+        display:none;
+    }
+
+
+    .myAccount-tab-icon {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .container-fluid {
+        padding: 0px 10px;
+    }
+
+    .padded-fluid {
+        padding: 64px 10px;
+    }
+
+    .price-content > div:nth-child(2) {
+        width: 80%;
+    }
+
+    .extra-services .img {
+        margin: 10px 20px;
+    }
+
+    .cleaning .card {
+        margin: 15px 0px;
+    }
+
+    .contact-page .contact-form div {
+        display: block;
+        width: 100%;
+    }
+
+    .register-now .form {
+        padding: 20px 18px;
+    }
+
+    .register-now .down-arrow {
+        top: 170px;
+    }
+
+    .how-it-works p, .how-it-works div {
+        text-align: center;
+    }
+
+    .how-it-works > div {
+        margin-bottom: 25px;
+    }
+
+        .how-it-works > div:last-child {
+            margin-bottom: 0px;
+        }
+
+    .export-button-div{
+        justify-content:center;
+        width:400px;
+        margin: 10px auto;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .dashboard-cards > div{
+        width: 90%;
+    }
+
+    .user-box{
+        width: 240px;
+    }
+}
+
+
+

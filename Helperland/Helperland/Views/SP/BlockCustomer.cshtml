@@ -5,10 +5,10 @@
 }
 
 <div class=" my-setting my-sp-setting dashboard-table row-table">
-    <div class="d-flex px-4 justify-content-between flex-wrap">
+    <div class="d-flex px-4  flex-wrap mx-auto">
         @foreach (FavoriteAndBlocked blocked in Model)
         {
-            <div class="user-box my-3">
+            <div class="user-box py-2">
                 <div class="text-center">
                     <div class="my-2 text-center"><img src="~/images/avatar-hat.png" class="avatar-img" /></div>
                     <div class="fw-bold my-3">@(blocked.TargetUser.FirstName + " " + blocked.TargetUser.LastName)</div>

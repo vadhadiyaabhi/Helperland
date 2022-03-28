@@ -328,7 +328,8 @@ namespace Helperland.Controllers
                     IsBlocked = favorite.IsBlocked,
                     IsFavourite = favorite.IsFavorite,
                     TargetUserName = favorite.TargetUser.FirstName + " " + favorite.TargetUser.LastName,
-                    Ratings = favorite.TargetUser.RatingRatingToNavigations.Where(u => u.RatingTo == favorite.TargetUserId).Average(r => r.Ratings),
+                    Ratings = (favorite.TargetUser.RatingRatingToNavigations.Count() > 0 ? favorite.TargetUser.RatingRatingToNavigations.Where(u => u.RatingTo == favorite.TargetUserId).Average(r => r.Ratings) : 0),
+                    AvatarImg = favorite.TargetUser.UserProfilePicture ?? "avatar-hat.png",
                 };
                 int cleanings = userRepository.GetNoOfCleanings(userId, favorite.TargetUserId);
                 newObject.Cleanings = cleanings;
@@ -379,6 +380,17 @@ namespace Helperland.Controllers
                 Email = service.User.Email
             };
             return Json(new { firstName = service.User.FirstName, lastName = service.User.LastName, mobile = service.User.Mobile, email = service.User.Email });
+        }
+
+        [AllowAnonymous]
+        [Route("User/GetCityName/{ZipCode}")]
+        public IActionResult GetCityName(string ZipCode)
+        {
+            City city = serviceRepository.GetCityName(ZipCode);
+            if (city != null)
+                return Json(new { pinAvailable = true, city = city.CityName });
+            else
+                return Json(new { pinNotAvailable = true });
         }
 
         //public ServiceTimeConflict ChechScheduleConflict(DateTime dateTime, decimal totalHours, int spId)

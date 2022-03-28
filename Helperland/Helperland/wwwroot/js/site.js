@@ -71,23 +71,23 @@ $(document).ready(function () {
         $("#hiddenButton").css("color", "#0c8fa5");
     });
 
-    $(".your-details .continue").click(function () {
-        addId = $("input[name=AddressId]:checked", "#addresses").val();
-        console.log(addId);
-        if (!addId) {
-            console.log("select address");
-            $("#add-id-error").html("Please select address first");
-        }
-        else {
-            $("#AddressId").val(addId);
-            $("#tab4").siblings().removeClass("active");
-            $(".your-details").css("display", "none");
-            $(".make-payment").css("display", "block");
-            $("#tab4").addClass("color");
-            $("#tab4").addClass("active");
-        }
+    //$(".your-details .continue").click(function () {
+    //    addId = $("input[name=AddressId]:checked", "#addresses").val();
+    //    console.log(addId);
+    //    if (!addId) {
+    //        console.log("select address");
+    //        $("#add-id-error").html("Please select address first");
+    //    }
+    //    else {
+    //        $("#AddressId").val(addId);
+    //        $("#tab4").siblings().removeClass("active");
+    //        $(".your-details").css("display", "none");
+    //        $(".make-payment").css("display", "block");
+    //        $("#tab4").addClass("color");
+    //        $("#tab4").addClass("active");
+    //    }
         
-    });
+    //});
 
     $(".make-payment #submit-req").click(function () {
         $("#service-req-form").submit();
