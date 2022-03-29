@@ -265,6 +265,35 @@ namespace Helperland.Controllers
             return View(services);
         }
 
+        public IActionResult ServiceSchedule()
+        {
+            return View();
+        }
+
+        public IActionResult GetScheduleServices()
+        {
+            int spId = Convert.ToInt32(User.FindFirstValue(ClaimTypes.NameIdentifier));
+            var services = userRepository.GetSPUpcomingServices(spId);
+            var completedServices = userRepository.GetSPServiceHistory(spId);
+            if (services == null)
+                services = completedServices;
+            else if (completedServices == null) { }
+            else
+                services  = services.Concat(completedServices).ToList();
+            var events = services.Select(arr => new
+            {
+                title = arr.ServiceStartDate.ToString("HH:mm") + " - " + arr.ServiceStartDate.AddHours(Convert.ToDouble(arr.SubTotal)).ToString("HH:mm"),
+                start = arr.ServiceStartDate.ToString("yyyy/MM/dd"),
+                end = arr.ServiceStartDate.AddHours(Convert.ToDouble(arr.SubTotal)),
+                extendedProps =new {
+                    serviceId = arr.ServiceRequestId,
+                },
+                classNames = new []{ arr.Status == 2 ? "upcoming-event" : "completed-event" },
+
+            }).ToList();
+            return new JsonResult(events);
+        }
+
         [NoDirectAccess]
         public async Task<IActionResult> CancleServiceRequestBySp(int ServiceRequestId, string cancleMessage, string UserEmail)
         {

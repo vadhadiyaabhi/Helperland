@@ -1,0 +1,97 @@
+﻿@*@model IEnumerable<ServiceRequest>*@
+@{
+    ViewBag.Title = "Helperland - Service Schedules";
+    ViewBag.Header = "";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.css">
+<div class="service-history-table dashboard-table service-history">
+    <div id="Calender">
+    </div>
+</div>
+
+@section Modals{
+    <div class="Modal wide-modal mx-2" id="Service-Details-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title my-2" id="Address-Modal-Title">Service Details</h4>
+        <div id="ServiceDetails">
+
+        </div>
+    </div>
+
+    <div class="Modal  text-center " id="Service-Completed-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-6 my-2" id="completed-message"></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+
+    <div class="Modal " id="Delete-service-Modal">
+        <img class="close-modal" src="~/images/close.png" />
+        <h4 class="modal-title mb-3">Cancel Service</h4>
+        <form asp-controller="SP" asp-action="CancleServiceRequestBySp" onsubmit="return jQueryAjaxPost(this);">
+            <input type="hidden" name="ServiceRequestId" value="" />
+            <input type="hidden" name="UserEmail" value="" />
+            <label>Why do you want to cancle the service request ?</label>
+            <textarea class="mb-0" name="cancleMessage" data-val="true" data-val-length="The Comment must be a string with a maximum length of 200." maxlength="200" rows="3" id="cancleMessage" data-val-required="The cancellation message is required." data-val-length-max="200" aria-describedby="cancleMessage-error" aria-invalid="true" required></textarea>
+            <span class="text-danger field-validation-error" data-valmsg-for="cancleMessage" data-valmsg-replace="true" style="font-size: 14px;"></span>
+            <button type="submit" class="fw-normal" value="Delete">Cancle Now</button>
+        </form>
+    </div>
+
+    <div class="Modal  text-center " id="Service-Deleted-Modal">
+        <img src="~/images/correct-white-medium.png" class="correct-img mt-3 mb-2" />
+        <div class="text-center fs-5">Your service request cancelled successfully</div>
+        <div class="text-center fs-7 my-3">Cancelled Request Id : <span id="cancelled-id"></span></div>
+        <div class="small-button fw-normal px-4 py-1 mx-auto" style="width: auto;" onclick="reloadPage()">Ok</div>
+    </div>
+}
+
+@section Scripts
+{
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var calendarEl = document.getElementById('Calender');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: `prev,next`,
+                    center: `title`,
+                    right: ``,
+                },
+                events: `/SP/GetScheduleServices`,
+                eventClick: function (info) {
+                    console.log(info.event.extendedProps.serviceId);
+                    var ServiceId = info.event.extendedProps.serviceId;
+                    $("#blur").addClass("blur");
+                    $("#ServiceDetails").load(`/SP/GetServiceDetails/${ServiceId}`);
+                    $("#Service-Details-Modal").addClass("active");
+                }
+            });
+            calendar.render();
+
+            $('.completed').click(function () {
+                $('.service-complete-form').submit();
+            })
+
+            $(".fc-header-toolbar").append(`<div>
+                <span id = "complete-tag"></span><span class="ms-1">Completed</span>
+        <span id="upcoming-tag"></span><span class="ms-1">Upcoming</span>
+    </div >`);
+        });
+
+        function closeModal() {
+            $("#blur").removeClass("blur");
+            $(".Modal").removeClass("active");
+        }
+
+        function CancleBySp(ServiceId, UserEmail) {
+            console.log("delete modal");
+            $("#blur").addClass("blur");
+            $("#Service-Details-Modal").removeClass("active");
+            $("#Delete-service-Modal").addClass("active");
+            $('input[name="ServiceRequestId"]').val(ServiceId);
+            $('input[name="UserEmail"]').val(UserEmail);
+        }
+    </script>
+}

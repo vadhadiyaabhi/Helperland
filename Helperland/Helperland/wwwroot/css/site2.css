@@ -2010,5 +2010,53 @@ input[type="radio"] {
     }
 }
 
+/*-----------------full Calendar Override----------------------*/
+
+.upcoming-event {
+    background-color: #1D7A8C;
+}
+
+.completed-event {
+    background-color: #c1c1c1;
+}
+
+.fc-daygrid-event-harness a{
+    color: white !important;
+}
+
+.fc-daygrid-event-dot, .fc-event-time {
+    display: none !important;
+}
+
+.fc-event-title{
+    font-weight: normal;
+    text-align:center;
+}
+
+/*.fc-header-toolbar::after {
+    content: 'Upcoming';
+    background-color: #1D7A8C;
+    padding: 3px 8px;
+    color: white;
+}*/
+
+#complete-tag {
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    height: 16px;
+    width: 16px;
+    background-color: #c1c1c1 !important;
+}
+
+#upcoming-tag {
+    display: inline-block;
+    position: relative;
+    top: 3px;
+    height: 16px;
+    width: 16px;
+    background-color: #1D7A8C !important;
+}
+
 
 

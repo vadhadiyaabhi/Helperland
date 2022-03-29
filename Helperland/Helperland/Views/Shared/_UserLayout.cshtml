@@ -67,7 +67,7 @@
                                     <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" asp-controller="User" asp-action="ServiceHistory">Service History</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" asp-controller="User">Service Schedules</a>
+                                    <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" asp-controller="User" asp-action="ServiceSchedule">Service Schedules</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link @(ViewData["Title"].ToString() == "Helperland - Favourite Pros" ? "active" : "")" asp-controller="User" asp-action="FavouritePros">Favourite Pros</a>
@@ -234,8 +234,8 @@
                     <a asp-controller="SP" asp-action="UpcomingServices">
                     <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Upcoming Services" ? "active" : "")" id="">Upcoming Services</li>
                     </a>
-                    <a asp-controller="SP">
-                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Service Schedule" ? "active" : "")" id="">Service Schedule</li>
+                    <a asp-controller="SP" asp-action="ServiceSchedule">
+                    <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Service Schedules" ? "active" : "")" id="">Service Schedule</li>
                     </a>
                     <a asp-controller="SP" asp-action="ServiceHistory">
                     <li class="side-menu-item @(ViewData["Title"].ToString() == "Helperland - Service History" ? "active" : "")" id="">Service History</li>

@@ -1,0 +1,99 @@
+* Statis Pages - with all hover and navbar effects and fully responsive
+* Submitting Contact form with attachment added by user
+* LogIn & Register - All corner cases covered based on diff user types
+	- Extra
+	    - Email verification with Encrypted token with Token expiration time (Extra)
+	    - Resend verification email at any time (Extra)
+	    - Not allow un-verified users (both cust and SP)
+	- SP cannot login untill gets approved by Admin
+* Forgot Password - 
+	- Using email and encrypted token with expiration time + one time use token only
+* AJAX call in LogIn and Forgot Password functionality
+* Book Service
+    - Basic book service functionality
+    * Without completing current page user cannot go to next tab (As similar as in Demo Website)
+    - Used JS Load method for smooth exeperience and for Proper data validaion
+    - Add new addresss
+    * Check SP available in entered ZipCode or not (using Remote Validation)
+    - Price card responsive based on selected time and extra services
+    * At address page it will list all Favourite SPs and service can be directly assigned to that SP (NICE TO HAVE FEATURE)
+    - New service email will be sent to all sp in same area
+    * Blocked SP will not get email notification
+    * If User is blocked by SP then also email will notbe sent to that SP
+    * ALL POSSIBLE cases based on Favourite and Blocked SPs
+
+* User Dashboard
+
+    - Current Service (New or Pending)
+    	- ReSchudele and Ca cancel
+    	- If SP has been asssigned to Service then send email for cancellation of service
+    	- If SP has assigned then Check time Conflict with Sp's other services in case of reSchedule + SP will also get notified by Email Notification
+    * Favourite Pros (NICE TO HAVE FEATURE)
+	* Customer can block-unblock OR Fav-UnFav SP anytime (SP who have worked with that customer) 
+    	* All cases handelled based on Favourite and blocked Functionality
+    * Service History
+	- Rate SP only if service has been completed by that SP
+	* REPORT the Isssue - If customer have any issue in any Service than he can click on report and it will redirect to Contact page with all Customer details filled up + Issue bit set on that service Row
+
+* User MySetting
+    - Used JS Load method for smooth exeperience and for Proper data validaion
+    - All 3 tabs are loaded in single page with load() method
+    - Add and Edit address
+    - Delete address
+    * In address City value will be fatched from database based on ZipCode with AJAX call
+    * It will not allow user to enter ZipCode in which our Project service are not available
+    - Reset password done with proper validation
+
+* SP Dashboard
+    - New Service Request
+	- List of services those are not accepted by any SP
+	- Filter based on Pet Included or not
+	- In Accept Service, it will new service time conflict with SP's other upcoming services, any service with time conflict cannot be accepted
+	- After service has been accepted, Email notificaiton will eb sent to all other SPs (This service is taken and No more available for you)
+    - Upcoming Services
+	- Services those are accepted by SP
+	- SP can cancel any of them
+	- In this case email for that cancelled service will be sent to all other SP in same area
+	- Complete button will be shown if Service Completion time has been passed
+	- SP can mark any of them as Completed
+    - Service History
+    - My Ratting
+	- List of ratting given to that SP
+	- Sorting of Ratting based on diff parameter
+    - Block Customer
+	- All cases based on blocked status
+
+* SP dashboard
+	- all those are mentioned in SRS
+
+* Sorting and pegination done in all tables
+
+* Admin Dashboard
+    - Service Request
+	- List of all Service Request
+	- Filteration of service based on diff parameter
+	* Get user names from the database in Option field using AJAX call
+	- Admin can ReSchedule and Cancel service request on behalf of customer (Only for not completed services)
+	- Email will be sent in both cases to User and SP both
+    - User Management
+	- List of all users
+	- Filteration based on diff parameters
+	- Admin can Approve/Unapprove user any time
+	- Unapproved users will not be able to login
+
+
+AJAX Call - 
+    - ReSchedule
+    - Login
+    - Cancel
+    - Accept
+    - Complete
+    - mark as favourite/Unfav
+    - Mark as blocked/unblock
+    - Check ZipCode availability
+    - Check SP availability
+    - Check time conflict for services
+    - etc
+	
+* Service Schedule on Calendar in SP dashboard (NICE TO HAVE FEATURE)
+    - with Complete / Cancel functionality by clicking on event (for Upcomig service only)
